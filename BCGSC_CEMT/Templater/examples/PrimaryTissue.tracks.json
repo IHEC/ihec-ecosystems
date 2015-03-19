@@ -1,0 +1,594 @@
+{
+    "A30552": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "copy_number_variation": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/CNV/A30552.CEMT_40.A30552_3_lanes_dupsFlagged.bam_ratio.freec.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "cnv",
+                "type": "copy_number_variation"
+            }
+        },
+        "experiment": "WGS",
+        "experiment_attributes": {
+            "experiment_type": "WGS"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A34081": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K4me1/A34081.H3K4me1.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_ATCACG.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K4me1/A34081.IX2577.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_ATCACG.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K4me1/A34081.H3K4me1.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_ATCACG.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K4me1",
+        "experiment_attributes": {
+            "chip_antibody": "H3K4me1",
+            "chip_antibody_catalog": "BP140 - Blueprint Grade",
+            "chip_antibody_lot": "A1863-001P",
+            "chip_antibody_provider": "Diagenode",
+            "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "chip_protocol_antibody_amount": "5 ug",
+            "chip_protocol_bead_amount": "20 ul",
+            "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+            "chip_protocol_chromatin_amount": "5 ug",
+            "chip_protocol_crosslink_time": "10 min",
+            "experiment_ontology_uri": "Ontology for Biomedical Investigations: OBI_0000716",
+            "experiment_type": "Histone H3K4me1",
+            "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "extraction_protocol_sonication_cycles": "10 min",
+            "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+            "library_generation_fragment_size_range": "224:504"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A34082": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K4me3/A34082.H3K4me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_GATCAG.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K4me3/A34082.IX2577.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_GATCAG.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K4me3/A34082.H3K4me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_GATCAG.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K4me3",
+        "experiment_attributes": {
+            "chip_antibody": "H3K4me3",
+            "chip_antibody_catalog": "9751S",
+            "chip_antibody_lot": "Lot#7",
+            "chip_antibody_provider": "Cell Signaling Technology",
+            "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "chip_protocol_antibody_amount": "5 ul",
+            "chip_protocol_bead_amount": "20 ul",
+            "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+            "chip_protocol_chromatin_amount": "5 ug",
+            "chip_protocol_crosslink_time": "10 min",
+            "experiment_ontology_uri": "Ontology for Biomedical Investigations: OBI_0000716",
+            "experiment_type": "Histone H3K4me3",
+            "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "extraction_protocol_sonication_cycles": "10 min",
+            "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+            "library_generation_fragment_size_range": "224:504"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A34083": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K9me3/A34083.H3K9me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_AACCCC.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K9me3/A34083.IX2577.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_AACCCC.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K9me3/A34083.H3K9me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_AACCCC.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K9me3",
+        "experiment_attributes": {
+            "chip_antibody": "H3K9me3",
+            "chip_antibody_catalog": "BP47 - Blueprint Grade pAb-056-050",
+            "chip_antibody_lot": "A1671-001P",
+            "chip_antibody_provider": "Diagenode",
+            "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "chip_protocol_antibody_amount": "5 ug",
+            "chip_protocol_bead_amount": "20 ul",
+            "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+            "chip_protocol_chromatin_amount": "5 ug",
+            "chip_protocol_crosslink_time": "10 min",
+            "experiment_ontology_uri": "Ontology for Biomedical Investigations: OBI_0000716",
+            "experiment_type": "Histone H3K9me3",
+            "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "extraction_protocol_sonication_cycles": "10 min",
+            "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+            "library_generation_fragment_size_range": "224:504"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A34084": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K27me3/A34084.H3K27me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_ACCCAG.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K27me3/A34084.IX2577.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_ACCCAG.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K27me3/A34084.H3K27me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_ACCCAG.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K27me3",
+        "experiment_attributes": {
+            "chip_antibody": "H3K27me3",
+            "chip_antibody_catalog": "BP50 - Blueprint Grade",
+            "chip_antibody_lot": "A1811-001P",
+            "chip_antibody_provider": "Diagenode",
+            "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "chip_protocol_antibody_amount": "5 ug",
+            "chip_protocol_bead_amount": "20 ul",
+            "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+            "chip_protocol_chromatin_amount": "5 ug",
+            "chip_protocol_crosslink_time": "10 min",
+            "experiment_ontology_uri": "Ontology for Biomedical Investigations: OBI_0000716",
+            "experiment_type": "Histone H3K27me3",
+            "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "extraction_protocol_sonication_cycles": "10 min",
+            "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+            "library_generation_fragment_size_range": "224:504"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A34085": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K36me3/A34085.H3K36me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_AGCGCT.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K36me3/A34085.IX2577.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_AGCGCT.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K36me3/A34085.H3K36me3.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_AGCGCT.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K36me3",
+        "experiment_attributes": {
+            "chip_antibody": "H3K36me3",
+            "chip_antibody_catalog": "BP41 - Blueprint Grade",
+            "chip_antibody_lot": "A1847-001P",
+            "chip_antibody_provider": "Diagenode",
+            "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "chip_protocol_antibody_amount": "5 ug",
+            "chip_protocol_bead_amount": "20 ul",
+            "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+            "chip_protocol_chromatin_amount": "5 ug",
+            "chip_protocol_crosslink_time": "10 min",
+            "experiment_ontology_uri": "Ontology for Biomedical Investigations: OBI_0000716",
+            "experiment_type": "Histone H3K36me3",
+            "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "extraction_protocol_sonication_cycles": "10 min",
+            "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+            "library_generation_fragment_size_range": "224:504"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A34086": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K27ac/A34086.H3K27ac.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_CAAAAG.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K27ac/A34086.IX2577.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_CAAAAG.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/H3K27ac/A34086.H3K27ac.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_CAAAAG.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K27ac",
+        "experiment_attributes": {
+            "chip_antibody": "H3K27ac",
+            "chip_antibody_catalog": "BP255 - Blueprint Grade",
+            "chip_antibody_lot": "A1723-0041d",
+            "chip_antibody_provider": "Diagenode",
+            "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "chip_protocol_antibody_amount": "5 ug",
+            "chip_protocol_bead_amount": "20 ul",
+            "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+            "chip_protocol_chromatin_amount": "5 ug",
+            "chip_protocol_crosslink_time": "10 min",
+            "experiment_ontology_uri": "Ontology for Biomedical Investigations: OBI_0000716",
+            "experiment_type": "Histone H3K27ac",
+            "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "extraction_protocol_sonication_cycles": "10 min",
+            "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+            "library_generation_fragment_size_range": "224:504"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A34087": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/Input/A34087.Input.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_CCAACA.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/Input/A34087.IX2577.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_CCAACA.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/Input/A34087.Input.IX2577.140111.75nt.hg19a.bwa-0.5.7.C3LU8ACXX_1_CCAACA.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "ChIP-Seq Input",
+        "experiment_attributes": {
+            "chip_protocol": "Input",
+            "chip_protocol_chromatin_amount": "0.1 ug",
+            "experiment_ontology_uri": "Ontology for Biomedical Investigations: OBI_0000716",
+            "experiment_type": "ChIP-Seq Input",
+            "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+            "extraction_protocol_sonication_cycles": "10 min",
+            "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67 years",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "CEMT0040",
+            "molecule": "genomic DNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "Ontobee : UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "A35888": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "rpkm_negative_strand": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/RNA-Seq/A35888.q0.F516.neg.rpkm.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "rpkm[neg]",
+                "type": "rpkm_negative_strand"
+            },
+            "rpkm_positive_strand": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/RNA-Seq/A35888.q0.F516.pos.rpkm.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "rpkm[pos]",
+                "type": "rpkm_positive_strand"
+            }
+        },
+        "experiment": "mRNA-Seq",
+        "experiment_attributes": {
+            "amplified": "TRUE",
+            "experiment_type": "mRNA-Seq",
+            "extraction_protocol": "BCCAGSC AllPrep and mirVana extraction protocol",
+            "extraction_protocol_fragmentation": "NA",
+            "extraction_protocol_mrna_enrichment": "Miltenyi-Biotec MultiMACS mRNA purification",
+            "library_generation_3'_adapter_sequence": "GAGCCGTAAGGACGACTTGGCGAGAAGGCTAG",
+            "library_generation_5'_adapter_sequence": "ACACTCTTTCCCTACACGACGCTCTTCCGATCT",
+            "library_generation_fragment_size_range": "200-300bp",
+            "library_generation_fragmentation": "Covaris E210 or LE220 Sonication",
+            "library_generation_pcr_f_primer_sequence": "AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT",
+            "library_generation_pcr_number_cycles": "13",
+            "library_generation_pcr_polymerase_type": "Phusion DNA Polymerase (Hot Start)",
+            "library_generation_pcr_primer_conc": "0.75 uM",
+            "library_generation_pcr_product_isolation_protocol": "8 percent Novex TBE PAGE gel purification or BCCA GSC in house size selection robot",
+            "library_generation_pcr_r_primer_sequence": "CAAGCAGAAGACGGCATACGAGATNNNNNNCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT",
+            "library_generation_pcr_template_conc": "NA",
+            "library_generation_pcr_thermocycling_program": "98C 60 sec  10 cycle or 13 cycle of 98C 15 sec  65C 30 sec  72C 30 sec  then 72C 5 min  4C hold",
+            "library_generation_protocol": "BCCAGSC strand specific RNA Seq plate based library construction protocol",
+            "mrna_preparation_fragment_size_range": "NA",
+            "preparation_initial_mrna_qnty": "NA",
+            "preparation_pcr_number_cycles": "NA",
+            "preparation_reverse_transcription_protocol": "Invitrogen Superscript II RT",
+            "rna_preparation_3'_rna adapter_ligation_protocol": "NA",
+            "rna_preparation_3'_rna_adapter_sequence": "NA",
+            "rna_preparation_5'_dephosphorylation": "NA",
+            "rna_preparation_5'_phosphorylation": "NA",
+            "rna_preparation_5'_rna_adapter_ligation_protocol": "NA",
+            "rna_preparation_5'_rna_adapter_sequence": "NA",
+            "rna_preparation_reverse_transcription_primer_sequence": "NNNNNN (random hexamer)",
+            "template_type": "cDNA"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67",
+            "donor_age_unit": "year",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_life_stage": "adult",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "__TO_BE_REGISTERED__",
+            "molecule": "total RNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "http://purl.obolibrary.org/obo/UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    },
+    "m13583": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "isoform_details": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/miRNA-Seq/m13583.MX1205.CATTCA_features.isoforms.txt.bed.sorted.bb",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "isoforms",
+                "type": "isoform_details"
+            },
+            "miRNA_mapped_per_million": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/miRNA-Seq/m13583.MX1205.CATTCA_features.isoforms.txt.bg.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "mmpm",
+                "type": "miRNA_mapped_per_million"
+            }
+        },
+        "experiment": "smRNA-Seq",
+        "experiment_attributes": {
+            "experiment_type": "smRNA-Seq",
+            "extraction_protocol": "BCCAGSC AllPrep and mirVana extraction protocol",
+            "extraction_protocol_smrna_enrichment": "N/A",
+            "library_generation_pcr_f_primer_sequence": "5' AATGATACGGCGACCACCGACAGNNNNNNGTTCAGAGTTCTACAGTCCGA 3'",
+            "library_generation_pcr_number_cycles": "15",
+            "library_generation_pcr_polymerase_type": "Phusion DNA Polymerase (Hot Start)",
+            "library_generation_pcr_primer_conc": "1.25uM",
+            "library_generation_pcr_product_isolation_protocol": "Up to 16 PCR products containing unique index sequences are pooled together and the 115bp miRNA containing fraction is isolated for each pool robotically using BCCA GSC in house size selection robot. Fractions are Et0H preciptated, QCed on Agilent, and submitted for indexing single end (ISE) Illumina sequencing.",
+            "library_generation_pcr_r_primer_sequence": "5' CAAGCAGAAGACGGCATACGAGAT 3'",
+            "library_generation_pcr_template_conc": "15ul of the first strand cDNA product was used in the PCR",
+            "library_generation_pcr_thermocycling_program": "step1: 98C for 30sec, step2: 98C for 15sec, step3: 62C for 30sec, step4: 72C for 15sec.  Repeat step2-4 for 15 cycles, 72C for 5min.",
+            "rna_preparation_3'_rna adapter_ligation_protocol": "Flowthrough RNA from Multimacs precipitated in a 4uL volume and 2uL of 3' Adenylated Adapter was heat denatured at 70 C for 2min then snap chilled on ice for 1min.  Then 1uL of 10X T4 RNL2 truncated buffer, 1uL DEPC water, 0.5uL Rnase Out, and 1.5uL T4 RNA Ligase 2 trancated was added.  Ligation incubated at 22C in a Tetrad thermocycler for 60min.",
+            "rna_preparation_3'_rna_adapter_sequence": "5' ATCTCGTATGCCGTCTTCTGCTTGT 3'",
+            "rna_preparation_5'_rna_adapter_ligation_protocol": "5' RNA adapter was heat denatured at 70C for 2min then snap chilled on ice.  2uL of denatured 5' RNA Adapter was added to the 3' DNA Adapter Ligation reaction product from previous step and mixed.   Then 1uL of 10mM ATP and 1uL of Ambion T4 RNA Ligase were added and ligation reaction was incubated at 37C in a Tetrad thermocycler for 60min.",
+            "rna_preparation_5'_rna_adapter_sequence": "5' GTTCAGAGTTCTACAGTCCGACGATCTGGTCAA 3'",
+            "rna_preparation_reverse_transcription_primer_sequence": "5' CAAGCAGAAGACGGCATACGAGAT 3'",
+            "rna_preparation_reverse_transcription_protocol": "To the 14uL of double adaptered miRNA product from previous step 2ul of RT-Primer was added and the mixture was heat denatured at 65C for 10 mins then quenched on ice.  The following reagents were added immediately to the sample (6ul of 5X First Strand Buffer, 2ul of 10mM dNTPs , 3ul of 100mM DTT, 1ul of RNaseOUT, and 2uL of SuperScript II RT.  Reaction was heated at 44C in a Thetrad thermocycler for 60 minutes.",
+            "smrna_preparation_initial_smrna_qnty": "N/A"
+        },
+        "sample_attributes": {
+            "biomaterial_provider": "Wiseman lab",
+            "biomaterial_type": "Primary Tissue",
+            "collection_method": "Gross Dissection",
+            "disease": "None",
+            "donor_age": "67",
+            "donor_age_unit": "year",
+            "donor_ethnicity": "Unknown",
+            "donor_health_status": "Thyroid Adenoma-Follicular",
+            "donor_id": "SW-TTP-156",
+            "donor_life_stage": "adult",
+            "donor_sex": "Female",
+            "ihec_reference_epigenome_identifier": "__TO_BE_REGISTERED__",
+            "molecule": "total RNA",
+            "sample_id": "CEMT0040",
+            "sample_ontology_uri": "http://purl.obolibrary.org/obo/UBERON_0002046",
+            "tissue_depot": "Thyroid",
+            "tissue_type": "Thyroid"
+        }
+    }
+}

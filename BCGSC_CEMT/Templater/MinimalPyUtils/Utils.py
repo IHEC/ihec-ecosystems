@@ -7,26 +7,42 @@ import hashlib
 import re
 import textwrap
 import json
+import types
 from collections import namedtuple, defaultdict
 import threading
+from Json import Json
 
 class Cmn:
+	""" slow, handrolled, logger """
+	@staticmethod
+	def log(e, pretty=True, outfile=None):
+		if isinstance(e, basestring) or isinstance(e, types.ListType) or isinstance(e, types.DictType):
+			try:
+				""" json doesn't like tuple keys """
+				msg = Json.pretty(e) if pretty else Json.compact(e)
+			except:
+				msg = str(e)
+		else:
+			msg = str(entry)
+		if outfile:
+			Cmn.cat(outfile, [msg])
+		else:
+			sys.stderr.write('{1}:{1}\n'.format(Cmn.now(), msg))
+
+		return msg 
+	
 	@staticmethod
 	def stripTo(text, tag='|'):
 		stripped = [l.lstrip() for l in text.split('\n')]
 		return '\n'.join(map(lambda x: (x[1:] if x[0] == tag else x) if x else '', stripped))
-			
-
 
 	@staticmethod
-	def executionHome():
+	def home():
 		return os.path.dirname(os.path.realpath(sys.argv[0]))
 
 	@staticmethod
 	def tuple2hash(e):
 		return {field : getattr(e, field) for field in e._fields} 
-
-
 
 	@staticmethod
 	def tag(arg, tag, delimit='.'):
@@ -71,14 +87,12 @@ class Cmn:
 			Cmn.log("#ERR.. {0} >> {1}... {2}".format(link.linkname, link.source, e))
 		return ok
 
-
 	@staticmethod
 	def demanduniq(arg):
 		if len(arg) == 1: return arg[0]
 		elif len(list(set(arg))) != 1: raise Exception('ambiguous: ' + str(arg))
 		else: return arg[0]
 		raise Exception('unmatched cases (demanduniq): ' + str(arg))
-
 
 	@staticmethod
 	def dirname(arg):
@@ -96,7 +110,6 @@ class Cmn:
 			else:
 				lines = [x for x in map(lambda x: x.strip(), readfile.readlines()) if x and x[0] != comments_tag]
 		return lines
-
 
 	@staticmethod	
 	def contents(source, ignore_head=0):
@@ -148,13 +161,24 @@ class Cmn:
 		return ('-'.join(current[1:3] + [current[-1], current[-2]])).replace(':', '.')	
 
 	@staticmethod
-	def groupInto(lines, n):
+	def intoBlocks(lines, n):
 		pieces = [list() for i in range(n)]
 		for i, l in enumerate(lines):
 			pieces[i%n].append(l)
 		tupled = tuple(pieces)
 		assert sum([len(tupled[k]) for k in range(n)]) == len(lines)
 		return tupled
+
+	@staticmethod	
+	def cat(target, rows, delimit='\n'):
+		with open(target, 'a') as outfile:
+			for row in rows:
+				outfile.write(str(row) + delimit)
+		return target
+
+
+
+
 
 
 
