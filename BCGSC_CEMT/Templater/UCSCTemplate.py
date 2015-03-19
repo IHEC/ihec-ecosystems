@@ -94,10 +94,11 @@ class UCSCTemplate:
 		return tags.format(**arg)
 
 	
-	def __init__(self, annotations):
+	def __init__(self, annotations, view):
 		self.annotations = annotations
 		self.subgroupSoup = defaultdict(list)
 		self.additional_metadata = defaultdict(list)
+		self.settings = Config(view)
 
 
 	def subtrackBlocks(self, db, library, parent = None):
@@ -117,7 +118,7 @@ class UCSCTemplate:
 						'subgroups' : customizable['subgroups']
 			}
 			if parent: metadata['parent'] = parent
-			metadata.update(Config.View(metadata['assay'], metadata['trackType']))
+			metadata.update(self.settings.view(metadata['assay'], metadata['trackType']))
 			subtracks.append(self.subtrackTemplate(metadata))
 		return subtracks 
 

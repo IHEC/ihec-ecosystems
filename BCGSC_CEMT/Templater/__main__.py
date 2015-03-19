@@ -6,9 +6,9 @@ from UCSCTemplate import UCSCTemplate
 class DataHub:
 	defaultAnnotationJson = './Config/annotations.json'
 	defaultHubAttributes = './Config/centre.json'
+	defaultSettings = './Config/settings.json'
 
-	def __init__(self, config, hubTag, byCentre, annotations):
-		self.annotations =annotations
+	def __init__(self, config, hubTag, byCentre, annotations, settings):
 		self.config = Json.loadf(config)
 		self.hubTag = hubTag
 		if not byCentre:
@@ -18,7 +18,7 @@ class DataHub:
 			self.experimentType = dict()
 			self.byCentre = Cmn.groupby(self.config.keys(), lambda x: self.config[x]['analysis_group'])
 
-		self.templateManager = UCSCTemplate(self.annotations)
+		self.templateManager = UCSCTemplate(annotations, settings)
 
 
 	def ucsc(self):
@@ -51,8 +51,9 @@ def main(args):
 	else:
 		annotations = Json.loadf(args.get('-annotations', DataHub.defaultAnnotationJson))
 		hubAttributes = Json.loadf(args.get('-hub', DataHub.defaultHubAttributes))
+		settings = Json.loadf(args.get('-settings', DataHub.defaultSettings))
 		Cmn.log(annotations)
-		hub = DataHub(args['-config'], hubAttributes['tag'], args.has('-by-centre'), annotations)
+		hub = DataHub(args['-config'], hubAttributes['tag'], args.has('-by-centre'), annotations, settings)
 		hubConfig = Hub.defaultConfig(hubAttributes)
 		tracks = hub.ucsc()
 		if args.has('-www'):
