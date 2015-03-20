@@ -1,4 +1,79 @@
 {
+    "A24722": {
+        "analysis_attributes": {},
+        "analysis_group": "CEMT",
+        "browser": {
+            "copy_number_variation": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/CNV/A24722.CEMT_7.A24722_3_lanes_dupsFlagged.bam_ratio.freec.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "cnv",
+                "type": "copy_number_variation"
+            }
+        },
+        "experiment": "WGS",
+        "experiment_attributes": {},
+        "sample_attributes": {
+            "biomaterial_type": "Cell Line",
+            "disease": "Mammary gland-Breast Fibrocystic Disease",
+            "line": "MCF10A",
+            "sample_id": "CEMT0007"
+        }
+    },
+    "A30552": {
+        "analysis_attributes": {},
+        "analysis_group": "CEMT",
+        "browser": {
+            "copy_number_variation": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_40/CNV/A30552.CEMT_40.A30552_3_lanes_dupsFlagged.bam_ratio.freec.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "cnv",
+                "type": "copy_number_variation"
+            }
+        },
+        "experiment": "WGS",
+        "experiment_attributes": {},
+        "sample_attributes": {
+            "biomaterial_type": "Primary Tissue",
+            "disease": "None",
+            "donor_age": "67 years",
+            "tissue_depot": "Thyroid",
+            "sample_id": "CEMT0040"
+        }
+    },
+        "A34720": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_32/H3K4me1/A34720.H3K4me1.IX2656.140530.100nt.hg19a.bwa-0.5.7.C42D5ACXX_1_CCGTCC.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_32/H3K4me1/A34720.H3K4me1.IX2656.140530.100nt.hg19a.bwa-0.5.7.C42D5ACXX_1_CCGTCC.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_32/H3K4me1/A34720.H3K4me1.IX2656.140530.100nt.hg19a.bwa-0.5.7.C42D5ACXX_1_CCGTCC.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K4me1",
+        "experiment_attributes": {},
+        "sample_attributes": {
+            "biomaterial_type": "Primary Cell",
+            "cell_type": "Hematopoietic",
+            "disease": "None",
+            "sample_id": "CEMT0032"
+        }
+    },
     "A35252": {
         "analysis_attributes": {},
         "analysis_group": "CEMT",
@@ -28,6 +103,7 @@
             "biomaterial_type": "Primary Cell",
             "cell_type": "Basal cells",
             "sample_id": "CEMT0035",
+            "disease": "None"
         }
     }
 }

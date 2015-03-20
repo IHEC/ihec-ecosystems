@@ -44,10 +44,8 @@ class DataHub:
 
 def main(args):
 	if args.has('-h'):
-		Cmn.log(Cmn.stripTo(
-			'''	|usage: ./Templater  -config:<json_hub> -hub-tag:<hub_name_tag> -www:<www_home>
-				|	example: ./Templater -config:test.tracks.json -hub:CEMT -www:$WWW
-				|	PYTHONPATH must have PyUtils package'''))
+		for l in Cmn.contents('README.md'):
+			print l.strip()
 	else:
 		annotations = Json.loadf(args.get('-annotations', DataHub.defaultAnnotationJson))
 		hubAttributes = Json.loadf(args.get('-hub', DataHub.defaultHubAttributes))

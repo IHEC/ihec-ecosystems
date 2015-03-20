@@ -3,17 +3,18 @@ from Config import Config, Parser
 from collections import defaultdict
 
 class UCSCTemplate:
+	none = ['none', 'na', 'n/a']
 	def customizable(self, arg, track_type):
 		Cmn.log(arg)
 		if arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_') in ['cell_line']:
 			description = UCSCTemplate.sanitize(arg['sample_attributes']['line'])
 		elif arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_') in ['primary_tissue']:
-			if arg['sample_attributes']['disease'].lower() in ['none', 'na', 'n/a']:
+			if arg['sample_attributes']['disease'].lower() in UCSCTemplate.none:
 				description = UCSCTemplate.sanitize('{tissue_depot}'.format(**arg['sample_attributes']))
 			else:
 				description = UCSCTemplate.sanitize('{tissue_depot}:{disease}'.format(**arg['sample_attributes']))
 		elif arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_') in ['primary_cell']:
-			if arg['sample_attributes']['disease'] in ['None']:
+			if arg['sample_attributes']['disease'] in UCSCTemplate.none:
 				description = UCSCTemplate.sanitize('{cell_type}'.format(**arg['sample_attributes']))
 			else:
 				description = UCSCTemplate.sanitize('{cell_type}:{disease}'.format(**arg['sample_attributes']))
