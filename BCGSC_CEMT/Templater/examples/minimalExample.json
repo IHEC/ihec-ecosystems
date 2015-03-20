@@ -1,0 +1,33 @@
+{
+    "A35252": {
+        "analysis_attributes": {},
+        "analysis_group": "CEMT",
+        "browser": {
+            "normalized_signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_35/H3K9me3/A35252.H3K9me3.IX2844.141710.75nt.hg19a.bwa-0.5.7.C4C9JACXX_2_AGGCCG.q5.F1028.PET.FindER.b20.s20.sig.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "nrm_signal",
+                "type": "normalized_signal"
+            },
+            "signal": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_35/H3K9me3/A35252.H3K9me3.IX2844.141710.75nt.hg19a.bwa-0.5.7.C4C9JACXX_2_AGGCCG.q5.F1028.PET.ucsc.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "signal",
+                "type": "signal"
+            },
+            "thresholded": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_35/H3K9me3/A35252.H3K9me3.IX2844.141710.75nt.hg19a.bwa-0.5.7.C4C9JACXX_2_AGGCCG.q5.F1028.PET.FindER.b20.s20.d40.m200.t0.1.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "thresholded",
+                "type": "thresholded"
+            }
+        },
+        "experiment": "Histone H3K9me3",
+        "experiment_attributes": {},
+        "sample_attributes": {
+            "biomaterial_type": "Primary Cell",
+            "cell_type": "Basal cells",
+            "sample_id": "CEMT0035",
+        }
+    }
+}
