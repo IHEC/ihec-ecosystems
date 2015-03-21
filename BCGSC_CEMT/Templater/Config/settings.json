@@ -8,6 +8,7 @@
                 "H3K4me1": "255,102,51",
                 "H3K4me3": "255,0,0",
                 "H3K9me3": "0,0,102",
+                "H3K9ac": "153,0,153",
                 "Input": "0,0,0"
             },
             "filetype": {
@@ -36,6 +37,22 @@
                 },
                 "fractional_methylation_calls": {
                     "color": "0,250,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
+                }
+            },
+            "MeDIP-Seq": {
+                "signal": {
+                    "color": "0,66,17",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "0,200,50",
+                    "visibility": "dense"
+                }
+            },
+            "MRE-Seq": {
+                "signal": {
+                    "color": "0,66,17",
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",
                     "visibility": "dense"
@@ -71,6 +88,12 @@
                     "visibility": "dense"
                 },
                 "rpkm_positive_strand": {
+                    "color": "180,30,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
+                },
+                "rpkm_unstranded": {
                     "color": "180,30,100",
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",

@@ -6,28 +6,28 @@ class UCSCTemplate:
 	none = ['none', 'na', 'n/a']
 	def customizable(self, arg, track_type):
 		Cmn.log(arg)
-		if arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_') in ['cell_line']:
+		biomaterial_type = arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_')
+		if biomaterial_type in ['cell_line']:
 			description = UCSCTemplate.sanitize(arg['sample_attributes']['line'])
-		elif arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_') in ['primary_tissue']:
-			if arg['sample_attributes']['disease'].lower() in UCSCTemplate.none:
-				description = UCSCTemplate.sanitize('{tissue_depot}'.format(**arg['sample_attributes']))
-			else:
-				description = UCSCTemplate.sanitize('{tissue_depot}:{disease}'.format(**arg['sample_attributes']))
-		elif arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_') in ['primary_cell']:
-			if arg['sample_attributes']['disease'] in UCSCTemplate.none:
-				description = UCSCTemplate.sanitize('{cell_type}'.format(**arg['sample_attributes']))
-			else:
-				description = UCSCTemplate.sanitize('{cell_type}:{disease}'.format(**arg['sample_attributes']))
 		else:
-			raise NotImplementedError(arg['sample_attributes']['biomaterial_type'])
+			disease_tag = '' if arg['sample_attributes']['disease'].lower() in UCSCTemplate.none else ':{0}'.format(arg['sample_attributes']['disease'])
+			if biomaterial_type in ['primary_tissue']:
+				description = '{tissue_depot}'.format(**arg['sample_attributes']) + disease_tag
+			elif biomaterial_type in ['primary_cell', 'primary_cell_culture']:
+				description = '{cell_type}'.format(**arg['sample_attributes']) + disease_tag
+			else:
+				raise Exception(NotImplementedError(biomaterial_type))
+
+		description_sanitized = UCSCTemplate.sanitize(description)
+
 		return {
-				'description' : description,
+				'description' : description_sanitized,
 				'assay' : Config.assays[arg['experiment']],
 				'attributes' : {k: UCSCTemplate.sanitize(arg['sample_attributes'][k]) for k in arg['sample_attributes'] if k in self.annotations},
 				'subgroups' : {
 					'analysis_group' : UCSCTemplate.sanitize(arg['analysis_group']),
 					'track_type' : UCSCTemplate.sanitize(track_type),
-					'source' : description,
+					'source' : description_sanitized,
 					'sample_id' : UCSCTemplate.sanitize(arg['sample_attributes']['sample_id']),
 					'assay' : UCSCTemplate.sanitize(Config.assays[arg['experiment']]),
 				}

@@ -10,13 +10,20 @@ class Parser:
 		else: raise Exception('?? ' + arg)
 
 class Config:
-	antibodies = ['H3K4me3', 'H3K9me3', 'H3K27me3', 'H3K4me1', 'H3K27ac', 'H3K36me3', 'Input']
+	valid_assays = {}
+	antibodies = ['H3K4me3', 'H3K9me3', 'H3K27me3', 'H3K4me1', 'H3K27ac', 'H3K36me3', 'Input', 'H3K9ac']
+	chip_input = ['Input', 'input'] 
 	wgbs = ['Bisulfite-Seq', 'WGBS', 'DNA Methylation', 'dna methylation', 'bisulfite-seq', 'wgbs']
 	wgs = ['WGS', 'wgs']
 	mirna = ['miRNA-Seq', 'smrna-seq', 'smRNA-Seq', 'mirna', 'miRNA-Seq']
 	chip = antibodies + ['chip-seq', 'ChIP-Seq', ]
 	rna = ['RNA-Seq']
+	medip = ['MeDIP-Seq:Methylcytidine', 'MeDIP-Seq']
+	medip_antibody = ['Methylcytidine']
+	mreseq = ['MRE-Seq']
 	assays = {
+		"MeDIP-Seq:Methylcytidine" : "MeDIP-Seq",
+		"Histone H3K9ac" : "H3K9ac",
 		'Histone H3K4me1' : 'H3K4me1',
 		'Histone H3K4me3' : 'H3K4me3', 
 		'Histone H3K9me3' : 'H3K9me3', 
@@ -28,6 +35,26 @@ class Config:
 		'mRNA-Seq' : 'ssRNA',  
 		'DNA Methylation' : 'WGBS',
 		'WGS' : 'WGS',
+		"MeDIP-Seq": "MeDIP-Seq",
+		"MRE-Seq": "MRE-Seq",
+	}
+	standardize_assays = {
+		"MeDIP-Seq:Methylcytidine" : "MeDIP-Seq:Methylcytidine",
+		"MeDIP-Seq": "MeDIP-Seq",
+		"MRE-Seq": "MRE-Seq",
+		"H3K9ac" : "Histone H3K9ac",
+	    "H3K27ac": "Histone H3K27ac",
+	    "H3K27me3": "Histone H3K27me3",
+	    "H3K36me3": "Histone H3K36me3",
+	    "H3K4me1": "Histone H3K4me1",
+	    "H3K4me3": "Histone H3K4me3",
+	    "H3K9me3": "Histone H3K9me3",
+	    "Input": "ChIP-Seq Input",
+	    "WGBS": "DNA Methylation",
+	    "Bisulfite-Seq" : "DNA Methylation",
+	    "WGS": "WGS",
+	    "miRNA": "smRNA-Seq",
+	    "RNA-Seq": "mRNA-Seq"
 	}
 
 	def __init__(self, settings):
