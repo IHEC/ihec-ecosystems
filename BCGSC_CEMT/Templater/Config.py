@@ -1,5 +1,5 @@
 from collections import namedtuple
-from PyUtils import *
+from MinimalPyUtils import *
 
 class Parser:
 	@staticmethod

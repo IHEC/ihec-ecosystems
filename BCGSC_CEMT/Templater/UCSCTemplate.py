@@ -5,7 +5,7 @@ from collections import defaultdict
 class UCSCTemplate:
 	none = ['none', 'na', 'n/a']
 	def customizable(self, arg, track_type):
-		Cmn.log(arg)
+		#Cmn.log(arg)
 		biomaterial_type = arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_')
 		if biomaterial_type in ['cell_line']:
 			description = UCSCTemplate.sanitize(arg['sample_attributes']['line'])
@@ -16,7 +16,7 @@ class UCSCTemplate:
 			elif biomaterial_type in ['primary_cell', 'primary_cell_culture']:
 				description = '{cell_type}'.format(**arg['sample_attributes']) + disease_tag
 			else:
-				raise Exception(NotImplementedError(biomaterial_type))
+				raise NotImplementedError(biomaterial_type)
 
 		description_sanitized = UCSCTemplate.sanitize(description)
 
@@ -61,7 +61,7 @@ class UCSCTemplate:
 		return ' '.join(['{0}={1}'.format(k, arg['attributes'][k]) for k in arg['attributes']])
 
 	def subgroups(self, arg):
-		Cmn.log(arg)
+		#Cmn.log(arg)
 		self.subgroupSoup[arg['parent']].append(arg['subgroups'])
 		return ' '.join([ '{0}={1}'.format(k, v) for k, v in arg['subgroups'].items()])
 

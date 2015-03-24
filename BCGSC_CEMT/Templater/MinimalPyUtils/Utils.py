@@ -11,6 +11,8 @@ import types
 from collections import namedtuple, defaultdict
 import threading
 from Json import Json
+import string
+import random
 
 class Cmn:
 	""" slow, handrolled, logger """
@@ -178,7 +180,9 @@ class Cmn:
 
 
 
-
+	@staticmethod
+	def random_tag(n = 12):
+		return '.' + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
 
 
 
