@@ -2,11 +2,11 @@ json data sharing specification and visualization templating
 ============================================================
 usage:
 
-    python __main__.py -config:./examples/PrimaryTissue.tracks.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json -by-centre
+    python __main__.py -ucsc -config:./examples/PrimaryTissue.tracks.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json -by-centre
 
 examples:
 
-    python  __main__.py -config:./examples/exampleWithMultipleTypes.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json -by-centre
+    python  __main__.py -ucsc -config:./examples/exampleWithMultipleTypes.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json -by-centre
 
 writes:
     $WWW/CEMT.Mar-19-2015-21.33.01.hub
@@ -16,7 +16,7 @@ writes:
 generated hub:
 http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/examples/CEMT.byCentre.hub
 
-    python  __main__.py -config:./examples/exampleWithMultipleTypes.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json
+    python  __main__.py -ucsc -config:./examples/exampleWithMultipleTypes.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json
 
 writes:
     $WWW/CEMT.Mar-19-2015-21.37.40.hub
