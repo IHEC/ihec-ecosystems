@@ -13,8 +13,8 @@ writes:
     $WWW/genomes.Mar-19-2015-21.33.01.gs
     $WWW/hg19/tracks.Mar-19-2015-21.33.01.db
 
-generated hub:
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/examples/CEMT.byCentre.hub
+example generated hub:
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/examples/CEMT.Mar-29-2015-20.07.55
 
     python  __main__.py -ucsc -config:./examples/exampleWithMultipleTypes.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json
 
@@ -23,8 +23,8 @@ writes:
     $WWW/genomes.Mar-19-2015-21.37.40.gs
     $WWW/hg19/tracks.Mar-19-2015-21.37.40.db
 
-generated hub:
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/examples/CEMT.byAssay.hub
+example generated hub:
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/examples/CEMT.Mar-29-2015-20.03.59
 
 Developed on Python 2.7.7 :: Anaconda 2.0.1
 
