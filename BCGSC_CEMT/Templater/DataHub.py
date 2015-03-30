@@ -3,10 +3,13 @@ from Config import Config, Parser
 #from UCSCTemplate import UCSCTemplate
 
 class DataHub:
+	header = ['__header__']
 	def __init__(self, config, hubTag, byCentre, annotations, settings, selected=None):
+		Cmn.wait(msg= str(selected))
 		db = Json.loadf(config)
 		self.annotations = annotations
-		self.config = db if not selected else {experiment : db[experiment] for experiment in db if experiment in selected}
+		self.config = db if not selected else {experiment : db[experiment] for experiment in db if ( experiment in selected and not (experiment in DataHub.header))}
+		self.empty = not self.config.keys()
 		self.hubTag = hubTag
 		self.settings = settings
 		if not byCentre:
@@ -18,26 +21,50 @@ class DataHub:
 
 		#self.templateManager = UCSCTemplate(annotations, settings)
 
-
-
 	def ucsc(self):
-		from UCSCTemplate import UCSCTemplate
-		self.templateManager = UCSCTemplate(self.annotations, self.settings)
-		tracks = list()
-		groupedTracks = self.byCentre if self.byCentre else self.byExperimentType
-		for key in groupedTracks:
-			containerConfig = {
-				'root' : key,
-				'label' : key,
-				'group' : self.hubTag,
-				'visibility' : 'hide', 
-			}
-			subtracks = list()
-			for library in groupedTracks[key]:
-				subtracks.extend(self.templateManager.subtrackBlocks(self.config, library, parent = containerConfig['root']))
-			tracks.append(self.templateManager.container(containerConfig))
-			tracks.extend(subtracks)
-		return tracks
+		if self.empty: return list()
+		else:
+			from Template import UCSCTemplate
+			templateManager = UCSCTemplate(self.annotations, self.settings)
+			tracks = list()
+			groupedTracks = self.byCentre if self.byCentre else self.byExperimentType
+			for key in groupedTracks:
+				containerConfig = {
+					'root' : key,
+					'label' : key,
+					'group' : self.hubTag,
+					'visibility' : 'hide', 
+				}
+				subtracks = list()
+				for library in groupedTracks[key]:
+					subtracks.extend(templateManager.subtrackBlocks(self.config, library, parent = containerConfig['root']))
+				tracks.append(templateManager.container(containerConfig))
+				tracks.extend(subtracks)
+			return tracks
+
+
+
+
+	def washu(self):
+		if self.empty: return list()
+		else:
+			from Template import WashUTemplate
+			templateManager = WashUTemplate(self.annotations, self.settings)
+			tracks = list()
+			groupedTracks = self.byCentre if self.byCentre else self.byExperimentType
+			for key in groupedTracks:
+				containerConfig = {
+					'root' : key,
+					'label' : key,
+					'group' : self.hubTag,
+					'visibility' : 'hide', 
+				}
+				subtracks = list()
+				for library in groupedTracks[key]:
+					subtracks.extend(templateManager.subtrackBlocks(self.config, library, parent = containerConfig['root']))
+				tracks.extend(subtracks)
+			#tracks.append(templateManager.tags())
+			return tracks
 
 
 		
@@ -61,10 +88,11 @@ class DataHub:
 					ucsc.write(args['-www'], tracks)
 				return ucsc
 			elif args.has('-washu'):
+				tracks = hub.washu()
 				if args.has('-www'):
 					import WashU
-					washu = WashU.WashU(hub.washu())
-					washu.write()
+					washu = WashU.WashU()
+					print washu.write(args['-www'], tracks)
 				return washu
 			elif args.has('-tracklist'):
 				pass
