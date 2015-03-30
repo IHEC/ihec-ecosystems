@@ -108,7 +108,11 @@ class WashUTemplate:
 
 
 class UCSCTemplate(Template):
-	def container(self, arg):
+	def container(self, arg,  ordered_subgroup_keys = None):
+		if not  ordered_subgroup_keys: 
+			subgroupKeys = ['source', 'sample_id', 'assay', 'track_type', 'analysis_group']
+		else: 
+			subgroupKeys =  ordered_subgroup_keys
 		template = Cmn.stripTo('''	|track {root}
 						|compositeTrack on
 						|visibility {visibility}
@@ -117,12 +121,13 @@ class UCSCTemplate(Template):
 						|longLabel {group}:{label}
 						|{subgroupSoup}
 						|dimensions dimX=assay dimY=source dimA=track_type dimB=analysis_group dimC=sample_id
-						|sortOrder analysis_group=+ track_type=+ assay=+ source=+
+						|sortOrder {sortOrder}
 						|filterComposite dimA dimB dimC
 						|dragAndDrop subTracks
 						|type bigWig\n''')
 		#Cmn.log(arg)
-		arg['subgroupSoup'] = self.subgroup_soup(arg['root'])
+		arg['subgroupSoup'] = self.subgroup_soup(arg['root'], subgroupKeys)
+		arg['sortOrder'] = ' '.join('{0}=+'.format(k) for k in subgroupKeys) 
 		#Cmn.log(str(arg['subgroupSoup']))
 		return template.format(**arg)
 
@@ -137,11 +142,12 @@ class UCSCTemplate(Template):
 		self.subgroupSoup[arg['parent']].append(arg['subgroups'])
 		return ' '.join([ '{0}={1}'.format(k, v) for k, v in arg['subgroups'].items()])
 
-	def subgroup_soup(self, container_id):
+	def subgroup_soup(self, container_id, subgroupKeys):
 		flattened = [(k, v) for subgroups in self.subgroupSoup[container_id] for (k, v) in subgroups.items()]
 		keyed = Cmn.groupby(flattened, key = lambda x: x[0], transform = lambda x: x[1]) 
+		assert all(k in keyed for k in subgroupKeys)
 		subgroups = ['subGroup{0} {1} {2} {3}'.format(i + 1, k, k.capitalize(), ' '.join('{0}={0}'.format(v) for v in list(set(keyed[k])) ))
-			for i, k in enumerate(keyed)]
+			for i, k in enumerate(subgroupKeys)]
 		return '\n'.join(subgroups) 
 
 	def subtrackTemplate(self, arg, subgroups = None, tab = '\t'):
