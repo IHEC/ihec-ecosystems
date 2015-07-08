@@ -58,4 +58,4 @@ Track tag: short name for track type in json hub for use with templating track d
   
 ### reads per million miRNA mapped ?
 
-- [Controlled vocaublary]: Track type: "rpkm", Track tag: "rpkm"
+- [Controlled vocaublary]: Track type: "reads_per_million_miRNA_mapped", Track tag: "rpmmm"
