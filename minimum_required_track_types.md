@@ -1,26 +1,36 @@
-#Minimum required track files and corresponding controlled vocabulary:
+#Attributes, using controlled vocabulary
 
-Track type: key in json hub correspinng to a possibly verbose description of the track e.g. "fractional_methylation_calls". 
+Rules:
 
-Track tag: short name for track type in json hub for use with templating track description which may be length limited.
+- For each assay, a track should be unique for a type/strand combination. (e.g. not having two peak files, or two coverage tracks on the forward strand)
+- If a track is stranded, the opposite strand track also needs to be provided.
 
-#Experiment:
+**Track type**: key in json hub corresponding to a possibly verbose description of the track. e.g. "fractional_methylation_calls".
+
+**Track tag**: short name for track type in json hub for use with templating track description which may be length limited.
+
+**Strand**: "forward", "reverse", "unstranded"
+
+**Format**: "bigWig", "bigBed", "bam"
+
+
+#Minimum required track files, per experiment:
 
 ## ChIP-Seq:
   
 ### Peak calls
 
-- [Controlled vocaublary]: Track type: "peak_calls", Track tag: "peaks" 
+- [Controlled vocabulary]: Track type: "peak_calls", Track tag: "peaks" 
 
 ### Signal/Coverage track
   
-- [Controlled vocaublary]: Track type: "signal", Track tag: "sig"
+- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"
   
 ## WGS (?):
   
 ### Copy number variation
 
-- [Controlled vocaublary]: Track type: "copy_number_variation", Track tag: "cnv" 
+- [Controlled vocabulary]: Track type: "copy_number_variation", Track tag: "cnv" 
 
 ## DNA Methylation:
   
@@ -28,34 +38,30 @@ Track tag: short name for track type in json hub for use with templating track d
 
 *(alternatively some way of reporting #Cs vs #Ts on every CpG)*
   
-- [Controlled vocaublary]: Track type: "fractional_methylation_calls", Track tag: "frc_mth"
+- [Controlled vocabulary]: Track type: "fractional_methylation_calls", Track tag: "frc_mth"
   
-### Coverage
+### Signal
   
-- [Controlled vocaublary]: Track type: "coverage", Track tag: "cov"
+- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"
 
 ## mRNA:
-  
+
+### signal
+
+- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"
+
+### rpkm values (optional?)
+
 *(need agreement on how rpkm are computed)*
-  
-##*Strand specific:*
-  
-### rpkm values on positive strand 
-  
-- [Controlled vocaublary]: Track type: "rpkm_positive_strand", Track tag: "rpkm[pos]"
-  
-### rpkm values on negative strand 
 
-- [Controlled vocaublary]: Track type: "rpkm_negative_strand", Track tag: "rpkm[neg]"
-  
-##*Unstranded:*
-
-### rpkm values
-  
-- [Controlled vocaublary]: Track type: "rpkm", Track tag: "rpkm"
+- [Controlled vocabulary]: Track type: "rpkm", Track tag: "rpkm"
   
 ## smRNA (?) : 
   
-### reads per million miRNA mapped ?
+### signal
 
-- [Controlled vocaublary]: Track type: "reads_per_million_miRNA_mapped", Track tag: "rpmmm"
+- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"  
+
+### reads per million miRNA mapped (optional?)
+
+- [Controlled vocabulary]: Track type: "reads_per_million_miRNA_mapped", Track tag: "rpmmm"
