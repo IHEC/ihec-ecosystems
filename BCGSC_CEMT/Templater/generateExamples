@@ -1,0 +1,7 @@
+#!/bin/bash
+
+apy __main__.py -ucsc -www:$1 -settings:./Config/settingsNoHide.json -config:./examples/hub.WGS.json -by-centre -randomize:WGS
+apy __main__.py -ucsc -www:$1 -settings:./Config/settingsNoHide.json -config:./examples/hub.smRNA.json -by-centre -randomize:smRNA
+apy __main__.py -ucsc -www:$1 -settings:./Config/settingsNoHide.json -config:./examples/hub.WGBS.json -by-centre -randomize:WGBS
+apy __main__.py -ucsc -www:$1 -settings:./Config/settingsNoHide.json -config:./examples/hub.ChIP.json -by-centre -randomize:ChIP
+apy __main__.py -ucsc -www:$1 -settings:./Config/settingsNoHide.json -config:./examples/hub.mRNA.json -by-centre -randomize:mRNA
