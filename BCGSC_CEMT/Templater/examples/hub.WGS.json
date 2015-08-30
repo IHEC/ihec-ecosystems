@@ -1,0 +1,37 @@
+{
+    "A24722": {
+        "analysis_attributes": {
+            "description_url": "http://www.epigenomes.ca/methods.html"
+        },
+        "analysis_group": "CEMT",
+        "browser": {
+            "copy_number_variation": {
+                "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/CNV/A24722.CEMT_7.A24722_3_lanes_dupsFlagged.bam_ratio.freec.bw",
+                "description_url": "http://www.epigenomes.ca/methods.html",
+                "tag": "cnv",
+                "type": "copy_number_variation"
+            }
+        },
+        "experiment": "WGS",
+        "experiment_attributes": {
+            "experiment_type": "WGS"
+        },
+        "sample_attributes": {
+            "batch": "1",
+            "biomaterial_provider": "Aparicio",
+            "biomaterial_type": "Cell Line",
+            "differentiation_method": "NA",
+            "differentiation_stage": "NA",
+            "disease": "Mammary gland-Breast Fibrocystic Disease",
+            "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
+            "line": "MCF10A",
+            "lineage": "mammary gland epithelia",
+            "medium": "Growth media: DMEM/F12 +5% horse serum (it also includes FGF (20 ug/ml), Hydrocortizone (0.5 mg/ml), Cholera Toxin (10 ug/ml), insulin (1 mg/ml), Pen/Strep 1%)",
+            "molecule": "genomic DNA",
+            "passage": "3",
+            "sample_id": "CEMT0007",
+            "sample_ontology_uri": "EFO : EFO_0001200",
+            "sex": "Female"
+        }
+    }
+}
