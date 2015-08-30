@@ -5,7 +5,7 @@ from Config import Config, Parser
 class DataHub:
 	header = ['__header__']
 	def __init__(self, config, hubTag, byCentre, annotations, settings, selected=None):
-		Cmn.wait(msg= str(selected))
+		#Cmn.wait(str(selected))
 		db = Json.loadf(config)
 		self.annotations = annotations
 		self.config = db if not selected else {experiment : db[experiment] for experiment in db if ( experiment in selected and not (experiment in DataHub.header))}
@@ -33,7 +33,7 @@ class DataHub:
 					'root' : key,
 					'label' : key,
 					'group' : self.hubTag,
-					'visibility' : 'hide', 
+					'visibility' : 'hide' if self.settings['__hide__'] == 0 else 'full', 
 				}
 				subtracks = list()
 				for library in groupedTracks[key]:
@@ -84,18 +84,20 @@ class DataHub:
 				if args.has('-www'):
 					import UCSC
 					hubConfig = UCSC.UCSC.defaultConfig(hubAttributes)
-					ucsc = UCSC.UCSC(hubConfig, randomize = args.has('-randomize'))
+					ucsc = UCSC.UCSC(hubConfig, args)
 					ucsc.write(args['-www'], tracks)
-				return ucsc
+					return ucsc
+				else:
+					raise Exception('missing:www')
 			elif args.has('-washu'):
 				tracks = hub.washu()
 				if args.has('-www'):
 					import WashU
 					washu = WashU.WashU()
-					print washu.write(args['-www'], tracks)
+					washu.write(args['-www'], tracks)
 				return washu
 			elif args.has('-tracklist'):
-				pass
+				return hub.config
 			else:
 				Cmn.log('..unknown option..')
 	

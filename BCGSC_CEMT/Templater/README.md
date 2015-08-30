@@ -2,31 +2,21 @@ json data sharing specification and visualization templating
 ============================================================
 usage:
 
-    python __main__.py -ucsc -config:./examples/PrimaryTissue.tracks.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json -by-centre
+    python __main__.py -ucsc -config:./examples/hub.ChIP.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settingsNoHide.json -by-centre
 
 examples:
 
-    python  __main__.py -ucsc -config:./examples/exampleWithMultipleTypes.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json -by-centre
+See ./examples to see examples of json hubs by assay
+Run ./generateExamples <web_accessible_location> to generate example assay specific hubs:
 
-writes:
-    $WWW/CEMT.Mar-19-2015-21.33.01.hub
-    $WWW/genomes.Mar-19-2015-21.33.01.gs
-    $WWW/hg19/tracks.Mar-19-2015-21.33.01.db
+http://www.epigenomes.ca/data/CEMT/IHEC/hubs/CEMT.Aug-29-2015-18.56.29.5G19WJG268H8.ChIP
+http://www.epigenomes.ca/data/CEMT/IHEC/hubs/CEMT.Aug-29-2015-18.56.29.E4KZ4ACBVYSK.mRNA
+http://www.epigenomes.ca/data/CEMT/IHEC/hubs/CEMT.Aug-29-2015-18.56.29.KISU5KG8MFEF.WGS
+http://www.epigenomes.ca/data/CEMT/IHEC/hubs/CEMT.Aug-29-2015-18.56.29.NZDSR31ZLLMM.smRNA
+http://www.epigenomes.ca/data/CEMT/IHEC/hubs/CEMT.Aug-29-2015-18.56.29.Y6EVR30JO7EE.WGBS
 
-example generated hub:
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/examples/CEMT.Mar-29-2015-20.07.55
 
-    python  __main__.py -ucsc -config:./examples/exampleWithMultipleTypes.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings.json
-
-writes:
-    $WWW/CEMT.Mar-19-2015-21.37.40.hub
-    $WWW/genomes.Mar-19-2015-21.37.40.gs
-    $WWW/hg19/tracks.Mar-19-2015-21.37.40.db
-
-example generated hub:
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/examples/CEMT.Mar-29-2015-20.03.59
-
-Developed on Python 2.7.7 :: Anaconda 2.0.1
+Recommended Python 2.7.7 :: Anaconda 2.0.1
 
 $WWW: The the path to http accessible directory where hub will be written. Must have hg19 subdirectory (or appropriate genome db) as neeeded by UCSC track hub specification.
 

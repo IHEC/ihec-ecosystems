@@ -30,6 +30,7 @@ class Template:
 		description_sanitized = Template.sanitize(description)
 
 		return {
+				'analysis_group' : arg['analysis_group'],
 				'description' : description_sanitized,
 				'assay' : Config.assays[arg['experiment']],
 				'attributes' : {k: Template.sanitize(arg['sample_attributes'][k]) for k in arg['sample_attributes'] if k in annotations},
@@ -127,7 +128,7 @@ class UCSCTemplate(Template):
 						|type bigWig\n''')
 		#Cmn.log(arg)
 		arg['subgroupSoup'] = self.subgroup_soup(arg['root'], subgroupKeys)
-		arg['sortOrder'] = ' '.join('{0}=+'.format(k) for k in subgroupKeys) 
+		arg['sortOrder'] = ' '.join('{0}=-'.format(k) for k in subgroupKeys) 
 		#Cmn.log(str(arg['subgroupSoup']))
 		return template.format(**arg)
 
@@ -155,7 +156,7 @@ class UCSCTemplate(Template):
 			'track {experimentId}:{trackTag}',
 			'parent {parent} on' if 'parent' in arg else '', 
 			'shortLabel {experimentId}:{trackTag}', 
-			'longLabel {experimentId}:{sampleId}:{description}:{assay}:{trackTag}', 
+			'longLabel {experimentId}:{sampleId}:{description}:{assay}:{trackTag}:{analysis_group}', 
 			'type {filetype}', 
 			'itemRgb on', 
 			'visibility {visibility}',
@@ -194,7 +195,8 @@ class UCSCTemplate(Template):
 						'description' : customizable['description'],
 						'assay' : customizable['assay'],
 						'attributes' : customizable['attributes'],
-						'subgroups' : customizable['subgroups']
+						'subgroups' : customizable['subgroups'],
+						'analysis_group' : customizable['analysis_group'],
 			}
 			if parent: metadata['parent'] = parent
 			metadata.update(self.settings.view(metadata['assay'], metadata['trackType']))

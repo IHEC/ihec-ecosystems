@@ -34,6 +34,9 @@ class Clargs:
 		if not defaultValue: return self.keys[k]
 		else: return self.keys.get(k, defaultValue)
 
+	def orElse(self, k, defaultValue):
+		return self.keys.get(k, defaultValue) 
+
 	def has(self, flag):
 		return flag in self.flags or flag in self.keys.keys()
 

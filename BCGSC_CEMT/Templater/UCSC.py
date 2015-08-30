@@ -1,10 +1,11 @@
 from MinimalPyUtils import *
 
 class UCSC:
-	def __init__(self, config, randomize=True):
+	def __init__(self, config, args):
 		self.config = config
-		if randomize:
-			randomized = Cmn.random_tag()
+		if args.has('-randomize'):
+			self.tag = args.orElse('-randomize', 'X')
+			randomized = Cmn.random_tag() + '.' + self.tag
 			now = Cmn.now()
 			self.config['base'] = self.config['base'] + randomized
 			self.config['genomes'] = self.config['genomes'] + randomized	
@@ -20,7 +21,9 @@ class UCSC:
 		self.genomes = 'genome {db}\ntrackDb {tracks}'.format(**config)
 
 	def __str__(self):
-		return Json.pretty([self.basefile, self.genomesfile, self.tracksfile, self.config])
+		ucscCgi = 'http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=...'
+		hub = ucscCgi
+		return Json.pretty([hub, self.basefile, self.genomesfile, self.tracksfile, self.config])
 
 	def write(self, home, tracks):
 		self.basefile = Cmn.write('{0}/{1}'.format(home, self.config['base']), [self.hub])
@@ -34,6 +37,6 @@ class UCSC:
 		config.update({
 			'genomes' : 'genomes.{0}'.format(timeTag),
 			'tracks' : '{1}/tracks.{0}'.format(timeTag, db),
-			'base' : 'CEMT.{0}'.format(timeTag),
+			'base' : '{1}.{0}'.format(timeTag, config['tag']),
 		})
 		return config

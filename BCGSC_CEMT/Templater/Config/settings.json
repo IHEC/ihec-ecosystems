@@ -1,4 +1,5 @@
 {
+    "__hide__": 0,
     "__view__": {
         "chip": {
             "color": {
@@ -14,17 +15,21 @@
             "filetype": {
                 "normalized_signal": "bigWig",
                 "signal": "bigWig",
+                "peak_calls" : "bigBed",
+                "peaks2" : "bigWig",
                 "thresholded": "bigWig"
             },
             "maxHeightPixels": {
+                "peaks2": "10:10:10",
                 "normalized_signal": "70:70:32",
                 "signal": "70:70:32",
-                "thresholded": "10:10:10"
-            },
+                "thresholded": "10:10:10","peak_calls": "10:10:10"},
             "visibility": {
                 "normalized_signal": "full",
                 "signal": "full",
-                "thresholded": "full"
+                "thresholded": "full",
+                "peak_calls" : "dense",
+                "peaks2" : "full"
             }
         },
         "except_chip": {
@@ -66,14 +71,14 @@
                     "visibility": "dense"
                 }
             },
-            "miRNA": {
+            "smRNA": {
                 "isoform_details": {
                     "color": "255,0,0",
                     "filetype": "bigBed 9",
                     "maxHeightPixels": "70:70:32",
                     "visibility": "dense"
                 },
-                "miRNA_mapped_per_million": {
+                "reads_per_million_miRNA_mapped": {
                     "color": "0,0,102",
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",

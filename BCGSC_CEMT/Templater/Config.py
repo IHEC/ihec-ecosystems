@@ -31,7 +31,7 @@ class Config:
 		'Histone H3K36me3' : 'H3K36me3', 
 		'Histone H3K27ac' : 'H3K27ac', 
 		'ChIP-Seq Input' : 'Input',
-		'smRNA-Seq' : 'miRNA',
+		'smRNA-Seq' : 'smRNA',
 		'mRNA-Seq' : 'ssRNA',  
 		'DNA Methylation' : 'WGBS',
 		'WGS' : 'WGS',
@@ -53,7 +53,7 @@ class Config:
 	    "WGBS": "DNA Methylation",
 	    "Bisulfite-Seq" : "DNA Methylation",
 	    "WGS": "WGS",
-	    "miRNA": "smRNA-Seq",
+	    "smRNA": "smRNA-Seq",
 	    "RNA-Seq": "mRNA-Seq"
 	}
 
