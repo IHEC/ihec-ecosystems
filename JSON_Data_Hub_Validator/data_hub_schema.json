@@ -1,8 +1,4 @@
-from jsonschema import validate, exceptions, FormatChecker
-from sys import argv
-import json
-
-schema = {
+{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "id": "http://epigenomesportal.ca/schemas/data_hub_schema.json",
     "title": "IHEC Data Hub Schema 0.1",
@@ -44,7 +40,7 @@ schema = {
             "type": "object",
             "properties": {
                 "donor_id" : {"type": "string"},
-                "donor_age" : {"type": "number", "minimum": 0, "exclusiveMinimum": True},
+                "donor_age" : {"type": "number", "minimum": 0, "exclusiveMinimum": true},
                 "donor_age_unit" : {"type": "string", "enum": ["year", "month", "week", "day", "hour", "minute", "second"]},
                 "donor_health_status" : {"type": "string"},
                 "donor_sex" : {"type": "string", "enum": ["Male", "Female", "Unknown"]},
@@ -149,24 +145,3 @@ schema = {
 
     "required": ["hub_description", "sample_attributes", "experiment_attributes", "browser"]
 }
-
-
-def validateJson(jsonObj):
-    """Validate a data hub against the IHEC Data Hub Schema."""
-    return validate(jsonObj, schema, format_checker=FormatChecker())
-
-
-def main():
-    """Validates a data hub from the command line"""
-    script, jsonFile = argv
-    jsonStr = open(jsonFile).read()
-    jsonObj = json.loads(jsonStr)
-    try:
-        validateJson(jsonObj)
-    except exceptions.ValidationError as e:
-        print "Error in " + "/".join(e.path) + ": " + e.message
-
-
-
-if __name__ == "__main__":
-    main()
