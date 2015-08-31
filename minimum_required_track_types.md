@@ -1,4 +1,4 @@
-#Attributes, using controlled vocabulary
+#Attributes, using controlled vocabulary (IHEC Recommendation Draft)
 
 Rules:
 
@@ -9,14 +9,14 @@ Rules:
 
 **Track tag**: short name for track type in json hub for use with templating track description which may be length limited.
 
-**Strand**: "forward", "reverse", "unstranded"
+**strand**: "forward", "reverse", "unstranded"
 
-**Format**: "bigWig", "bigBed", "bam"
+**format**: "bigWig", "bigBed", "bam"
 
 
-#Minimum required track files, per experiment:
+#IHEC Core Assays Minimum required track files:
 
-## ChIP-Seq:
+## ChIP-Seq Input:
   
 ### Peak calls
 
@@ -26,11 +26,6 @@ Rules:
   
 - [Controlled vocabulary]: Track type: "signal", Track tag: "sig"
   
-## WGS (?):
-  
-### Copy number variation
-
-- [Controlled vocabulary]: Track type: "copy_number_variation", Track tag: "cnv" 
 
 ## DNA Methylation:
   
@@ -38,7 +33,7 @@ Rules:
 
 *(alternatively some way of reporting #Cs vs #Ts on every CpG)*
   
-- [Controlled vocabulary]: Track type: "fractional_methylation_calls", Track tag: "frc_mth"
+- [Controlled vocabulary]: Track type: "methylation_profile", Track tag: "frc_mth"
   
 ### Signal
   
@@ -56,7 +51,12 @@ Rules:
 
 - [Controlled vocabulary]: Track type: "rpkm", Track tag: "rpkm"
   
-## smRNA (?) : 
+  
+
+
+#Other assays Minimum suggested track files:
+  
+## smRNA-Seq: 
   
 ### signal
 
@@ -65,3 +65,10 @@ Rules:
 ### reads per million miRNA mapped (optional?)
 
 - [Controlled vocabulary]: Track type: "reads_per_million_miRNA_mapped", Track tag: "rpmmm"
+
+
+## Whole Genome Sequencing:
+  
+### Copy number variation
+
+- [Controlled vocabulary]: Track type: "copy_number_variation", Track tag: "cnv"
