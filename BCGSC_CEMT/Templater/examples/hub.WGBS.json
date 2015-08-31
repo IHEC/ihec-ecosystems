@@ -17,7 +17,27 @@
             }
         },
         "experiment": "DNA Methylation",
-        "experiment_attributes": {},
+        "experiment_attributes": {
+                "bisulfite_conversion_percent": "Bisulfite conversion rate: 99.07% in human genome",
+                "bisulfite_conversion_protocol": "BCGSC LIBPR.0091 using EZ Gold Kit",
+                "dna_preparation_adaptor_ligation_protocol": "BCGSC LIBPR.0091",
+                "dna_preparation_adaptor_sequence": "Methylated Illumina PE adaptor",
+                "dna_preparation_fragment_size_range": "100-500bp",
+                "dna_preparation_initial_dna_qnty": "1 ug",
+                "dna_preparation_post-ligation_fragment_size_selection": "200-400bp",
+                "experiment_type": "DNA Methylation",
+                "extraction_protocol": "BCGSC LIBPR.0061",
+                "extraction_protocol_sonication_cycles": "55secs",
+                "extraction_protocol_type_of_sonicator": "Covaris E210",
+                "library_generation_pcr_f_primer_sequence": "5' AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT",
+                "library_generation_pcr_number_cycles": "5",
+                "library_generation_pcr_polymerase_type": "Kapa 2X HiFi Ura+ Ready Mix",
+                "library_generation_pcr_primer_conc": "0.83 uM",
+                "library_generation_pcr_product_isolation_protocol": "8% Novex TBE PAGE gel purification",
+                "library_generation_pcr_r_primer_sequence": "5' CAAGCAGAAGACGGCATACGAGATNNNNNNCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT",
+                "library_generation_pcr_template_conc": "NA",
+                "library_generation_pcr_thermocycling_program": "45 seconds at 98C, 5 cycles of 15 seconds at 98C, 30 seconds at 65C and 30 seconds at 72C, then 60 seconds at 72C, 4C"
+        },
         "sample_attributes": {
             "biomaterial_provider": "Aparicio Lab",
             "biomaterial_type": "Cell Line",
