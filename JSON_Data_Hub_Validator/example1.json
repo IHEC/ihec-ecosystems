@@ -38,7 +38,8 @@
             "track_type" : "signal",
             "strand": "forward",
             "big_data_url": "http://mybigWigUrl1",
-            "format": "bigBed"
+            "format": "bigBed",
+            "description_url": "http://myMethodologyDescriptionUrl"
         },
         "my_dataset_2": {
             "track_type" : "signal",
