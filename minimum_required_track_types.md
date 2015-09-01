@@ -1,74 +1,47 @@
-#Attributes, using controlled vocabulary (IHEC Recommendation Draft)
+#Minimum required track files:
 
-Rules:
+This document aims at describing a minimum set of analysis tracks that should be provided for any dataset, for IHEC Core Assays. Other non-core assays are also described at the end of the document.
 
-- For each assay, a track should be unique for a type/strand combination. (e.g. not having two peak files, or two coverage tracks on the forward strand)
-- If a track is stranded, the opposite strand track also needs to be provided.
+##IHEC Core Assays 
 
-**Track type**: key in json hub corresponding to a possibly verbose description of the track. e.g. "fractional_methylation_calls".
+### ChIP-Seq Histone (H3K*):
 
-**Track tag**: short name for track type in json hub for use with templating track description which may be length limited.
-
-**strand**: "forward", "reverse", "unstranded"
-
-**format**: "bigWig", "bigBed", "bam"
-
-
-#IHEC Core Assays Minimum required track files:
-
-## ChIP-Seq Input:
-  
-### Peak calls
-
-- [Controlled vocabulary]: Track type: "peak_calls", Track tag: "peaks" 
-
-### Signal/Coverage track
-  
-- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"
+* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
+* **Peak calls** (Track type: "peak_calls", Format: "bigBed")
   
 
-## DNA Methylation:
+### ChIP-Seq Input:
   
-### Fractional Methylation Calls 
+* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
+  
 
+### DNA Methylation:
+  
+* **Fractional Methylation Calls**  (Track type: "methylation_profile", Track tag: "frc_mth")
 *(alternatively some way of reporting #Cs vs #Ts on every CpG)*
+
+* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
+
   
-- [Controlled vocabulary]: Track type: "methylation_profile", Track tag: "frc_mth"
-  
-### Signal
-  
-- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"
+### mRNA / total RNA :
 
-## mRNA:
-
-### signal
-
-- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"
-
-### rpkm values (optional?)
-
+* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
+or
+* **rpkm values** (optional?) (Track type: "rpkm", Format: "bigWig")
 *(need agreement on how rpkm are computed)*
 
-- [Controlled vocabulary]: Track type: "rpkm", Track tag: "rpkm"
-  
   
 
 
-#Other assays Minimum suggested track files:
+##Non-core Assays
   
-## smRNA-Seq: 
+### smRNA-Seq: 
   
-### signal
-
-- [Controlled vocabulary]: Track type: "signal", Track tag: "sig"  
-
-### reads per million miRNA mapped (optional?)
-
-- [Controlled vocabulary]: Track type: "reads_per_million_miRNA_mapped", Track tag: "rpmmm"
+* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
+or
+* **reads per million miRNA mapped** (optional?) (Track type: "reads_per_million_miRNA_mapped", Format: "bigWig")
 
 
-## Whole Genome Sequencing:
+### Whole Genome Sequencing:
   
-### Copy number variation
-
-- [Controlled vocabulary]: Track type: "copy_number_variation", Track tag: "cnv"
+* **Copy number variation** (Track type: "copy_number_variation", Format: "vcf")
