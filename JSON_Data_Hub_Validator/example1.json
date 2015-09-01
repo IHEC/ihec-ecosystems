@@ -43,13 +43,11 @@
                 "track_type": "signal",
                 "strand": "reverse",
                 "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
-                "format": "bigBed"
             },
             "name_of_dataset_track_3": {
                 "track_type": "methylation_profile",
                 "strand": "unstranded",
                 "big_data_url": "http://mybigBedurl/mytrack3.bigBed",
-                "format": "bigBed",
                 "description_url": "http://my.methodology.description.url"
             }
         }
