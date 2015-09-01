@@ -17,7 +17,7 @@ This document aims at describing a minimum set of analysis tracks that should be
 
 ### DNA Methylation:
   
-* **Fractional Methylation Calls**  (Track type: "methylation_profile", Track tag: "frc_mth")
+* **Fractional Methylation Calls**  (Track type: "methylation_profile")
 *(alternatively some way of reporting #Cs vs #Ts on every CpG)*
 
 * **Signal/Coverage** (Track type: "signal", Format: "bigWig")

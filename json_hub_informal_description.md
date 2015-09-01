@@ -21,12 +21,10 @@ A json hub is a hash keyed by experiment identifier.
 * The 'browser' key points to a hash of each data track for the experiment. This hash is keyed by a description for the track (the 'type'). Any key is supported, however, only keys corresponding to required track types as defined in https://github.com/IHEC/ihec-ecosystems/blob/master/minimum_required_track_types.md are read. 
 
 * For each 'type' key under 'browser', the following keys are required:
-	  'tag' : a short tag for the 'type' which is used in the UCSC hub description 
-	  'description_url' : a url with description of methods used to generate the track 
-	  'type' : the type key itself
-	  'big_data_url' : the actual data url
-
-* A key corresponding to strand maybe required for strand specific data.
+      * 'type' : the type key itself
+	  * 'description_url' : a url with description of methods used to generate the track 
+	  * 'big_data_url' : the actual data url
+      * A key corresponding to strand is required for strand specific data. **(Do we want to keep it mandatory all the time? Non-strand specific tracks could be labeled "unstranded")**
 
 * If a track is stranded (forward or reverse), the opposite strand track also needs to be provided.
 
