@@ -21,10 +21,8 @@ A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/J
     "experiment_1": {
         "sample_attributes": { ... },
         "experiment_attributes": { ... },
-        "analysis_attributes": { ... },     //Optional
-        "browser": { ... },
-        "experiment" : "...",    //Should we remove, since it's defined in "experiments_attributes"?
-        "analysis_group" : "..."     //Should we remove, since it's defined in "analysis_attributes"?
+        "analysis_attributes": { ... },
+        "browser": { ... }
     },
     ...
 }
@@ -53,15 +51,11 @@ A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/J
 
 ```
 "browser": {
-	"name_of_dataset_track_1": {
-		"track_type": "signal",
-		"strand": "forward",
+	"signal_forward": {
 		"big_data_url": "http://mybigWigUrl/mytrack1.bigWig",
 		"description_url": "..."
 	},
-	"name_of_dataset_track_2": {
-		"track_type": "signal",
-		"strand": "reverse",
+	"signal_reverse": {
 		"big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
 	}
 }

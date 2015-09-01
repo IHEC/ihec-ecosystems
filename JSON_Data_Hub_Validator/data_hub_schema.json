@@ -25,11 +25,27 @@
                 "analysis_attributes": { "$ref": "#/definitions/analysis_attributes" },
                 "browser": {
                     "type": "object",
-                    "additionalProperties": { "$ref": "#/definitions/track" }
+                    "properties": {
+                        "signal": {"$ref": "#/definitions/track"},
+                        "signal_forward": {"$ref": "#/definitions/track"},
+                        "signal_reverse": {"$ref": "#/definitions/track"},
+                        "peak_calls": {"$ref": "#/definitions/track"},
+                        "methylation_profile":  {"$ref": "#/definitions/track"},
+                        "contigs":  {"$ref": "#/definitions/track"},
+                        "rpkm_forward": {"$ref": "#/definitions/track"},
+                        "rpkm_reverse": {"$ref": "#/definitions/track"}
+                    },
+                    "additionalProperties": false,
+                    "dependencies": {
+                        "signal_forward": ["signal_reverse"],
+                        "signal_reverse": ["signal_forward"],
+                        "rpkm_forward": ["rpkm_reverse"],
+                        "rpkm_reverse": ["rpkm_forward"]
+                    }
                 }
             },
 
-            "required": ["sample_attributes", "experiment_attributes", "browser"]
+            "required": ["sample_attributes", "experiment_attributes", "analysis_attributes", "browser"]
         },
 
         "sample_attributes": {
@@ -55,13 +71,25 @@
             "type": "object",
             "properties": {
                 "donor_id" : {"type": "string"},
-                "donor_age" : {"type": "number", "minimum": 0, "exclusiveMinimum": true},
-                "donor_age_unit" : {"type": "string", "enum": ["year", "month", "week", "day", "hour", "minute", "second"]},
+                "donor_age" : {
+                    "oneOf": [
+                        {
+                            "type": "number",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 90
+                        },
+                        { "type": "string", "enum": ["90+"] },
+                        { "type": "string", "pattern": "^\d+-\d+$" }
+                    ]
+                },
+                "donor_age_unit" : {"type": "string", "enum": ["year", "month", "week", "day"]},
+                "donor_life_stage": {"type": "string", "enum": ["fetal", "newborn", "child", "adult", "unknown", "embryonic", "postnatal"]},
                 "donor_health_status" : {"type": "string"},
-                "donor_sex" : {"type": "string", "enum": ["Male", "Female", "Unknown"]},
+                "donor_sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"]},
                 "donor_ethnicity" : {"type": "string"}
             },
-            "required": ["donor_id", "donor_age", "donor_age_unit", "donor_health_status", "donor_sex", "donor_ethnicity"]
+            "required": ["donor_id", "donor_age", "donor_age_unit", "donor_life_stage", "donor_health_status", "donor_sex", "donor_ethnicity"]
         },
 
         "SA_cell_line": {
@@ -72,7 +100,7 @@
                 "lineage" : {"type": "string"},
                 "differenciate_stage" : {"type": "string"},
                 "medium" : {"type": "string"},
-                "sex" : {"type": "string", "enum": ["Male", "Female", "Unknown"]}
+                "sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"]}
             },
             "required": ["biomaterial_type", "line", "lineage", "differenciate_stage", "medium", "sex"]
         },
@@ -136,17 +164,15 @@
             "type" : "object",
             "properties" : {
                 "big_data_url" : {"type" : "string", "format": "uri"},
-                "description_url" : {"type": "string", "format": "uri"},
-                "track_type" : {"type" : "string", "enum": ["signal", "peak_calls", "methylation_profile", "contigs", "rpkm"]},
-                "strand" : {"type" : "string", "enum": ["forward", "reverse", "unstranded"]}
+                "description_url" : {"type": "string", "format": "uri"}
             },
-            "required": ["big_data_url", "track_type", "strand"]
+            "required": ["big_data_url"]
         }
     },
 
     "properties": {
         "hub_description": { "$ref": "#/definitions/hub_description" },
-        "datasets": { "$ref": "#/definitions/datasets" }
+        "datasets": { "type": "object", "additionalProperties": {"$ref": "#/definitions/datasets"} }
     },
     "required": ["hub_description", "datasets"]
 
