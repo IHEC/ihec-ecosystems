@@ -6,51 +6,52 @@
         "email": "info@epigenomesportal.ca"
     },
 
-    "sample_attributes": {
-        "biomaterial_type": "Cell Line",
-        "sample_id": "ERS333897",
-
-        "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
-        "molecule": "polyA RNA",
-        "disease": "Sporadic_Burkitt_lymphoma",
-        "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
-        "line": "BL-2",
-        "lineage": "unknown",
-        "differenciate_stage": "B_cell",
-        "medium": "RPMI_1640_+_10%FBS_+_1%_Glutamine",
-        "sex": "Male"
-    },
-    "experiment_attributes": {
-        "experiment_type": "DNA Methylation",
-        "assay_type": "WGB-Seq",
-        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
-        "reference_registry_id": "EGAX00001084792"
-    },
-    "analysis_attributes": {
-        "analysis_group": "EMBL-EBI",
-        "alignment_software": "BWA",
-        "alignment_software_version": "0.5.9",
-        "analysis_software": "Hotspot",
-        "analysis_software_version": "v3"
-    },
-    "browser": {
-        "my_dataset_1": {
-            "track_type" : "signal",
-            "strand": "forward",
-            "big_data_url": "http://mybigWigUrl/mytrack1.bigWig",
-            "description_url": "http://myMethodologyDescriptionUrl"
+    "datasets": {
+        "sample_attributes": {
+            "biomaterial_type": "Cell Line",
+            "sample_id": "ERS333897",
+            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "molecule": "polyA RNA",
+            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "line": "BL-2",
+            "lineage": "unknown",
+            "differenciate_stage": "B_cell",
+            "medium": "RPMI_1640_+_10%FBS_+_1%_Glutamine",
+            "sex": "Male"
         },
-        "my_dataset_2": {
-            "track_type" : "signal",
-            "strand": "reverse",
-            "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
-            "format": "bigBed"
+        "experiment_attributes": {
+            "experiment_type": "DNA Methylation",
+            "assay_type": "WGB-Seq",
+            "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+            "reference_registry_id": "EGAX00001084792"
         },
-        "my_dataset_2": {
-            "track_type" : "methylation_profile",
-            "strand": "unstranded",
-            "big_data_url": "http://mybigBedurl/mytrack3.bigBed",
-            "format": "bigBed"
+        "analysis_attributes": {
+            "analysis_group": "EMBL-EBI",
+            "alignment_software": "BWA",
+            "alignment_software_version": "0.5.9",
+            "analysis_software": "Hotspot",
+            "analysis_software_version": "v3"
+        },
+        "browser": {
+            "name_of_dataset_track_1": {
+                "track_type": "signal",
+                "strand": "forward",
+                "big_data_url": "http://mybigWigUrl/mytrack1.bigWig"
+            },
+            "name_of_dataset_track_2": {
+                "track_type": "signal",
+                "strand": "reverse",
+                "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
+                "format": "bigBed"
+            },
+            "name_of_dataset_track_3": {
+                "track_type": "methylation_profile",
+                "strand": "unstranded",
+                "big_data_url": "http://mybigBedurl/mytrack3.bigBed",
+                "format": "bigBed",
+                "description_url": "http://my.methodology.description.url"
+            }
         }
     }
 }

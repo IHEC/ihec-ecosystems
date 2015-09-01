@@ -21,6 +21,21 @@ schema = {
             "required": ["taxon_id", "assembly", "publishing_group", "email"]
         },
 
+        "datasets": {
+            "type": "object",
+            "properties": {
+                "sample_attributes": { "$ref": "#/definitions/sample_attributes" },
+                "experiment_attributes": { "$ref": "#/definitions/experiment_attributes" },
+                "analysis_attributes": { "$ref": "#/definitions/analysis_attributes" },
+                "browser": {
+                    "type": "object",
+                    "additionalProperties": { "$ref": "#/definitions/track" }
+                }
+            },
+
+            "required": ["sample_attributes", "experiment_attributes", "browser"]
+        },
+
         "sample_attributes": {
             "type" : "object",
             "properties": {
@@ -98,7 +113,6 @@ schema = {
             "allOf": [{ "$ref": "#/definitions/SA_with_donor" }]
         },
 
-
         "experiment_attributes": {
             "type": "object",
             "properties": {
@@ -109,7 +123,6 @@ schema = {
             },
             "required": ["experiment_type", "assay_type", "experiment_ontology_uri"]
         },
-
 
         "analysis_attributes": {
             "type": "object",
@@ -122,7 +135,6 @@ schema = {
             },
             "required": ["analysis_group", "alignment_software", "alignment_software_version", "analysis_software", "analysis_software_version"]
         },
-
 
         "track": {
             "type" : "object",
@@ -138,16 +150,10 @@ schema = {
 
     "properties": {
         "hub_description": { "$ref": "#/definitions/hub_description" },
-        "sample_attributes": { "$ref": "#/definitions/sample_attributes" },
-        "experiment_attributes": { "$ref": "#/definitions/experiment_attributes" },
-        "analysis_attributes": { "$ref": "#/definitions/analysis_attributes" },
-        "browser": {
-            "type": "object",
-            "additionalProperties": { "$ref": "#/definitions/track" }
-        }
+        "datasets": { "$ref": "#/definitions/datasets" }
     },
+    "required": ["hub_description", "datasets"]
 
-    "required": ["hub_description", "sample_attributes", "experiment_attributes", "browser"]
 }
 
 
