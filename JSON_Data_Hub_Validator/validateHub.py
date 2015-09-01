@@ -130,10 +130,9 @@ schema = {
                 "big_data_url" : {"type" : "string", "format": "uri"},
                 "description_url" : {"type": "string", "format": "uri"},
                 "track_type" : {"type" : "string", "enum": ["signal", "peak_calls", "methylation_profile", "contigs", "rpkm"]},
-                "strand" : {"type" : "string", "enum": ["forward", "reverse", "unstranded"]},
-                "format" : {"type" : "string", "enum": ["bigWig", "bigBed", "bam"]}
+                "strand" : {"type" : "string", "enum": ["forward", "reverse", "unstranded"]}
             },
-            "required": ["big_data_url", "track_type", "strand", "format"]
+            "required": ["big_data_url", "track_type", "strand"]
         }
     },
 

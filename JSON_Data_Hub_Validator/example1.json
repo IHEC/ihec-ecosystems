@@ -37,20 +37,19 @@
         "my_dataset_1": {
             "track_type" : "signal",
             "strand": "forward",
-            "big_data_url": "http://mybigWigUrl1",
-            "format": "bigBed",
+            "big_data_url": "http://mybigWigUrl/mytrack1.bigWig",
             "description_url": "http://myMethodologyDescriptionUrl"
         },
         "my_dataset_2": {
             "track_type" : "signal",
             "strand": "reverse",
-            "big_data_url": "http://myurl",
+            "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
             "format": "bigBed"
         },
         "my_dataset_2": {
-            "track_type" : "signal",
-            "strand": "reverse",
-            "big_data_url": "http://myurl",
+            "track_type" : "methylation_profile",
+            "strand": "unstranded",
+            "big_data_url": "http://mybigBedurl/mytrack3.bigBed",
             "format": "bigBed"
         }
     }
