@@ -28,7 +28,7 @@ A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/J
 }
 ```
 
-* Each of keys 'analysis_attributes', 'experiment_attributes', 'sample_attributes' points to hash containing attrubutes specified by IHEC Metadata Working group at https://docs.google.com/document/d/1F8RUNGtKMr2lBqMc6pvSyAlZmmtwZxMB3I3u7f7xIbg , with required attributes defined in https://github.com/IHEC/ihec-ecosystems/blob/master/docs/trackhub_specification.md
+* Each of keys 'analysis_attributes', 'experiment_attributes', 'sample_attributes' points to hash containing attributes specified by IHEC Metadata Working group at https://docs.google.com/document/d/1F8RUNGtKMr2lBqMc6pvSyAlZmmtwZxMB3I3u7f7xIbg , with required attributes defined in https://github.com/IHEC/ihec-ecosystems/blob/master/docs/trackhub_specification.md
 
 * 'analysis_group' is a string identifier for the centre processing the data referenced from the hub. 
 
@@ -39,10 +39,8 @@ A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/J
 
 * The 'browser' key points to a hash of each data track for the experiment. This hash is keyed by a description for the track (the 'type'). Any key is supported, however, only keys corresponding to required track types as defined in https://github.com/IHEC/ihec-ecosystems/blob/master/minimum_required_track_types.md are read. 
 
-* For each 'type' key under 'browser', the following keys are required:
-      * 'track_type' : the type key itself
+* For each 'track type' key under 'browser', the following properties can be provided:
 	  * 'big_data_url' : the actual data url
-      * A key corresponding to strand is required for strand specific data. **(Do we want to keep it mandatory all the time? Non-strand specific tracks could be labeled "unstranded")**
       * 'description_url' *(optional)*: a url with description of methods used to generate the track
 
 * If a track is stranded (forward or reverse), the opposite strand track also needs to be provided.
