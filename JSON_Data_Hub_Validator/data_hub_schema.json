@@ -80,7 +80,7 @@
                             "maximum": 90
                         },
                         { "type": "string", "enum": ["90+"] },
-                        { "type": "string", "pattern": "^\d+-\d+$" }
+                        { "type": "string", "pattern": "^\\d+-\\d+$" }
                     ]
                 },
                 "donor_age_unit" : {"type": "string", "enum": ["year", "month", "week", "day"]},
