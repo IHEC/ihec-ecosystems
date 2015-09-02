@@ -1,6 +1,6 @@
 #Data hub validation
 
-**validateHub.py** can be used as a standalone tool to validate an IHEC data hub JSON document.
+**validateHub.py** can be used as a standalone tool to validate an IHEC data hub JSON document. You'll need Python with the dependencies in requirements.txt in order to use it.
 
 **data_hub_schema.json** can be used with other external JSON validation tools.
  

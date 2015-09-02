@@ -4,25 +4,30 @@ import json
 
 
 def validateJson(jsonObj):
-    """Validate a data hub against the IHEC Data Hub Schema."""
+    """Validate a data hub against the IHEC Data Hub Schema"""
 
-    with open('data_hub_schema.json') as jsonFile:
-        data = json.load(jsonFile)
+    with open('data_hub_schema.json') as jsonStr:
+        data = json.load(jsonStr)
 
     return validate(jsonObj, data, format_checker=FormatChecker())
 
 
 def main():
-    """Validates a data hub from the command line"""
-    script, jsonFile = argv
-    jsonStr = open(jsonFile).read()
-    jsonObj = json.loads(jsonStr)
+    """Command line way to valide a data hub"""
+    script, jsonFilename = argv
+
+    with open(jsonFilename) as jsonFile:
+        jsonObj = json.load(jsonFile)
+
     try:
         validateJson(jsonObj)
+        print "Data hub is valid."
+
     except exceptions.ValidationError as e:
-        print "Error in " + "/".join(e.path) + ": " + e.message
-
-
+        print "--------------------------------------------------"
+        print "- Validation error"
+        print "--------------------------------------------------"
+        print e
 
 if __name__ == "__main__":
     main()
