@@ -1,5 +1,5 @@
 {
-    "__hide__": 0,
+    "__visibility__": "full",
     "__view__": {
         "chip": {
             "color": {
@@ -23,7 +23,9 @@
                 "peaks2": "10:10:10",
                 "normalized_signal": "70:70:32",
                 "signal": "70:70:32",
-                "thresholded": "10:10:10","peak_calls": "10:10:10"},
+                "thresholded": "10:10:10",
+                "peak_calls": "10:10:10"
+            },
             "visibility": {
                 "normalized_signal": "full",
                 "signal": "full",
@@ -106,5 +108,19 @@
                 }
             }
         }
+    },
+    'tags' : {
+        "copy_number_variation" : "cnv",
+        "cpg_coverage" : "cpg_cov",
+        "fractional_methylation_calls" : "frc_mth", 
+        "isoform_details" : "isofrm",
+        "normalized_signal" : "nrm_sig",
+        "peak_calls" : "peaks",
+        "peaks_bw" : "peaks" ,
+        "reads_per_million_miRNA_mapped" : "rpmmm",
+        "rpkm_negative_strand" : "rpkm_neg",
+        "rpkm_positive_strand" : "rpkm_pos",
+        "rpkm_unstranded" : "rpkm_uns",
+        "signal" : "sig"
     }
 }

@@ -32,7 +32,7 @@ class Config:
 		'Histone H3K27ac' : 'H3K27ac', 
 		'ChIP-Seq Input' : 'Input',
 		'smRNA-Seq' : 'smRNA',
-		'mRNA-Seq' : 'ssRNA',  
+		'mRNA-Seq' : 'mRNA',  
 		'DNA Methylation' : 'WGBS',
 		'WGS' : 'WGS',
 		"MeDIP-Seq": "MeDIP-Seq",
@@ -43,21 +43,23 @@ class Config:
 		"MeDIP-Seq": "MeDIP-Seq",
 		"MRE-Seq": "MRE-Seq",
 		"H3K9ac" : "Histone H3K9ac",
-	    "H3K27ac": "Histone H3K27ac",
-	    "H3K27me3": "Histone H3K27me3",
-	    "H3K36me3": "Histone H3K36me3",
-	    "H3K4me1": "Histone H3K4me1",
-	    "H3K4me3": "Histone H3K4me3",
-	    "H3K9me3": "Histone H3K9me3",
-	    "Input": "ChIP-Seq Input",
-	    "WGBS": "DNA Methylation",
-	    "Bisulfite-Seq" : "DNA Methylation",
-	    "WGS": "WGS",
-	    "smRNA": "smRNA-Seq",
-	    "RNA-Seq": "mRNA-Seq"
+		"H3K27ac": "Histone H3K27ac",
+		"H3K27me3": "Histone H3K27me3",
+		"H3K36me3": "Histone H3K36me3",
+		"H3K4me1": "Histone H3K4me1",
+		"H3K4me3": "Histone H3K4me3",
+		"H3K9me3": "Histone H3K9me3",
+		"Input": "ChIP-Seq Input",
+		"WGBS": "DNA Methylation",
+		"Bisulfite-Seq" : "DNA Methylation",
+		"WGS": "WGS",
+		"smRNA": "smRNA-Seq",
+		"RNA-Seq": "mRNA-Seq",
+		"mRNA": "mRNA-Seq",
 	}
 
 	def __init__(self, settings):
+		self.__settings__ = settings
 		self.__view__ = settings['__view__']
 
 

@@ -19,7 +19,6 @@ class DataHub:
 			self.experimentType = dict()
 			self.byCentre = Cmn.groupby(self.config.keys(), lambda x: self.config[x]['analysis_group'])
 
-		#self.templateManager = UCSCTemplate(annotations, settings)
 
 	def ucsc(self):
 		if self.empty: return list()
@@ -33,7 +32,7 @@ class DataHub:
 					'root' : key,
 					'label' : key,
 					'group' : self.hubTag,
-					'visibility' : 'hide' if self.settings['__hide__'] == 0 else 'full', 
+					'visibility' : self.settings['__visibility__'], 
 				}
 				subtracks = list()
 				for library in groupedTracks[key]:

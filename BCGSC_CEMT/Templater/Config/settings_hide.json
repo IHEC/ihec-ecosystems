@@ -1,5 +1,5 @@
 {
-    "__hide__": 1,
+    "__visibility__": "hide",
     "__view__": {
         "chip": {
             "color": {
@@ -16,20 +16,22 @@
                 "normalized_signal": "bigWig",
                 "signal": "bigWig",
                 "peak_calls" : "bigBed",
-                "peaks2" : "bigWig",
+                "peaks_bw" : "bigWig",
                 "thresholded": "bigWig"
             },
             "maxHeightPixels": {
-                "peaks2": "10:10:10",
+                "peaks_bw": "10:10:10",
                 "normalized_signal": "70:70:32",
                 "signal": "70:70:32",
-                "thresholded": "10:10:10","peak_calls": "10:10:10"},
+                "thresholded": "10:10:10",
+                "peak_calls": "10:10:10"
+            },
             "visibility": {
                 "normalized_signal": "full",
                 "signal": "full",
                 "thresholded": "full",
                 "peak_calls" : "dense",
-                "peaks2" : "full"
+                "peaks_bw" : "full"
             }
         },
         "except_chip": {
@@ -85,7 +87,7 @@
                     "visibility": "dense"
                 }
             },
-            "ssRNA": {
+            "mRNA": {
                 "rpkm_negative_strand": {
                     "color": "180,30,100",
                     "filetype": "bigWig",
@@ -106,5 +108,23 @@
                 }
             }
         }
+    },
+    "tags" : {
+        "copy_number_variation" : "cnv",
+        "cpg_coverage" : "cpg_cov",
+        "fractional_methylation_calls" : "frc_mth", 
+        "isoform_details" : "isofrm",
+        "normalized_signal" : "nrm_sig",
+        "peak_calls" : "peaks",
+        "peaks_bw" : "peak" ,
+        "reads_per_million_miRNA_mapped" : "rpmmm",
+        "rpkm_negative_strand" : "rpkm_neg",
+        "rpkm_positive_strand" : "rpkm_pos",
+        "rpkm_unstranded" : "rpkm_uns",
+        "signal" : "sig"
+    },
+    "ignore" : {
+        "washu" : ["peak_calls", "isoform_details"],
+        "ucsc" : ["peak_calls"]
     }
 }

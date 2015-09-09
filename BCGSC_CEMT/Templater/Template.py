@@ -28,18 +28,18 @@ class Template:
 				raise NotImplementedError(biomaterial_type)
 
 		description_sanitized = Template.sanitize(description)
-
+		assay = Config.assays[arg['experiment_attributes']['experiment_type']]
 		return {
 				'analysis_group' : arg['analysis_group'],
 				'description' : description_sanitized,
-				'assay' : Config.assays[arg['experiment']],
+				'assay' : assay,
 				'attributes' : {k: Template.sanitize(arg['sample_attributes'][k]) for k in arg['sample_attributes'] if k in annotations},
 				'subgroups' : {
 					'analysis_group' : Template.sanitize(arg['analysis_group']),
 					'track_type' : Template.sanitize(track_type),
 					'source' : description_sanitized,
 					'sample_id' : Template.sanitize(arg['sample_attributes']['sample_id']),
-					'assay' : Template.sanitize(Config.assays[arg['experiment']]),
+					'assay' : Template.sanitize(assay),
 				}
 			}
 
@@ -47,13 +47,21 @@ class Template:
 class WashUTemplate:
 	hubline = '''{filetype}	{bigDataUrl}	{experimentId}__{sampleId}__{description}__{assay}__{trackType}	show	center:{center},sample:{sampleId},assay:{assay}	colorpositive:{color_positive},colornegative:{color_negative},height:{pixels}'''
 	def __init__(self, annotations, view):
+		self.browser_name = 'washu'
 		self.annotations = annotations
 		self.tagSoup = defaultdict(list)
 		self.additional_metadata = defaultdict(list)
 		self.settings = Config(view)
+		self.typesToTags = view['tags']
+		self.ignore = view['ignore'][self.browser_name]
+
+	def hotpatch(self, arg):
+		""" hook for any last minute edits... """
+		return arg 
+
 
 	def subtrackTemplate(self, arg):
-		return WashUTemplate.hubline.format(**arg)
+		return self.hotpatch(WashUTemplate.hubline.format(**arg))
 
 	def tags(self):
 		return {
@@ -64,46 +72,43 @@ class WashUTemplate:
 			},
 			"show_terms": {"sample": sorted(list(set(self.tagSoup["sample"]))), "assay": sorted(list(set(self.tagSoup["assay"]))), "center" : sorted(list(set(self.tagSoup["center"])))}
 		}
-		#return '\n'.join(['metadata\t{0}\t{1}'.format(k, ','.join(sorted(list(set(self.tagSoup[k]))))) for k in self.tagSoup])
 
 	def subtrackBlocks(self, db, library, parent = None):
 		tracks = db[library]
 		subtracks = list()
 		for track_type in tracks['browser']:
-			customizable = Template.customizable(tracks, track_type, self.annotations)
-			metadata = { 
-						'experimentId' : library,
-						'trackType' : track_type,
-						'trackTag' : tracks['browser'][track_type]['tag'],
-						'bigDataUrl' : tracks['browser'][track_type]['big_data_url'],
-						'sampleId' : tracks['sample_attributes']['sample_id'],
-						'description' : customizable['description'].replace(':','__'),
-						'assay' : customizable['assay'],
-						'attributes' : customizable['attributes'],
-						'subgroups' : customizable['subgroups'],
-						'center' : customizable['subgroups']['analysis_group'],
-			}
-			if parent: metadata['parent'] = parent
-			metadata.update(self.settings.view(metadata['assay'], metadata['trackType']))
-			metadata['color_positive'] = Template.rgb2hex(metadata['color'].split(','))
-			metadata['color_negative'] = Template.rgb2hex(metadata['color'].split(','))
-			metadata['pixels'] = metadata['maxHeightPixels'].split(':')[0]
-			self.tagSoup['center'].append(metadata['center'])
-			self.tagSoup['sample'].append(metadata['sampleId'])
-			self.tagSoup['assay'].append(metadata['assay'])
+			if not track_type in self.ignore:
+				customizable = Template.customizable(tracks, track_type, self.annotations)
+				metadata = { 
+							'experimentId' : library,
+							'trackType' : track_type,
+							'trackTag' : self.typesToTags[track_type],
+							'bigDataUrl' : tracks['browser'][track_type]['big_data_url'],
+							'sampleId' : tracks['sample_attributes']['sample_id'],
+							'description' : customizable['description'].replace(':','__'),
+							'assay' : customizable['assay'],
+							'attributes' : customizable['attributes'],
+							'subgroups' : customizable['subgroups'],
+							'center' : customizable['subgroups']['analysis_group'],
+				}
+				if parent: metadata['parent'] = parent
+				metadata.update(self.settings.view(metadata['assay'], metadata['trackType']))
+				metadata['color_positive'] = Template.rgb2hex(metadata['color'].split(','))
+				metadata['color_negative'] = Template.rgb2hex(metadata['color'].split(','))
+				metadata['pixels'] = metadata['maxHeightPixels'].split(':')[0]
+				self.tagSoup['center'].append(metadata['center'])
+				self.tagSoup['sample'].append(metadata['sampleId'])
+				self.tagSoup['assay'].append(metadata['assay'])
 
-			subtracks.append({
-			    'type':metadata['filetype'],
-			    'url':metadata['bigDataUrl'],
-			    'name':'{experimentId}__{sampleId}__{description}__{assay}__{trackType}'.format(**metadata),
-			    'mode':"show",
-			    'colorpositive':Template.rgb2hex(metadata['color'].split(',')),
-			    'colornegative':Template.rgb2hex(metadata['color'].split(',')),
-			    'height':50,
-			    #"metadata" : {"sample":["Sample"],"assay":["Assay"], "center":["Center"]},
-			})
-
-			#subtracks.append(self.subtrackTemplate(metadata))
+				subtracks.append({
+				    'type':metadata['filetype'],
+				    'url':metadata['bigDataUrl'],
+				    'name':'{experimentId}__{sampleId}__{description}__{assay}__{trackType}'.format(**metadata),
+				    'mode':"show",
+				    'colorpositive':Template.rgb2hex(metadata['color'].split(',')),
+				    'colornegative':Template.rgb2hex(metadata['color'].split(',')),
+				    'height':50,
+				})
 		return subtracks 
 
 
@@ -126,20 +131,15 @@ class UCSCTemplate(Template):
 						|filterComposite dimA dimB dimC
 						|dragAndDrop subTracks
 						|type bigWig\n''')
-		#Cmn.log(arg)
 		arg['subgroupSoup'] = self.subgroup_soup(arg['root'], subgroupKeys)
-		arg['sortOrder'] = ' '.join('{0}=-'.format(k) for k in subgroupKeys) 
-		#Cmn.log(str(arg['subgroupSoup']))
-		return template.format(**arg)
-
-
+		arg['sortOrder'] = ' '.join('{0}={1}'.format(k, self.sortOrderBySubgroup.get(k, '-')) for k in subgroupKeys) 
+		return self.hotpatch(template.format(**arg))
 
 	def annotate(self, arg):
 		self.additional_metadata[arg['parent']].append(arg['attributes']) 
 		return ' '.join(['{0}={1}'.format(k, arg['attributes'][k]) for k in arg['attributes']])
 
 	def subgroups(self, arg):
-		#Cmn.log(arg)
 		self.subgroupSoup[arg['parent']].append(arg['subgroups'])
 		return ' '.join([ '{0}={1}'.format(k, v) for k, v in arg['subgroups'].items()])
 
@@ -167,39 +167,46 @@ class UCSCTemplate(Template):
 			'priority 1.0', 
 			'autoScale on', 
 			'color {color}', 
-			'subGroups  {0}'.format(self.subgroups(arg)) if 'parent' in arg else '',
+			'subGroups {0}'.format(self.subgroups(arg)) if 'parent' in arg else '',
 			'metadata {0}'.format(self.annotate(arg)) if 'parent' in arg else ''
 		])]) + '\n\n'
 		
-		return tags.format(**arg)
-
+		return self.hotpatch(tags.format(**arg))
 	
 	def __init__(self, annotations, view):
+		self.browser_name = 'ucsc'
 		self.annotations = annotations
 		self.subgroupSoup = defaultdict(list)
 		self.additional_metadata = defaultdict(list)
 		self.settings = Config(view)
-
+		self.typesToTags = view['tags']
+		self.ignore = view['ignore'][self.browser_name]
+		self.sortOrderBySubgroup = view.get("sorting", dict())
 
 	def subtrackBlocks(self, db, library, parent = None):
 		tracks = db[library]
 		subtracks = list()
 		for track_type in tracks['browser']:
-			customizable = Template.customizable(tracks, track_type, self.annotations)
-			metadata = { 
-						'experimentId' : library,
-						'trackType' : track_type,
-						'trackTag' : tracks['browser'][track_type]['tag'],
-						'bigDataUrl' : tracks['browser'][track_type]['big_data_url'],
-						'sampleId' : tracks['sample_attributes']['sample_id'],
-						'description' : customizable['description'],
-						'assay' : customizable['assay'],
-						'attributes' : customizable['attributes'],
-						'subgroups' : customizable['subgroups'],
-						'analysis_group' : customizable['analysis_group'],
-			}
-			if parent: metadata['parent'] = parent
-			metadata.update(self.settings.view(metadata['assay'], metadata['trackType']))
-			subtracks.append(self.subtrackTemplate(metadata))
-		return subtracks 
+			if not track_type in self.ignore:
+				customizable = Template.customizable(tracks, track_type, self.annotations)
+				metadata = { 
+							'experimentId' : library,
+							'trackType' : track_type,
+							'trackTag' : self.typesToTags[track_type],
+							'bigDataUrl' : tracks['browser'][track_type]['big_data_url'],
+							'sampleId' : tracks['sample_attributes']['sample_id'],
+							'description' : customizable['description'],
+							'assay' : customizable['assay'],
+							'attributes' : customizable['attributes'],
+							'subgroups' : customizable['subgroups'],
+							'analysis_group' : customizable['analysis_group'],
+				}
+				if parent: metadata['parent'] = parent
+				metadata.update(self.settings.view(metadata['assay'], metadata['trackType']))
+				subtracks.append(self.subtrackTemplate(metadata))
+		return subtracks
+
+	def hotpatch(self, arg):
+		""" hook for any last minute edits... """
+		return arg 
 
