@@ -1,0 +1,43 @@
+{
+    "datasets": {
+        "A34002": {
+            "analysis_attributes": {},
+            "analysis_group": "CEMT",
+            "browser": {
+                "cpg_coverage": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/WGBS/A34002.3_lanes_dupsFlagged.q5.f0.5mC.CpG.coverage.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
+                "fractional_methylation_calls": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/WGBS/A34002.3_lanes_dupsFlagged.q5.f0.5mC.CpG.fractional.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                }
+            },
+            "experiment": "DNA Methylation",
+            "experiment_attributes": {
+                "experiment_type": "DNA Methylation"
+            },
+            "sample_attributes": {
+                "biomaterial_provider": "Aparicio Lab",
+                "biomaterial_type": "Cell Line",
+                "cell_line_name": "MCF10A",
+                "collection_method": "flash frozen",
+                "differentiation_method": "N/A",
+                "differentiation_stage": "N/A",
+                "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
+                "line": "MCF10A",
+                "lineage": "Mammary gland epithelia",
+                "sample_id": "CEMT0007",
+                "sex": "Female",
+                "tissue_depot": "Mammary gland-Breast"
+            }
+        }
+    },
+    "hub_description": {
+        "assembly": "hg19",
+        "email": "info@epigenomes.ca",
+        "publishing_group": "CEMT",
+        "taxon_id": 9606
+    }
+}

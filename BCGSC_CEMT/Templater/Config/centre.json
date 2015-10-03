@@ -1,0 +1,8 @@
+{
+    "tag" : "CEMT",
+    "contact": "edcc@bcgsc.ca",
+    "db": "hg19",
+    "hub": "EDCC_BCGSC",
+    "longLabel": "Epigenomic Data tracks from BCGSC, Vancouver",
+    "shortLabel": "CEMT (CEEHRC)"
+}
