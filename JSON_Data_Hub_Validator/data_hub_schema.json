@@ -45,7 +45,7 @@
                 }
             },
 
-            "required": ["sample_attributes", "experiment_attributes", "analysis_attributes", "browser"]
+            "required": ["sample_attributes", "experiment_attributes", "browser"]
         },
 
         "sample_attributes": {
@@ -163,8 +163,11 @@
         "track": {
             "type" : "object",
             "properties" : {
-                "big_data_url" : {"type" : "string", "format": "uri"},
-                "description_url" : {"type": "string", "format": "uri"}
+                "big_data_url": {"type" : "string", "format": "uri"},
+                "description_url": {"type": "string", "format": "uri"},
+                "md5sum": {"type": "string", "format": "md5"},
+                "is_main": {"type": "boolean"},
+                "subtype": {"type": "string"}
             },
             "required": ["big_data_url"]
         }
