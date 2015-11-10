@@ -2,7 +2,7 @@
     "hub_description": {
         "taxon_id": 9606,
         "assembly": "hg19",
-        "publishing_group": "Blueprint",
+        "publishing_group": "BluePrint",
         "email": "info@epigenomesportal.ca"
     },
 
