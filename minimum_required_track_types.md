@@ -6,42 +6,56 @@ This document aims at describing a minimum set of analysis tracks that should be
 
 ### ChIP-Seq Histone (H3K*):
 
-* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
-* **Peak calls** (Track type: "peak_calls", Format: "bigBed")
+* Signal/Coverage
+  - Track type: "signal", Format: "bigWig"
+* Peak calls
+  - Track type: "peak_calls", Format: "bigBed"
   
 
 ### ChIP-Seq Input:
   
-* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
+* Signal/Coverage
+  - Track type: "signal", Format: "bigWig"
   
-
 ### DNA Methylation:
-  
-* **Fractional Methylation Calls**  (Track type: "methylation_profile")
-*(alternatively some way of reporting #Cs vs #Ts on every CpG)*
 
-* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
+* Fractional Methylation Calls (needs to be formally specified, intended as a way of reporting #Cs vs #Ts on every CpG, currently a track with values between 0-10)
+  - Track type: "methylation_profile", Format: bigWig 
 
-  
+* Signal/Coverage (raw coverage over CpGs as a measure of confidence in Fractional Methtylation Calls)
+
+  - Track type: "signal", Format: "bigWig"
+
 ### mRNA / total RNA :
 
-* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
-or
-* **rpkm values** (optional?) (Track type: "rpkm", Format: "bigWig")
-*(need agreement on how rpkm are computed)*
+* Expression
+ 
+#### For strand specific: 
+  - [Computation needs to be standardized] rpkm_positive_strand 
+  - [Computation needs to be standardized] rpkm_negative_strand
 
-  
+#### For single stranded:
 
+  - [Computation needs to be standardized] rpkm_unstranded
 
 ##Non-core Assays
   
 ### smRNA-Seq: 
-  
-* **Signal/Coverage** (Track type: "signal", Format: "bigWig")
-or
-* **reads per million miRNA mapped** (optional?) (Track type: "reads_per_million_miRNA_mapped", Format: "bigWig")
 
+* Expression
+
+  - [Computation needs to be standardized] reads per million miRNA mapped** 
+  
+    * Track type: "reads_per_million_miRNA_mapped", Format: "bigWig"
+
+  - [Optional] Signal/Coverage
+  
+    * Track type: "signal", Format: "bigWig"
 
 ### Whole Genome Sequencing:
+
+* [Optional] Copy Number Variation
+ 
+  - Copy number variation
   
-* **Copy number variation** (Track type: "copy_number_variation", Format: "vcf")
+    * Track type: "copy_number_variation", Format: "bigWig"
