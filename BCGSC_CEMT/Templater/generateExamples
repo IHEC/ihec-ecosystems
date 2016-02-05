@@ -1,0 +1,12 @@
+#!/bin/bash
+
+WWW=$1
+mkdir -p $1/hg19
+ 
+apy __main__.py -ucsc -config:./examples/example.ChIP.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:ChIP
+apy __main__.py -ucsc -config:./examples/example.mRNA.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:mRNA
+apy __main__.py -ucsc -config:./examples/example.smRNA.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:smRNA
+apy __main__.py -ucsc -config:./examples/example.WGS.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:WGS
+apy __main__.py -ucsc -config:./examples/example.DNA_Methylation.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:DNA_Meth
+
+ 
