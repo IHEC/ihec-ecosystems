@@ -7,10 +7,15 @@ run `./generateExamples $WWW` to generate example hubs. WWW is path to where hub
 ./examples/example.DNA_Methylation.json  is an example of using lists for `big_data_url` field
 
 General usage is like:
+
     apy __main__.py -ucsc -config:./examples/example.ChIP.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:ChIP
+
     apy __main__.py -ucsc -config:./examples/example.mRNA.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:mRNA
+
     apy __main__.py -ucsc -config:./examples/example.smRNA.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:smRNA
+
     apy __main__.py -ucsc -config:./examples/example.WGS.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:WGS
+
     apy __main__.py -ucsc -config:./examples/example.DNA_Methylation.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:DNA_Meth
 
 -settings:<json> is the visualization settings.
