@@ -123,5 +123,8 @@
         "rpkm_unstranded" : "rpkm_uns",
         "signal" : "sig"
     },
-    "ignore" : { "ucsc": [], "washu" : []}
+    "ignore" : {
+        "washu" : ["peak_calls", "isoform_details"],
+        "ucsc" : ["peak_calls", "normalized_signal"]
+    }
 }

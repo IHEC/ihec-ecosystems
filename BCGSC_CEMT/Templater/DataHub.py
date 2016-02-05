@@ -5,8 +5,9 @@ from Config import Config, Parser
 class DataHub:
 	header = ['__header__']
 	def __init__(self, config, hubTag, byCentre, annotations, settings, selected=None):
-		#Cmn.wait(str(selected))
-		db = Json.loadf(config)['datasets']
+		db = Json.loadf(config)
+		if 'datasets' in db:
+			db = db['datasets']
 		self.annotations = annotations
 		self.config = db if not selected else {experiment : db[experiment] for experiment in db if ( experiment in selected and not (experiment in DataHub.header))}
 		self.empty = not self.config.keys()
@@ -76,7 +77,10 @@ class DataHub:
 			annotations = Json.loadf(args['-annotations'])
 			hubAttributes = Json.loadf(args['-hub'])
 			settings = Json.loadf(args['-settings'])
-			if verbose: Cmn.log(annotations)
+			if args.has('-hide'):
+				settings['__visibilty__'] = 'hide'
+			if verbose:
+				Cmn.log(annotations)
 			hub = DataHub(args['-config'], hubAttributes['tag'], args.has('-by-centre'), annotations, settings, args.args())
 			if args.has('-ucsc'):
 				tracks = hub.ucsc()
