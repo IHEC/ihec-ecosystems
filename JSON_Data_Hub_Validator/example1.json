@@ -2,25 +2,80 @@
     "hub_description": {
         "taxon_id": 9606,
         "assembly": "hg19",
-        "publishing_group": "BluePrint",
+        "publishing_group": "Blueprint",
         "email": "info@epigenomesportal.ca"
     },
 
+    "samples": {
+        "sample_id_1": {
+            "biomaterial_type": "Cell Line",
+            "sample_id": "SAMPLE01",
+            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "molecule": "polyA RNA",
+            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "line": "BL-2",
+            "lineage": "unknown",
+            "differenciate_stage": "B_cell",
+            "medium": "RPMI_1640_+_10%FBS_+_1%_Glutamine",
+            "sex": "Male"
+        },
+        "sample_id_2": {
+            "biomaterial_type": "Primary Tissue",
+            "sample_id": "SAMPLE02",
+            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "molecule": "polyA RNA",
+            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "donor_id" : "Donor1",
+            "donor_age" : "30-40",
+            "donor_age_unit" : "year",
+            "donor_life_stage": "adult",
+            "donor_health_status" : "Healthy",
+            "donor_sex" : "Male",
+            "donor_ethnicity" : "Caucasian",
+            "tissue_type": "Blood",
+            "tissue_depot": "Venous blood"
+        },
+        "sample_id_3": {
+            "biomaterial_type": "Primary Tissue",
+            "sample_id": "SAMPLE03",
+            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "molecule": "polyA RNA",
+            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "donor_id" : "Donor1",
+            "donor_age" : "30-40",
+            "donor_age_unit" : "year",
+            "donor_life_stage": "adult",
+            "donor_health_status" : "Healthy",
+            "donor_sex" : "Male",
+            "donor_ethnicity" : "Caucasian",
+            "tissue_type": "Blood",
+            "tissue_depot": "Venous blood"
+        },
+        "sample_id_4": {
+            "biomaterial_type": "Primary Tissue",
+            "sample_id": "SAMPLE04",
+            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "molecule": "polyA RNA",
+            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "donor_id" : "Donor1",
+            "donor_age" : "30-40",
+            "donor_age_unit" : "year",
+            "donor_life_stage": "adult",
+            "donor_health_status" : "Healthy",
+            "donor_sex" : "Male",
+            "donor_ethnicity" : "Caucasian",
+            "tissue_type": "Blood",
+            "tissue_depot": "Venous blood"
+        }
+    },
+
     "datasets": {
-        "dataset_1_experiment_1": {
-            "sample_attributes": {
-                "biomaterial_type": "Cell Line",
-                "sample_id": "ERS333897",
-                "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
-                "molecule": "polyA RNA",
-                "disease": "Sporadic_Burkitt_lymphoma",
-                "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
-                "line": "BL-2",
-                "lineage": "unknown",
-                "differenciate_stage": "B_cell",
-                "medium": "RPMI_1640_+_10%FBS_+_1%_Glutamine",
-                "sex": "Male"
-            },
+        "experiment_id_1": {
+            "sample_id": "sample_id_1",
             "experiment_attributes": {
                 "experiment_type": "DNA Methylation",
                 "assay_type": "WGB-Seq",
@@ -35,39 +90,32 @@
                 "analysis_software_version": "v3"
             },
             "browser": {
-                "methylation_profile": {
-                    "big_data_url": "http://mybigWigUrl/mytrack1.bigWig",
-                    "md5sum": "1a7bdc31d6837635a70cbb5d5b318034"
-                },
-                "signal_forward": {
-                    "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
-                    "md5sum": "1a7bdc31d6837635a70cbb5d5b318035"
-                },
-                "signal_reverse": {
-                    "big_data_url": "http://mybigBedurl/mytrack3.bigBed",
-                    "description_url": "http://my.methodology.description.url",
-                    "md5sum": "1a7bdc31d6837635a70cbb5d5b318036"
-                }
+                "methylation_profile": [
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318034"
+                    }
+                ],
+                "signal_forward": [
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318035"
+                    }
+                ],
+                "signal_reverse": [
+                     {
+                        "big_data_url": "http://.../mytrack.bigBed",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318036"
+                    }
+                ]
             }
         },
-        "dataset_1_experiment_2": {
-            "sample_attributes": {
-                "biomaterial_type": "Primary Tissue",
-                "sample_id": "ERS333897",
-                "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
-                "molecule": "polyA RNA",
-                "disease": "Sporadic_Burkitt_lymphoma",
-                "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
-                "donor_id" : "Donor1",
-                "donor_age" : "30-40",
-                "donor_age_unit" : "year",
-                "donor_life_stage": "adult",
-                "donor_health_status" : "Healthy",
-                "donor_sex" : "Male",
-                "donor_ethnicity" : "Caucasian",
-                "tissue_type": "Blood",
-                "tissue_depot": "Venous blood"
-            },
+
+        "experiment_id_2": {
+            "sample_id": "sample_id_2",
             "experiment_attributes": {
                 "experiment_type": "H3K4me1",
                 "assay_type": "ChIP-Seq",
@@ -82,22 +130,82 @@
                 "analysis_software_version": "v3"
             },
             "browser": {
-                "signal": {
-                    "big_data_url": "http://mybigWigUrl/mytrack1.bigWig",
-                    "md5sum": "1a7bdc31d6837635a70cbb5d5b318037"
-                },
-                "peak_calls": {
-                    "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
-                    "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
-                    "is_main": true,
-                    "subtype": "pooled peaks"
-                },
-                "peak_calls": {
-                    "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
-                    "md5sum": "1a7bdc31d6837635a70cbb5d5b318039",
-                    "is_main": false,
-                    "subtype": "IDR conservative peaks"
-                }
+                "signal": [
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318037"
+                    }
+                ],
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
+                        "subtype": "pooled peaks"
+                    },
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318039",
+                        "subtype": "IDR conservative peaks"
+                    }
+                ]
+            }
+        },
+
+        "experiment_id_3": {
+            "sample_id": ["sample_id_3", "sample_id_4"],
+            "experiment_attributes": {
+                "experiment_type": "H3K4me1",
+                "assay_type": "ChIP-Seq",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001858",
+                "reference_registry_id": "EGAX00001084792"
+            },
+            "analysis_attributes": {
+                "analysis_group": "EMBL-EBI",
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.9",
+                "analysis_software": "Hotspot",
+                "analysis_software_version": "v3"
+            },
+            "browser": {
+                "signal": [
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318037",
+                        "subtype": "Whole signal"
+                    },
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318037",
+                        "subtype": "Sample-specific signal",
+                        "sample_source": "sample_id_3"
+
+                    },
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318037",
+                        "sample_source": "sample_id_4"
+                    }
+                ],
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
+                        "subtype": "pooled peaks"
+                    },
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318039",
+                        "subtype": "IDR conservative peaks"
+                    }
+                ]
             }
         }
     }

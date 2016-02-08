@@ -13,7 +13,7 @@
                 "assembly": {"type": "string", "description": "Assembly version as it can be found on the UCSC Genome Browser site. (e.g. hg19, hg38, mm10)"},
                 "publishing_group": {
                     "type": "string",
-                    "enum": ["BluePrint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap"],
+                    "enum": ["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap"],
                     "description": "The IHEC consortia publishing this data hub."
                 },
                 "email": {"type": "string", "format": "email", "description": "Write-to address for enquiries about the data hub."}
@@ -24,7 +24,16 @@
         "datasets": {
             "type": "object",
             "properties": {
-                "sample_attributes": { "$ref": "#/definitions/sample_attributes" },
+                "sample_id": {
+                    "oneOf": [
+                        {"type": "string", "description": "When the experiment belongs to a single sample, put one sample ID here." },
+                        {
+                            "type": "array",
+                            "description": "When the experiment belongs to multiple samples, put a list of IDs here.",
+                            "items": { "type": "string" }
+                        }
+                    ]
+                },
                 "experiment_attributes": { "$ref": "#/definitions/experiment_attributes" },
                 "analysis_attributes": { "$ref": "#/definitions/analysis_attributes" },
                 "browser": {
@@ -49,10 +58,10 @@
                 }
             },
 
-            "required": ["sample_attributes", "experiment_attributes", "browser"]
+            "required": ["experiment_attributes", "browser"]
         },
 
-        "sample_attributes": {
+        "samples": {
             "type" : "object",
             "properties": {
                 "sample_id" : {"type": "string", "description": "An identifying designation for the biological sample."},
@@ -169,21 +178,26 @@
         },
 
         "track": {
-            "type" : "object",
-            "properties" : {
-                "big_data_url": {"type" : "string", "format": "uri", "description": "The URL from where this dataset track can be obtained online."},
-                "description_url": {"type": "string", "format": "uri", "description": "The URL of the document giving more information about this dataset track."},
-                "md5sum": {"type": "string", "format": "md5", "description": "The checksum for this track."},
-                "is_main": {"type": "boolean", "description": "If there are multiple files for this track type, put this flag to True for the track that best represent this dataset."},
-                "subtype": {"type": "string", "description": "If there are multiple files for this track type, use this free text field to put more information about what kind of information this track represents."}
-            },
-            "required": ["big_data_url", "md5sum"]
+            "type": "array",
+            "description": "A list of tracks that belong to this type. The first track is considered as the main track representing this type.",
+            "items": {
+                "type" : "object",
+                "properties" : {
+                    "big_data_url": {"type" : "string", "format": "uri", "description": "The URL from where this dataset track can be obtained online."},
+                    "description_url": {"type": "string", "format": "uri", "description": "The URL of the document giving more information about this dataset track."},
+                    "md5sum": {"type": "string", "format": "md5", "description": "The checksum for this track."},
+                    "subtype": {"type": "string", "description": "If there are multiple files for this track type, use this free text field to put more information about what kind of information this track represents."},
+                    "sample_source": {"type": "string", "description": "Use this field if the track belongs to only one sample of a merged dataset."}
+                },
+                "required": ["big_data_url", "md5sum"]
+            }
         }
     },
 
     "properties": {
         "hub_description": { "$ref": "#/definitions/hub_description" },
-        "datasets": { "type": "object", "additionalProperties": {"$ref": "#/definitions/datasets"} }
+        "datasets": { "type": "object", "additionalProperties": {"$ref": "#/definitions/datasets"} },
+        "samples": { "type": "object", "additionalProperties": {"$ref": "#/definitions/samples"} }
     },
     "required": ["hub_description", "datasets"]
 

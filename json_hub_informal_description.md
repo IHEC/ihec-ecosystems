@@ -47,15 +47,21 @@ A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/J
 
 * For one experiment, a track should be unique for a type/strand combination. (e.g. not having two peak files, or two coverage tracks on the forward strand)
 
+* If a multiple tracks are of the same track type, the first track in the list shall be the "main" one, meaning it is the one that best represents this sample for this track type. 
+
 ```
 "browser": {
-	"signal_forward": {
-		"big_data_url": "http://mybigWigUrl/mytrack1.bigWig",
-		"description_url": "..."
-	},
-	"signal_reverse": {
-		"big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
-	}
+	"signal_forward": [
+	    {
+            "big_data_url": "http://mybigWigUrl/mytrack1.bigWig",
+            "description_url": "..."
+        },
+    ],
+	"signal_reverse": [
+	    {
+		    "big_data_url": "http://mybigWigUrl/mytrack2.bigWig",
+	    }
+	]
 }
 ```
 
