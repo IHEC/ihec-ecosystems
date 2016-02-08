@@ -1,11 +1,16 @@
 {
     "datasets": {
         "A34002": {
-            "analysis_attributes": {},
+            "analysis_attributes": {
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
             "analysis_group": "CEMT",
             "browser": {
                 "cpg_coverage": {
-                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/WGBS/A34002.3_lanes_dupsFlagged.q5.f0.5mC.CpG.coverage.bw",
+                    "big_data_url": [
+			"http://www.epigenomes.ca/data/CEMT/CEMT_7/WGBS/A34002.3_lanes_dupsFlagged.q5.f0.5mC.CpG.coverage.bw",
+			"__WILL_BE_IGNORED__"
+			],
                     "description_url": "http://www.epigenomes.ca/methods.html"
                 },
                 "fractional_methylation_calls": {
@@ -25,6 +30,7 @@
                 "differentiation_method": "N/A",
                 "differentiation_stage": "N/A",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "Mammary gland epithelia",
@@ -36,7 +42,7 @@
     },
     "hub_description": {
         "assembly": "hg19",
-        "email": "info@epigenomes.ca",
+        "email": "edcc@bcgsc.ca",
         "publishing_group": "CEMT",
         "taxon_id": 9606
     }

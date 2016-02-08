@@ -43,6 +43,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -57,7 +58,7 @@
     },
     "hub_description": {
         "assembly": "hg19",
-        "email": "info@epigenomes.ca",
+        "email": "edcc@bcgsc.ca",
         "publishing_group": "CEMT",
         "taxon_id": 9606
     }

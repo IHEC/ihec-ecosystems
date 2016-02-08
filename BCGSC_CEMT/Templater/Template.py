@@ -4,6 +4,14 @@ from collections import defaultdict
 
 class Template:
 	@staticmethod
+	def extractUrl(m, track_type):
+		url_or_urllist = m['browser'][track_type]['big_data_url']
+		if isinstance(url_or_urllist, list):
+			return url_or_urllist[0]
+		else:
+			return url_or_urllist
+
+	@staticmethod
 	def rgb2hex(arg):
 		Cmn.log(arg)
 		return '#%02x%02x%02x' % (int(arg[0]), int(arg[1]), int(arg[2]))
@@ -83,7 +91,7 @@ class WashUTemplate:
 							'experimentId' : library,
 							'trackType' : track_type,
 							'trackTag' : self.typesToTags[track_type],
-							'bigDataUrl' : tracks['browser'][track_type]['big_data_url'],
+							'bigDataUrl' : Template.extractUrl(tracks, track_type),
 							'sampleId' : tracks['sample_attributes']['sample_id'],
 							'description' : customizable['description'].replace(':','__'),
 							'assay' : customizable['assay'],
@@ -186,6 +194,8 @@ class UCSCTemplate(Template):
 	def subtrackBlocks(self, db, library, parent = None):
 		tracks = db[library]
 		subtracks = list()
+
+
 		for track_type in tracks['browser']:
 			if not track_type in self.ignore:
 				customizable = Template.customizable(tracks, track_type, self.annotations)
@@ -193,7 +203,7 @@ class UCSCTemplate(Template):
 							'experimentId' : library,
 							'trackType' : track_type,
 							'trackTag' : self.typesToTags[track_type],
-							'bigDataUrl' : tracks['browser'][track_type]['big_data_url'],
+							'bigDataUrl' : Template.extractUrl(tracks, track_type),
 							'sampleId' : tracks['sample_attributes']['sample_id'],
 							'description' : customizable['description'],
 							'assay' : customizable['assay'],

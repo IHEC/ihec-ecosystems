@@ -6,6 +6,10 @@
             },
             "analysis_group": "CEMT",
             "browser": {
+                "normalized_signal": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me1/FindER.0.9.3b/A26685.H3K4me1.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_ACTTGA.pctl_0.1.signal.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
                 "peak_calls": {
                     "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me1/FindER.0.9.3b/A26685.H3K4me1.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_ACTTGA.pctl_0.1.FDR_0.05.bb",
                     "description_url": "http://www.epigenomes.ca/methods.html"
@@ -40,6 +44,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -57,6 +62,10 @@
             },
             "analysis_group": "CEMT",
             "browser": {
+                "normalized_signal": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27me3/FindER.0.9.3b/A26688.H3K27me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_GGCTAC.pctl_0.1.signal.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
                 "peak_calls": {
                     "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27me3/FindER.0.9.3b/A26688.H3K27me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_GGCTAC.pctl_0.1.FDR_0.05.bb",
                     "description_url": "http://www.epigenomes.ca/methods.html"
@@ -91,6 +100,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -108,6 +118,10 @@
             },
             "analysis_group": "CEMT",
             "browser": {
+                "normalized_signal": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K36me3/FindER.0.9.3b/A26689.H3K36me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_CTTGTA.pctl_0.1.signal.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
                 "peak_calls": {
                     "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K36me3/FindER.0.9.3b/A26689.H3K36me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_CTTGTA.pctl_0.1.FDR_0.05.bb",
                     "description_url": "http://www.epigenomes.ca/methods.html"
@@ -142,6 +156,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -159,6 +174,10 @@
             },
             "analysis_group": "CEMT",
             "browser": {
+                "normalized_signal": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27ac/FindER.0.9.3b/A26690.H3K27ac.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_GCCGCG.pctl_0.1.signal.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
                 "peak_calls": {
                     "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27ac/FindER.0.9.3b/A26690.H3K27ac.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_GCCGCG.pctl_0.1.FDR_0.05.bb",
                     "description_url": "http://www.epigenomes.ca/methods.html"
@@ -193,6 +212,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -210,6 +230,10 @@
             },
             "analysis_group": "CEMT",
             "browser": {
+                "normalized_signal": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/Input/FindER.0.9.3b/A26691.Input.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_TCATTC.pctl_0.1.signal.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
                 "peak_calls": {
                     "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/Input/FindER.0.9.3b/A26691.Input.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_TCATTC.pctl_0.1.FDR_0.05.bb",
                     "description_url": "http://www.epigenomes.ca/methods.html"
@@ -235,6 +259,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -252,6 +277,10 @@
             },
             "analysis_group": "CEMT",
             "browser": {
+                "normalized_signal": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me3/FindER.0.9.3b/A28471.H3K4me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_ATCACG.pctl_0.1.signal.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
                 "peak_calls": {
                     "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me3/FindER.0.9.3b/A28471.H3K4me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_ATCACG.pctl_0.1.FDR_0.05.bb",
                     "description_url": "http://www.epigenomes.ca/methods.html"
@@ -286,6 +315,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -303,6 +333,10 @@
             },
             "analysis_group": "CEMT",
             "browser": {
+                "normalized_signal": {
+                    "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K9me3/FindER.0.9.3b/A28472.H3K9me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_CGATGT.pctl_0.1.signal.bw",
+                    "description_url": "http://www.epigenomes.ca/methods.html"
+                },
                 "peak_calls": {
                     "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K9me3/FindER.0.9.3b/A28472.H3K9me3.IX1239.134224.75nt.hg19a.bwa-0.5.7.D2B0LACXX_2_CGATGT.pctl_0.1.FDR_0.05.bb",
                     "description_url": "http://www.epigenomes.ca/methods.html"
@@ -337,6 +371,7 @@
                 "differentiation_method": "NA",
                 "differentiation_stage": "NA",
                 "disease": "Mammary gland-Breast Fibrocystic Disease",
+                "epirr_id": "IHECRE00000001.2",
                 "ihec_reference_epigenome_identifier": "IHECRE00000001.2",
                 "line": "MCF10A",
                 "lineage": "mammary gland epithelia",
@@ -351,7 +386,7 @@
     },
     "hub_description": {
         "assembly": "hg19",
-        "email": "info@epigenomes.ca",
+        "email": "edcc@bcgsc.ca",
         "publishing_group": "CEMT",
         "taxon_id": 9606
     }

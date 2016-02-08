@@ -1,39 +1,49 @@
 json data sharing specification and visualization templating
 ============================================================
-usage:
-
-    python __main__.py -ucsc -config:./examples/hub.ChIP.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settingsNoHide.json -by-centre
-
-examples:
-
 See ./examples to see examples of json hubs by assay
 
+run `./generateExamples $WWW` to generate example hubs. WWW is path to where hubs should be written.
 
-    python __main__.py -ucsc -config:./examples/ChIP_examples.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_hide.json -by-centre
+Generated examples:
 
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/CEMT.Oct-2-2015-23.22.21
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.O51UGZUXLA6Y.ChIP
 
-    python __main__.py -ucsc -config:./examples/smRNA_example.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_hide.json -by-centre
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.GO1EW0YQXO77.mRNA
 
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs/CEMT.Oct-2-2015-23.24.21
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.26ANFIJA7WN8.smRNA
 
-    python __main__.py -ucsc -config:./examples/WGBS_example.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_hide.json -by-centre
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.GFTRK4HNUU41.WGS
 
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs//CEMT.Oct-2-2015-23.25.57
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.KSELZBVSHR4M.DNA_Meth
+
+./examples/example.DNA_Methylation.json  is an example of using lists for `big_data_url` field
+
+General usage is like:
+
+    apy __main__.py -ucsc -config:./examples/example.ChIP.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:ChIP
+
+    apy __main__.py -ucsc -config:./examples/example.mRNA.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:mRNA
+
+    apy __main__.py -ucsc -config:./examples/example.smRNA.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:smRNA
+
+    apy __main__.py -ucsc -config:./examples/example.WGS.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:WGS
+
+    apy __main__.py -ucsc -config:./examples/example.DNA_Methylation.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_nohide.json -by-centre -randomize:DNA_Meth
+
+`-settings`:<json> is the visualization settings.
+
+`-hub`:<json> is used to specify hub labels etc.
+
+`-config`:<json hub>
+
+`-annotations`:<json> is a list of attributes that are retained for metadata in UCSC.
+
+`-by-centre` flag creates hub organized by centre. no -by-centre creates hub organized by assays
+
+`-randomize` adds a tag with a random string to name of the hub
 
 
-    python __main__.py -ucsc -config:./examples/mRNA_example.json -hub:./Config/centre.json -annotations:./Config/annotations.json -www:$WWW -settings:./Config/settings_hide.json -by-centre
-
-http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/hubs//CEMT.Oct-2-2015-23.29.11
-
-
-Recommended Python 2.7.7 :: Anaconda 2.0.1
-
-$WWW: The the path to http accessible directory where hub will be written. Must have hg19 subdirectory (or appropriate genome db) as neeeded by UCSC track hub specification.
-
-    -settings:<json> is the visualization settings.
-    -hub:<json> is used to specify hub labels etc. 
-    -annotations:<json> is a list of attributes that are retained for metadata in UCSC.
-    -by-centre flag creates hub organized by centre. no -by-centre creates hub organized by assays
+where apy is python version at 2.7.5 (recommended Anaconda 2.3.0 | Python 2.7.10 )
 
 UCSCTemplate.customizable method controls subgroups and metadata annotations.
+

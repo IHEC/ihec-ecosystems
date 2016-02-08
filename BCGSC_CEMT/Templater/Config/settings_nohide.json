@@ -1,5 +1,5 @@
 {
-    "__visibility__": "hide",
+    "__visibility__": "full",
     "__view__": {
         "chip": {
             "color": {
@@ -116,7 +116,6 @@
         "isoform_details" : "isofrm",
         "normalized_signal" : "nrm_sig",
         "peak_calls" : "peaks",
-        "peaks_bw" : "peak" ,
         "reads_per_million_miRNA_mapped" : "rpmmm",
         "rpkm_negative_strand" : "rpkm_neg",
         "rpkm_positive_strand" : "rpkm_pos",
@@ -124,7 +123,7 @@
         "signal" : "sig"
     },
     "ignore" : {
-        "washu" : ["peak_calls", "isoform_details"],
-        "ucsc" : ["peak_calls", "normalized_signal"]
+        "washu" : [],
+        "ucsc" : []
     }
 }
