@@ -4,6 +4,18 @@ See ./examples to see examples of json hubs by assay
 
 run `./generateExamples $WWW` to generate example hubs. WWW is path to where hubs should be written.
 
+Generated examples:
+
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.O51UGZUXLA6Y.ChIP
+
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.GO1EW0YQXO77.mRNA
+
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.26ANFIJA7WN8.smRNA
+
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.GFTRK4HNUU41.WGS
+
+http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&hubUrl=http://www.epigenomes.ca/data/CEMT/temp/templater_test//CEMT.Feb-7-2016-21.23.29.KSELZBVSHR4M.DNA_Meth
+
 ./examples/example.DNA_Methylation.json  is an example of using lists for `big_data_url` field
 
 General usage is like:
