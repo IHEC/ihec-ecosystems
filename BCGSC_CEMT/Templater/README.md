@@ -43,7 +43,7 @@ General usage is like:
 `-randomize` adds a tag with a random string to name of the hub
 
 
-Recommended Python 2.7.7 :: Anaconda 2.0.1
+where apy is python version at 2.7.5 (recommended Anaconda 2.3.0 | Python 2.7.10 )
 
 UCSCTemplate.customizable method controls subgroups and metadata annotations.
 
