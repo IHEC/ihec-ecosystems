@@ -143,7 +143,8 @@ Points to data tracks for the experiment. Object keys represent the track type.
             "description_url": "...",
             "md5sum": "...",
             "subtype": "...",
-            "sample_source": "..."
+            "sample_source": "...",
+            "primary": 
         },
         {
             ...
@@ -161,7 +162,8 @@ Points to data tracks for the experiment. Object keys represent the track type.
     * **big_data_url**: The URL from where this dataset track can be obtained online.
     * **description_url**: The URL of the document giving more information about this dataset track.
     * **md5sum**: The checksum for this track.
-    * **subtype**: *(optional)* If there are multiple files for this track type, use this free text field to put more information about what kind of information this track represents.
+    * **subtype**: *(optional if there's only one track for this track_type)* If there are multiple files for this track type, use this free text field to put more information about what kind of information this track represents.
+    * **primary**: *(optional if there's only one track for this track_type)* When there are multiple tracks for this track type, set this field to 'true' to express that this is the primary track to represent this track type.
     * **sample_source**: *(optional)* Use this field if the track belongs to only one sample of a merged dataset.
 
 * Any key is supported, however, only keys corresponding to required track types as defined in the [minimum required track types document](https://github.com/IHEC/ihec-ecosystems/blob/master/minimum_required_track_types.md) are read. 
