@@ -64,7 +64,6 @@
         "samples": {
             "type" : "object",
             "properties": {
-                "sample_id" : {"type": "string", "description": "An identifying designation for the biological sample."},
                 "sample_ontology_uri" : {"type": "string", "format": "uri", "description": "Ontology term that links to sample ontology information. Depending on the biomaterial_type, will be either an UBERON or CL ontology term."},
                 "molecule" : {
                     "type": "string",
@@ -80,7 +79,7 @@
                 { "$ref": "#/definitions/SA_primary_cell_culture" },
                 { "$ref": "#/definitions/SA_primary_tissue" }
             ],
-            "required": ["sample_id", "sample_ontology_uri", "molecule", "disease", "disease_ontology_uri", "biomaterial_type"]
+            "required": ["sample_ontology_uri", "molecule", "disease", "disease_ontology_uri", "biomaterial_type"]
         },
 
         "SA_with_donor": {
@@ -187,7 +186,8 @@
                     "description_url": {"type": "string", "format": "uri", "description": "The URL of the document giving more information about this dataset track."},
                     "md5sum": {"type": "string", "format": "md5", "description": "The checksum for this track."},
                     "subtype": {"type": "string", "description": "If there are multiple files for this track type, use this free text field to put more information about what kind of information this track represents."},
-                    "sample_source": {"type": "string", "description": "Use this field if the track belongs to only one sample of a merged dataset."}
+                    "sample_source": {"type": "string", "description": "Use this field if the track belongs to only one/some sample(s) of a merged dataset."},
+                    "primary": {"type": "boolean", "description": "When there are multiple tracks for this track type, set this field to 'true' to express that this is the primary track to represent this track type."}
                 },
                 "required": ["big_data_url", "md5sum"]
             }

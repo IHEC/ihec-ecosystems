@@ -138,7 +138,8 @@
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
-                        "subtype": "pooled peaks"
+                        "subtype": "pooled peaks",
+                        "primary": true
                     },
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
@@ -171,7 +172,8 @@
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318037",
-                        "subtype": "Whole signal"
+                        "subtype": "Whole signal",
+                        "primary": true
                     },
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
@@ -193,7 +195,8 @@
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
-                        "subtype": "pooled peaks"
+                        "subtype": "pooled peaks",
+                        "primary": true
                     },
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
