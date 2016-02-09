@@ -9,7 +9,6 @@
     "samples": {
         "sample_id_1": {
             "biomaterial_type": "Cell Line",
-            "sample_id": "SAMPLE01",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
             "disease": "Sporadic_Burkitt_lymphoma",
@@ -22,7 +21,6 @@
         },
         "sample_id_2": {
             "biomaterial_type": "Primary Tissue",
-            "sample_id": "SAMPLE02",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
             "disease": "Sporadic_Burkitt_lymphoma",
@@ -39,7 +37,6 @@
         },
         "sample_id_3": {
             "biomaterial_type": "Primary Tissue",
-            "sample_id": "SAMPLE03",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
             "disease": "Sporadic_Burkitt_lymphoma",
@@ -56,7 +53,6 @@
         },
         "sample_id_4": {
             "biomaterial_type": "Primary Tissue",
-            "sample_id": "SAMPLE04",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
             "disease": "Sporadic_Burkitt_lymphoma",
