@@ -5,9 +5,9 @@ A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/J
 A JSON data hub contains three main sections:
 ```
 {
-    "hub_description" : { ... },
-    "datasets" : { ... },
-    "samples" : { ... }
+    "hub_description": { ... },
+    "datasets": { ... },
+    "samples": { ... }
 }
 ```
 
@@ -19,10 +19,11 @@ Gives general information about the content of the hub.
 
 ```
     "hub_description": {
-        "taxon_id" : ...,
-        "assembly" : "...",
-        "publishing_group" : "...",
-        "email" : "..."
+        "taxon_id": ...,
+        "assembly": "...",
+        "publishing_group": "...",
+        "email": "...",
+        "description": "..." 
     }
 ```
 
@@ -30,6 +31,8 @@ Gives general information about the content of the hub.
 * **assembly**: UCSC Reference genome assembly ID (e.g. human = h19 or hg38)
 * **publishing_group**: IHEC member consortium that published this data hub.
     * Controlled vocabulary: `["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap"]`
+* **email**: Contact email for this data hub publishing group.
+* **description**: *(optional)* A description of the hub content.
 
 
 
@@ -42,12 +45,12 @@ Required attributes are defined in the [IHEC Ecosystem track hub specification](
 
 ```
     "samples": {
-        "sample_id_1" : {
-            "sample_ontology_uri" : "...",
-            "molecule" : "...",
-            "disease" : "...",
-            "disease_ontology_uri" : "...",
-            "biomaterial_type" : "...",
+        "sample_id_1": {
+            "sample_ontology_uri": "...",
+            "molecule": "...",
+            "disease": "...",
+            "disease_ontology_uri": "...",
+            "biomaterial_type": "...",
         
             *Additional metadata depending on biomaterial type may be required. Please refer to the JSON schema.*
         },

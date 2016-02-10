@@ -16,7 +16,8 @@
                     "enum": ["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap"],
                     "description": "The IHEC consortia publishing this data hub."
                 },
-                "email": {"type": "string", "format": "email", "description": "Write-to address for enquiries about the data hub."}
+                "email": {"type": "string", "format": "email", "description": "Write-to address for enquiries about the data hub."},
+                "description": {"type": "string", "description": "A description of the hub content."}
             },
             "required": ["taxon_id", "assembly", "publishing_group", "email"]
         },

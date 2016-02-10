@@ -3,7 +3,8 @@
         "taxon_id": 9606,
         "assembly": "hg19",
         "publishing_group": "Blueprint",
-        "email": "info@epigenomesportal.ca"
+        "email": "info@epigenomesportal.ca",
+        "description": "An example data hub that validates against the JSON Schema."
     },
 
     "samples": {
