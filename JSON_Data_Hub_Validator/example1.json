@@ -188,6 +188,7 @@
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318037",
+                        "subtype": "Sample-specific signal",
                         "sample_source": "sample_id_4"
                     }
                 ],
