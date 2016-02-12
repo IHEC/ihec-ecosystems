@@ -17,9 +17,11 @@
                     "description": "The IHEC consortia publishing this data hub."
                 },
                 "email": {"type": "string", "format": "email", "description": "Write-to address for enquiries about the data hub."},
-                "description": {"type": "string", "description": "A description of the hub content."}
+                "date": {"type": "string", "format": "date-time", "description": "Data hub release date, in ISO 8601 format."},
+                "description": {"type": "string", "description": "A description of the hub content."},
+                "description_url": {"type": "string", "description": "A link to an HTML document describing of the hub content."}
             },
-            "required": ["taxon_id", "assembly", "publishing_group", "email"]
+            "required": ["taxon_id", "assembly", "publishing_group", "email", "date"]
         },
 
         "datasets": {
@@ -59,7 +61,7 @@
                 }
             },
 
-            "required": ["experiment_attributes", "browser"]
+            "required": ["sample_id", "experiment_attributes", "browser"]
         },
 
         "samples": {

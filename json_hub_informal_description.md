@@ -23,7 +23,9 @@ Gives general information about the content of the hub.
         "assembly": "...",
         "publishing_group": "...",
         "email": "...",
-        "description": "..." 
+        "date": "...",
+        "description": "...",
+        "description_url": "...",
     }
 ```
 
@@ -32,7 +34,9 @@ Gives general information about the content of the hub.
 * **publishing_group**: IHEC member consortium that published this data hub.
     * Controlled vocabulary: `["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap"]`
 * **email**: Contact email for this data hub publishing group.
+* **date**: Data hub release date, in ISO 8601 format.
 * **description**: *(optional)* A description of the hub content.
+* **description_url**: *(optional)* A link to an HTML document describing the hub content.
 
 
 

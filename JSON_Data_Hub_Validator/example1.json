@@ -4,6 +4,7 @@
         "assembly": "hg19",
         "publishing_group": "Blueprint",
         "email": "info@epigenomesportal.ca",
+        "date": "2016-02-12",
         "description": "An example data hub that validates against the JSON Schema."
     },
 
