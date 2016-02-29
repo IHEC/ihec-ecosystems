@@ -76,7 +76,7 @@
             "sample_id": "sample_id_1",
             "experiment_attributes": {
                 "experiment_type": "DNA Methylation",
-                "assay_type": "WGB-Seq",
+                "assay_type": "shotgun bisulfite-seq assay",
                 "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
                 "reference_registry_id": "EGAX00001084792"
             },
@@ -115,9 +115,9 @@
         "experiment_id_2": {
             "sample_id": "sample_id_2",
             "experiment_attributes": {
-                "experiment_type": "H3K4me1",
-                "assay_type": "ChIP-Seq",
-                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001858",
+                "experiment_type": "mRNA-Seq",
+                "assay_type": "RNA-seq assay",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
                 "reference_registry_id": "EGAX00001084792"
             },
             "analysis_attributes": {
@@ -128,26 +128,34 @@
                 "analysis_software_version": "v3"
             },
             "browser": {
-                "signal": [
+                "signal_forward": [
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318037"
                     }
                 ],
-                "peak_calls": [
+                "signal_reverse": [
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
-                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
-                        "subtype": "pooled peaks",
-                        "primary": true
-                    },
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318037"
+                    }
+                ]
+            },
+            "download": {
+                "rpkm_forward": [
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
-                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318039",
-                        "subtype": "IDR conservative peaks"
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318037"
+                    }
+                ],
+                "rpkm_reverse": [
+                    {
+                        "big_data_url": "http://.../mytrack.bigWig",
+                        "description_url": "http://.../desc.html",
+                        "md5sum": "1a7bdc31d6837635a70cbb5d5b318037"
                     }
                 ]
             }
@@ -156,8 +164,8 @@
         "experiment_id_3": {
             "sample_id": ["sample_id_3", "sample_id_4"],
             "experiment_attributes": {
-                "experiment_type": "H3K4me1",
-                "assay_type": "ChIP-Seq",
+                "experiment_type": "Histone H3K4me1",
+                "assay_type": "cross-linking immunoprecipitation high-throughput sequencing assay",
                 "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001858",
                 "reference_registry_id": "EGAX00001084792"
             },

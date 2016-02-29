@@ -17,7 +17,7 @@
                     "description": "The IHEC consortia publishing this data hub."
                 },
                 "email": {"type": "string", "format": "email", "description": "Write-to address for enquiries about the data hub."},
-                "date": {"type": "string", "format": "date-time", "description": "Data hub release date, in ISO 8601 format."},
+                "date": {"type": "string", "description": "Data hub release date, in ISO 8601 format."},
                 "description": {"type": "string", "description": "A description of the hub content."},
                 "description_url": {"type": "string", "description": "A link to an HTML document describing of the hub content."}
             },
@@ -42,19 +42,28 @@
                 "browser": {
                     "type": "object",
                     "properties": {
-                        "signal": {"$ref": "#/definitions/track"},
+                        "signal_unstranded": {"$ref": "#/definitions/track"},
                         "signal_forward": {"$ref": "#/definitions/track"},
                         "signal_reverse": {"$ref": "#/definitions/track"},
                         "peak_calls": {"$ref": "#/definitions/track"},
                         "methylation_profile":  {"$ref": "#/definitions/track"},
-                        "contigs":  {"$ref": "#/definitions/track"},
-                        "rpkm_forward": {"$ref": "#/definitions/track"},
-                        "rpkm_reverse": {"$ref": "#/definitions/track"}
+                        "contigs":  {"$ref": "#/definitions/track"}
                     },
                     "additionalProperties": false,
                     "dependencies": {
                         "signal_forward": ["signal_reverse"],
-                        "signal_reverse": ["signal_forward"],
+                        "signal_reverse": ["signal_forward"]
+                    }
+                },
+                "download": {
+                    "type": "object",
+                    "properties": {
+                        "rpkm_forward": {"$ref": "#/definitions/track"},
+                        "rpkm_reverse": {"$ref": "#/definitions/track"},
+                        "rpkm_unstranded": {"$ref": "#/definitions/track"}
+                    },
+                    "additionalProperties": false,
+                    "dependencies": {
                         "rpkm_forward": ["rpkm_reverse"],
                         "rpkm_reverse": ["rpkm_forward"]
                     }
@@ -164,7 +173,7 @@
                 "experiment_ontology_uri": {"type": "string", "format": "uri", "description": "(Ontology) links to experiment ontology information."},
                 "reference_registry_id": {"type": "string", "description": "Assigned after submitting to EpiRR", "description": "The EpiRR ID for this dataset."}
             },
-            "required": ["experiment_type", "assay_type", "experiment_ontology_uri"]
+            "required": ["experiment_type", "experiment_ontology_uri"]
         },
 
         "analysis_attributes": {
