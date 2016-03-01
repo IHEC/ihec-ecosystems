@@ -177,7 +177,7 @@
                 "analysis_software_version": "v3"
             },
             "browser": {
-                "signal": [
+                "signal_unstranded": [
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
