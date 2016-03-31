@@ -2,7 +2,7 @@
 
 This document aims at describing a minimum set of analysis tracks that should be provided for any dataset, for IHEC Core Assays. Other non-core assays are also described at the end of the document.
 
-Please refer to the [tracks generation standards](track_generation_standards.md) for information on how to generate each track types.
+Please refer to the [tracks generation standards](./tracks_generation.md) for information on how to generate each track types.
 
 ##IHEC Core Assays 
 
@@ -26,8 +26,8 @@ Please refer to the [tracks generation standards](track_generation_standards.md)
 
 | Track Type                     | Data Hub Identifier              | Format | Mandatory | Notes |
 |--------------------------------|----------------------------------|--------|-----------|-------|
-| Fractional Methylation Calls   | `methylation_profile`            | bigWig | ✓         | Needs to be formally specified, intended as a way of reporting #Cs vs #Ts on every CpG, currently a track with values between 0-10 |
-| Signal/Coverage                | `signal_unstranded` OR `signal_forward`,`signal_reverse` | bigWig |  ✓         | Raw coverage over CpGs as a measure of confidence in Fractional Methtylation Calls |
+| Fractional Methylation Calls   | `methylation_profile`            | bigWig | ✓         | Needs to be formally specified, reports #Cs vs #Ts at each CpG site. See current proposal [here](./Fractional_Methylation_Proposal.md).|
+| Signal/Coverage                | `signal_unstranded` OR `signal_forward`,`signal_reverse` | bigWig |  ✓         | Raw coverage over CpGs as a measure of confidence in Fractional Methtylation Calls. See current proposal [here](./Fractional_Methylation_Proposal.md).|
 
 
 ### mRNA / total RNA :
@@ -37,8 +37,8 @@ Please refer to the [tracks generation standards](track_generation_standards.md)
 |--------------------------------|----------------------------------|--------|-----------|-------|
 | Signal/Coverage forward strand | `signal_forward`                 | bigWig | ✓        | |
 | Signal/Coverage reverse strand | `signal_reverse`                 | bigWig | ✓        | |
-| RPKM on positive strand        | `rpkm_forward`                   | bigWig |          | Computation needs to be standardized |
-| RPKM on negative strand        | `rpkm_reverse`                   | bigWig |          | Computation needs to be standardized |
+| RPKM on positive strand        | `rpkm_forward`                   | bigWig |          | Computation needs to be standardized. Proposal available [here](https://github.com/IHEC/ihec-assay-standards/blob/master/RNA_Seq_normalization.md). |
+| RPKM on negative strand        | `rpkm_reverse`                   | bigWig |          | Computation needs to be standardized. Proposal available [here](https://github.com/IHEC/ihec-assay-standards/blob/master/RNA_Seq_normalization.md). |
 
 
  
@@ -49,7 +49,7 @@ Please refer to the [tracks generation standards](track_generation_standards.md)
 | Track Type                     | Data Hub Identifier              | Format | Mandatory | Notes |
 |--------------------------------|----------------------------------|--------|-----------|-------|
 | Signal/Coverage                | `signal_unstranded`              | bigWig | ✓         | |
-| RPKM                           | `rpkm_unstranded`                | bigWig |           |Computation needs to be standardized |
+| RPKM                           | `rpkm_unstranded`                | bigWig |           | Computation needs to be standardized. Proposal available [here](https://github.com/IHEC/ihec-assay-standards/blob/master/RNA_Seq_normalization.md). |
 
 
 
