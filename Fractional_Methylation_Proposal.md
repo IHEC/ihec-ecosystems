@@ -1,4 +1,4 @@
-### Proposal for WGBS tracks.
+# Proposal for WGBS tracks.
 
 Fractional methylation status is to be published at atleast for all CpGs in the genome. It's open if we want to require publishing this status at other locations, or if we want to leave that optional.
 
