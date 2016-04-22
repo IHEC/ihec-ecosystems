@@ -126,7 +126,7 @@
                 "biomaterial_type" : {"type": "string", "enum":["Cell Line"]},
                 "line" : {"type": "string", "description": "The name of the cell line."},
                 "lineage" : {"type": "string", "description": "The developmental lineage to which the cell line belongs."},
-                "differenciate_stage" : {"type": "string", "description": "The stage in cell differentiation to which the cell line belongs."},
+                "differentiation_stage" : {"type": "string", "description": "The stage in cell differentiation to which the cell line belongs."},
                 "medium" : {"type": "string", "description": "The medium in which the cell line has been grown."},
                 "sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."}
             },

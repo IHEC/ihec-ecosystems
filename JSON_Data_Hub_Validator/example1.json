@@ -17,7 +17,7 @@
             "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
             "line": "BL-2",
             "lineage": "unknown",
-            "differenciate_stage": "B_cell",
+            "differentiation_stage": "B_cell",
             "medium": "RPMI_1640_+_10%FBS_+_1%_Glutamine",
             "sex": "Male"
         },
