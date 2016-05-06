@@ -13,7 +13,7 @@ A JSON data hub contains three main sections:
 
 
 
-## hub_description
+## 1. hub_description
 
 Gives general information about the content of the hub. 
 
@@ -40,7 +40,7 @@ Gives general information about the content of the hub.
 
 
 
-## samples
+## 2. samples
 
 Defines the list of samples contained in this data hub.
 
@@ -74,13 +74,14 @@ Required attributes are defined in the [IHEC Ecosystem track hub specification](
     * Controlled vocabulary: `["Cell Line", "Primary Cell", "Primary Cell Culture", "Primary Tissue"]`
 
 
-## datasets
+## 3. datasets
 
 Describes datasets obtained experimentally.
 
 ```
 "datasets": {
     "experiment_1": {
+        "sample_id": "...",
         "experiment_attributes": { ... },
         "analysis_attributes": { ... },
         "browser": { ... }
@@ -92,7 +93,12 @@ Describes datasets obtained experimentally.
 ```
 
 
-### experiment_attributes
+### 3.1 sample_id
+
+Links to the sample object defined in section 2. Value can be either a string or an array of strings. Each string should match a key in the samples hash.
+
+
+### 3.2 experiment_attributes
 
 Defines the experiment-related metadata properties for this dataset.
 
@@ -114,7 +120,7 @@ Required attributes are defined in the [IHEC Ecosystem track hub specification](
 * **reference_registry_id**: The IHEC Reference Epigenome registry ID for this dataset, assigned after submitting to EpiRR.
  
 
-### analysis_attributes
+### 3.3 analysis_attributes
 
 Defines the bioinformatics analysis-related metadata properties for this dataset.
 
@@ -138,7 +144,7 @@ Required attributes are defined in the [IHEC Ecosystem track hub specification](
 * **analysis_software_version**: The version of the software used for determining signal (read density).
 
                 
-### browser:
+### 3.4 browser:
 
 Points to data tracks for the experiment. Object keys represent the track type. 
 
@@ -180,7 +186,7 @@ Points to data tracks for the experiment. Object keys represent the track type.
 * If multiple tracks are of the same track type, the first track in the list shall be the "main" one, meaning it is the one that best represents this sample for this track type.
 
 
-###Notes:
+### Notes:
 
 * Note that the the format is extensible. You can annotate your data, and include data way beyond the specification.   
 
