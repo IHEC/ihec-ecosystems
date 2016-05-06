@@ -130,7 +130,7 @@
                 "medium" : {"type": "string", "description": "The medium in which the cell line has been grown."},
                 "sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."}
             },
-            "required": ["biomaterial_type", "line", "lineage", "differenciate_stage", "medium", "sex"]
+            "required": ["biomaterial_type", "line", "lineage", "differentiation_stage", "medium", "sex"]
         },
 
         "SA_primary_cell": {
