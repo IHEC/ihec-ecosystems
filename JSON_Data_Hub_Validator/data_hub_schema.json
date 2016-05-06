@@ -13,7 +13,7 @@
                 "assembly": {"type": "string", "description": "Assembly version as it can be found on the UCSC Genome Browser site. (e.g. hg19, hg38, mm10)"},
                 "publishing_group": {
                     "type": "string",
-                    "enum": ["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap"],
+                    "enum": ["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap", "Other"],
                     "description": "The IHEC consortia publishing this data hub."
                 },
                 "email": {"type": "string", "format": "email", "description": "Write-to address for enquiries about the data hub."},
