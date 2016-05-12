@@ -1,12 +1,13 @@
 from jsonschema import validate, exceptions, FormatChecker
 from sys import argv
 import json
+import os
 
 
 def validateJson(jsonObj):
     """Validate a data hub against the IHEC Data Hub Schema"""
 
-    with open('data_hub_schema.json') as jsonStr:
+    with open(os.path.dirname(os.path.realpath(__file__)) + '/data_hub_schema.json') as jsonStr:
         data = json.load(jsonStr)
 
     return validate(jsonObj, data, format_checker=FormatChecker())
