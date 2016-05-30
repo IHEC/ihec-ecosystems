@@ -11,7 +11,7 @@ Please refer to the [tracks generation standards](./tracks_generation.md) for in
 
 | Track Type                     | Data Hub Identifier              | Format | Mandatory | Notes |
 |--------------------------------|----------------------------------|--------|-----------|-------|
-| Signal/Coverage                | `signal`                         | bigWig | ✓         | |
+| Signal/Coverage                | `signal_unstranded`              | bigWig | ✓         | |
 | Peak calls                     | `peak_calls`                     | bigBed | ✓         | |
   
 
@@ -19,7 +19,7 @@ Please refer to the [tracks generation standards](./tracks_generation.md) for in
 
 | Track Type                     | Data Hub Identifier              | Format | Mandatory | Notes |
 |--------------------------------|----------------------------------|--------|-----------|-------|
-| Signal/Coverage                | `signal`                         | bigWig | ✓         | |
+| Signal/Coverage                | `signal_unstranded`              | bigWig | ✓         | |
 
   
 ### DNA Methylation:
@@ -77,5 +77,5 @@ Please refer to the [tracks generation standards](./tracks_generation.md) for in
 
 | Track Type                     | Data Hub Identifier              | Format | Mandatory | Notes |
 |--------------------------------|----------------------------------|--------|-----------|-------|
-| Signal/Coverage                | `signal`                         | bigWig | ✓         | |
+| Signal/Coverage                | `signal_unstranded`              | bigWig | ✓         | |
 | Peak calls                     | `peak_calls`                     | bigBed | ✓         | |
