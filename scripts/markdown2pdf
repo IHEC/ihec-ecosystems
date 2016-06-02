@@ -12,7 +12,7 @@ for m in $DOCS_DIR/*.md; do
 done
 
 for n in $ROOT_DIR/*.md; do
-  if [[ "$n" =~ README.md$ ]]; then
+  if [[ "$n" =~ README\.md$ ]]; then
     echo "not converting $n"
   else
     q=`echo $n | sed 's/\.md$/.pdf/'`;
