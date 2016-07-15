@@ -6,19 +6,28 @@ class DataHub:
 	header = ['__header__']
 	def __init__(self, config, hubTag, byCentre, annotations, settings, selected=None):
 		db = Json.loadf(config)
-		if 'datasets' in db:
-			db = db['datasets']
+		datasets = db['datasets']
 		self.annotations = annotations
-		self.config = db if not selected else {experiment : db[experiment] for experiment in db if ( experiment in selected and not (experiment in DataHub.header))}
+		self.config = {experiment : datasets[experiment] for experiment in datasets if  experiment in selected } if selected else datasets 
+		self.samples = db['samples']
 		self.empty = not self.config.keys()
+		self.hubDescription = db['hub_description']
 		self.hubTag = hubTag
 		self.settings = settings
+		#Cmn.log(settings)
 		if not byCentre:
-			self.byExperimentType = Cmn.groupby(self.config.keys(), lambda x: Config.assays[self.config[x]['experiment']])
+			self.byExperimentType = Cmn.groupby(self.config.keys(), lambda x: Config.assays[self.config[x]["experiment_attributes"]["experiment_type"]])
 			self.byCentre = dict()
 		else:
 			self.experimentType = dict()
 			self.byCentre = Cmn.groupby(self.config.keys(), lambda x: self.config[x]['analysis_group'])
+
+	def expandedConfig(self):
+		data = dict()
+		for exp in self.config:
+			data[exp] = self.config[exp]	
+			data[exp]['sample_attributes'] = self.samples[data[exp]['sample_id']]
+		return data
 
 
 	def ucsc(self):
@@ -37,7 +46,7 @@ class DataHub:
 				}
 				subtracks = list()
 				for library in groupedTracks[key]:
-					subtracks.extend(templateManager.subtrackBlocks(self.config, library, parent = containerConfig['root']))
+					subtracks.extend(templateManager.subtrackBlocks(self, library, parent = containerConfig['root']))
 				tracks.append(templateManager.container(containerConfig))
 				tracks.extend(subtracks)
 			return tracks
@@ -61,7 +70,7 @@ class DataHub:
 				}
 				subtracks = list()
 				for library in groupedTracks[key]:
-					subtracks.extend(templateManager.subtrackBlocks(self.config, library, parent = containerConfig['root']))
+					subtracks.extend(templateManager.subtrackBlocks(self, library, parent = containerConfig['root']))
 				tracks.extend(subtracks)
 			#tracks.append(templateManager.tags())
 			return tracks
@@ -78,7 +87,7 @@ class DataHub:
 			hubAttributes = Json.loadf(args['-hub'])
 			settings = Json.loadf(args['-settings'])
 			if args.has('-hide'):
-				settings['__visibilty__'] = 'hide'
+				settings['__visibility__'] = 'hide'
 			if verbose:
 				Cmn.log(annotations)
 			hub = DataHub(args['-config'], hubAttributes['tag'], args.has('-by-centre'), annotations, settings, args.args())
@@ -100,7 +109,7 @@ class DataHub:
 					washu.write(args['-www'], tracks)
 				return washu
 			elif args.has('-tracklist'):
-				return hub.config
+				return hub.expandedConfig()
 			else:
 				Cmn.log('..unknown option..')
 	

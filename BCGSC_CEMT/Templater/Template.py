@@ -19,19 +19,22 @@ class Template:
 	none = ['none', 'na', 'n/a']
 	@staticmethod
 	def sanitize(arg):
+		if not isinstance(arg, basestring):
+			arg = str(arg)
+			print '#__WARN__:' + arg
 		return arg.replace(' ', '_')
 
 	@staticmethod
-	def customizable(arg, track_type, annotations):
-		biomaterial_type = arg['sample_attributes']['biomaterial_type'].lower().replace(' ', '_')
+	def customizable(arg, track_type, sample, sample_source, annotations):
+		biomaterial_type = sample['biomaterial_type'].lower().replace(' ', '_')
 		if biomaterial_type in ['cell_line']:
-			description = Template.sanitize(arg['sample_attributes']['line'])
+			description = Template.sanitize(sample['line'])
 		else:
-			disease_tag = '' if arg['sample_attributes']['disease'].lower() in Template.none else ':{0}'.format(arg['sample_attributes']['disease'])
+			disease_tag = '' if sample['disease'].lower() in Template.none else ':{0}'.format(sample['disease'])
 			if biomaterial_type in ['primary_tissue']:
-				description = '{tissue_depot}'.format(**arg['sample_attributes']) + disease_tag
+				description = '{tissue_depot}'.format(**sample) + disease_tag
 			elif biomaterial_type in ['primary_cell', 'primary_cell_culture']:
-				description = '{cell_type}'.format(**arg['sample_attributes']) + disease_tag
+				description = '{cell_type}'.format(**sample) + disease_tag
 			else:
 				raise NotImplementedError(biomaterial_type)
 
@@ -41,12 +44,12 @@ class Template:
 				'analysis_group' : arg['analysis_group'],
 				'description' : description_sanitized,
 				'assay' : assay,
-				'attributes' : {k: Template.sanitize(arg['sample_attributes'][k]) for k in arg['sample_attributes'] if k in annotations},
+				'attributes' : {k: Template.sanitize(sample[k]) for k in sample if k in annotations},
 				'subgroups' : {
 					'analysis_group' : Template.sanitize(arg['analysis_group']),
 					'track_type' : Template.sanitize(track_type),
 					'source' : description_sanitized,
-					'sample_id' : Template.sanitize(arg['sample_attributes']['sample_id']),
+					'sample_id' : Template.sanitize(sample_source),
 					'assay' : Template.sanitize(assay),
 				}
 			}
@@ -81,22 +84,30 @@ class WashUTemplate:
 			"show_terms": {"sample": sorted(list(set(self.tagSoup["sample"]))), "assay": sorted(list(set(self.tagSoup["assay"]))), "center" : sorted(list(set(self.tagSoup["center"])))}
 		}
 
-	def subtrackBlocks(self, db, library, parent = None):
-		tracks = db[library]
+	def subtrackBlocks(self, datahub, library, parent = None):
+		tracks = datahub.config[library]
+		sample_id = tracks['sample_id']
+		sample_attributes = datahub.samples[sample_id] 
 		subtracks = list()
-		for track_type in tracks['browser']:
-			if not track_type in self.ignore:
-				customizable = Template.customizable(tracks, track_type, self.annotations)
+		for track_type_0 in tracks['browser']:
+			if not track_type_0 in self.ignore:
+				primary = [e for e in tracks['browser'][track_type_0] if e['primary']][0]
+				subtype = primary.get('subtype', '').strip()
+				track_type = None # '{0}_{1}'.format(track_type_0, subtype) if subtype else track_type_0
+				track_tag = '{0}_{1}'.format(self.typesToTags[track_type_0], subtype) if subtype else self.typesToTags[track_type_0]
+				sample_source = '{0}_{1}'.format(sample_id, primary['sample_source']) if primary['sample_source'] != sample_id else sample_id
+				customizable = Template.customizable(tracks, track_type_0, sample_attributes, sample_source, self.annotations)
 				metadata = { 
 							'experimentId' : library,
-							'trackType' : track_type,
-							'trackTag' : self.typesToTags[track_type],
-							'bigDataUrl' : Template.extractUrl(tracks, track_type),
-							'sampleId' : tracks['sample_attributes']['sample_id'],
-							'description' : customizable['description'].replace(':','__'),
+							'trackType' : track_type_0,
+							'trackTag' : track_tag,
+							'bigDataUrl' : primary['big_data_url'],
+							'sampleId' : sample_source,
+							'description' : customizable['description'],
 							'assay' : customizable['assay'],
 							'attributes' : customizable['attributes'],
 							'subgroups' : customizable['subgroups'],
+							'analysis_group' : customizable['analysis_group'],
 							'center' : customizable['subgroups']['analysis_group'],
 				}
 				if parent: metadata['parent'] = parent
@@ -191,20 +202,26 @@ class UCSCTemplate(Template):
 		self.ignore = view['ignore'][self.browser_name]
 		self.sortOrderBySubgroup = view.get("sorting", dict())
 
-	def subtrackBlocks(self, db, library, parent = None):
-		tracks = db[library]
+	def subtrackBlocks(self, datahub, library, parent = None):
+		tracks = datahub.config[library]
+		sample_id = tracks['sample_id']
+		sample_attributes = datahub.samples[sample_id] 
 		subtracks = list()
-
-
-		for track_type in tracks['browser']:
-			if not track_type in self.ignore:
-				customizable = Template.customizable(tracks, track_type, self.annotations)
+		for track_type_0 in tracks['browser']:
+			if not track_type_0 in self.ignore:
+				primary = [e for e in tracks['browser'][track_type_0] if e['primary']][0]
+				subtype = primary.get('subtype', '').strip()
+				track_type = None # '{0}_{1}'.format(track_type_0, subtype) if subtype else track_type_0
+				#print self.typesToTags
+				track_tag = '{0}_{1}'.format(self.typesToTags[track_type_0], subtype) if subtype else self.typesToTags[track_type_0]
+				sample_source = '{0}_{1}'.format(sample_id, primary['sample_source']) if not sample_id.startswith(primary['sample_source'])  else sample_id
+				customizable = Template.customizable(tracks, track_type_0, sample_attributes, sample_source, self.annotations)
 				metadata = { 
 							'experimentId' : library,
-							'trackType' : track_type,
-							'trackTag' : self.typesToTags[track_type],
-							'bigDataUrl' : Template.extractUrl(tracks, track_type),
-							'sampleId' : tracks['sample_attributes']['sample_id'],
+							'trackType' : track_type_0,
+							'trackTag' : track_tag,
+							'bigDataUrl' : primary['big_data_url'],
+							'sampleId' : sample_source,
 							'description' : customizable['description'],
 							'assay' : customizable['assay'],
 							'attributes' : customizable['attributes'],
