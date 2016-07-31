@@ -77,7 +77,7 @@
                 }
             },
             "MeDIP-Seq": {
-                "signal": {
+                "signal_unstranded": {
                     "color": "0,66,17",
                     "filetype": "bigWig",
                     "maxHeightPixels": "0,200,50",
@@ -85,7 +85,7 @@
                 }
             },
             "MRE-Seq": {
-                "signal": {
+                "signal_unstranded": {
                     "color": "0,66,17",
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",
@@ -177,7 +177,7 @@
     },
     "ignore" : {
         "washu" : ["peak_calls", "isoform_details"],
-        "ucsc" : ["peak_calls", "normalized_signal"]
+        "ucsc" : ["normalized_signal"]
     },
     "sorting" : {"track_type" : "+"}
 }

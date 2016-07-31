@@ -25,7 +25,7 @@ class Template:
 		return arg.replace(' ', '_')
 
 	@staticmethod
-	def customizable(arg, track_type, sample, sample_source, annotations):
+	def customizable(arg, track_type, sample, sample_source, annotations, experiment_attributes):
 		biomaterial_type = sample['biomaterial_type'].lower().replace(' ', '_')
 		if biomaterial_type in ['cell_line']:
 			description = Template.sanitize(sample['line'])
@@ -40,11 +40,19 @@ class Template:
 
 		description_sanitized = Template.sanitize(description)
 		assay = Config.assays[arg['experiment_attributes']['experiment_type']]
+		attributes = dict()
+		for k in annotations:
+			if k in sample:
+				attributes[k] = sample[k]
+			elif k in experiment_attributes:
+				attributes[k] = experiment_attributes[k]
+				# {k: Template.sanitize(sample[k]) for k in sample if k in annotations}
+		
 		return {
 				'analysis_group' : arg['analysis_group'],
 				'description' : description_sanitized,
 				'assay' : assay,
-				'attributes' : {k: Template.sanitize(sample[k]) for k in sample if k in annotations},
+				'attributes' : attributes,
 				'subgroups' : {
 					'analysis_group' : Template.sanitize(arg['analysis_group']),
 					'track_type' : Template.sanitize(track_type),
@@ -87,7 +95,8 @@ class WashUTemplate:
 	def subtrackBlocks(self, datahub, library, parent = None):
 		tracks = datahub.config[library]
 		sample_id = tracks['sample_id']
-		sample_attributes = datahub.samples[sample_id] 
+		sample_attributes = datahub.samples[sample_id]
+		experiment_attributes = datahub.config[library]['experiment_attributes'] 
 		subtracks = list()
 		for track_type_0 in tracks['browser']:
 			if not track_type_0 in self.ignore:
@@ -96,7 +105,7 @@ class WashUTemplate:
 				track_type = None # '{0}_{1}'.format(track_type_0, subtype) if subtype else track_type_0
 				track_tag = '{0}_{1}'.format(self.typesToTags[track_type_0], subtype) if subtype else self.typesToTags[track_type_0]
 				sample_source = '{0}_{1}'.format(sample_id, primary['sample_source']) if primary['sample_source'] != sample_id else sample_id
-				customizable = Template.customizable(tracks, track_type_0, sample_attributes, sample_source, self.annotations)
+				customizable = Template.customizable(tracks, track_type_0, sample_attributes, sample_source, self.annotations, experiment_attributes)
 				metadata = { 
 							'experimentId' : library,
 							'trackType' : track_type_0,
@@ -156,7 +165,7 @@ class UCSCTemplate(Template):
 
 	def annotate(self, arg):
 		self.additional_metadata[arg['parent']].append(arg['attributes']) 
-		return ' '.join(['{0}={1}'.format(k, arg['attributes'][k]) for k in arg['attributes']])
+		return ' '.join(['{0}={1}'.format(k, arg['attributes'][k].replace(' ', '_')) for k in arg['attributes']])
 
 	def subgroups(self, arg):
 		self.subgroupSoup[arg['parent']].append(arg['subgroups'])
@@ -205,7 +214,8 @@ class UCSCTemplate(Template):
 	def subtrackBlocks(self, datahub, library, parent = None):
 		tracks = datahub.config[library]
 		sample_id = tracks['sample_id']
-		sample_attributes = datahub.samples[sample_id] 
+		sample_attributes = datahub.samples[sample_id]
+		experiment_attributes = datahub.config[library]['experiment_attributes']
 		subtracks = list()
 		for track_type_0 in tracks['browser']:
 			if not track_type_0 in self.ignore:
@@ -215,7 +225,7 @@ class UCSCTemplate(Template):
 				#print self.typesToTags
 				track_tag = '{0}_{1}'.format(self.typesToTags[track_type_0], subtype) if subtype else self.typesToTags[track_type_0]
 				sample_source = '{0}_{1}'.format(sample_id, primary['sample_source']) if not sample_id.startswith(primary['sample_source'])  else sample_id
-				customizable = Template.customizable(tracks, track_type_0, sample_attributes, sample_source, self.annotations)
+				customizable = Template.customizable(tracks, track_type_0, sample_attributes, sample_source, self.annotations, experiment_attributes)
 				metadata = { 
 							'experimentId' : library,
 							'trackType' : track_type_0,

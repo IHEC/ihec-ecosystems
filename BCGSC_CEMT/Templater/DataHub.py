@@ -4,8 +4,18 @@ from Config import Config, Parser
 
 class DataHub:
 	header = ['__header__']
-	def __init__(self, config, hubTag, byCentre, annotations, settings, selected=None):
-		db = Json.loadf(config)
+	def __init__(self, configs, hubTag, byCentre, annotations, settings, selected=None):
+		dbs = [Json.loadf(e) for e in configs.split(',')]
+		if len(dbs) == 1:
+			db = dbs[0]
+		else:
+			db = { 'hub_description':dbs[0]['hub_description'], 'samples' : {}, 'datasets' : {}}
+			for e in dbs:
+				for sl in ['samples', 'datasets']:
+					for k in e[sl]:
+						assert not k in db[sl]
+						db[sl][k] = e[sl][k]
+				
 		datasets = db['datasets']
 		self.annotations = annotations
 		self.config = {experiment : datasets[experiment] for experiment in datasets if  experiment in selected } if selected else datasets 

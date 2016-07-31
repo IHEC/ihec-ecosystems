@@ -72,6 +72,8 @@ class Config:
 					'filetype' : self.__view__['chip']['filetype'][track_type],
 			}
 		else:
+			#
+			#print experiment, track_type
 			return self.__view__['except_chip'][experiment][track_type]
 	
 
