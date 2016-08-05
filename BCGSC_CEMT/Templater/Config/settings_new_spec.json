@@ -15,6 +15,7 @@
             "filetype": {
                 "normalized_signal": "bigWig",
                 "signal": "bigWig",
+                "signal_unstranded": "bigWig",
                 "peak_calls" : "bigBed",
                 "peaks_bw" : "bigWig",
                 "thresholded": "bigWig"
@@ -23,12 +24,14 @@
                 "peaks_bw": "10:10:10",
                 "normalized_signal": "70:70:32",
                 "signal": "70:70:32",
+                "signal_unstranded": "70:70:32",
                 "thresholded": "10:10:10",
                 "peak_calls": "10:10:10"
             },
             "visibility": {
                 "normalized_signal": "full",
                 "signal": "full",
+                "signal_unstranded" : "full",
                 "thresholded": "full",
                 "peak_calls" : "dense",
                 "peaks_bw" : "full"
@@ -47,10 +50,34 @@
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",
                     "visibility": "dense"
+                },
+                "signal_forward": {
+                    "color": "100,100,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
+                },
+                "signal_reverse": {
+                    "color": "100,100,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
+                },
+                "signal_unstranded": {
+                    "color": "100,100,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
+                },
+                "methylation_profile": {
+                    "color": "0,250,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
                 }
             },
             "MeDIP-Seq": {
-                "signal": {
+                "signal_unstranded": {
                     "color": "0,66,17",
                     "filetype": "bigWig",
                     "maxHeightPixels": "0,200,50",
@@ -58,7 +85,7 @@
                 }
             },
             "MRE-Seq": {
-                "signal": {
+                "signal_unstranded": {
                     "color": "0,66,17",
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",
@@ -85,16 +112,34 @@
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",
                     "visibility": "dense"
+                },
+                "signal_unstranded": {
+                    "color": "0,0,180",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
                 }
             },
             "mRNA": {
-                "rpkm_negative_strand": {
+                "signal_reverse": {
                     "color": "180,30,100",
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",
                     "visibility": "dense"
                 },
-                "rpkm_positive_strand": {
+                "signal_forward": {
+                    "color": "180,30,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
+                },
+                "rpkm_reverse": {
+                    "color": "180,30,100",
+                    "filetype": "bigWig",
+                    "maxHeightPixels": "70:70:32",
+                    "visibility": "dense"
+                },
+                "rpkm_forward": {
                     "color": "180,30,100",
                     "filetype": "bigWig",
                     "maxHeightPixels": "70:70:32",
@@ -110,20 +155,29 @@
         }
     },
     "tags" : {
+        "signal" : "sig",
+        "signal_unstranded" : "sig_u",
+        "signal_forward" : "sig_f",
+        "signal_reverse" : "sig_r",
         "copy_number_variation" : "cnv",
         "cpg_coverage" : "cpg_cov",
-        "fractional_methylation_calls" : "frc_mth", 
+        "fractional_methylation_calls" : "frc_mth",
+        "methylation_profile" : "meth",  
         "isoform_details" : "isofrm",
         "normalized_signal" : "nrm_sig",
         "peak_calls" : "peaks",
+        "peaks_bw" : "peak" ,
         "reads_per_million_miRNA_mapped" : "rpmmm",
         "rpkm_negative_strand" : "rpkm_neg",
         "rpkm_positive_strand" : "rpkm_pos",
-        "rpkm_unstranded" : "rpkm_uns",
-        "signal" : "sig"
+        "rpkm_forward" : "rpkm_f",
+        "rpkm_reverse" : "rpkm_r",
+        "rpkm_unstranded" : "rpkm_u"
+        
     },
     "ignore" : {
-        "washu" : [],
-        "ucsc" : []
-    }
+        "washu" : ["peak_calls", "isoform_details"],
+        "ucsc" : ["normalized_signal"]
+    },
+    "sorting" : {"track_type" : "+"}
 }

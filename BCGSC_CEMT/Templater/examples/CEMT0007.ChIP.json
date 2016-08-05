@@ -1,0 +1,408 @@
+{
+    "datasets": {
+        "A26685": {
+            "analysis_attributes": {
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.7",
+                "analysis_group": "CEMT",
+                "analysis_software": "CEMT/Histone H3K4me1 module",
+                "analysis_software_version": "2016.01",
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
+            "analysis_group": "CEMT",
+            "browser": {
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me1/FindER.1.0.0b/A26685.CEMT_7.H3K4me1.134224.D2B0LACXX_2_ACTTGA.v.A26691.CEMT_7.FDR_0.05.FindER.bed.bb",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "d4d9439953d39138acc8750e5ba2b748",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ],
+                "signal_unstranded": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me1/A26685.BWA_2013-06-21-s_2_ACTTGA_paired.dup.sorted.q5.F1028.PET.bw",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "5b257b36c478828be0d22f877501b77c",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ]
+            },
+            "experiment": "Histone H3K4me1",
+            "experiment_attributes": {
+                "chip_antibody": "H3K4me1",
+                "chip_antibody_catalog": "BP140 - Blueprint Grade",
+                "chip_antibody_lot": "A1863-001P",
+                "chip_antibody_provider": "Diagenode",
+                "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "chip_protocol_antibody_amount": "5 ug",
+                "chip_protocol_bead_amount": "20 ul",
+                "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+                "chip_protocol_chromatin_amount": "5 ug",
+                "chip_protocol_crosslink_time": "10 min",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001925",
+                "experiment_type": "Histone H3K4me1",
+                "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "extraction_protocol_sonication_cycles": "10",
+                "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+                "library_generation_fragment_size_range": "151:630",
+                "reference_registry_id": "IHECRE00000001.2"
+            },
+            "sample_id": "CEMT0007.gDNA"
+        },
+        "A26688": {
+            "analysis_attributes": {
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.7",
+                "analysis_group": "CEMT",
+                "analysis_software": "CEMT/Histone H3K27me3 module",
+                "analysis_software_version": "2016.01",
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
+            "analysis_group": "CEMT",
+            "browser": {
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27me3/FindER.1.0.0b/A26688.CEMT_7.H3K27me3.134224.D2B0LACXX_2_GGCTAC.v.A26691.CEMT_7.FDR_0.05.FindER.bed.bb",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "532c586f951631dabd39c2e66743c08e",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ],
+                "signal_unstranded": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27me3/A26688.BWA_2013-06-21-s_2_GGCTAC_paired.dup.sorted.q5.F1028.PET.bw",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "fa26a2ae841a6a5709eecdce75cf02ad",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ]
+            },
+            "experiment": "Histone H3K27me3",
+            "experiment_attributes": {
+                "chip_antibody": "H3K27me3",
+                "chip_antibody_catalog": "BP50 - Blueprint Grade",
+                "chip_antibody_lot": "A1811-001P",
+                "chip_antibody_provider": "Diagenode",
+                "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "chip_protocol_antibody_amount": "5 ug",
+                "chip_protocol_bead_amount": "20 ul",
+                "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+                "chip_protocol_chromatin_amount": "5 ug",
+                "chip_protocol_crosslink_time": "10 min",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001925",
+                "experiment_type": "Histone H3K27me3",
+                "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "extraction_protocol_sonication_cycles": "10",
+                "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+                "library_generation_fragment_size_range": "194:494",
+                "reference_registry_id": "IHECRE00000001.2"
+            },
+            "sample_id": "CEMT0007.gDNA"
+        },
+        "A26689": {
+            "analysis_attributes": {
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.7",
+                "analysis_group": "CEMT",
+                "analysis_software": "CEMT/Histone H3K36me3 module",
+                "analysis_software_version": "2016.01",
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
+            "analysis_group": "CEMT",
+            "browser": {
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K36me3/FindER.1.0.0b/A26689.CEMT_7.H3K36me3.134224.D2B0LACXX_2_CTTGTA.v.A26691.CEMT_7.FDR_0.05.FindER.bed.bb",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "dfea0a298d2016efca4bb5819ec037f0",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ],
+                "signal_unstranded": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K36me3/A26689.BWA_2013-06-21-s_2_CTTGTA_paired.dup.sorted.q5.F1028.PET.bw",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "2b50ee90390d767b5e0afbc988fd9d23",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ]
+            },
+            "experiment": "Histone H3K36me3",
+            "experiment_attributes": {
+                "chip_antibody": "H3K36me3",
+                "chip_antibody_catalog": "BP41 - Blueprint Grade",
+                "chip_antibody_lot": "A1847-001P",
+                "chip_antibody_provider": "Diagenode",
+                "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "chip_protocol_antibody_amount": "5 ug",
+                "chip_protocol_bead_amount": "20 ul",
+                "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+                "chip_protocol_chromatin_amount": "5 ug",
+                "chip_protocol_crosslink_time": "10 min",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001925",
+                "experiment_type": "Histone H3K36me3",
+                "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "extraction_protocol_sonication_cycles": "10",
+                "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+                "library_generation_fragment_size_range": "139:552",
+                "reference_registry_id": "IHECRE00000001.2"
+            },
+            "sample_id": "CEMT0007.gDNA"
+        },
+        "A26690": {
+            "analysis_attributes": {
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.7",
+                "analysis_group": "CEMT",
+                "analysis_software": "CEMT/Histone H3K27ac module",
+                "analysis_software_version": "2016.01",
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
+            "analysis_group": "CEMT",
+            "browser": {
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27ac/FindER.1.0.0b/A26690.CEMT_7.H3K27ac.134224.D2B0LACXX_2_GCCGCG.v.A26691.CEMT_7.FDR_0.05.FindER.bed.bb",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "d88102a1f497810486a2a8ee1da0540f",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ],
+                "signal_unstranded": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K27ac/A26690.BWA_2013-06-21-s_2_GCCGCG_paired.dup.sorted.q5.F1028.PET.bw",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "781bedaf9e9b008bba559dc793f1244b",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ]
+            },
+            "experiment": "Histone H3K27ac",
+            "experiment_attributes": {
+                "chip_antibody": "H3K27ac",
+                "chip_antibody_catalog": "BP255 - Blueprint Grade",
+                "chip_antibody_lot": "A1723-0041d",
+                "chip_antibody_provider": "Diagenode",
+                "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "chip_protocol_antibody_amount": "5 ug",
+                "chip_protocol_bead_amount": "20 ul",
+                "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+                "chip_protocol_chromatin_amount": "5 ug",
+                "chip_protocol_crosslink_time": "10 min",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001925",
+                "experiment_type": "Histone H3K27ac",
+                "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "extraction_protocol_sonication_cycles": "10",
+                "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+                "library_generation_fragment_size_range": "105:507",
+                "reference_registry_id": "IHECRE00000001.2"
+            },
+            "sample_id": "CEMT0007.gDNA"
+        },
+        "A26691": {
+            "analysis_attributes": {
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.7",
+                "analysis_group": "CEMT",
+                "analysis_software": "CEMT/ChIP-Seq Input module",
+                "analysis_software_version": "2016.01",
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
+            "analysis_group": "CEMT",
+            "browser": {
+                "signal_unstranded": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/Input/A26691.BWA_2013-06-21-s_2_TCATTC_paired.dup.sorted.q5.F1028.PET.bw",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "8de535f4bb1f2a0b391e88e3c32e3eb9",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ]
+            },
+            "experiment": "ChIP-Seq Input",
+            "experiment_attributes": {
+                "chip_protocol": "Input",
+                "chip_protocol_chromatin_amount": "0.1 ug",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001925",
+                "experiment_type": "ChIP-Seq Input",
+                "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "extraction_protocol_sonication_cycles": "10",
+                "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+                "reference_registry_id": "IHECRE00000001.2"
+            },
+            "sample_id": "CEMT0007.gDNA"
+        },
+        "A28471": {
+            "analysis_attributes": {
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.7",
+                "analysis_group": "CEMT",
+                "analysis_software": "CEMT/Histone H3K4me3 module",
+                "analysis_software_version": "2016.01",
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
+            "analysis_group": "CEMT",
+            "browser": {
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me3/FindER.1.0.0b/A28471.CEMT_7.H3K4me3.134224.D2B0LACXX_2_ATCACG.v.A26691.CEMT_7.FDR_0.05.FindER.bed.bb",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "dd542363cd5b713fbe13db08302efb5e",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ],
+                "signal_unstranded": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K4me3/A28471.BWA_2013-06-21-s_2_ATCACG_paired.dup.sorted.q5.F1028.PET.bw",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "e2bd02977c8de390abcb371cec491b30",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ]
+            },
+            "experiment": "Histone H3K4me3",
+            "experiment_attributes": {
+                "chip_antibody": "H3K4me3",
+                "chip_antibody_catalog": "BP1 - Blueprint Grade pAb-003-050",
+                "chip_antibody_lot": "A.5051-001P",
+                "chip_antibody_provider": "Diagenode",
+                "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "chip_protocol_antibody_amount": "5 ug",
+                "chip_protocol_bead_amount": "24 ul",
+                "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+                "chip_protocol_chromatin_amount": "5 ug",
+                "chip_protocol_crosslink_time": "10 min",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001925",
+                "experiment_type": "Histone H3K4me3",
+                "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "extraction_protocol_sonication_cycles": "10",
+                "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+                "library_generation_fragment_size_range": "143:569",
+                "reference_registry_id": "IHECRE00000001.2"
+            },
+            "sample_id": "CEMT0007.gDNA"
+        },
+        "A28472": {
+            "analysis_attributes": {
+                "alignment_software": "BWA",
+                "alignment_software_version": "0.5.7",
+                "analysis_group": "CEMT",
+                "analysis_software": "CEMT/Histone H3K9me3 module",
+                "analysis_software_version": "2016.01",
+                "description_url": "http://www.epigenomes.ca/methods.html"
+            },
+            "analysis_group": "CEMT",
+            "browser": {
+                "peak_calls": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K9me3/FindER.1.0.0b/A28472.CEMT_7.H3K9me3.134224.D2B0LACXX_2_CGATGT.v.A26691.CEMT_7.FDR_0.05.FindER.bed.bb",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "14e1281ab81f3f8eee2b2a3f6bc9cdc9",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ],
+                "signal_unstranded": [
+                    {
+                        "big_data_url": "http://www.epigenomes.ca/data/CEMT/CEMT_7/H3K9me3/A28472.BWA_2013-06-21-s_2_CGATGT_paired.dup.sorted.q5.F1028.PET.bw",
+                        "description_url": "http://www.epigenomes.ca/methods.html",
+                        "md5sum": "d9e8a07e0c22b9ee4f1add46e9d4f183",
+                        "primary": true,
+                        "sample_source": "CEMT0007.gDNA",
+                        "subtype": ""
+                    }
+                ]
+            },
+            "experiment": "Histone H3K9me3",
+            "experiment_attributes": {
+                "chip_antibody": "H3K9me3",
+                "chip_antibody_catalog": "BP47 - Blueprint Grade pAb-056-050",
+                "chip_antibody_lot": "A1671-001P",
+                "chip_antibody_provider": "Diagenode",
+                "chip_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "chip_protocol_antibody_amount": "5 ug",
+                "chip_protocol_bead_amount": "24 ul",
+                "chip_protocol_bead_type": "Sepharose A/G Bead Mix",
+                "chip_protocol_chromatin_amount": "5 ug",
+                "chip_protocol_crosslink_time": "10 min",
+                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001925",
+                "experiment_type": "Histone H3K9me3",
+                "extraction_protocol": "BCCAGSC ChIP Standard Operating Procedure",
+                "extraction_protocol_sonication_cycles": "10",
+                "extraction_protocol_type_of_sonicator": "Fisher 550 Sonic Dismembrator",
+                "library_generation_fragment_size_range": "119:628",
+                "reference_registry_id": "IHECRE00000001.2"
+            },
+            "sample_id": "CEMT0007.gDNA"
+        }
+    },
+    "hub_description": {
+        "assembly": "hg19",
+        "date": "2016-07-25",
+        "description": "http://www.epigenomes.ca",
+        "description_url": "http://www.epigenomes.ca",
+        "email": "edcc@bcgsc.ca",
+        "publishing_group": "CEEHRC",
+        "taxon_id": 9606
+    },
+    "samples": {
+        "CEMT0007.gDNA": {
+            "batch": "1",
+            "biomaterial_provider": "Aparicio",
+            "biomaterial_type": "Cell Line",
+            "differentiation_method": "NA",
+            "differentiation_stage": "NA",
+            "disease": "Mammary gland-Breast Fibrocystic Disease",
+            "disease_ontology_uri": "",
+            "line": "MCF10A",
+            "lineage": "mammary gland epithelia",
+            "medium": "Growth media: DMEM/F12 +5% horse serum (it also includes FGF (20 ug/ml), Hydrocortizone (0.5 mg/ml), Cholera Toxin (10 ug/ml), insulin (1 mg/ml), Pen/Strep 1%)",
+            "molecule": "genomic DNA",
+            "passage": "3",
+            "sample_id": "CEMT0007",
+            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001200",
+            "sex": "Female"
+        },
+        "CEMT0007.tRNA": {
+            "batch": "1",
+            "biomaterial_provider": "Aparicio",
+            "biomaterial_type": "Cell Line",
+            "differentiation_method": "NA",
+            "differentiation_stage": "NA",
+            "disease": "Mammary gland-Breast Fibrocystic Disease",
+            "disease_ontology_uri": "",
+            "line": "MCF10A",
+            "lineage": "mammary gland epithelia",
+            "medium": "Growth media: DMEM/F12 +5% horse serum (it also includes FGF (20 ug/ml), Hydrocortizone (0.5 mg/ml), Cholera Toxin (10 ug/ml), insulin (1 mg/ml), Pen/Strep 1%)",
+            "molecule": "total RNA",
+            "passage": "3",
+            "sample_id": "CEMT0007",
+            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001200",
+            "sex": "Female"
+        }
+    }
+}

@@ -78,7 +78,8 @@ visibility full`
 	shortLabel DG-75.DNase.DG-75
 	longLabel DG-75 DNase DG-75 peaks from NCMLS
 	color 8,104,172
-	subGroups experiment=DNase sample_description=DG-75 analysis_type=HOTSPOT_peak view=Region analysis_group=EMBL-EBI
+	subGroups experiment=DNase sample_description=DG-75 analysis_type=HOTSPOT_peak 
+          view=Region analysis_group=EMBL-EBI
 	metadata ...
 
 	track bpDnaseRegionsBP_U-266_d01DNaseHOTSPOT_peakEMBL-EBI
@@ -88,7 +89,8 @@ visibility full`
 	shortLabel U-266.DNase.U-266
 	longLabel U-266 DNase U-266 peaks from NCMLS
 	color 8,104,172
-	subGroups experiment=DNase sample_description=U-266 analysis_type=HOTSPOT_peak donor_id=U-266 view=Region analysis_group=EMBL-EBI
+	subGroups experiment=DNase sample_description=U-266 analysis_type=HOTSPOT_peak 
+          donor_id=U-266 view=Region analysis_group=EMBL-EBI
 	metadata ...
     
   track signal  
@@ -107,7 +109,8 @@ visibility full`
 	shortLabel DG-75.DNase.DG-75
 	longLabel DG-75 DNase DG-75 signal from NCMLS
 	color 8,104,172
-	subGroups experiment=DNase sample_description=DG-75 analysis_type=wiggler view=Signal analysis_group=EMBL-EBI
+	subGroups experiment=DNase sample_description=DG-75 analysis_type=wiggler 
+          view=Signal analysis_group=EMBL-EBI
 	metadata ...
     
 	track bpDnaseSignalBP_U-266_d01DNasewigglerEMBL-EBIwiggler
@@ -117,7 +120,8 @@ visibility full`
 	shortLabel U-266.DNase.U-266
 	longLabel U-266 DNase U-266 signal from NCMLS
 	color 8,104,172
-	subGroups experiment=DNase sample_description=U-266 analysis_type=wiggler view=Signal analysis_group=EMBL-EBI
+	subGroups experiment=DNase sample_description=U-266 analysis_type=wiggler 
+          view=Signal analysis_group=EMBL-EBI
 	metadata ...
 
 ####Required attributes
@@ -189,11 +193,14 @@ shortLabel C0010K.DNase.Mono
 longLabel C0010K DNase Monocytes peaks (EBI)  
 color 8,104,172  
 subGroups experiment_type=DNase cell_type=CD14-positive,_CD16-negative_classical_monocyte donor_id=C0010K view=Region analysis_group=EBI  
-metadata MOLECULE=genomic_DNA DISEASE=None BIOMATERIAL_TYPE=Primary_cells   SAMPLE_ID=EGAN00001070025 DONOR_ID=C0010K46 DONOR_AGE=60-65 DONOR_HEALTH_STATUS=Healthy   DONOR_SEX=Female DONOR_ETHNICITY=Northern_European CELL_TYPE=CD14-positive,_CD16-negative_classical_monocyte TISSUE_TYPE=Venous_blood LIBRARY_STRATEGY=DNAse-Seq   EXPERIMENT_TYPE=Chromatin_accessibility Experiment_ID=EGAX00001084791   ALIGNMENT_SOFTWARE=BWA ALIGNMENT_SOFTWARE_VERSION=0.5.9 ANALYSIS_SOFTWARE=Hotspot   ANALYSIS_SOFTWARE_VERSION=v3 ANALYSIS_GROUP=EMBL-EBI  
+metadata MOLECULE=genomic_DNA DISEASE=None BIOMATERIAL_TYPE=Primary_cells   
+  SAMPLE_ID=EGAN00001070025 DONOR_ID=C0010K46 DONOR_AGE=60-65 DONOR_HEALTH_STATUS=Healthy   DONOR_SEX=Female 
+  DONOR_ETHNICITY=Northern_European CELL_TYPE=CD14-positive,_CD16-negative_classical_monocyte TISSUE_TYPE=Venous_blood LIBRARY_STRATEGY=DNAse-Seq   EXPERIMENT_TYPE=Chromatin_accessibility Experiment_ID=EGAX00001084791   ALIGNMENT_SOFTWARE=BWA ALIGNMENT_SOFTWARE_VERSION=0.5.9 ANALYSIS_SOFTWARE=Hotspot   ANALYSIS_SOFTWARE_VERSION=v3 ANALYSIS_GROUP=EMBL-EBI  
 
 This is an example of a  metadata suitable for cell line sample:
 
-metadata LINE=BL-2 DIFFERENTIATION_STAGE=B_cell MEDIUM=RPMI_1640_+_10%FBS_+_1%_Glutamine   SEX=Male MOLECULE=genomic_DNA  DISEASE=Sporadic_Burkitt_lymphoma   DISEASE_ONTOLOGY_URI=http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077 BIOMATERIAL_TYPE=Cell_line   SAMPLE_ONTOLOGY_URI=http://www.ebi.ac.uk/efo/EFO_0001639 SAMPLE_ID=ERS333897   LIBRARY_STRATEGY=DNAse-Seq  EXPERIMENT_TYPE=H3K27ac Experiment_ID=EGAX00001084792   ALIGNMENT_SOFTWARE=BWA ALIGNMENT_SOFTWARE_VERSION=0.5.9 ANALYSIS_SOFTWARE=Hotspot   ANALYSIS_SOFTWARE_VERSION=v3 ANALYSIS_GROUP=EMBL-EBI  
+metadata LINE=BL-2 DIFFERENTIATION_STAGE=B_cell 
+  MEDIUM=RPMI_1640_+_10%FBS_+_1%_Glutamine   SEX=Male MOLECULE=genomic_DNA  DISEASE=Sporadic_Burkitt_lymphoma   DISEASE_ONTOLOGY_URI=http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077 BIOMATERIAL_TYPE=Cell_line   SAMPLE_ONTOLOGY_URI=http://www.ebi.ac.uk/efo/EFO_0001639 SAMPLE_ID=ERS333897   LIBRARY_STRATEGY=DNAse-Seq  EXPERIMENT_TYPE=H3K27ac Experiment_ID=EGAX00001084792   ALIGNMENT_SOFTWARE=BWA ALIGNMENT_SOFTWARE_VERSION=0.5.9 ANALYSIS_SOFTWARE=Hotspot   ANALYSIS_SOFTWARE_VERSION=v3 ANALYSIS_GROUP=EMBL-EBI  
 
 This is an example of a metadata suitable for primary tissue sample:
 
@@ -202,7 +209,8 @@ SAMPLE_ONTOLOGY_URI=http://purl.obolibrary.org/obo/CL_0000775
 
 This is an example of a metadata suitable for a primary cell culture sample:
 
-metadata MOLECULE=genomic_DNA DISEASE=None BIOMATERIAL_TYPE=Primary_Cell_Culture CELL_TYPE=macrophage SAMPLE_ID=EGAN00001070028 DONOR_ID=C0010K46 DONOR_AGE=60-65 DONOR_HEALTH_STATUS=Healthy DONOR_SEX=Female DONOR_ETHNICITY=Northern_European CULTURE_CONDITIONS=http://www.blueprint-epigenome.eu/UserFiles/file/Protocols/UCAM_BluePrint_Macrophage.pdf LIBRARY_STRATEGY=DNAse-Seq EXPERIMENT_TYPE=Chromatin_accessibility Experiment_ID=EGAX00001084792 ALIGNMENT_SOFTWARE=BWA ALIGNMENT_SOFTWARE_VERSION=0.5.9 ANALYSIS_SOFTWARE=Hotspot ANALYSIS_SOFTWARE_VERSION=v3 ANALYSIS_GROUP=EMBL-EBI
+metadata MOLECULE=genomic_DNA DISEASE=None BIOMATERIAL_TYPE=Primary_Cell_Culture CELL_TYPE=macrophage SAMPLE_ID=EGAN00001070028 DONOR_ID=C0010K46 DONOR_AGE=60-65 DONOR_HEALTH_STATUS=Healthy DONOR_SEX=Female 
+  DONOR_ETHNICITY=Northern_European CULTURE_CONDITIONS=http://www.blueprint-epigenome.eu/UserFiles/file/Protocols/UCAM_BluePrint_Macrophage.pdf LIBRARY_STRATEGY=DNAse-Seq EXPERIMENT_TYPE=Chromatin_accessibility Experiment_ID=EGAX00001084792 ALIGNMENT_SOFTWARE=BWA ALIGNMENT_SOFTWARE_VERSION=0.5.9 ANALYSIS_SOFTWARE=Hotspot ANALYSIS_SOFTWARE_VERSION=v3 ANALYSIS_GROUP=EMBL-EBI
 SAMPLE_ONTOLOGY_URI=http://purl.obolibrary.org/obo/CL_0000235
 
 
