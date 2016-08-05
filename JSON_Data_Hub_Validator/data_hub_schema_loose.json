@@ -1,0 +1,216 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://epigenomesportal.ca/schemas/data_hub_schema.json",
+    "title": "IHEC Data Hub Schema 0.1",
+    "description": "Structural validation of IHEC data hubs.",
+    "type" : "object",
+
+    "definitions": {
+        "hub_description": {
+            "type": "object",
+            "properties": {
+                "taxon_id": {"type": "integer", "description": "Taxonomy ID, as can be found on NCBI resources. (e.g. '9606' for human)"},
+                "assembly": {"type": "string", "description": "Assembly version as it can be found on the UCSC Genome Browser site. (e.g. hg19, hg38, mm10)"},
+                "publishing_group": {
+                    "type": "string",
+                    "enum": ["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap", "Other"],
+                    "description": "The IHEC consortia publishing this data hub."
+                },
+                "email": {"type": "string", "format": "email", "description": "Write-to address for enquiries about the data hub."},
+                "date": {"type": "string", "description": "Data hub release date, in ISO 8601 format."},
+                "description": {"type": "string", "description": "A description of the hub content."},
+                "description_url": {"type": "string", "description": "A link to an HTML document describing of the hub content."}
+            },
+            "required": ["taxon_id", "assembly", "publishing_group", "email", "date"]
+        },
+
+        "datasets": {
+            "type": "object",
+            "properties": {
+                "sample_id": {
+                    "oneOf": [
+                        {"type": "string", "description": "When the experiment belongs to a single sample, put one sample ID here." },
+                        {
+                            "type": "array",
+                            "description": "When the experiment belongs to multiple samples, put a list of IDs here.",
+                            "items": { "type": "string" }
+                        }
+                    ]
+                },
+                "experiment_attributes": { "$ref": "#/definitions/experiment_attributes" },
+                "analysis_attributes": { "$ref": "#/definitions/analysis_attributes" },
+                "browser": {
+                    "type": "object",
+                    "properties": {
+                        "signal_unstranded": {"$ref": "#/definitions/track"},
+                        "signal_forward": {"$ref": "#/definitions/track"},
+                        "signal_reverse": {"$ref": "#/definitions/track"},
+                        "peak_calls": {"$ref": "#/definitions/track"},
+                        "methylation_profile":  {"$ref": "#/definitions/track"},
+                        "contigs":  {"$ref": "#/definitions/track"}
+                    },
+                    "additionalProperties": {"$ref": "#/definitions/track"},
+                    "dependencies": {
+                        "signal_forward": ["signal_reverse"],
+                        "signal_reverse": ["signal_forward"]
+                    }
+                },
+                "download": {
+                    "type": "object",
+                    "properties": {
+                        "rpkm_forward": {"$ref": "#/definitions/track"},
+                        "rpkm_reverse": {"$ref": "#/definitions/track"},
+                        "rpkm_unstranded": {"$ref": "#/definitions/track"}
+                    },
+                    "additionalProperties": {"$ref": "#/definitions/track"},
+                    "dependencies": {
+                        "rpkm_forward": ["rpkm_reverse"],
+                        "rpkm_reverse": ["rpkm_forward"]
+                    }
+                }
+            },
+
+            "required": ["sample_id", "analysis_attributes", "experiment_attributes", "browser"]
+        },
+
+        "samples": {
+            "type" : "object",
+            "properties": {
+                "sample_ontology_uri" : {"type": "string", "format": "uri", "description": "Ontology term that links to sample ontology information. Depending on the biomaterial_type, will be either an UBERON or CL ontology term."},
+                "molecule" : {
+                    "type": "string",
+                    "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "genomic DNA", "protein", "other"],
+                    "description": "The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, genomic DNA, protein, or other."},
+                "disease" : {"type": "string", "description": "Free form field for more specific disease information. If dealing with a rare disease consider identifiability issues."},
+                "disease_ontology_uri" : {"type": "string", "format": "uri", "description": "Links to disease ontology information. If dealing with a rare disease consider identifiability issues. The NCI metathesaurus term C0277545 “Disease type AND/OR category unknown” should be used for unknown diseases. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) or in the free form DISEASE attribute."},
+                "biomaterial_type" : {"type": "string", "enum":["Cell Line", "Primary Cell", "Primary Cell Culture", "Primary Tissue"], "description": ""}
+            },
+            "anyOf": [
+                { "$ref": "#/definitions/SA_cell_line" },
+                { "$ref": "#/definitions/SA_primary_cell" },
+                { "$ref": "#/definitions/SA_primary_cell_culture" },
+                { "$ref": "#/definitions/SA_primary_tissue" }
+            ],
+            "required": ["sample_ontology_uri", "molecule", "disease", "disease_ontology_uri", "biomaterial_type"]
+        },
+
+        "SA_with_donor": {
+            "type": "object",
+            "properties": {
+                "donor_id" : {"type": "string", "description": "An identifying designation for the donor that provided the primary cell."},
+                "donor_age" : {
+                    "description": "The age of the donor that provided the primary cell, tissue etc. NA if not available. If over 90 years enter as 90+. If entering a range of ages use the format '{age}-{age}'.",
+                    "oneOf": [
+                        {
+                            "type": "number",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 90
+                        },
+                        { "type": "string", "enum": ["90+", "NA"] },
+                        { "type": "string", "pattern": "^\\d+-\\d+$" }
+                    ]
+                },
+                "donor_age_unit" : {"type": "string", "enum": ["year", "month", "week", "day"]},
+                "donor_life_stage": {"type": "string", "enum": ["fetal", "newborn", "child", "adult", "unknown", "embryonic", "postnatal"]},
+                "donor_health_status" : {"type": "string", "description": "The health status of the donor that provided the primary cell. NA if not available."},
+                "donor_sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."},
+                "donor_ethnicity" : {"type": "string", "description": "The ethnicity of the donor that provided the primary cell. NA if not available. If dealing with small/vulnerable populations consider identifiability issues."}
+            },
+            "required": ["donor_id", "donor_age", "donor_age_unit", "donor_life_stage", "donor_health_status", "donor_sex", "donor_ethnicity"]
+        },
+
+        "SA_cell_line": {
+            "type": "object",
+            "properties": {
+                "biomaterial_type" : {"type": "string", "enum":["Cell Line"]},
+                "line" : {"type": "string", "description": "The name of the cell line."},
+                "lineage" : {"type": "string", "description": "The developmental lineage to which the cell line belongs."},
+                "differentiation_stage" : {"type": "string", "description": "The stage in cell differentiation to which the cell line belongs."},
+                "medium" : {"type": "string", "description": "The medium in which the cell line has been grown."},
+                "sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."}
+            },
+            "required": ["biomaterial_type", "line", "lineage", "differentiation_stage", "medium", "sex"]
+        },
+
+        "SA_primary_cell": {
+            "type": "object",
+            "properties": {
+                "biomaterial_type" : {"type": "string", "enum":["Primary Cell"]},
+                "cell_type" : {"type": "string", "description": "The type of cell."}
+            },
+            "required": ["biomaterial_type", "cell_type"],
+            "allOf": [{ "$ref": "#/definitions/SA_with_donor" }]
+        },
+
+        "SA_primary_cell_culture": {
+            "type": "object",
+            "properties": {
+                "biomaterial_type" : {"type": "string", "enum":["Primary Cell Culture"]},
+                "cell_type" : {"type": "string", "description": ""},
+                "culture_conditions" : {"type": "string", "description": "The conditions under which the primary cell was cultured."}
+            },
+            "required": ["biomaterial_type", "cell_type", "culture_conditions"],
+            "allOf": [{ "$ref": "#/definitions/SA_with_donor" }]
+        },
+
+        "SA_primary_tissue": {
+            "type": "object",
+            "properties": {
+                "biomaterial_type" : {"type": "string", "enum":["Primary Tissue"]},
+                "tissue_type" : {"type": "string", "description": "The type of tissue."},
+                "tissue_depot" : {"type": "string", "description": "Details about the anatomical location from which the primary tissue was collected."}
+            },
+            "required": ["biomaterial_type", "tissue_type", "tissue_depot"],
+            "allOf": [{ "$ref": "#/definitions/SA_with_donor" }]
+        },
+
+        "experiment_attributes": {
+            "type": "object",
+            "properties": {
+                "experiment_type": {"type": "string", "description": "DNA Methylation, mRNA-Seq, ChIP-Seq Input..."},
+                "assay_type": {"type": "string", "description": "As described in the experiment_ontology_uri term, e.g. 'DNA Methylation'..."},
+                "experiment_ontology_uri": {"type": "string", "format": "uri", "description": "(Ontology) links to experiment ontology information."},
+                "reference_registry_id": {"type": "string", "description": "Assigned after submitting to EpiRR", "description": "The EpiRR ID for this dataset."}
+            },
+            "required": ["experiment_type", "experiment_ontology_uri"]
+        },
+
+        "analysis_attributes": {
+            "type": "object",
+            "properties": {
+                "analysis_group": {"type": "string", "description": "The group that ran the bioformatics analysis to produce this dataset tracks."},
+                "alignment_software": {"type": "string", "description": "The name of the software used for mapping."},
+                "alignment_software_version": {"type": "string", "description": "The version of the software used for mapping."},
+                "analysis_software": {"type": "string", "description": "The name of the software used for determining signal (read density)."},
+                "analysis_software_version": {"type": "string", "description": "The version of the software used for determining signal (read density)."}
+            },
+            "required": ["analysis_group", "alignment_software", "alignment_software_version", "analysis_software", "analysis_software_version"]
+        },
+
+        "track": {
+            "type": "array",
+            "description": "A list of tracks that belong to this type. The first track is considered as the main track representing this type.",
+            "items": {
+                "type" : "object",
+                "properties" : {
+                    "big_data_url": {"type" : "string", "format": "uri", "description": "The URL from where this dataset track can be obtained online."},
+                    "description_url": {"type": "string", "format": "uri", "description": "The URL of the document giving more information about this dataset track."},
+                    "md5sum": {"type": "string", "format": "md5", "description": "The checksum for this track."},
+                    "subtype": {"type": "string", "description": "If there are multiple files for this track type, use this free text field to put more information about what kind of information this track represents."},
+                    "sample_source": {"type": "string", "description": "Use this field if the track belongs to only one/some sample(s) of a merged dataset."},
+                    "primary": {"type": "boolean", "description": "When there are multiple tracks for this track type, set this field to 'true' to express that this is the primary track to represent this track type."}
+                },
+                "required": ["big_data_url", "md5sum"]
+            }
+        }
+    },
+
+    "properties": {
+        "hub_description": { "$ref": "#/definitions/hub_description" },
+        "datasets": { "type": "object", "additionalProperties": {"$ref": "#/definitions/datasets"} },
+        "samples": { "type": "object", "additionalProperties": {"$ref": "#/definitions/samples"} }
+    },
+    "required": ["hub_description", "datasets"]
+
+}
