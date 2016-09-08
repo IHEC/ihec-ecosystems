@@ -2,6 +2,8 @@
 
 A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/JSON_Data_Hub_Validator/data_hub_schema.json
 
+Note that you can use the IHEC Data Portal if you're looking for IHEC Data Hubs examples with real data. If you've previously submitted a UCSC Genome Browser track hub, you can even consult your own data in the IHEC Data Hub format. To do so, go to the IHEC Data Portal (currently, the development server at [http://edcc-dev2.udes.genap.ca/ihec/](http://edcc-dev2.udes.genap.ca/ihec/)), select data and click on "Get Metadata".
+
 A JSON data hub contains three main sections:
 ```
 {
