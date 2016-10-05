@@ -190,7 +190,8 @@
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318037",
                         "subtype": "Sample-specific signal",
-                        "sample_source": "sample_id_3"
+                        "sample_source": "sample_id_3",
+                        "primary": false
 
                     },
                     {
@@ -198,7 +199,8 @@
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318037",
                         "subtype": "Sample-specific signal",
-                        "sample_source": "sample_id_4"
+                        "sample_source": "sample_id_4",
+                        "primary": false
                     }
                 ],
                 "peak_calls": [
@@ -207,13 +209,14 @@
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
                         "subtype": "pooled peaks",
-                        "primary": true
+                        "primary": false
                     },
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318039",
-                        "subtype": "IDR conservative peaks"
+                        "subtype": "IDR conservative peaks",
+                        "primary": false
                     }
                 ]
             }
