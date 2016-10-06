@@ -13,60 +13,59 @@
             "biomaterial_type": "Cell Line",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
-            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease": "Mammary gland-Breast Fibrocystic Disease",
             "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
-            "line": "BL-2",
+            "line": "MCF10A",
             "lineage": "unknown",
             "differentiation_stage": "B_cell",
             "medium": "RPMI_1640_+_10%FBS_+_1%_Glutamine",
             "sex": "Male"
         },
         "sample_id_2": {
-            "biomaterial_type": "Primary Tissue",
+            "biomaterial_type": "Primary Cell",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
-            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease": "Acute Myeloid Leukemia",
             "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
-            "donor_id" : "Donor1",
+            "donor_id" : "pz 300",
             "donor_age" : "30-40",
             "donor_age_unit" : "year",
             "donor_life_stage": "adult",
             "donor_health_status" : "Healthy",
             "donor_sex" : "Male",
             "donor_ethnicity" : "Caucasian",
-            "tissue_type": "Blood",
-            "tissue_depot": "Venous blood"
+            "cell_type": "myeloid cell"
         },
         "sample_id_3": {
             "biomaterial_type": "Primary Tissue",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
-            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease": "None",
             "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
-            "donor_id" : "Donor1",
+            "donor_id" : "STL001",
             "donor_age" : "30-40",
             "donor_age_unit" : "year",
             "donor_life_stage": "adult",
             "donor_health_status" : "Healthy",
             "donor_sex" : "Male",
             "donor_ethnicity" : "Caucasian",
-            "tissue_type": "Blood",
+            "tissue_type": "Thymus",
             "tissue_depot": "Venous blood"
         },
         "sample_id_4": {
             "biomaterial_type": "Primary Tissue",
             "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
             "molecule": "polyA RNA",
-            "disease": "Sporadic_Burkitt_lymphoma",
+            "disease": "None",
             "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
-            "donor_id" : "Donor1",
+            "donor_id" : "STL001",
             "donor_age" : "30-40",
             "donor_age_unit" : "year",
             "donor_life_stage": "adult",
             "donor_health_status" : "Healthy",
             "donor_sex" : "Male",
             "donor_ethnicity" : "Caucasian",
-            "tissue_type": "Blood",
+            "tissue_type": "Thymus",
             "tissue_depot": "Venous blood"
         }
     },
@@ -78,7 +77,7 @@
                 "experiment_type": "DNA Methylation",
                 "assay_type": "shotgun bisulfite-seq assay",
                 "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
-                "reference_registry_id": "EGAX00001084792"
+                "reference_registry_id": "IHECRE00000001"
             },
             "analysis_attributes": {
                 "analysis_group": "EMBL-EBI",
@@ -115,10 +114,10 @@
         "experiment_id_2": {
             "sample_id": "sample_id_2",
             "experiment_attributes": {
-                "experiment_type": "mRNA-Seq",
+                "experiment_type": "total-RNA-Seq",
                 "assay_type": "RNA-seq assay",
                 "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
-                "reference_registry_id": "EGAX00001084792"
+                "reference_registry_id": "IHECRE00001554"
             },
             "analysis_attributes": {
                 "analysis_group": "EMBL-EBI",
@@ -167,7 +166,7 @@
                 "experiment_type": "Histone H3K4me1",
                 "assay_type": "cross-linking immunoprecipitation high-throughput sequencing assay",
                 "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001858",
-                "reference_registry_id": "EGAX00001084792"
+                "reference_registry_id": "IHECRE00000969"
             },
             "analysis_attributes": {
                 "analysis_group": "EMBL-EBI",
@@ -209,7 +208,7 @@
                         "description_url": "http://.../desc.html",
                         "md5sum": "1a7bdc31d6837635a70cbb5d5b318038",
                         "subtype": "pooled peaks",
-                        "primary": false
+                        "primary": true
                     },
                     {
                         "big_data_url": "http://.../mytrack.bigWig",
