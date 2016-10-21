@@ -107,6 +107,7 @@ def validateDatasets(datasets):
 
                 for track in tracks:
                     validateMd5(track['md5sum'])
+
             except Exception as e:
                 raise Exception('Problem in dataset "%s" and track type "%s": %s' % (dn, track_type, e.message))
 
@@ -144,13 +145,15 @@ def validatePrimaryTrack(tracks):
 
 
 def validateEpirr(jsonObj):
-    """Make sure provided metadata matches with EpiRR record."""
+    """Ensure that IHEC Data Hub metadata matches with EpiRR record."""
+
+    print()
 
     datasets = jsonObj['datasets']
     samples = jsonObj['samples']
 
-    for d_name in datasets:
-        dataset = datasets[d_name]
+    for dataset_name in datasets:
+        dataset = datasets[dataset_name]
         exp_attr = dataset['experiment_attributes']
         exp_name = exp_attr['experiment_type']
 
@@ -159,9 +162,10 @@ def validateEpirr(jsonObj):
         else:
             ds_names = [dataset['sample_id']]
 
+        #If dataset has an EpiRR id, validate that metadata matches
         if 'reference_registry_id' in exp_attr:
             epirr_id = exp_attr['reference_registry_id']
-            logging.getLogger().info('Validating dataset "%s" against EpiRR record "%s"...' % (d_name, epirr_id))
+            logging.getLogger().info('Validating dataset "%s" against EpiRR record "%s"...' % (dataset_name, epirr_id))
 
             try:
                 request = urllib2.Request('http://www.ebi.ac.uk/vg/epirr/view/' + epirr_id, headers={"Accept": "application/json"})
@@ -171,41 +175,60 @@ def validateEpirr(jsonObj):
                 continue
 
             epirr_json = json.loads(response)
-            epirr_metadata = epirr_json['meta_data']
+            epirr_sample_metadata = epirr_json['meta_data']
 
             #Validate that each sample that this dataset refers to holds the correct metadata
             for ds_name in ds_names:
-                s = samples[ds_name]
+                hub_sample_metadata = samples[ds_name]
                 logging.getLogger().debug('Validating sample "%s" properties...' % (ds_name))
+                validateSample(epirr_sample_metadata, hub_sample_metadata, dataset_name)
 
-                validateProperty(epirr_metadata, s, d_name, 'biomaterial_type')
-                validateProperty(epirr_metadata, s, d_name, 'disease')
+            #Case-insensitive check that each experiment that has an EpiRR id is actually registered at EpiRR.
+            raw_data_per_exp = {rd['experiment_type'].lower(): rd for rd in epirr_json['raw_data']}
+            if exp_name.lower() not in raw_data_per_exp:
+                logging.getLogger().error('-Experiment "%s" could not be found in EpiRR record %s.' % (exp_name, epirr_id))
 
-                #Cell Line
-                if 'line' in epirr_metadata:
-                    validateProperty(epirr_metadata, s, d_name, 'line')
-                else:
-                    #For non-Cell Line, a donor_id is required
-                    validateProperty(epirr_metadata, s, d_name, 'donor_id')
-
-                    if 'cell_type' in epirr_metadata:
-                        #Primary Cell or Primary Cell Culture
-                        validateProperty(epirr_metadata, s, d_name, 'cell_type')
-                    elif 'tissue_type' in epirr_metadata:
-                        # Primary Tissue
-                        validateProperty(epirr_metadata, s, d_name, 'tissue_type')
-                    else:
-                        raise Exception('Missing metadata in EpiRR record.')
+            print()
 
 
-            raw_data_per_exp = {rd['experiment_type']: rd for rd in epirr_json['raw_data']}
-            if exp_name not in raw_data_per_exp:
-                raise Exception('Experiment %s could not be found in EpiRR record %s.' % (exp_name, epirr_id))
+def validateSample(epirr_sample_metadata, hub_sample_metadata, dataset_name):
+    """Validate that IHEC Data Hub sample object has metadata that matches EpiRR record."""
+
+    validateProperty(epirr_sample_metadata, hub_sample_metadata, dataset_name, 'biomaterial_type')
+
+    # Cell Line
+    if 'line' in epirr_sample_metadata:
+        validateProperty(epirr_sample_metadata, hub_sample_metadata, dataset_name, 'line')
+    else:
+        validateProperty(epirr_sample_metadata, hub_sample_metadata, dataset_name, 'disease')
+
+        # For non-Cell Line, a donor_id is required
+        validateProperty(epirr_sample_metadata, hub_sample_metadata, dataset_name, 'donor_id')
+
+        if 'cell_type' in epirr_sample_metadata:
+            # Primary Cell or Primary Cell Culture
+            validateProperty(epirr_sample_metadata, hub_sample_metadata, dataset_name, 'cell_type')
+        elif 'tissue_type' in epirr_sample_metadata:
+            # Primary Tissue
+            validateProperty(epirr_sample_metadata, hub_sample_metadata, dataset_name, 'tissue_type')
+        else:
+            logging.getLogger().error('-Missing metadata in EpiRR record.')
 
 
-def validateProperty(epirr_metadata, sample, dataset_name, prop):
-    if epirr_metadata[prop] != sample[prop]:
-        raise Exception('"%s" mismatch for experiment "%s": "%s" VS "%s"' % (prop, dataset_name, epirr_metadata[prop], sample[prop]))
+def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
+    """Case-insensitive comparison for a property between IHEC Data Hub and EpiRR record."""
+
+    if prop not in epirr_metadata:
+        logging.getLogger().warning('-Property "%s" is missing in EpiRR record for experiment "%s".' % (prop, dataset_name))
+        return
+
+    if prop not in sample_metadata:
+        logging.getLogger().warning('-Property "%s" is missing in data hub sample object for experiment "%s".' % (prop, dataset_name))
+        return
+
+    if epirr_metadata[prop].lower() != sample_metadata[prop].lower():
+        logging.getLogger().warning('-Property "%s" mismatch for experiment "%s": "%s" VS "%s"' % (prop, dataset_name, epirr_metadata[prop], sample_metadata[prop]))
+        return
 
 
 if __name__ == "__main__":
