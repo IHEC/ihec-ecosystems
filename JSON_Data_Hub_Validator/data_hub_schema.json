@@ -77,10 +77,7 @@
             "type" : "object",
             "properties": {
                 "sample_ontology_uri" : {"type": "string", "format": "uri", "description": "Ontology term that links to sample ontology information. Depending on the biomaterial_type, will be either an UBERON or CL ontology term."},
-                "molecule" : {
-                    "type": "string",
-                    "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "genomic DNA", "protein", "other"],
-                    "description": "The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, genomic DNA, protein, or other."},
+                "molecule" : {"type": "string", "description": "The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, genomic DNA, protein, or other."},
                 "disease" : {"type": "string", "description": "Free form field for more specific disease information. If dealing with a rare disease consider identifiability issues."},
                 "disease_ontology_uri" : {"type": "string", "format": "uri", "description": "Links to disease ontology information. If dealing with a rare disease consider identifiability issues. The NCI metathesaurus term C0277545 “Disease type AND/OR category unknown” should be used for unknown diseases. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) or in the free form DISEASE attribute."},
                 "biomaterial_type" : {"type": "string", "enum":["Cell Line", "Primary Cell", "Primary Cell Culture", "Primary Tissue"], "description": ""}
