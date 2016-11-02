@@ -116,7 +116,7 @@ Required attributes are defined in the [IHEC Ecosystem track hub specification](
         }
 ```
 
-* **experiment_type**: Must be one of the experiment types defined in the Metadata Standards document. (e.g. "DNA Methylation", "mRNA-Seq", "ChIP-Seq Input")
+* **experiment_type**: If the experiment is registered at EpiRR, this field must match the experiment type in the EpiRR record.
 * **assay_type**: As described in the experiment_ontology_uri term. (e.g. 'DNA Methylation')
 * **experiment_ontology_uri**: Ontology term that links to experiment ontology information.
 * **reference_registry_id**: The IHEC Reference Epigenome registry ID for this dataset, assigned after submitting to EpiRR.
