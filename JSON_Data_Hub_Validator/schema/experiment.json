@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://epigenomesportal.ca/schemas/experiment.json",
+    "title": "IHEC Data Hub Experiment schema",
+    "description": "IHEC Data Hub Experiment schema",
+    "type" : "object",
+
+    "properties": {
+        "experiment_type": {"type": "string", "description": "DNA Methylation, mRNA-Seq, ChIP-Seq Input..."},
+        "assay_type": {"type": "string", "description": "As described in the experiment_ontology_uri term, e.g. 'DNA Methylation'..."},
+        "experiment_ontology_uri": {"type": "string", "format": "uri", "description": "(Ontology) links to experiment ontology information."},
+        "reference_registry_id": {"type": "string", "description": "The EpiRR ID for this dataset."}
+    },
+
+    "required": ["experiment_type", "experiment_ontology_uri"]
+}

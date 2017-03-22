@@ -39,17 +39,13 @@ def main(argv):
         printHelp()
         exit()
 
-    #If loose validation, use loose JSON Schema
-    if is_loose_validation:
-        schema_file = os.path.dirname(os.path.realpath(__file__)) + '/data_hub_schema_loose.json'
-    else:
-        schema_file = os.path.dirname(os.path.realpath(__file__)) + '/data_hub_schema.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/schema/hub.json'
 
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
 
     try:
-        validateJson(jsonObj, schema_file, validate_epirr)
+        validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation)
 
         print("Data hub is valid.")
 
@@ -71,7 +67,7 @@ def printHelp():
     print("Usage: python validateHub.py --json=doc.json [--loose-validation --verbose --epirr]")
 
 
-def validateJson(jsonObj, schema_file, validate_epirr):
+def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
     """Validate a data hub against the IHEC Data Hub Schema"""
 
     #Syntactic validation
@@ -83,7 +79,7 @@ def validateJson(jsonObj, schema_file, validate_epirr):
 
     #Semantic validation
     logging.getLogger().info('Validating Datasets object...')
-    validateDatasets(jsonObj['datasets'])
+    validateDatasets(jsonObj['datasets'], is_loose_validation)
     logging.getLogger().info('Datasets validation passed.')
 
     #EpiRR validation
@@ -93,13 +89,19 @@ def validateJson(jsonObj, schema_file, validate_epirr):
         logging.getLogger().info('EpiRR validation passed.')
 
 
-def validateDatasets(datasets):
+def validateDatasets(datasets, is_loose_validation):
     """Validate that dataset objects properties are OK."""
 
     for dn in datasets:
         dataset = datasets[dn]
 
         for track_type in dataset['browser']:
+
+            #Display warning if tracks are of an unknown type, in strict validation mode.
+            if not is_loose_validation:
+                if track_type not in ["signal_unstranded", "signal_forward", "signal_reverse", "peak_calls", "methylation_profile", "contigs"]:
+                    logging.getLogger().error('Track type is not in known types: "%s"' % (track_type))
+
             try:
                 tracks = dataset['browser'][track_type]
 

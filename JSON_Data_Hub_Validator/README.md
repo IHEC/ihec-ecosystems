@@ -1,10 +1,35 @@
 #Data hub validation
 
-**validateHub.py** can be used as a standalone tool to validate an IHEC data hub JSON document. You'll need Python with the dependencies in requirements.txt in order to use it.
+## Files description
 
-**data_hub_schema.json** can be used with other external JSON validation tools.
- 
-###Switches:
+**validateHub.py** can be used as a standalone tool to validate an IHEC data hub JSON document. You'll need Python with the dependencies in requirements.txt in order to use it.
+**requirements.txt** can be used with pip to install mandatory pacakges.
+**example1.json** is a simple example the validator can be used on.
+
+**schema/**:
+
+* **hub.json**: IHEC Data Hub JSONSchema definition.
+* **sample.json**: Defines a sample object properties.
+* **dataset.json**: Defines a dataset object properties.
+* **experiment.json**: Defines an experiment object properties.
+* **analysis.json**: Defines an analysis object properties.
+
+## Setup
+Make sure you have the required dependencies. If you have ```pip``` on your machine, you can do:
+```
+pip install
+```
+
+
+## Usage
+To validate in strict mode (make sure only predefined track types are included):
+```
+python validateHub.py --json='./example1.json' --epirr
+```
+
+To validate in loose mode (allow any kind of track types):
+
+## Switches:
 * --json : The IHEC Data Hub to be validated. Mandatory.
 * --loose-validation : Allow for other track types than the ones listed in the controlled vocabulary. If you use this, please make sure that you don't create a track type that is already in the list using another name.
 * --epirr : Validate that the IHEC Data Hub metadata matches the one provided in EpiRR. This is useful to identify data entry mistakes.
@@ -12,7 +37,7 @@
 
 
  
-###To Do:
+## Future Plans:
 * Minimum set of tracks is provided for a given assay, as described here: https://github.com/IHEC/ihec-ecosystems/blob/master/minimum_required_track_types.md
 * Ontology term at a given URI matches term explicitely given in the JSON hub. (e.g. if `disease_ontology_uri` == `http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C115935`, then `disease` == `Healthy`) 
  
