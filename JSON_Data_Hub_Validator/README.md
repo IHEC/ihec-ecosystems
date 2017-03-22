@@ -3,7 +3,9 @@
 ## Files description
 
 **validateHub.py** can be used as a standalone tool to validate an IHEC data hub JSON document. You'll need Python with the dependencies in requirements.txt in order to use it.
+
 **requirements.txt** can be used with pip to install mandatory pacakges.
+
 **example1.json** is a simple example the validator can be used on.
 
 **schema/**:
