@@ -79,8 +79,7 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
 
     #Semantic validation
     logging.getLogger().info('Validating Datasets object...')
-    sample_list = jsonObj['samples'].keys()
-    validateDatasets(jsonObj['datasets'], sample_list, is_loose_validation)
+    validateDatasets(jsonObj['datasets'], is_loose_validation)
     logging.getLogger().info('Datasets validation passed.')
 
     #EpiRR validation
@@ -90,15 +89,11 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
         logging.getLogger().info('EpiRR validation passed.')
 
 
-def validateDatasets(datasets, sample_list, is_loose_validation):
+def validateDatasets(datasets, is_loose_validation):
     """Validate that dataset objects properties are OK."""
 
     for dn in datasets:
         dataset = datasets[dn]
-
-        #Does the sample name exist in the 'samples' dictionary?
-        if dataset['sample_id'] not in sample_list:
-            logging.getLogger().error('Dataset is linked to an unknown sample_id. (sample_id="%s" does not exist in "samples" dictionary).' % (dataset['sample_id']))
 
         for track_type in dataset['browser']:
 
