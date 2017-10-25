@@ -18,7 +18,7 @@ Documentation on adopted standards is [available here](http://www.epigenomes.ca/
 
 ### Minimum required track types
 
-A description of the public access (processed) data files that should be provided by each group is [available here](./minimum_required_track_types.md).
+A description of the public access (processed) data files that should be provided by each group is [available here](./docs/minimum_required_track_types.md).
 
 
 ## IHEC Data Hubs
