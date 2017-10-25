@@ -1,4 +1,4 @@
-#IHEC TrackHub - metadata requirements
+#UCSC Track Hubs requirements
 
 ##Introduction
 
