@@ -1,4 +1,4 @@
-#IHEC Data Hub specification
+# IHEC Data Hub specification
 
 In order to submit datasets to the IHEC Data Portal, data producers need to produce an IHEC Data Hub document. An online tool is available to assist users in creating/editing their IHEC Data Hub documents. It is available here: [http://epigenomesportal.ca/metadator](http://epigenomesportal.ca/metadator)
 
