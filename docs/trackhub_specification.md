@@ -1,5 +1,7 @@
 #UCSC Track Hubs requirements
 
+## *Note: This document is now deprecated as IHEC members no longer use UCSC Genome Browser track hubs to exchange metadata. Please refer to the documentation on IHEC Data Hubs in order to prepare IHEC-compliant metadata documents.*
+
 ##Introduction
 
 Many groups involved in IHEC intend to produce track hubs to allow their data to be viewed in genome browsers (UCSC & Ensembl). The TrackHub format includes a metadata field that allows each track to be described as a set of key/value pairs. We propose that IHEC members should use the metadata fields in a standardardized way to improve interoperability between groups.
