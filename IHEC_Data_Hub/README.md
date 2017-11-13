@@ -1,8 +1,6 @@
-#JSON data hub informal decription
+# IHEC Data Hub specification
 
-A formal definition is at: https://github.com/IHEC/ihec-ecosystems/blob/master/JSON_Data_Hub_Validator/data_hub_schema.json
-
-Note that you can use the IHEC Data Portal if you're looking for IHEC Data Hubs examples with real data. If you've previously submitted a UCSC Genome Browser track hub, you can even consult your own data in the IHEC Data Hub format. To do so, go to the IHEC Data Portal (currently, the development server at [http://edcc-dev2.udes.genap.ca/ihec/](http://edcc-dev2.udes.genap.ca/ihec/)), select data and click on "Get Metadata".
+In order to submit datasets to the IHEC Data Portal, data producers need to produce an IHEC Data Hub document. An online tool is available to assist users in creating/editing their IHEC Data Hub documents. It is available here: [http://epigenomesportal.ca/metadator](http://epigenomesportal.ca/metadator)
 
 A JSON data hub contains three main sections:
 ```
@@ -21,25 +19,26 @@ Gives general information about the content of the hub.
 
 ```
     "hub_description": {
-        "taxon_id": ...,
-        "assembly": "...",
+        "name": "...",
         "publishing_group": "...",
         "email": "...",
         "date": "...",
         "description": "...",
         "description_url": "...",
+        "taxon_id": ...,
+        "assembly": "...",
     }
 ```
 
-* **taxon_id**: Species taxonomy id. (e.g. human = 9606)
-* **assembly**: UCSC Reference genome assembly ID (e.g. human = h19 or hg38)
+* **name**: Name of the IHEC Data Hub.
 * **publishing_group**: IHEC member consortium that published this data hub.
     * Controlled vocabulary: `["Blueprint", "CEEHRC", "CREST", "DEEP", "ENCODE", "KNIH", "NIH Roadmap"]`
 * **email**: Contact email for this data hub publishing group.
 * **date**: Data hub release date, in ISO 8601 format.
 * **description**: *(optional)* A description of the hub content.
 * **description_url**: *(optional)* A link to an HTML document describing the hub content.
-
+* **taxon_id**: Species taxonomy id. (e.g. human = 9606)
+* **assembly**: UCSC Reference genome assembly ID (e.g. human = h19 or hg38)
 
 
 ## 2. samples

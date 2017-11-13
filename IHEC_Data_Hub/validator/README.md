@@ -1,4 +1,4 @@
-# Data hub validation
+# IHEC Data Hub validator
 
 ## Files description
 
@@ -8,13 +8,6 @@
 
 **example1.json** is a simple example the validator can be used on.
 
-**schema/**:
-
-* **hub.json**: IHEC Data Hub JSONSchema definition.
-* **sample.json**: Defines a sample object properties.
-* **dataset.json**: Defines a dataset object properties.
-* **experiment.json**: Defines an experiment object properties.
-* **analysis.json**: Defines an analysis object properties.
 
 ## Setup
 Make sure you have the required dependencies. If you have ```pip``` on your machine, you can do:

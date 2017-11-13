@@ -1,4 +1,6 @@
-#IHEC TrackHub - metadata requirements
+#UCSC Track Hubs requirements
+
+## *Note: This document is now deprecated as IHEC members no longer use UCSC Genome Browser track hubs to exchange metadata. Please refer to the documentation on IHEC Data Hubs in order to prepare IHEC-compliant metadata documents.*
 
 ##Introduction
 
