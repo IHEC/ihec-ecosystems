@@ -1,0 +1,16 @@
+{
+    "sra": {
+        "analysis": "./schemas/SRA.analysis.xsd",
+        "common": "./schemas/SRA.common.xsd",
+        "dataset": "./schemas/EGA.dataset.xsd",
+        "experiment": "./schemas/SRA.experiment.xsd",
+        "run": "./schemas/SRA.run.xsd",
+        "sample": "./schemas/SRA.sample.xsd",
+        "submission": "./schemas/SRA.submission.xsd"
+    },
+	"ihec": {
+		"sample": {
+			"fundamental-prerelease": "./json_schema/sample.json"
+		}
+	}
+}
