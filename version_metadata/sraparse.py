@@ -29,8 +29,10 @@ class SRAParseObj:
 	def new_tag_value(self, objtype, tag, value):
 		name = '{0}_ATTRIBUTE'.format(objtype)
 		new_attr = etree.Element(name)
-		etree.SubElement(new_attr, 'TAG', text=tag)
-		etree.SubElement(new_attr, 'VALUE', text=value)
+		t = etree.SubElement(new_attr, 'TAG')
+		v = etree.SubElement(new_attr, 'VALUE')
+		t.text = tag
+		v.text = value
 		return new_attr
 
 	def tostring(self):
