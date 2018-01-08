@@ -12,7 +12,7 @@ class SampleValidator:
 				age = int(uniq_values['donor_age'])
 				uniq_values['donor_age'] = age
 		except Exception as err:
-			logger.harmless( '# failed to cast donor age to number'.format(err) + json2.pretty(uniq_values))
+			logger.warn( '#__warning: failed to cast donor age to number\n'.format(err) + str(uniq_values))
 		return uniq_values
 
 	def __init__(self, sra, validators):
@@ -21,8 +21,10 @@ class SampleValidator:
 		self.sra = sra
 		self.xmljson = self.sra.obj_xmljson()
 		for (xml, attrs) in self.xmljson:
+			logger('\n#__normalizingTags:{0}\n'.format(attrs['title']))
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
-	
+		logger("\n\n")
+
 	def is_valid_ihec(self):
 		validated = list()
 		for (xml, attrs) in self.xmljson:
@@ -37,14 +39,14 @@ class SampleValidator:
 			validator = self.validators[version]
 			valid = validator.validate(attrs)
 			#print attrs.keys()
-			logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version, attributes['title']))
+			logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', attributes['title']))
 			if valid:
 				return version
 		return None
 
 				
 def main(args):
-	print args['-config']
+	#print args['-config']
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["sample"])

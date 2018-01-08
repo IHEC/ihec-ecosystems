@@ -10,7 +10,7 @@
     },
 	"ihec": {
 		"sample": [{
-			"version" : "1.0",
+			"version" : "0.9",
 			"version_description" :  "fundamental-prerelease",
 			"schema":  "./json_schema/sample.json"
 		}],

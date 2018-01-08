@@ -1,5 +1,7 @@
 import json
+import os 
 import sys
+import time
 from collections import defaultdict
 
 class Utils:
@@ -15,7 +17,7 @@ class Utils:
 		with open(f, "w") as outfile:
 			outfile.write(sep.join(entries))
 		return f
-	def fexists(self, f):
+	def fexists(self, filename):
 		if os.path.exists(filename): return True
 		try:
 			with open(filename) as test:
@@ -28,8 +30,9 @@ class Utils:
 		for e in iterable:
 			uniq.add(e)
 			if size(uniq) > 1:
-				raise Exception('non uniq :' + str(uniq))
-		assert size(uniq) == 1
+				raise Exception('#__nonUniqInDemandUniq:' + str(uniq))
+		if size(uniq) != 1:
+			raise Exception('#__nonUniqInDemandUniq:' + str(uniq))
 		return iterable[0]
 	def safedict(self, tuples):
 		hashed = dict()
@@ -37,6 +40,10 @@ class Utils:
 			assert not k in hashed, '#__repeated__:{0} old:{1} new:{2}'.format(k, hashed[k], v)
 			hashed[k] = v
 		return hashed
+	def now(self):
+		current = time.ctime().split()
+		return ('-'.join(current[1:3] + [current[-1], current[-2]])).replace(':', '.')
+
 
 
 
@@ -74,7 +81,7 @@ class Logger:
 		pass
 	def __call__(self, m):
 		sys.stderr.write('{0}'.format(m))
-	def harmless(self, m):
+	def warn(self, m):
 		self.__call__(m)
 
 
