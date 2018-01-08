@@ -11,6 +11,16 @@ class Utils:
 	def fentries(self, f):
 		with open(f) as infile:
 			return [e.strip() for e in infile]
+	def writel(self, f, entries, sep='\n'):
+		with open(f, "w") as outfile:
+			outfile.write(sep.join(entries))
+		return f
+	def fexists(self, f):
+		if os.path.exists(filename): return True
+		try:
+			with open(filename) as test:
+				return True
+		except IOError: return False
 	def demanduniq(self, iterable):
 		if len(iterable) == 1:
 			return iterable[0]
@@ -64,7 +74,8 @@ class Logger:
 		pass
 	def __call__(self, m):
 		sys.stderr.write('{0}'.format(m))
-
+	def harmless(self, m):
+		self.__call__(m)
 
 
 

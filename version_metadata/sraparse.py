@@ -4,6 +4,7 @@ from utils import cmn, json2, logger
 
 class XMLValidator:
 	def __init__(self, xsd):
+		self.source = xsd
 		self.parsed_xsd = etree.parse(xsd)
 		self.xsd = etree.XMLSchema(self.parsed_xsd)
 	def validate(self, xml):
@@ -51,7 +52,7 @@ class SRAParseObjSet:
 		self.expected_obj_tags = map(lambda x: x[0:-4], self.expected_root_tags)
 	def is_valid__xml(self, validator):
 		valid = validator.validate(self.xml)
-		logger("# xml validates... {0} [{1}] ".format(valid, self.tag))
+		logger("# xml validates [against:{2}]... {0} [{1}]\n".format(valid, self.tag, validator.source))
 		return valid
 	def parse(self, obj):
 		objtype = obj.tag

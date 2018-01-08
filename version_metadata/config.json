@@ -9,8 +9,11 @@
         "submission": "./schemas/SRA.submission.xsd"
     },
 	"ihec": {
-		"sample": {
-			"fundamental-prerelease": "./json_schema/sample.json"
-		}
+		"sample": [{
+			"version" : "1.0",
+			"version_description" :  "fundamental-prerelease",
+			"schema":  "./json_schema/sample.json"
+		}],
+		"experiment": []
 	}
 }
