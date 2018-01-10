@@ -7,10 +7,12 @@
 
     "properties": {
         "experiment_type": {"type": "string", "description": "DNA Methylation, mRNA-Seq, ChIP-Seq Input..."},
-        "assay_type": {"type": "string", "description": "As described in the experiment_ontology_uri term, e.g. 'DNA Methylation'..."},
-        "experiment_ontology_uri": {"type": "string", "format": "uri", "description": "(Ontology) links to experiment ontology information."},
-        "reference_registry_id": {"type": "string", "description": "The EpiRR ID for this dataset."}
+        "experiment_ontology_uri": {"type": "string", "description": "(Ontology: OBI) links to experiment ontology information."},
+        "library_strategy": {"type": "string", "description": "(Controlled Vocabulary) The assay used. These are defined within the SRA metadata specifications with a controlled vocabulary (e.g. ‘Bisulfite-Seq’, ‘RNA-Seq’, ‘ChIP-Seq’). For a complete list, see https://www.ebi.ac.uk/ena/submit/reads-library-strategy."},
+        "reference_registry_id": {"type": "string", "description": "The EpiRR ID for this dataset."},
+        "molecule_ontology_uri" : {"type": "string", "description": "(Ontology: SO) links to molecule ontology information."},
+        "molecule" : {"type": "string", "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "genomic DNA", "protein", "other"], "description": "(Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, genomic DNA, protein, or other."}
     },
 
-    "required": ["experiment_type", "experiment_ontology_uri"]
+    "required": ["experiment_type", "experiment_ontology_uri", "library_strategy"]
 }
