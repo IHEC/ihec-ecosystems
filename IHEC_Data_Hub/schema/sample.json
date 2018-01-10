@@ -104,7 +104,7 @@
                 "donor_sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."},
                 "donor_ethnicity" : {"type": "string", "description": "The ethnicity of the donor that provided the primary cell. NA if not available. If dealing with small/vulnerable populations consider identifiability issues."}
             },
-            "required": ["donor_id", "donor_age", "donor_age_unit", "donor_life_stage", "donor_health_status", "donor_sex", "donor_ethnicity"]
+            "required": ["donor_id", "donor_age", "donor_age_unit", "donor_health_status", "donor_sex", "donor_ethnicity"]
         }
     }
 }
