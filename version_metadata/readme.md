@@ -3,6 +3,9 @@ Based on:
     $ apy -V
     Python 2.7.12 :: Anaconda 2.3.0 (64-bit)
 
+Note that you can also use plain Python 2 and install required packages by using pip: `pip install -r requirements.txt`.
+
+
 ### Usage
 
 Note that there are no space in arguments like `-out:./examples/samples.versioned.xml`.
