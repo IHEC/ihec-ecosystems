@@ -6,11 +6,11 @@ Based on:
 Note that you can also use plain Python 2 and install required packages:
 * either by using pip directly (if you have root privileges)
 
-    $ pip install -r requirements.txt
+    `$ pip install -r requirements.txt`
 
 * or by using pipenv
 
-    $ pipenv install --two -r requirements.txt
+    `$ pipenv install --two -r requirements.txt`
 
 
 ### Usage
