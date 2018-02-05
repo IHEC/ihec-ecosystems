@@ -3,7 +3,12 @@ Based on:
     $ apy -V
     Python 2.7.12 :: Anaconda 2.3.0 (64-bit)
 
-Note that you can also use plain Python 2 and install required packages by using pip: `pip install -r requirements.txt`.
+Note that you can also use plain Python 2 and install required packages:
+* either by using pip directly (if you have root privileges)
+    $ pip install -r requirements.txt
+
+* or by using pipenv
+    $ pipenv install --two -r requirements.txt
 
 
 ### Usage
@@ -23,7 +28,9 @@ Here's an example of `SAMPLE_SET` xml containing two objects both of which valid
     # is valid ihec spec:True version:1.0 [Primary Tissue from Some Other Donor]
     written:./examples/samples.versioned.xml
 
-    
+Similarly to run the above example using pipenv 
+    $ pipenv run __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
+
 ### Diffs
 
 In case all object validate, and only one xml was given for validation, then the only difference between the xmls should be the version tag. This should *always* be verified.
