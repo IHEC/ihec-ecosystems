@@ -1,4 +1,4 @@
-Based on:
+### Tested with:
 
     $ apy -V
     Python 2.7.12 :: Anaconda 2.3.0 (64-bit)
@@ -32,6 +32,9 @@ Here's an example of `SAMPLE_SET` xml containing two objects both of which valid
 
 Similarly to run the above example using pipenv 
     $ pipenv run __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
+
+
+Note if you are running from a different directory then you may need to modify paths in `config.json`. 
 
 ### Diffs
 
