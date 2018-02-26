@@ -31,7 +31,8 @@ Here's an example of `SAMPLE_SET` xml containing two objects both of which valid
     written:./examples/samples.versioned.xml
 
 Similarly to run the above example using pipenv 
-    $ pipenv run __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
+    
+    `$ pipenv run python __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml`
 
 ### Diffs
 
