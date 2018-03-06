@@ -12,7 +12,7 @@
         "experiment_ontology_uri": {"type": "string", "description": "(Ontology: OBI) links to experiment ontology information."},
         "library_strategy": {"type": "string", "description": "(Controlled Vocabulary) The assay used. These are defined within the SRA metadata specifications with a controlled vocabulary (e.g. ‘Bisulfite-Seq’, ‘RNA-Seq’, ‘ChIP-Seq’). For a complete list, see https://www.ebi.ac.uk/ena/submit/reads-library-strategy."},
         "molecule_ontology_uri" : {"type": "string", "description": "(Ontology: SO) links to molecule ontology information."},
-        "molecule" : {"type": "string", "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "genomic DNA", "protein", "other"], "description": "(Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, genomic DNA, protein, or other."}
+        "molecule" : {"type": "string", "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "genomic DNA", "protein", "other"], "description": "(Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, small RNA, genomic DNA, protein, or other."}
     },
 
     "anyOf": [
@@ -20,22 +20,24 @@
         { "$ref": "file:schema/experiment.json#/definitions/bisulfite-seq" },
         { "$ref": "file:schema/experiment.json#/definitions/medip-seq" },
         { "$ref": "file:schema/experiment.json#/definitions/mre-seq" },
-        { "$ref": "file:schema/experiment.json#/definitions/chip-seq_input" },
         { "$ref": "file:schema/experiment.json#/definitions/chip-seq" },
         { "$ref": "file:schema/experiment.json#/definitions/rna-seq" },
         { "$ref": "file:schema/experiment.json#/definitions/other" }
     ],
 
-    "required": ["experiment_type", "experiment_ontology_uri", "library_strategy"],
+    "anyOf": [
+        {"required": ["experiment_ontology_uri", "library_strategy"]},
+        {"required": ["experiment_type", "library_strategy"]}
+    ],
 
     "definitions": {
         "chromatin_accessibility": {
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["Chromatin Accessibility"]},
-                "experiment_ontology_uri": {"type": "string", "enum": ["http://purl.obolibrary.org/obo/OBI_0001853"]},
+                "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["DNase-Hypersensitivity"]},
-                "molecule_ontology_uri" : {"type": "string", "enum": ["http://purl.obolibrary.org/obo/SO_0000991"]},
+                "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -47,9 +49,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["DNA Methylation"]},
-                "experiment_ontology_uri": {"type": "string", "enum": ["http://purl.obolibrary.org/obo/OBI_0001863"]},
+                "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["Bisulfite-Seq"]},
-                "molecule_ontology_uri" : {"type": "string", "enum": ["http://purl.obolibrary.org/obo/SO_0000991"]},
+                "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -77,9 +79,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["DNA Methylation"]},
-                "experiment_ontology_uri": {"type": "string", "enum": ["http://purl.obolibrary.org/obo/OBI_0000693"]},
+                "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["MeDIP-Seq"]},
-                "molecule_ontology_uri" : {"type": "string", "enum": ["http://purl.obolibrary.org/obo/SO_0000991"]},
+                "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -101,9 +103,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["DNA Methylation"]},
-                "experiment_ontology_uri": {"type": "string", "enum": ["http://purl.obolibrary.org/obo/OBI_0001861"]},
+                "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["MRE-Seq"]},
-                "molecule_ontology_uri" : {"type": "string", "enum": ["http://purl.obolibrary.org/obo/SO_0000991"]},
+                "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "mre_protocol": {"type": "string", "description": "The MRE protocol."},
@@ -113,29 +115,13 @@
             }
         },
 
-        "chip-seq_input": {
-            "type": "object",
-            "properties": {
-                "experiment_type": {"type": "string", "enum": ["ChIP-Seq Input"]},
-                "experiment_ontology_uri": {"type": "string", "enum": ["http://purl.obolibrary.org/obo/OBI_0002017"]},
-                "library_strategy": {"type": "string", "enum": ["ChIP-Seq"]},
-                "molecule_ontology_uri" : {"type": "string", "enum": ["http://purl.obolibrary.org/obo/SO_0000991"]},
-                "molecule" : {"type": "string", "enum": ["genomic DNA"]},
-                "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
-                "extraction_protocol_type_of_sonicator": {"type": "string", "description": "The type of sonicator used for extraction."},
-                "extraction_protocol_sonication_cycles": {"type": "string", "description": "The number of sonication cycles used for extraction."},
-                "chip_protocol": {"type": "string", "description": "(Controlled Vocabulary) Input"},
-                "chip_protocol_chromatin_amount": {"type": "string", "description": "The amount of chromatin used in the ChIP protocol."}
-            }
-        },
-
         "chip-seq": {
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string"},
-                "experiment_ontology_uri": {"type": "string", "enum": ["http://purl.obolibrary.org/obo/OBI_0002017"]},
+                "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["ChIP-Seq"]},
-                "molecule_ontology_uri" : {"type": "string", "enum": ["http://purl.obolibrary.org/obo/SO_0000991"]},
+                "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -159,9 +145,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["RNA-Seq"]},
-                "experiment_ontology_uri": {"type": "string", "enum": ["http://purl.obolibrary.org/obo/OBI_0001271"]},
+                "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["RNA-Seq"]},
-                "molecule_ontology_uri" : {"type": "string", "enum": ["http://purl.obolibrary.org/obo/SO_0000871", "http://purl.obolibrary.org/obo/SO_0000234", "http://purl.obolibrary.org/obo/SO_0000274", "http://purl.obolibrary.org/obo/SO_0000013"]},
+                "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["polyA RNA", "total RNA", "nuclear RNA", "cytoplasmic RNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -199,7 +185,8 @@
         "other": {
             "type": "object",
             "properties": {
-                "experiment_type": {"type": "string", "enum": ["Other"]}
+                "experiment_type": {"type": "string", "enum": ["Other"]},
+                "experiment_ontology_uri": {"type": "string"}
             }
         }
     }
