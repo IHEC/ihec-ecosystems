@@ -29,7 +29,7 @@ class Utils:
 		uniq = set()
 		for e in iterable:
 			uniq.add(e)
-			if size(uniq) > 1:
+			if len(uniq) > 1:
 				raise Exception('#__nonUniqInDemandUniq:' + str(uniq))
 		if size(uniq) != 1:
 			raise Exception('#__nonUniqInDemandUniq:' + str(uniq))
@@ -59,6 +59,11 @@ class Json:
 		else:
 			with open(f) as target:
 				return json.load(target)
+	def dumpf(self, f, data):
+		stringed = self.pretty(data)
+		with open(f, 'w') as outfile:
+			outfile.write(stringed)
+		return f
 	def multidictLoadf(self, f):
 		with open(f) as target:
 			return self.multidictLoadStr(target.read())

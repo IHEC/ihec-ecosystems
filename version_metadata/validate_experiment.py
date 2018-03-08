@@ -5,7 +5,8 @@ from validate_json import JsonSchema
 
 class ExperimentValidator:
 	def normalize_tags(self, hashed):
-		raise NotImplementedError("__ExperimentSchemasUnavailable__")
+		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}
+		return {k :cmn.demanduniq(v) for k, v in fix_tag_names.items()}
 
 	def __init__(self, sra, validators):
 		self.validators = validators
@@ -43,7 +44,7 @@ def main(args):
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["experiment"])
-	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"])) for schema in config["ihec"]["sample"]])
+	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"])) for schema in config["ihec"]["experiment"]])
 
 	objtype = 'EXPERIMENT'
 	objset = 'EXPERIMENT_SET'
@@ -52,7 +53,7 @@ def main(args):
 	xmllist = args.args()
 	for e in xmllist:
 		sra = SRAParseObjSet.from_file(e)
-		assert sra.xml.getroot().tag == objtype 
+		assert sra.xml.getroot().tag == objset, [sra.xml.getroot().tag , objset] 
 		assert sra.is_valid__xml(xml_validator)
 		v = ExperimentValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())

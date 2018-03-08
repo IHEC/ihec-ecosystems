@@ -48,18 +48,29 @@ class SRAParseObjSet:
 	def __init__(self, xml, tag):
 		self.tag = tag
 		self.xml = xml
-		self.expected_root_tags = ['SAMPLE_SET']
+		self.expected_root_tags = ['SAMPLE_SET', 'EXPERIMENT_SET']
 		self.expected_obj_tags = map(lambda x: x[0:-4], self.expected_root_tags)
 	def is_valid__xml(self, validator):
 		valid = validator.validate(self.xml)
 		logger("# xml validates [against:{2}]... {0} [{1}]\n".format(valid, self.tag, validator.source))
 		return valid
+	def extract_optional(self, obj, tag, default=None):
+		tag_found = list(obj.findall(tag))	
+		tag = cmn.demanduniq(tag_found) if tag_found else default
+		return tag
 	def parse(self, obj):
 		objtype = obj.tag
 		assert objtype in self.expected_obj_tags
+		hashed = dict()
+		for k in ['TITLE', './/PRIMARY_ID', './/SUBMITTER_ID', './/TAXON_ID', './/SCIENTIFIC_NAME', './/COMMON_NAME', 'DESCRIPTION', './/LIBRARY_STRATEGY']:
+			found = self.extract_optional(obj,k)
+			key = k.lower().split('/')[-1]
+			if found != None:
+				hashed[key] =  found.text 
+			else:
+				hashed[key] = "__missing__:" + k + str(found)
+		json2.pp(hashed)
 		attrtag = '{0}_ATTRIBUTES'.format(objtype)
-		title = cmn.demanduniq(list(obj.findall('TITLE')))
-		hashed = {'title' : title.text}
 		attrs = cmn.demanduniq(list(obj.findall(attrtag)))
 		attrhash = defaultdict(list)
 		for e in attrs.getchildren():
@@ -67,6 +78,8 @@ class SRAParseObjSet:
 			value = cmn.demanduniq(e.findall('VALUE')).text
 			attrhash[tag].append(value)
 		hashed['attributes'] = dict(attrhash)
+		if 'LIBRARY_STRATEGY'.lower() in hashed:
+			hashed['attributes']['LIBRARY_STRATEGY'] = [hashed['library_strategy']]
 		return hashed
 	def obj_xmljson(self):
 		root = self.xml.getroot()

@@ -11,7 +11,8 @@ class JsonSchema:
 		self.schema = json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
 		for e in self.schema['anyOf']:
-			e['$ref'] = e['$ref'].format(self.base)
+			if '$ref' in e:
+				e['$ref'] = e['$ref'].format(self.base)
 
 
 	def validate(self, jsonObj):

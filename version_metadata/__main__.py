@@ -20,17 +20,19 @@ def main(args):
 		logger('#__outfile:{0} exists\n'.format(args['-out']))
 		return
 
-	try:
+	#try:
+	if True:
 		if args.has("-test-sample"):
 			testargs = ["./examples/samples.xml", "-config:{0}".format(args['-config']), "-out:./examples/samples.versioned.xml"]
 			validate_sample.main(Config(testargs))
 		elif args.has("-sample"):
 			validate_sample.main(args)
 		elif args.has("-experiment"):
-			raise NotImplementedError("__ExperimentSchemasUnavailable__")
+			validate_experiment.main(args) 
 		else:
 			raise NotImplementedError("#__unknownArguments__")
-	except Exception as err:
+	else:
+	#except Exception as err:
 		logger('#__unexpected__\n')
 		logger(str(err.message) + '\n')
 

@@ -14,6 +14,10 @@
 			"version_description" :  "fundamental-prerelease",
 			"schema":  "./json_schema/sample.json"
 		}],
-		"experiment": []
+		"experiment": [{
+			"version": "1.0",
+			"version_description":  "fundamental-prerelease",
+			"schema": "./json_schema/experiment.json"
+		}]
 	}
 }
