@@ -45,6 +45,10 @@ class SRAParseObjSet:
 	def from_file(f):
 		xml = etree.parse(f)
 		return SRAParseObjSet(xml, f)
+	@staticmethod
+	def extract_attributes_to_json(args):
+		for arg in args:
+			print json2.dumpf( arg + '.extracted.json', SRAParseObjSet.from_file(arg).attributes())
 	def __init__(self, xml, tag):
 		self.tag = tag
 		self.xml = xml
@@ -58,18 +62,19 @@ class SRAParseObjSet:
 		tag_found = list(obj.findall(tag))	
 		tag = cmn.demanduniq(tag_found) if tag_found else default
 		return tag
-	def parse(self, obj):
-		objtype = obj.tag
-		assert objtype in self.expected_obj_tags
+	def extract_from_sra_body(self, obj):
 		hashed = dict()
 		for k in ['TITLE', './/PRIMARY_ID', './/SUBMITTER_ID', './/TAXON_ID', './/SCIENTIFIC_NAME', './/COMMON_NAME', 'DESCRIPTION', './/LIBRARY_STRATEGY']:
 			found = self.extract_optional(obj,k)
 			key = k.lower().split('/')[-1]
-			if found != None:
-				hashed[key] =  found.text 
-			else:
-				hashed[key] = "__missing__:" + k + str(found)
-		json2.pp(hashed)
+			hashed[key] = found.text if found != None else  "__missing__:{0}/{1}".format(k, found)
+		return hashed
+	def from_sra_main_to_attributes(self, hashed):
+		if 'library_strategy' in hashed:
+			hashed['attributes']['LIBRARY_STRATEGY'] = [hashed['library_strategy']]
+		return hashed
+	def parse_attributes_block(self, obj, objtype):
+		assert objtype in self.expected_obj_tags
 		attrtag = '{0}_ATTRIBUTES'.format(objtype)
 		attrs = cmn.demanduniq(list(obj.findall(attrtag)))
 		attrhash = defaultdict(list)
@@ -77,10 +82,11 @@ class SRAParseObjSet:
 			tag = cmn.demanduniq(e.findall('TAG')).text
 			value = cmn.demanduniq(e.findall('VALUE')).text
 			attrhash[tag].append(value)
-		hashed['attributes'] = dict(attrhash)
-		if 'LIBRARY_STRATEGY'.lower() in hashed:
-			hashed['attributes']['LIBRARY_STRATEGY'] = [hashed['library_strategy']]
-		return hashed
+		return dict(attrhash)
+	def parse(self, obj):
+		hashed =  self.extract_from_sra_body(obj)
+		hashed['attributes'] = self.parse_attributes_block(obj, obj.tag)
+		return self.from_sra_main_to_attributes(hashed)
 	def obj_xmljson(self):
 		root = self.xml.getroot()
 		offspring = root.getchildren()

@@ -7,6 +7,7 @@ import validate_experiment
 
 
 def main(args):
+
 	if not args.has('-config'):
 		args.add_key('-config',  "./config.json")
 
@@ -22,7 +23,10 @@ def main(args):
 
 	#try:
 	if True:
-		if args.has("-test-sample"):
+		if args.has('-extract'):
+			import sraparse
+			return sraparse.SRAParseObjSet.extract_attributes_to_json(args.args())
+		elif args.has("-test-sample"):
 			testargs = ["./examples/samples.xml", "-config:{0}".format(args['-config']), "-out:./examples/samples.versioned.xml"]
 			validate_sample.main(Config(testargs))
 		elif args.has("-sample"):

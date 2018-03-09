@@ -45,16 +45,9 @@ class SampleValidator:
 		return None
 
 
-def extract_attributes(args):
-	for arg in args.args():
-		print json2.dumpf( arg + '.extracted.json', SRAParseObjSet.from_file(arg).attributes())
-
 
 def main(args):
-	if args.has('-extract'):
-		return extract_attributes(args)
-
-	#print args['-config']
+	print args['-config']
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["sample"])
