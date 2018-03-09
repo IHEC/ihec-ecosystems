@@ -22,10 +22,8 @@
         { "$ref": "file:schema/experiment.json#/definitions/mre-seq" },
         { "$ref": "file:schema/experiment.json#/definitions/chip-seq" },
         { "$ref": "file:schema/experiment.json#/definitions/rna-seq" },
-        { "$ref": "file:schema/experiment.json#/definitions/other" }
-    ],
+        { "$ref": "file:schema/experiment.json#/definitions/other" },
 
-    "anyOf": [
         {"required": ["experiment_ontology_uri", "library_strategy"]},
         {"required": ["experiment_type", "library_strategy"]}
     ],
@@ -144,7 +142,7 @@
         "rna-seq": {
             "type": "object",
             "properties": {
-                "experiment_type": {"type": "string", "enum": ["RNA-Seq"]},
+                "experiment_type": {"type": "string", "enum": ["RNA-Seq", "mRNA-Seq", "smRNA-Seq", "total-RNA-Seq"]},
                 "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["RNA-Seq"]},
                 "molecule_ontology_uri" : {"type": "string"},
