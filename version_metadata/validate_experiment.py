@@ -30,7 +30,7 @@ class ExperimentValidator:
 		for version in self.validators:
 			validator = self.validators[version]
 			valid = validator.validate(attrs)
-			print attrs.keys()
+			#print attrs.keys()
 			logger("# is valid ihec spec:{0} {1} [{2}]\n".format(valid, version, attributes['title']))
 			if valid:
 				return version
@@ -58,18 +58,21 @@ def main(args):
 		v = ExperimentValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())
 
-	versioned_xml = ['<{0}_set>'.format(objtype) ]
+	versioned_xml = ['<{0}>'.format(objset) ]
 	for e in validated:
 		(version, xml) = e
 		sra_versioned = SRAParseObj(xml)
 		sra_versioned.add_attribute("VALIDATED_AGAINST_METADATA_SPEC", "{0}/{1}".format(version, objtype))
 		versioned_xml.append(sra_versioned.tostring())
-	versioned_xml.append('</{0}_set>'.format(objtype))
+	versioned_xml.append('</{0}>'.format(objset))
 
 
-	print 'written:' +  cmn.writel(outfile, versioned_xml)
-
-
-
-
+	validated_xml_file = cmn.writel(outfile, versioned_xml)
+	print 'written:' + validated_xml_file
+	if validated:
+		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
+		assert validated_xml_set.is_valid__xml(xml_validator)
+		logger('ok\n')
+	else:
+		logger('..no valid objects found\n')
 

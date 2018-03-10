@@ -74,7 +74,19 @@ def main(args):
 	versioned_xml.append('</{0}>'.format(objset))
 
 
-	print 'written:' +  cmn.writel(outfile, versioned_xml)
+	validated_xml_file = cmn.writel(outfile, versioned_xml)
+	print 'written:' + validated_xml_file
+	if validated:
+		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
+		assert validated_xml_set.is_valid__xml(xml_validator)
+		logger('ok\n')
+	else:
+		logger('..no valid objects found\n')
+
+
+
+
+	
 
 
 
