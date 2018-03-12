@@ -21,8 +21,8 @@ def main(args):
 		logger('#__outfile:{0} exists\n'.format(args['-out']))
 		return
 
-	#try:
-	if True:
+	try:
+	#if True:
 		if args.has('-extract'):
 			import sraparse
 			return sraparse.SRAParseObjSet.extract_attributes_to_json(args.args())
@@ -35,8 +35,8 @@ def main(args):
 			validate_experiment.main(args) 
 		else:
 			raise NotImplementedError("#__unknownArguments__")
-	else:
-	#except Exception as err:
+	#else:
+	except Exception as err:
 		logger('#__unexpected__\n')
 		logger(str(err.message) + '\n')
 

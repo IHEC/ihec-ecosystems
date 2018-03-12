@@ -17,6 +17,9 @@ Note that you can also use plain Python 2 and install required packages:
 
 Note that there are no space in arguments like `-out:./examples/samples.versioned.xml`.
 
+
+### Examples of validating sample xml.
+
 `-sample` indicates the object to validate is a sample xml. `-out:<filename>` is the updated xml that is written containing all valid objects. 
 
 
@@ -99,6 +102,41 @@ Note that example xml given validates against SRA XML schema, and conforms to IH
     #__validationFailuresFound: see ./errs.Jan-8-2018-15.23.55.log.2
     # is valid ihec spec:False version:__invalid__ [Primary Tissue from Some Donor C]
     written:./examples/samples.with_multiple_valid_invalid.versioned.xml
+
+
+### Examples of validating experimnet xml
+
+An example where all experiments in the set validate.
+
+    apy __main__.py -experiment ./examples/experiment.xml -out:examples/experiment.validated.xml -overwrite-outfile
+    [{'-config': './config.json', '-out': 'examples/experiment.validated.xml'}, ['./examples/experiment.xml']]
+    ./config.json
+    # xml validates [against:./schemas/SRA.experiment.xsd]... True [./examples/experiment.xml]
+    # is valid ihec spec:True 1.0 [WGBS (whole genome bisulfite sequencing) analysis of SomeSampleA (library: SomeLibraryA).]
+    # is valid ihec spec:True 1.0 [WGBS (whole genome bisulfite sequencing) analysis of SomeSampleB (library: SomeLibraryB).]
+    written:examples/experiment.validated.xml
+    # xml validates [against:./schemas/SRA.experiment.xsd]... True [examples/experiment.validated.xml]
+    ok
+
+An example where some only experiments in the set validate.
+
+    $ apy __main__.py -experiment ./examples/experiment.some_invalid.xml -out:examples/experiment.some_invalid.validated.xml -overwrite-outfile
+    [{'-config': './config.json', '-out': 'examples/experiment.some_invalid.validated.xml'}, ['./examples/experiment.some_invalid.xml']]
+    ./config.json
+    # xml validates [against:./schemas/SRA.experiment.xsd]... True [./examples/experiment.some_invalid.xml]
+    # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleC (library: SomeLibrary).]
+    # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleB (library: SomeLibrary).]
+    # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleA (library: SomeLibrary).]
+    written:examples/experiment.some_invalid.validated.xml
+    # xml validates [against:./schemas/SRA.experiment.xsd]... True [examples/experiment.some_invalid.validated.xml]
+    ok
+
+
+
+
+
+
+
 
 
 

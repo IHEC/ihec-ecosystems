@@ -59,3 +59,5 @@ class Config:
         else:
             import fileinput
             return [e for e in fileinput.input([])]
+
+
