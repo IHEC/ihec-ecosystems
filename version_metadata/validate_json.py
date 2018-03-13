@@ -12,7 +12,17 @@ class JsonSchema:
 		self.base = os.path.dirname(os.path.abspath(__file__))
 		expectedpath = 'file:schema/'
 		newpath = 'file:{0}/json_schema/'.format(self.base) 
-		for x in self.schema['allOf']:
+		
+		 
+		for e in self.schema.get('anyOf', dict()):
+			if '$ref' in e:
+				assert e['$ref'].startswith(expectedpath)
+				e['$ref'] = newpath +  e['$ref'][len(expectedpath):]
+				schemafile = e['$ref'].split(':')[-1].split('#')[0]
+				if not cmn.fexists(schemafile):
+					logger('#err ...schema file {0} not found\n'.format(schemafile))
+
+		for x in self.schema.get('allOf', dict()):
 			for e in x['anyOf']:
 				if '$ref' in e:
 					assert e['$ref'].startswith(expectedpath)

@@ -101,6 +101,7 @@
                 "donor_age_unit" : {"type": "string", "enum": ["year", "month", "week", "day"]},
                 "donor_life_stage": {"type": "string", "enum": ["fetal", "newborn", "child", "adult", "unknown", "embryonic", "postnatal"]},
                 "donor_health_status" : {"type": "string", "description": "The health status of the donor that provided the primary cell. NA if not available."},
+                "donor_health_status_ontology_uri" : {"type": "string", "description": "(Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 'Disease type AND/OR category unknown' should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 'None'. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues."},
                 "donor_sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."},
                 "donor_ethnicity" : {"type": "string", "description": "The ethnicity of the donor that provided the primary cell. NA if not available. If dealing with small/vulnerable populations consider identifiability issues."}
             },
