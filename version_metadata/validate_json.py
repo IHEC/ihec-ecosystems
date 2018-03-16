@@ -73,6 +73,7 @@ class JsonSchema:
 				logfile = self.errlog(len(self.errs),  self.obj_id(details))
 				with open(logfile, "w") as errs:
 					errs.write(str(err))
+					errs.write('\n\n')
 				logger('#__validationFailuresFound: see {0}\n'.format(logfile))
 			return False
 				
