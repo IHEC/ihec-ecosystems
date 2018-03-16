@@ -101,6 +101,9 @@ class SRAParseObjSet:
 		offspring = root.getchildren()
 		objs = [self.parse(e) for e in offspring]
 		return objs
+	def nOffspring(self):
+		root = self.xml.getroot()
+		return len(root.getchildren())
 
 
 if __name__ == '__main__':

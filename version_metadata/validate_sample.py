@@ -41,8 +41,10 @@ def main(args):
 
 	validated = list()
 	xmllist = args.args()
+	nObjs = 0
 	for e in xmllist:
 		sra = SRAParseObjSet.from_file(e)
+		nObjs += sra.nOffspring()
 		assert  sra.xml.getroot().tag  == objset, ['__Expected:' + objset]
 		assert sra.is_valid__xml(xml_validator)
 		v = SampleValidator(sra, ihec_validators)
@@ -59,6 +61,9 @@ def main(args):
 
 	validated_xml_file = cmn.writel(outfile, versioned_xml)
 	print 'written:' + validated_xml_file
+	print 'validated:', len(validated)
+	print 'failed:', nObjs - len(validated)
+	
 	if validated:
 		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
 		assert validated_xml_set.is_valid__xml(xml_validator)
