@@ -1,14 +1,17 @@
 from sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
 from utils import cmn, json2, logger
 from validate_json import JsonSchema
+from ihec_validator_base import  IHECJsonValidator
 
 
-class ExperimentValidator:
+
+class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
 		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}
 		return {k :cmn.demanduniq(v) for k, v in fix_tag_names.items()}
 
 	def __init__(self, sra, validators):
+		super(ExperimentValidator, self).__init__(validators)	
 		self.validators = validators
 		self.normalize = lambda t: t.lower().replace(' ', '_')
 		self.sra = sra
@@ -16,25 +19,6 @@ class ExperimentValidator:
 		for (xml, attrs) in self.xmljson:
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
 	
-	def is_valid_ihec(self):
-		validated = list()
-		for (xml, attrs) in self.xmljson:
-			version = self.latest_valid_version(attrs)
-			if version:
-				validated.append((version, xml))
-				#print '#', version
-		return validated
-
-	def latest_valid_version(self, attributes):
-		attrs = attributes['attributes']
-		for version in self.validators:
-			validator = self.validators[version]
-			valid = validator.validate(attrs)
-			#print attrs.keys()
-			logger("# is valid ihec spec:{0} {1} [{2}]\n".format(valid, version, attributes['title']))
-			if valid:
-				return version
-		return None
 
 			
 

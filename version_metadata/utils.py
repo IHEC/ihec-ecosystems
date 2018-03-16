@@ -43,7 +43,8 @@ class Utils:
 	def now(self):
 		current = time.ctime().split()
 		return ('-'.join(current[1:3] + [current[-1], current[-2]])).replace(':', '.')
-
+	def basename(self, f):
+		return os.path.basename(f)
 
 
 

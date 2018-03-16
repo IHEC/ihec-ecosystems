@@ -68,10 +68,12 @@ class SRAParseObjSet:
 			found = self.extract_optional(obj,k)
 			key = k.lower().split('/')[-1]
 			hashed[key] = found.text if found != None else  "__missing__:{0}/{1}".format(k, found)
+		hashed['@idblock'] = {k: obj.attrib[k] for k in obj.attrib}
 		return hashed
 	def from_sra_main_to_attributes(self, hashed):
 		if 'library_strategy' in hashed:
 			hashed['attributes']['LIBRARY_STRATEGY'] = [hashed['library_strategy']]
+		#hashed['attributes']['@idblock'] = hashed['@idblock']	
 		return hashed
 	def parse_attributes_block(self, obj, objtype):
 		assert objtype in self.expected_obj_tags
