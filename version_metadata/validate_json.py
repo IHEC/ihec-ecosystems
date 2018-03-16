@@ -1,10 +1,20 @@
 from utils import json2, cmn, logger
 import jsonschema
 import os
+import string
+
+
+class Sanitizer:
+	def __init__(self):
+		pass
+	def filter_alphan(self, t, additional):
+		return filter(lambda x: x.lower() in string.ascii_lowercase or x in additional, t)
+	
+
 
 class JsonSchema:
 	def fixfilebase(self, f):
-		assert f.startswith(self.expectedpath)
+		assert f.startswith(self.expectedpath), [f, self.expectedpath]
 		f = self.newpath + f[len(self.expectedpath):]
 		schemafile = f.split(':')[-1].split('#')[0]
 		if not cmn.fexists(schemafile):
@@ -15,12 +25,13 @@ class JsonSchema:
 		try:
 			idblock = e.get('@idblock', dict())
 			tags = [idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock]
-			return 'unknown' if not tags else '.'.join(tags)
+			return 'unknown' if not tags else self.sanitizer.filter_alphan('.'.join(tags), '.-_') 
 		except Exception as e:
 			logger('#__couldNotExactId__:{0}\n'.format(e ))
 			return 'unknown'
 
 	def __init__(self, schema_file, tag = None, verbose = True):
+		self.sanitizer = Sanitizer()
 		if not tag:
 			tag = cmn.basename(schema_file).split('.')[0]
 		self.tag = tag
@@ -40,7 +51,7 @@ class JsonSchema:
 		for x in self.schema.get('allOf', dict()):
 			for e in x['anyOf']:
 				if '$ref' in e:
-					e['$ref'] = self.fixfilebase('$ref')
+					e['$ref'] = self.fixfilebase(e['$ref'])
 
 
 
