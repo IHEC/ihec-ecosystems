@@ -8,7 +8,7 @@ from ihec_validator_base import  IHECJsonValidator
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
 		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}
-		return {k :cmn.demanduniq(v) for k, v in fix_tag_names.items()}
+		return {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
 
 	def __init__(self, sra, validators):
 		super(ExperimentValidator, self).__init__(validators)	

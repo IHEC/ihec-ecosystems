@@ -4,6 +4,18 @@ import sys
 import time
 from collections import defaultdict
 
+
+class Logger:
+	def __init__(self):
+		pass
+	def __call__(self, m):
+		sys.stderr.write('{0}'.format(m))
+	def warn(self, m):
+		self.__call__(m)
+
+logger = Logger()
+
+
 class Utils:
 	def __init__(self):
 		self.config = dict()
@@ -34,6 +46,18 @@ class Utils:
 		if size(uniq) != 1:
 			raise Exception('#__nonUniqInDemandUniq:' + str(uniq))
 		return iterable[0]
+	def tryuniq(self, iterable):
+		if len(iterable) == 1:
+			return iterable[0]
+		uniq = set()
+		for e in iterable:
+			uniq.add(e)
+		uniqlist = list(uniq)
+		if len(uniqlist) == 1:
+			return uniqlist[0]
+		else:
+			logger('#__warn__ ... repeated values found where unique expeced... {0}'.format(str(uniqlist)))
+			return uniqlist
 	def safedict(self, tuples):
 		hashed = dict()
 		for k, v in tuples:
@@ -82,17 +106,7 @@ class Json:
 		
 
 
-class Logger:
-	def __init__(self):
-		pass
-	def __call__(self, m):
-		sys.stderr.write('{0}'.format(m))
-	def warn(self, m):
-		self.__call__(m)
 
-
-
-logger = Logger()
 json2 = Json()
 cmn = Utils()
 

@@ -8,7 +8,7 @@ from ihec_validator_base import  IHECJsonValidator
 class SampleValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
 		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}	
-		uniq_values = {k :cmn.demanduniq(v) for k, v in fix_tag_names.items()}
+		uniq_values = {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
 		try:
 			if 'donor_age' in uniq_values:
 				age = int(uniq_values['donor_age'])

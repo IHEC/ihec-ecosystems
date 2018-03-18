@@ -58,16 +58,20 @@ class SRAParseObjSet:
 		valid = validator.validate(self.xml)
 		logger("# xml validates [against:{2}]... {0} [{1}]\n".format(valid, self.tag, validator.source))
 		return valid
-	def extract_optional(self, obj, tag, default=None):
+	def extract_optional(self, obj, tag):
 		tag_found = list(obj.findall(tag))	
-		tag = cmn.demanduniq(tag_found) if tag_found else default
+		if len(tag_found) == 0:
+			return []
+		else:
+			return tag_found
+		#tag = cmn.demanduniq(tag_found) if tag_found else default
 		return tag
 	def extract_from_sra_body(self, obj):
 		hashed = dict()
 		for k in ['TITLE', './/PRIMARY_ID', './/SUBMITTER_ID', './/TAXON_ID', './/SCIENTIFIC_NAME', './/COMMON_NAME', 'DESCRIPTION', './/LIBRARY_STRATEGY']:
 			found = self.extract_optional(obj,k)
 			key = k.lower().split('/')[-1]
-			hashed[key] = found.text if found != None else  "__missing__:{0}/{1}".format(k, found)
+			hashed[key] = cmn.tryuniq(map(lambda x: x.text, found)) if found else  "__missing__:{0}/{1}".format(k, found)
 		hashed['@idblock'] = {k: obj.attrib[k] for k in obj.attrib}
 		return hashed
 	def from_sra_main_to_attributes(self, hashed):
