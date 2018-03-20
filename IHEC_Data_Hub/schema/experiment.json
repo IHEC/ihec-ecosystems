@@ -23,6 +23,7 @@
             { "$ref": "file:schema/experiment.json#/definitions/mre-seq" },
             { "$ref": "file:schema/experiment.json#/definitions/chip-seq" },
             { "$ref": "file:schema/experiment.json#/definitions/rna-seq" },
+            { "$ref": "file:schema/experiment.json#/definitions/wgs" },
             { "$ref": "file:schema/experiment.json#/definitions/other" }
         ]},
         {"anyOf": [
@@ -180,6 +181,17 @@
                 "library_generation_fragment_size_range": {"type": "string", "description": "The fragment size range of the preparation."},
                 "library_generation_3'_adapter_sequence": {"type": "string", "description": "The sequence of the 3' adapter used for library generation."},
                 "library_generation_5'_adapter_sequence": {"type": "string", "description": "The sequence of the 5' adapter used for library generation."}
+            }
+        },
+
+        "wgs": {
+            "type": "object",
+            "properties": {
+                "experiment_type": {"type": "string", "enum": ["WGS"]},
+                "library_strategy": {"type": "string", "enum": ["WGS"]},
+                "molecule" : {"type": "string", "enum": ["genomic DNA"]},
+
+                "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."}
             }
         },
 
