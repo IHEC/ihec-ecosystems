@@ -27,6 +27,16 @@ class SampleValidator(IHECJsonValidator):
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
 		logger("\n\n")
 
+	def validate_semantics(self, attrs):
+		attributes = attrs['attributes']
+		if 'donor_age_unit' in attributes and attributes['donor_age_unit'] == 'year' and isinstance(attributes['donor_age'], int):
+			age = int(attributes['donor_age'])
+			if age > 90:
+				logger('#__error: Donors over 90 years of age should be entered as "90+"\n')
+				return False
+
+		return True
+
 
 
 def main(args):
