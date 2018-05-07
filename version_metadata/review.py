@@ -1,5 +1,6 @@
 from utils import json2, cmn
 import config
+import sraparse
 
 def objtype(e):
 	if 'BIOMATERIAL_TYPE' in e['attributes']:
@@ -12,8 +13,13 @@ def main(args):
 	#assert args.has('-sample')
 	xmls = args.args()
 	ihec = json2.loadf('./json_spec/ihec_spec.json')
+	if args.has('-isxml'):
+		loader = lambda x: sraparse.SRAParseObjSet.from_file(x).attributes()	
+	else:
+		loader = lambda x: json2.loadf(x)
+
 	for arg in xmls:
-		db = json2.loadf(arg)
+		db = loader(arg)
 		for e in db:
 			ot = objtype(e)
 			alias = e.get('title', '__missing_title__')

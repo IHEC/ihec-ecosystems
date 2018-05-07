@@ -64,7 +64,6 @@ class JsonSchema:
 
 	def validate(self, jsonObj, details):
 		try:
-			# jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
 			return True
 		except jsonschema.ValidationError as err:

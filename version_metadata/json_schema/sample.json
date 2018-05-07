@@ -88,12 +88,7 @@
                 "donor_age" : {
                     "description": "The age of the donor that provided the cells/tissues. NA if not available. If over 90 years enter as 90+. If entering a range of ages use the format “{age}-{age}”.",
                     "oneOf": [
-                        {
-                            "type": "number",
-                            "minimum": 0,
-                            "exclusiveMinimum": true,
-                            "maximum": 90
-                        },
+                        { "type": "number" },
                         { "type": "string", "enum": ["90+", "NA"] },
                         { "type": "string", "pattern": "^\\d+-\\d+$" }
                     ]
