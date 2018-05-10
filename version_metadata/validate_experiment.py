@@ -21,8 +21,8 @@ class ExperimentValidator(IHECJsonValidator):
 	
 	def validate_semantics(self, attrs):
 		attributes = attrs['attributes']
-		miRNA_experiment_type =  attributes['experiment_type'] in ['smRNA-Seq']:
-		miRNA_strategy = attribute['library_strategy'] in ['miRNA-Seq']
+		miRNA_experiment_type =  attributes['experiment_type'] in ['smRNA-Seq']
+		miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
 		if miRNA_experiment_type:
 			return miRNA_strategy
 		else:
