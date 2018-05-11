@@ -20,7 +20,6 @@ def main(argv):
 
     json_filename = ''
     is_loose_validation = False
-    is_verbose = False
     validate_epirr = False
 
     for opt, arg in opts:
@@ -29,7 +28,6 @@ def main(argv):
         elif opt == '--loose-validation':
             is_loose_validation = True
         elif opt == '--verbose':
-            is_verbose = True
             logging.getLogger().setLevel(logging.DEBUG)
         elif opt == '--epirr':
             validate_epirr = True
@@ -50,17 +48,27 @@ def main(argv):
         print("Data hub is valid.")
 
     except jsonschema.exceptions.ValidationError as e:
+
+        #Prepare full path to object with error
+        full_path = []
+        for el in list(e.path):
+            full_path.append(str(el))
+
         print("--------------------------------------------------")
-        print("- Validation error")
+        print("- Validation error in :", '.'.join(full_path))
         print("--------------------------------------------------")
-        if is_verbose:
-            print(e)
+        context_size = len(e.context)
+        if context_size > 0:
+            print('Multiple sub-schemas can apply. This is the errors for each:' )
+            prev_schema = -1
+            for suberror in sorted(e.context, key=lambda e: e.schema_path):
+                schema_index = suberror.schema_path[0]
+                if prev_schema < schema_index:
+                    print('Schema %d:' % (schema_index+1))
+                    prev_schema = schema_index
+                print('  %s' % (suberror.message))
         else:
-            try:
-                c = e.context.pop()
-                print(c.message)
-            except IndexError as ie:
-                print(e.message)
+            print(e.message)
 
 
 def printHelp():
@@ -97,8 +105,17 @@ def validateDatasets(datasets, sample_list, is_loose_validation):
         dataset = datasets[dn]
 
         #Does the sample name exist in the 'samples' dictionary?
-        if dataset['sample_id'] not in sample_list:
-            logging.getLogger().error('Dataset is linked to an unknown sample_id. (sample_id="%s" does not exist in "samples" dictionary).' % (dataset['sample_id']))
+        try:
+            if isinstance(dataset['sample_id'], list):
+                for sample_id in dataset['sample_id']:
+                    if sample_id not in sample_list:
+                        raise Exception(sample_id)
+            else:
+                if dataset['sample_id'] not in sample_list:
+                    raise Exception(dataset['sample_id'])
+        except Exception as e:
+            logging.getLogger().error('Dataset is linked to an unknown sample_id. (sample_id="%s" does not exist in "samples" dictionary).' % (e.message))
+
 
         for track_type in dataset['browser']:
 
