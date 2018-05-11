@@ -1,0 +1,3 @@
+lxml
+functools32
+jsonschema
