@@ -14,7 +14,7 @@ class IHECJsonValidator(object):
 		return validated
 
 	def validate_semantics(self, attrs):
-		return True
+		raise NotImplementedError('__mustOverride__')
 
 	def latest_valid_version(self, attributes):
 		attrs = attributes['attributes']

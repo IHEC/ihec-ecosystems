@@ -56,7 +56,7 @@ class Utils:
 		if len(uniqlist) == 1:
 			return uniqlist[0]
 		else:
-			logger('#__warn__ ... repeated values found where unique expeced... {0}'.format(str(uniqlist)))
+			logger('#__warn__ ... repeated values found where unique expeced... {0}\n'.format(str(uniqlist)))
 			return uniqlist
 	def safedict(self, tuples):
 		hashed = dict()
