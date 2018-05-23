@@ -71,8 +71,19 @@ class JsonSchema:
 				self.errs.append(err)
 				logfile = self.errlog(len(self.errs),  self.obj_id(details))
 				with open(logfile, "w") as errs:
-					errs.write(str(err))
-					errs.write('\n\n')
+					context_size = len(err.context)
+					if context_size > 0:
+						errs.write('Multiple sub-schemas can apply. This is what prevents successful validation in each:\n')
+						prev_schema = -1
+						for suberror in sorted(err.context, key=lambda e: e.schema_path):
+							schema_index = suberror.schema_path[0]
+							if prev_schema < schema_index:
+								errs.write('Schema %d:\n' % (schema_index + 1))
+								prev_schema = schema_index
+							errs.write('  %s\n' % (suberror.message))
+					else:
+						errs.write(err.message)
+
 				logger('#__validationFailuresFound: see {0}\n'.format(logfile))
 			return False
 				
