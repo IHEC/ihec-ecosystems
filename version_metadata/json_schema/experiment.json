@@ -12,7 +12,7 @@
         "experiment_ontology_uri": {"type": "string", "description": "(Ontology: OBI) links to experiment ontology information."},
         "library_strategy": {"type": "string", "description": "(Controlled Vocabulary) The assay used. These are defined within the SRA metadata specifications with a controlled vocabulary (e.g. ‘Bisulfite-Seq’, ‘RNA-Seq’, ‘ChIP-Seq’). For a complete list, see https://www.ebi.ac.uk/ena/submit/reads-library-strategy."},
         "molecule_ontology_uri" : {"type": "string", "description": "(Ontology: SO) links to molecule ontology information."},
-        "molecule" : {"type": "string", "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "genomic DNA", "protein", "other"], "description": "(Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, small RNA, genomic DNA, protein, or other."}
+        "molecule" : {"type": "string", "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "small RNA", "genomic DNA", "protein", "other"], "description": "(Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, small RNA, genomic DNA, protein, or other."}
     },
 
     "allOf": [
@@ -150,7 +150,7 @@
                 "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["RNA-Seq", "miRNA-Seq"]},
                 "molecule_ontology_uri" : {"type": "string"},
-                "molecule" : {"type": "string", "enum": ["polyA RNA", "total RNA", "nuclear RNA", "cytoplasmic RNA"]},
+                "molecule" : {"type": "string", "enum": ["polyA RNA", "total RNA", "nuclear RNA", "cytoplasmic RNA", "small RNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
                 "extraction_protocol_rna_enrichment": {"type": "string", "description": "The mRNA enrichment method used in the extraction protocol."},
