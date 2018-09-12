@@ -38,7 +38,7 @@
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["Chromatin Accessibility"]},
                 "experiment_ontology_uri": {"type": "string"},
-                "library_strategy": {"type": "string", "enum": ["DNase-Hypersensitivity"]},
+                "library_strategy": {"type": "string", "enum": ["DNase-Hypersensitivity", "ATAC-seq"]},
                 "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
@@ -148,7 +148,7 @@
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["RNA-Seq", "mRNA-Seq", "smRNA-Seq", "total-RNA-Seq"]},
                 "experiment_ontology_uri": {"type": "string"},
-                "library_strategy": {"type": "string", "enum": ["RNA-Seq"]},
+                "library_strategy": {"type": "string", "enum": ["RNA-Seq", "miRNA-Seq"]},
                 "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["polyA RNA", "total RNA", "nuclear RNA", "cytoplasmic RNA", "small RNA"]},
 

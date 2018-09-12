@@ -38,7 +38,7 @@
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["Chromatin Accessibility"]},
                 "experiment_ontology_uri": {"type": "string"},
-                "library_strategy": {"type": "string", "enum": ["DNase-Hypersensitivity"]},
+                "library_strategy": {"type": "string", "enum": ["DNase-Hypersensitivity", "ATAC-seq"]},
                 "molecule_ontology_uri" : {"type": "string"},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
