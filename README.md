@@ -24,3 +24,7 @@ A description of the public access (processed) data files that should be provide
 ## IHEC Data Hubs
 
 IHEC Data Hub are the documents that IHEC members produce to exchange metadata. These JSON-formatted documents are mostly used to submit data to the IHEC Data Portal. The JSON Schema, a validator and a converter to UCSC Genome Browser track hub documents are [available here](./IHEC_Data_Hub).
+
+## Metadata Validation and Versioning
+
+For metadata versioning/validation submodule, see [available here](./metadata_version).
