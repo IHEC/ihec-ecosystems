@@ -76,6 +76,10 @@ class SRAParseObjSet:
 		return hashed
 	def from_sra_main_to_attributes(self, hashed):
 		if 'library_strategy' in hashed:
+			if 'LIBRARY_STRATEGY' in hashed['attributes'] or 'library_strategy' in hashed['attributes']:
+				lib_strat_attr = 'LIBRARY_STRATEGY' if 'LIBRARY_STRATEGY' in hashed['attributes'] else 'library_strategy'
+				hashed['attributes']['LIBRARY_STRATEGY_IHEC'] = hashed['attributes'][lib_strat_attr]
+				logger("#warn:__library_strategy__ defined in both SRA block and as IHEC attribute:{0}, value pushed into 'LIBRARY_STRATEGY_IHEC'\n".format(hashed['attributes'].pop(lib_strat_attr)))
 			hashed['attributes']['LIBRARY_STRATEGY'] = [hashed['library_strategy']]
 		#hashed['attributes']['@idblock'] = hashed['@idblock']	
 		return hashed
