@@ -79,7 +79,8 @@ class SRAParseObjSet:
 			if 'LIBRARY_STRATEGY' in hashed['attributes'] or 'library_strategy' in hashed['attributes']:
 				lib_strat_attr = 'LIBRARY_STRATEGY' if 'LIBRARY_STRATEGY' in hashed['attributes'] else 'library_strategy'
 				hashed['attributes']['LIBRARY_STRATEGY_IHEC'] = hashed['attributes'][lib_strat_attr]
-				logger("#warn:__library_strategy__ defined in both SRA block and as IHEC attribute:{0}, value pushed into 'LIBRARY_STRATEGY_IHEC'\n".format(hashed['attributes'].pop(lib_strat_attr)))
+				old_lib_start = hashed['attributes'].pop(lib_strat_attr)
+				logger("#warn:__library_strategy__ defined in both SRA block and as IHEC attribute:{0}, value pushed into 'LIBRARY_STRATEGY_IHEC'\n".format(old_lib_start))
 			hashed['attributes']['LIBRARY_STRATEGY'] = [hashed['library_strategy']]
 		#hashed['attributes']['@idblock'] = hashed['@idblock']	
 		return hashed
