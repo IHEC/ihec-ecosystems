@@ -56,7 +56,7 @@ def main(args):
 		sra = SRAParseObjSet.from_file(e)
 		nObjs += sra.nOffspring()
 		assert  sra.xml.getroot().tag  == objset, ['__Expected:' + objset]
-		assert sra.is_valid__xml(xml_validator)
+		assert sra.is_valid__xml(xml_validator) or args.has('-not-sra-xml-but-try')
 		v = SampleValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())
 
