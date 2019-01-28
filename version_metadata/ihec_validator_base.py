@@ -21,7 +21,8 @@ class IHECJsonValidator(object):
 		for version in self.validators:
 			validator = self.validators[version]
 			valid = validator.validate(attrs, details=attributes)
-			logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', attributes['title']))
+			title_sanitized = logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
+			logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', title_sanitized  ))
 			if valid:
 				return version
 		return None

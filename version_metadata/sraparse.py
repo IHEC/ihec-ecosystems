@@ -1,6 +1,6 @@
 from lxml import etree
 from collections import defaultdict
-from utils import cmn, json2, logger
+from utils import cmn, json2, logger, NonUniqException
 
 class XMLValidator:
 	def __init__(self, xsd):
@@ -89,9 +89,13 @@ class SRAParseObjSet:
 		attrs = cmn.demanduniq(list(obj.findall(attrtag)))
 		attrhash = defaultdict(list)
 		for e in attrs.getchildren():
-			tag = cmn.demanduniq(e.findall('TAG')).text
-			value = cmn.demanduniq(e.findall('VALUE')).text
-			attrhash[tag].append(value)
+			try:
+				tag = cmn.demanduniq(e.findall('TAG')).text
+				value = cmn.demanduniq(e.findall('VALUE')).text
+				attrhash[tag].append(value)
+			except NonUniqException as err:
+				logger.warn("#warn... malformed tag value block {0}\n".format(str([e.findall('TAG'), e.findall('VALUE')])) )
+
 		return dict(attrhash)
 	def parse(self, obj):
 		hashed =  self.extract_from_sra_body(obj)
