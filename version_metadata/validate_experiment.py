@@ -67,7 +67,7 @@ def main(args):
 	print 'failed:', nObjs - len(validated)
 	if validated:
 		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
-		assert validated_xml_set.is_valid__xml(xml_validator)
+		assert validated_xml_set.is_valid__xml(xml_validator) or args.has("-skip-updated-xml-validation")
 		logger('ok\n')
 	else:
 		logger('..no valid objects found\n')
