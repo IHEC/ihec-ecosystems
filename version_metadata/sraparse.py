@@ -74,7 +74,6 @@ class SRAParseObjSet:
 		strategy = hashed.get("library_strategy", "" ).strip()
 		if not strategy:
 			strategy = self.extract_optional(obj, ".//SEQUENCING_LIBRARY_STRATEGY")
-			print strategy
 			if not strategy or len(strategy) > 1:
 				logger("#warn__: cannot parse 'library_strategy' or 'library_sequencing_strategy'..  {0}\n ".format(str(strategy)))
 			else:
