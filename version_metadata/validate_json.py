@@ -36,10 +36,10 @@ class JsonSchema:
 			tag = cmn.basename(schema_file).split('.')[0]
 		self.tag = tag
 		self.errdir = '.'
-		if not config.has('-dbg'):
-			try: os.mkdir("./errlog")
-			except: pass
-			self.errdir = "./errlog"
+		#if not config.has('-dbg'):
+		#	try: os.mkdir("./errlog")
+		#	except: pass
+		#	self.errdir = "./errlog"
 		self.f = schema_file
 		self.errs = list()
 		self.now  = cmn.now()
