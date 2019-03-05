@@ -47,7 +47,7 @@ class ExperimentValidator(IHECJsonValidator):
 		miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
 		validation_status = miRNA_strategy 	if miRNA_experiment_type else not miRNA_strategy
 		if not validation_status:
-			logger.warn('#warn: __semantic_validation_failed__: smRNA-Seq library strategy if and only if miRNA-Seq experiment type')
+			logger.warn('#warn: __semantic_validation_failed__: smRNA-Seq library strategy if and only if miRNA-Seq experiment type\n')
 		return validation_status
 		
 
