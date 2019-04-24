@@ -30,12 +30,16 @@ class JsonSchema:
 			logger('#__couldNotExactId__:{0}\n'.format(e ))
 			return 'unknown'
 
-	def __init__(self, schema_file, tag = None, verbose = True):
+	def __init__(self, schema_file, config, tag = None, verbose = True):
 		self.sanitizer = Sanitizer()
 		if not tag:
 			tag = cmn.basename(schema_file).split('.')[0]
 		self.tag = tag
 		self.errdir = '.'
+		#if not config.has('-dbg'):
+		#	try: os.mkdir("./errlog")
+		#	except: pass
+		#	self.errdir = "./errlog"
 		self.f = schema_file
 		self.errs = list()
 		self.now  = cmn.now()

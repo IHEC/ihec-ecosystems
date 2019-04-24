@@ -44,7 +44,7 @@ def main(args):
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["sample"])
-	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"])) for schema in config["ihec"]["sample"]])
+	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"], args)) for schema in config["ihec"]["sample"]])
 	
 	objtype = 'SAMPLE'
 	objset = 'SAMPLE_SET'
@@ -56,7 +56,7 @@ def main(args):
 		sra = SRAParseObjSet.from_file(e)
 		nObjs += sra.nOffspring()
 		assert  sra.xml.getroot().tag  == objset, ['__Expected:' + objset]
-		assert sra.is_valid__xml(xml_validator)
+		assert sra.is_valid__xml(xml_validator) or args.has('-not-sra-xml-but-try')
 		v = SampleValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())
 
@@ -76,7 +76,7 @@ def main(args):
 	
 	if validated:
 		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
-		assert validated_xml_set.is_valid__xml(xml_validator)
+		assert validated_xml_set.is_valid__xml(xml_validator)  or args.has("-skip-updated-xml-validation")
 		logger('ok\n')
 	else:
 		logger('..no valid objects found\n')

@@ -1,6 +1,6 @@
 from lxml import etree
 from collections import defaultdict
-from utils import cmn, json2, logger
+from utils import cmn, json2, logger, NonUniqException
 
 class XMLValidator:
 	def __init__(self, xsd):
@@ -52,6 +52,10 @@ class SRAParseObjSet:
 	def __init__(self, xml, tag):
 		self.tag = tag
 		self.xml = xml
+		self.optional_core_fields = {
+			"SAMPLE" :  ['TITLE', './/PRIMARY_ID', './/SUBMITTER_ID', './/TAXON_ID', './/SCIENTIFIC_NAME', './/COMMON_NAME', 'DESCRIPTION'],
+			"EXPERIMENT": ['TITLE', './/PRIMARY_ID', './/SUBMITTER_ID',  'DESCRIPTION',  './/LIBRARY_STRATEGY']
+		}
 		self.expected_root_tags = ['SAMPLE_SET', 'EXPERIMENT_SET']
 		self.expected_obj_tags = map(lambda x: x[0:-4], self.expected_root_tags)
 	def is_valid__xml(self, validator):
@@ -66,28 +70,57 @@ class SRAParseObjSet:
 			return tag_found
 		#tag = cmn.demanduniq(tag_found) if tag_found else default
 		return tag
+	def extract_additional_experiment_attributes(self, obj, hashed):
+		strategy = hashed.get("library_strategy", "" ).strip()
+		if not strategy:
+			strategy = self.extract_optional(obj, ".//SEQUENCING_LIBRARY_STRATEGY")
+			if not strategy or len(strategy) > 1:
+				logger("#warn__: cannot parse 'library_strategy' or 'library_sequencing_strategy'..  {0}\n ".format(str(strategy)))
+			else:
+				logger("#warn__: updated 'library_strategy' with 'library_sequencing_strategy'..  {0}\n ".format(str(strategy[0].text)))
+				hashed["library_strategy"] = strategy[0].text.strip()
+		return hashed
+
+		
 	def extract_from_sra_body(self, obj):
 		hashed = dict()
-		for k in ['TITLE', './/PRIMARY_ID', './/SUBMITTER_ID', './/TAXON_ID', './/SCIENTIFIC_NAME', './/COMMON_NAME', 'DESCRIPTION', './/LIBRARY_STRATEGY']:
+		object_type = obj.tag
+		optional_core_fields =  self.optional_core_fields[object_type]
+		for k in optional_core_fields:   
 			found = self.extract_optional(obj,k)
 			key = k.lower().split('/')[-1]
 			hashed[key] = cmn.tryuniq(map(lambda x: x.text, found)) if found else  "__missing__:{0}/{1}".format(k, found)
 		hashed['@idblock'] = {k: obj.attrib[k] for k in obj.attrib}
+		if object_type in ['EXPERIMENT']:
+			hashed = self.extract_additional_experiment_attributes(obj, hashed)
 		return hashed
 	def from_sra_main_to_attributes(self, hashed):
 		if 'library_strategy' in hashed:
+			if 'LIBRARY_STRATEGY' in hashed['attributes'] or 'library_strategy' in hashed['attributes']:
+				lib_strat_attr = 'LIBRARY_STRATEGY' if 'LIBRARY_STRATEGY' in hashed['attributes'] else 'library_strategy'
+				hashed['attributes']['LIBRARY_STRATEGY_IHEC'] = hashed['attributes'][lib_strat_attr]
+				old_lib_start = hashed['attributes'].pop(lib_strat_attr)
+				logger("#warn:__library_strategy__ defined in both SRA block and as IHEC attribute:{0}, value pushed into 'LIBRARY_STRATEGY_IHEC'\n".format(old_lib_start))
 			hashed['attributes']['LIBRARY_STRATEGY'] = [hashed['library_strategy']]
 		#hashed['attributes']['@idblock'] = hashed['@idblock']	
 		return hashed
 	def parse_attributes_block(self, obj, objtype):
 		assert objtype in self.expected_obj_tags
 		attrtag = '{0}_ATTRIBUTES'.format(objtype)
-		attrs = cmn.demanduniq(list(obj.findall(attrtag)))
+		attributes_found = list(obj.findall(attrtag))
+		if len(attributes_found) == 0:
+			logger.warn("#__warn__... no attributes block found...\n")
+			return dict()
+		attrs = cmn.demanduniq(attributes_found)
 		attrhash = defaultdict(list)
 		for e in attrs.getchildren():
-			tag = cmn.demanduniq(e.findall('TAG')).text
-			value = cmn.demanduniq(e.findall('VALUE')).text
-			attrhash[tag].append(value)
+			try:
+				tag = cmn.demanduniq(e.findall('TAG')).text
+				value = cmn.demanduniq(e.findall('VALUE')).text
+				attrhash[tag].append(value)
+			except NonUniqException as err:
+				logger.warn("#warn... malformed tag value block {0}\n".format(str([e.findall('TAG'), e.findall('VALUE')])) )
+
 		return dict(attrhash)
 	def parse(self, obj):
 		hashed =  self.extract_from_sra_body(obj)

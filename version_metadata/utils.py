@@ -5,6 +5,11 @@ import time
 from collections import defaultdict
 
 
+class NonUniqException(Exception):
+	def __init__(self, message, iterable):
+		self.message = message
+		self.iterable = iterable
+
 class Logger:
 	def __init__(self):
 		pass
@@ -12,6 +17,13 @@ class Logger:
 		sys.stderr.write('{0}'.format(m))
 	def warn(self, m):
 		self.__call__(m)
+	def trystr(self, x):
+		try:
+			return unicode(x).encode('utf-8', errors='ignore').strip().decode('ascii', 'ignore')
+		except Exception as e:
+			self.__call__('#warn... unicode issue... ' + str(e))
+			return x
+
 
 logger = Logger()
 
@@ -42,9 +54,9 @@ class Utils:
 		for e in iterable:
 			uniq.add(e)
 			if len(uniq) > 1:
-				raise Exception('#__nonUniqInDemandUniq:' + str(uniq))
-		if size(uniq) != 1:
-			raise Exception('#__nonUniqInDemandUniq:' + str(uniq))
+				raise NonUniqException('#__nonUniqInDemandUniq:', uniq)
+		if len(uniq) != 1:
+			raise NonUniqException('#__nonUniqInDemandUniq:' , uniq)
 		return iterable[0]
 	def tryuniq(self, iterable):
 		if len(iterable) == 1:

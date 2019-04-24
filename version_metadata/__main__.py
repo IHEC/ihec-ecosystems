@@ -12,12 +12,12 @@ def main(args):
 		args.add_key('-config',  "./config.json")
 
 	logger(str([args.keys, args.args()]) + '\n')
-	
+
 	if not args.has('-out'):
 		logger('#__noOutFileGiven___\n')
 		return
 
-	if cmn.fexists(args['-out']) and not args.has('-overwrite-outfile'):
+	if not args.has('-dbg') and (cmn.fexists(args['-out']) and not args.has('-overwrite-outfile')):
 		logger('#__outfile:{0} exists\n'.format(args['-out']))
 		return
 
