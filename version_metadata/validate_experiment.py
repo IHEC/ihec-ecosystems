@@ -42,14 +42,17 @@ class ExperimentValidator(IHECJsonValidator):
 			return True
 
 	def validate_semantics(self, attrs):
-		attributes = attrs['attributes']
-		miRNA_experiment_type =  attributes['experiment_type'] in ['smRNA-Seq'] # abstract all this using a Rule interface... another day
-		miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
-		validation_status = miRNA_strategy 	if miRNA_experiment_type else not miRNA_strategy
-		if not validation_status:
-			logger.warn('#warn: __semantic_validation_failed__: smRNA-Seq library strategy if and only if miRNA-Seq experiment type\n')
-		return validation_status
-		
+		try:
+			attributes = attrs['attributes']
+			miRNA_experiment_type =  attributes['experiment_type'] in ['smRNA-Seq'] # abstract all this using a Rule interface... another day
+			miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
+			validation_status = miRNA_strategy 	if miRNA_experiment_type else not miRNA_strategy
+			if not validation_status:
+				logger.warn('#warn: __semantic_validation_failed__: smRNA-Seq library strategy if and only if miRNA-Seq experiment type\n')
+			return validation_status
+		except KeyError as e:
+			logger.warn('#warn keyerror in validate_semantics, probably is not even syntactically valid\n')
+			return False
 
 # to do: refactor this code along with validate_sample into one module
 def main(args):
