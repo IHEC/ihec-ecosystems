@@ -120,7 +120,10 @@
         "chip-seq": {
             "type": "object",
             "properties": {
-                "experiment_type": {"type": "string", "pattern": "^(ChIP-Seq Input)|(Histone H\\w+([\\./]\\w+)?)+$"},
+                "experiment_type": {"type": "string", "pattern": "^(ChIP-Seq Input)|(Histone H\\w+([\\./]\\w+)?)+$|(Transcription Factor)"},
+                "experiment_target_tf": {"type": "string", "description": "(Controlled vocabulary) An HGNC gene symbol"},
+                "experiment_target_tf_modification": {"type": "string", "description": "Post-transcriptional modification of the target protein"},
+                "experiment_target_histone": {"type": "string", "enum": ["H2AFZ", "H2AK5ac", "H2AK9ac", "H2BK120ac", "H2BK12ac", "H2BK15ac", "H2BK20ac", "H2BK5ac", "H3F3A", "H3K14ac", "H3K18ac", "H3K23ac", "H3K23me2", "H3K27ac", "H3K27me3", "H3K36me3", "H3K4ac", "H3K4me1", "H3K4me2", "H3K4me3", "H3K56ac", "H3K79me1", "H3K79me2", "H3K9ac", "H3K9me1", "H3K9me2", "H3K9me3", "H3T11ph", "H4K12ac", "H4K20me1", "H4K5ac", "H4K8ac", "H4K91ac"], "description": "Target histone mark"},
                 "experiment_ontology_uri": {"type": "string"},
                 "library_strategy": {"type": "string", "enum": ["ChIP-Seq"]},
                 "molecule_ontology_uri" : {"type": "string"},
