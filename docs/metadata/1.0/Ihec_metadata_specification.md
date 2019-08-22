@@ -339,7 +339,13 @@ __MRE_PROTOCOL_SIZE_FRACTION__ - The size of the fragments selected in the MRE p
 
 ## ChIP-Seq
 
-__EXPERIMENT_TYPE:__ (Controlled Vocabulary) one of ('ChIP-Seq Input','Histone H3K4me1','Histone H3K4me3','Histone H3K9me3','Histone H3K9ac','Histone H3K27me3','Histone H3K36me3', etc.).
+__EXPERIMENT_TYPE:__ (Controlled Vocabulary) one of ('ChIP-Seq Input','Transcription factor','Histone H3K4me1','Histone H3K4me3','Histone H3K9me3','Histone H3K9ac','Histone H3K27me3','Histone H3K36me3', etc.).
+
+__EXPERIMENT_TARGET_TF__ (Controlled vocabulary) One of the symbols produced by [HGNC](https://www.genenames.org/)
+
+__EXPERIMENT_TARGET_TF_MODIFICATION__ (String) Post-transcriptional modification of the target protein
+
+__EXPERIMENT_TARGET_HISTONE__ (Controlled vocabulary) One of ('H2AFZ', 'H2AK5ac', 'H2AK9ac', 'H2BK120ac', 'H2BK12ac', 'H2BK15ac', 'H2BK20ac', 'H2BK5ac', 'H3F3A', 'H3K14ac', 'H3K18ac', 'H3K23ac', 'H3K23me2', 'H3K27ac', 'H3K27me3', 'H3K36me3', 'H3K4ac', 'H3K4me1', 'H3K4me2', 'H3K4me3', 'H3K56ac', 'H3K79me1', 'H3K79me2', 'H3K9ac', 'H3K9me1', 'H3K9me2', 'H3K9me3', 'H3T11ph', 'H4K12ac', 'H4K20me1', 'H4K5ac', 'H4K8ac', 'H4K91ac'),
 
 __EXPERIMENT_ONTOLOGY_URI:__ (Ontology: OBI) 'http://purl.obolibrary.org/obo/OBI_0000716' or any of its subclasses.
 
