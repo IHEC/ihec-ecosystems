@@ -132,11 +132,10 @@ An example where some only experiments in the set validate.
     ok
 
 
+# Submitting an update PR
 
-
-
-
-
-
-
-
+Before submitting a PR check that you have done the following:
+- updated the JSON schema (`json_schema/*.json`)
+- updated the Markdown specification (`../docs/metadata/1.0/Ihec_metadata_specification.md`)
+- updated the example files (`examples/*`)
+- tested the validator on the example files
