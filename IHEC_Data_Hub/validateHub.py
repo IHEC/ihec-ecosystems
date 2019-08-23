@@ -56,7 +56,10 @@ def main(argv):
         logging.getLogger().info("Total errors: {}".format(len(errors)))
         for error in sorted(errors, key=str):
             print("--------------------------------------------------")
-            print("Validation error {} in {}".format(error.message, '.'.join(error.path)))
+            print('Validation error {} in {}'.format(error.message, '.'.join(error.path)))
+            if len(error.context) > 0:
+                for suberror in sorted(error.context, key=lambda e: e.schema_path):
+                    print(list(suberror.validator_value), suberror.message, sep=", ")
             print("--------------------------------------------------")
 
 
