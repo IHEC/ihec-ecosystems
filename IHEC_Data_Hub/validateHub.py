@@ -43,32 +43,21 @@ def main(argv):
         jsonObj = json.load(json_file)
 
     try:
+
         validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation)
 
         print("Data hub is valid.")
 
-    except jsonschema.exceptions.ValidationError as e:
-
-        #Prepare full path to object with error
-        full_path = []
-        for el in list(e.path):
-            full_path.append(str(el))
-
-        print("--------------------------------------------------")
-        print("- Validation error in :", '.'.join(full_path))
-        print("--------------------------------------------------")
-        context_size = len(e.context)
-        if context_size > 0:
-            print('Multiple sub-schemas can apply. This is the errors for each:' )
-            prev_schema = -1
-            for suberror in sorted(e.context, key=lambda e: e.schema_path):
-                schema_index = suberror.schema_path[0]
-                if prev_schema < schema_index:
-                    print('Schema %d:' % (schema_index+1))
-                    prev_schema = schema_index
-                print('  %s' % (suberror.message))
-        else:
-            print(e.message)
+    except jsonschema.exceptions.ValidationError:
+        with open(schema_file) as jsonStr:
+            json_schema = json.load(jsonStr)
+        v = jsonschema.Draft4Validator(json_schema)
+        errors = [e for e in v.iter_errors(jsonObj)]
+        logging.getLogger().info("Total errors: {}".format(len(errors)))
+        for error in sorted(errors, key=str):
+            print("--------------------------------------------------")
+            print("Validation error {} in {}".format(error.message, '.'.join(error.path)))
+            print("--------------------------------------------------")
 
 
 def printHelp():
