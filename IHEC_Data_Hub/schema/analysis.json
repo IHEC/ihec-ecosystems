@@ -1,6 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "http://epigenomesportal.ca/schemas/analysis.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://epigenomesportal.ca/schemas/analysis.json",
     "title": "IHEC Data Hub Analysis schema",
     "description": "IHEC Data Hub Analysis schema",
     "type": "object",

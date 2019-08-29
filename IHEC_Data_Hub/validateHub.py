@@ -6,7 +6,8 @@ import os
 import getopt
 import re
 import logging
-import urllib2
+import urllib.request
+from urllib.error import HTTPError
 
 
 def main(argv):
@@ -51,15 +52,21 @@ def main(argv):
     except jsonschema.exceptions.ValidationError:
         with open(schema_file) as jsonStr:
             json_schema = json.load(jsonStr)
-        v = jsonschema.Draft4Validator(json_schema)
+        v = jsonschema.Draft7Validator(json_schema)
         errors = [e for e in v.iter_errors(jsonObj)]
         logging.getLogger().info("Total errors: {}".format(len(errors)))
         for error in sorted(errors, key=str):
             print("--------------------------------------------------")
             print('Validation error {} in {}'.format(error.message, '.'.join(error.path)))
             if len(error.context) > 0:
+                print('Multiple sub-schemas can apply. This is the errors for each:')
+                prev_schema = -1
                 for suberror in sorted(error.context, key=lambda e: e.schema_path):
-                    print(list(suberror.validator_value), suberror.message, sep=", ")
+                    schema_index = suberror.schema_path[0]
+                    if prev_schema < schema_index:
+                        print('Schema %d:' % (schema_index + 1))
+                        prev_schema = schema_index
+                    print('  %s' % (suberror.message))
             print("--------------------------------------------------")
 
 
@@ -106,7 +113,7 @@ def validateDatasets(datasets, sample_list, is_loose_validation):
                 if dataset['sample_id'] not in sample_list:
                     raise Exception(dataset['sample_id'])
         except Exception as e:
-            logging.getLogger().error('Dataset is linked to an unknown sample_id. (sample_id="%s" does not exist in "samples" dictionary).' % (e.message))
+            logging.getLogger().error('Dataset is linked to an unknown sample_id. (sample_id="%s" does not exist in "samples" dictionary).' % (e))
 
 
         for track_type in dataset['browser']:
@@ -125,7 +132,7 @@ def validateDatasets(datasets, sample_list, is_loose_validation):
                     validateMd5(track['md5sum'])
 
             except Exception as e:
-                raise Exception('Problem in dataset "%s" and track type "%s": %s' % (dn, track_type, e.message))
+                raise Exception('Problem in dataset "%s" and track type "%s": %s' % (dn, track_type, e))
 
 
 def validateMd5(md5):
@@ -171,7 +178,9 @@ def validateEpirr(jsonObj):
     for dataset_name in datasets:
         dataset = datasets[dataset_name]
         exp_attr = dataset['experiment_attributes']
-        exp_name = exp_attr['experiment_type']
+        # what if there is no "experiment_type" as it is allowed by experiment.json schema
+        #exp_name = exp_attr['experiment_type']
+        exp_name = exp_attr.get('experiment_type', 'other')
 
         if isinstance(dataset['sample_id'], list):
             ds_names = dataset['sample_id']
@@ -183,14 +192,19 @@ def validateEpirr(jsonObj):
             epirr_id = exp_attr['reference_registry_id']
             logging.getLogger().info('Validating dataset "%s" against EpiRR record "%s"...' % (dataset_name, epirr_id))
 
+
             try:
-                request = urllib2.Request('http://www.ebi.ac.uk/vg/epirr/view/' + epirr_id, headers={"Accept": "application/json"})
-                response = urllib2.urlopen(request).read()
-            except urllib2.HTTPError as e:
-                print('Unexpected error: %s' % (e.message))
+                r = urllib.request.Request('http://www.ebi.ac.uk/vg/epirr/view/' + epirr_id,
+                                           headers={"Accept": "application/json"})
+                response = urllib.request.urlopen(r).read()
+            except HTTPError as e:
+                if e.code == 404:
+                    logging.getLogger().warning("The record {} is not found ({})".format(epirr_id, e))
+                else:
+                    logging.getLogger().warning("Unexpected error {}".format(e))
                 continue
 
-            epirr_json = json.loads(response)
+            epirr_json = json.loads(response.decode('utf-8'))
             epirr_sample_metadata = epirr_json['meta_data']
 
             #Validate that each sample that this dataset refers to holds the correct metadata
