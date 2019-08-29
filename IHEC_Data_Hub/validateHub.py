@@ -179,8 +179,10 @@ def validateEpirr(jsonObj):
         dataset = datasets[dataset_name]
         exp_attr = dataset['experiment_attributes']
         # what if there is no "experiment_type" as it is allowed by experiment.json schema
-        #exp_name = exp_attr['experiment_type']
-        exp_name = exp_attr.get('experiment_type', 'other')
+        if exp_attr.get('experiment_type'):
+            exp_name = exp_attr.get('experiment_type')
+        else:
+            exp_name = exp_attr.get('experiment_ontology_uri')
 
         if isinstance(dataset['sample_id'], list):
             ds_names = dataset['sample_id']
