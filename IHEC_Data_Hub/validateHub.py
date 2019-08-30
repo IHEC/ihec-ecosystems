@@ -96,6 +96,9 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
         validateEpirr(jsonObj)
         logging.getLogger().info('EpiRR validation passed.')
 
+    # TF Target validation against HGNC
+    validateHgncSymbol(jsonObj)
+
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
     """Validate that dataset objects properties are OK."""
@@ -261,6 +264,50 @@ def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
     if epirr_metadata[prop].lower() != sample_metadata[prop].lower():
         logging.getLogger().warning('-Property "%s" mismatch for experiment "%s": "%s" VS "%s"' % (prop, dataset_name, epirr_metadata[prop], sample_metadata[prop]))
         return
+
+
+def validateHgncSymbol(jsonObj):
+    """ Validate experiment target tf against HGNC when experiment_type matches 'Transcription Factor' """
+
+    datasets = jsonObj.get('datasets')
+
+    for dataset_name in datasets:
+        dataset = datasets.get(dataset_name)
+        exp_attr = dataset.get('experiment_attributes')
+
+        if exp_attr.get('experiment_type') == 'Transcription Factor':
+            logging.getLogger().info("Validating metadata against HGNC records...")
+            tf_target = exp_attr.get('experiment_target_tf')
+
+            def symbolStatus(status, symbol):
+                try:
+                    r = urllib.request.Request('http://rest.genenames.org/fetch/' + status + "/" + symbol,
+                                               headers={"Accept": "application/json"})
+                    response = urllib.request.urlopen(r).read()
+                    tftarget_json = json.loads(response.decode('utf-8'))
+                    return tftarget_json
+                except HTTPError as e:
+                    if e.code == 404:
+                        logging.getLogger().warning("TF target {} is not found ({})".format(symbol, e))
+                    else:
+                        logging.getLogger().warning("Unexpected error {}".format(e))
+
+            # add sample id to validation message
+            if tf_target:
+                logging.getLogger().info("Validating symbol: {}".format(tf_target))
+                tftarget_json = symbolStatus(status='symbol', symbol=tf_target)
+                if tftarget_json.get('response').get('numFound') > 0:
+                    logging.getLogger().info("Symbol validation passed.")
+                else:
+                    logging.getLogger().info("Validating if symbol was approved previously...")
+                    prev_symbol_json = symbolStatus(status='prev_symbol', symbol=tf_target)
+                    if prev_symbol_json.get('response').get('numFound') > 0:
+                        logging.getLogger().info("Symbol validation passed.")
+                    else:
+                        logging.getLogger().info("Symbol validation failed.")
+
+            else:
+                logging.getLogger().info("Experiment target tf is not found in metadata.")
 
 
 if __name__ == "__main__":
