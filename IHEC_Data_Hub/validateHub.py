@@ -55,9 +55,9 @@ def main(argv):
         v = jsonschema.Draft7Validator(json_schema)
         errors = [e for e in v.iter_errors(jsonObj)]
         logging.getLogger().info("Total errors: {}".format(len(errors)))
+        print("--------------------------------------------------")
         for error in sorted(errors, key=str):
-            print("--------------------------------------------------")
-            print('Validation error {} in {}'.format(error.message, '.'.join(error.path)))
+            print('Validation error in {}: {}'.format('.'.join(error.path), error.message))
             if len(error.context) > 0:
                 print('Multiple sub-schemas can apply. This is the errors for each:')
                 prev_schema = -1
