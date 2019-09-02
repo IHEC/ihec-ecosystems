@@ -28,7 +28,7 @@ Here's an example of `SAMPLE_SET` xml containing two objects both of which valid
     $ apy __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
     {'-config': './config.json', '-out': './examples/samples.versioned.xml'}
     ./config.json
-    # xml validates [against:./schemas/SRA.sample.xsd]... True [./examples/samples.xml]
+    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.xml]
     # is valid ihec spec:True version:1.0 [Primary Tissue from Some Donor]
     # is valid ihec spec:True version:1.0 [Primary Tissue from Some Other Donor]
     written:./examples/samples.versioned.xml
@@ -67,7 +67,7 @@ In case all object validate, and only one xml was given for validation, then the
 
 Finally check versioned xml still validates against SRA:
     
-    $ xmllint ./examples/samples.versioned.xml --schema ./schemas/SRA.sample.xsd > /dev/null
+    $ xmllint ./examples/samples.versioned.xml --schema .../schemas/xml/xml/SRA.sample.xsd > /dev/null
     ./examples/samples.versioned.xml validates
 
 Note that example xml given validates against SRA XML schema, and conforms to IHEC schema, but EGA will not accept this as it does not include "gender", "subject_id" and "phenotype" attributes. This should be included. 
@@ -76,7 +76,7 @@ Note that example xml given validates against SRA XML schema, and conforms to IH
 
     apy __main__.py -sample -out:./examples/samples.with_one_invalid.versioned.xml ./examples/samples.with_one_invalid.xml -overwrite-outfile
     [{'-config': './config.json', '-out': './examples/samples.with_one_invalid.versioned.xml'}, ['./examples/samples.with_one_invalid.xml']]
-    # xml validates [against:./schemas/SRA.sample.xsd]... True [./examples/samples.with_one_invalid.xml]
+    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.with_one_invalid.xml]
     #__normalizingTags:Primary Tissue from Some Donor
     #__normalizingTags:Primary Tissue from Some Other Donor
     # is valid ihec spec:True version:0.9 [Primary Tissue from Some Donor]
@@ -88,7 +88,7 @@ Note that example xml given validates against SRA XML schema, and conforms to IH
 
     apy __main__.py -sample -out:./examples/samples.with_multiple_valid_invalid.versioned.xml ./examples/samples.with_multiple_valid_invalid.xml -overwrite-outfile
     [{'-config': './config.json', '-out': './examples/samples.with_multiple_valid_invalid.versioned.xml'}, ['./examples/samples.with_multiple_valid_invalid.xml']]
-    # xml validates [against:./schemas/SRA.sample.xsd]... True [./examples/samples.with_multiple_valid_invalid.xml]
+    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.with_multiple_valid_invalid.xml]
     #__normalizingTags:Primary Tissue from Some Donor A
     #__normalizingTags:Primary Tissue from Some Donor B
     #__normalizingTags:Primary Tissue from Some Donor D
@@ -111,11 +111,11 @@ An example where all experiments in the set validate.
     apy __main__.py -experiment ./examples/experiment.xml -out:examples/experiment.validated.xml -overwrite-outfile
     [{'-config': './config.json', '-out': 'examples/experiment.validated.xml'}, ['./examples/experiment.xml']]
     ./config.json
-    # xml validates [against:./schemas/SRA.experiment.xsd]... True [./examples/experiment.xml]
+    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./examples/experiment.xml]
     # is valid ihec spec:True 1.0 [WGBS (whole genome bisulfite sequencing) analysis of SomeSampleA (library: SomeLibraryA).]
     # is valid ihec spec:True 1.0 [WGBS (whole genome bisulfite sequencing) analysis of SomeSampleB (library: SomeLibraryB).]
     written:examples/experiment.validated.xml
-    # xml validates [against:./schemas/SRA.experiment.xsd]... True [examples/experiment.validated.xml]
+    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [examples/experiment.validated.xml]
     ok
 
 An example where some only experiments in the set validate.
@@ -123,12 +123,12 @@ An example where some only experiments in the set validate.
     $ apy __main__.py -experiment ./examples/experiment.some_invalid.xml -out:examples/experiment.some_invalid.validated.xml -overwrite-outfile
     [{'-config': './config.json', '-out': 'examples/experiment.some_invalid.validated.xml'}, ['./examples/experiment.some_invalid.xml']]
     ./config.json
-    # xml validates [against:./schemas/SRA.experiment.xsd]... True [./examples/experiment.some_invalid.xml]
+    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./examples/experiment.some_invalid.xml]
     # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleC (library: SomeLibrary).]
     # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleB (library: SomeLibrary).]
     # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleA (library: SomeLibrary).]
     written:examples/experiment.some_invalid.validated.xml
-    # xml validates [against:./schemas/SRA.experiment.xsd]... True [examples/experiment.some_invalid.validated.xml]
+    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [examples/experiment.some_invalid.validated.xml]
     ok
 
 
