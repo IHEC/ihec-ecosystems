@@ -10,6 +10,9 @@ import urllib.request
 from urllib.error import HTTPError
 
 
+schema_file = os.path.dirname(os.path.realpath(__file__)) + '/schema/hub.json'
+
+
 def main(argv):
     """Command line way to valide a data hub"""
 
@@ -38,8 +41,6 @@ def main(argv):
         printHelp()
         exit()
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/schema/hub.json'
-
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
 
@@ -50,24 +51,31 @@ def main(argv):
         print("Data hub is valid.")
 
     except jsonschema.exceptions.ValidationError:
-        with open(schema_file) as jsonStr:
-            json_schema = json.load(jsonStr)
-        v = jsonschema.Draft7Validator(json_schema)
-        errors = [e for e in v.iter_errors(jsonObj)]
-        logging.getLogger().info("Total errors: {}".format(len(errors)))
+        return jsonschemaErrorReport(jsonObj)
+
+
+def jsonschemaErrorReport(jsonObj):
+    """ Return error report"""
+
+    with open(schema_file) as jsonStr:
+        json_schema = json.load(jsonStr)
+    v = jsonschema.Draft7Validator(json_schema)
+    errors = [e for e in v.iter_errors(jsonObj)]
+    logging.getLogger().info('Total errors: {}'.format(len(errors)))
+    print("--------------------------------------------------")
+    for error in sorted(errors, key=str):
+        logging.getLogger().error('Validation error in {}: {}'.format('.'.join(str(v) for v in error.path),
+                                                                      error.message))
+        if len(error.context) > 0:
+            logging.getLogger().info('Multiple sub-schemas can apply. This is the errors for each:')
+            prev_schema = -1
+            for suberror in sorted(error.context, key=lambda e: e.schema_path):
+                schema_index = suberror.schema_path[0]
+                if prev_schema < schema_index:
+                    logging.getLogger().info('Schema {}:'.format(schema_index + 1))
+                    prev_schema = schema_index
+                logging.getLogger().error('{}'.format(suberror.message))
         print("--------------------------------------------------")
-        for error in sorted(errors, key=str):
-            print('Validation error in {}: {}'.format('.'.join(error.path), error.message))
-            if len(error.context) > 0:
-                print('Multiple sub-schemas can apply. This is the errors for each:')
-                prev_schema = -1
-                for suberror in sorted(error.context, key=lambda e: e.schema_path):
-                    schema_index = suberror.schema_path[0]
-                    if prev_schema < schema_index:
-                        print('Schema %d:' % (schema_index + 1))
-                        prev_schema = schema_index
-                    print('  %s' % (suberror.message))
-            print("--------------------------------------------------")
 
 
 def printHelp():
