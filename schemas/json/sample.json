@@ -15,10 +15,10 @@
     },
 
     "anyOf": [
-        { "$ref": "file:schema/sample.json#/definitions/cell_line" },
-        { "$ref": "file:schema/sample.json#/definitions/primary_cell" },
-        { "$ref": "file:schema/sample.json#/definitions/primary_cell_culture" },
-        { "$ref": "file:schema/sample.json#/definitions/primary_tissue" }
+        { "$ref": "file:../schemas/json/sample.json#/definitions/cell_line" },
+        { "$ref": "file:../schemas/json/sample.json#/definitions/primary_cell" },
+        { "$ref": "file:../schemas/json/sample.json#/definitions/primary_cell_culture" },
+        { "$ref": "file:../schemas/json/sample.json#/definitions/primary_tissue" }
     ],
 
     "required": ["sample_ontology_uri", "disease", "disease_ontology_uri", "biomaterial_type"],
