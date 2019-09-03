@@ -37,7 +37,7 @@ def main(argv):
         printHelp()
         exit()
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/schema/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
 
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)

@@ -10,14 +10,15 @@
         "disease_ontology_uri" : {"type": "string", "description": "(Ontology: NCIM) links to sample disease ontology information. This property reflects the disease for this particular sample, not for the donor health condition. The NCImetathesaurus term C0277545 “Disease type AND/OR category unknown” should be used for unknown diseases. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) or in the free form DISEASE attribute. For samples without any known disease, use the NCImetathesaurus C0549184 term 'None'. If dealing with a rare disease consider identifiability issues."},
         "disease" : {"type": "string", "description": "Free form field for more specific sample disease information. This property reflects the disease for this particular sample, not for the donor health condition. If dealing with a rare disease consider identifiability issues."},
         "biomaterial_provider" : {"type": "string", "description": "The name of the company, laboratory or person that provided the biological material."},
-        "biomaterial_type" : {"type": "string", "enum":["Cell Line", "Primary Cell", "Primary Cell Culture", "Primary Tissue"], "description": ""}
+        "biomaterial_type" : {"type": "string", "enum":["Cell Line", "Primary Cell", "Primary Cell Culture", "Primary Tissue"], "description": ""},
+        "treatment" : {"type": "string", "description": "Any artificial modification (differentiation, activation, genome editing, etc)."}
     },
 
     "anyOf": [
-        { "$ref": "file:schema/sample.json#/definitions/cell_line" },
-        { "$ref": "file:schema/sample.json#/definitions/primary_cell" },
-        { "$ref": "file:schema/sample.json#/definitions/primary_cell_culture" },
-        { "$ref": "file:schema/sample.json#/definitions/primary_tissue" }
+        { "$ref": "file:../schemas/json/sample.json#/definitions/cell_line" },
+        { "$ref": "file:../schemas/json/sample.json#/definitions/primary_cell" },
+        { "$ref": "file:../schemas/json/sample.json#/definitions/primary_cell_culture" },
+        { "$ref": "file:../schemas/json/sample.json#/definitions/primary_tissue" }
     ],
 
     "required": ["sample_ontology_uri", "disease", "disease_ontology_uri", "biomaterial_type"],

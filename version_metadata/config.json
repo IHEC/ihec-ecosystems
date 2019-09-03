@@ -2,26 +2,26 @@
     "ihec": {
         "experiment": [
             {
-                "schema": "./json_schema/experiment.json",
+                "schema": "../schemas/json/experiment.json",
                 "version": "1.0",
                 "version_description": "Required metadata specification of  March 2018 release"
             }
         ],
         "sample": [
             {
-                "schema": "./json_schema/sample.json",
+                "schema": "../schemas/json/sample.json",
                 "version": "1.0",
                 "version_description": "Required metadata specification of  March 2018 release"
             }
         ]
     },
     "sra": {
-        "analysis": "./schemas/SRA.analysis.xsd",
-        "common": "./schemas/SRA.common.xsd",
-        "dataset": "./schemas/EGA.dataset.xsd",
-        "experiment": "./schemas/SRA.experiment.xsd",
-        "run": "./schemas/SRA.run.xsd",
-        "sample": "./schemas/SRA.sample.xsd",
-        "submission": "./schemas/SRA.submission.xsd"
+        "analysis": "../schemas/xml/SRA.analysis.xsd",
+        "common": "../schemas/xml/SRA.common.xsd",
+        "dataset": "../schemas/xml/EGA.dataset.xsd",
+        "experiment": "../schemas/xml/SRA.experiment.xsd",
+        "run": "../schemas/xml/SRA.run.xsd",
+        "sample": "../schemas/xml/SRA.sample.xsd",
+        "submission": "../schemas/xml/SRA.submission.xsd"
     }
 }
