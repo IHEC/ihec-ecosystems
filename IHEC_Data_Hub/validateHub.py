@@ -8,6 +8,7 @@ import re
 import logging
 import urllib.request
 from urllib.error import HTTPError
+from urllib.parse import quote, quote_plus
 
 
 schema_file = os.path.dirname(os.path.realpath(__file__)) + '/schema/hub.json'
@@ -106,6 +107,7 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
 
     # TF Target validation against HGNC
     validateHgncSymbol(jsonObj)
+    validateOntology(jsonObj.get('samples'))
 
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
@@ -327,6 +329,52 @@ def validateHgncSymbol(jsonObj):
                 logging.getLogger().info('Experiment target tf is not found in metadata.')
 
             print()
+
+
+class OntologyLookup(object):
+    # base = 'https://www.ebi.ac.uk/ols/api/ontologies/'
+
+    def __init__(self, uri, base=None):
+        self.uri = uri
+        self.base = base
+
+    def parseUrl(self):
+        """ follows url pattern e.g. http://www.ebi.ac.uk/efo/EFO_0001639 """
+        url_data = {}
+        parsed_url = self.uri.split('/')
+        url_data['ontology_name'] = parsed_url[-2]
+        url_data['curie'] = parsed_url[-1]
+        return url_data
+
+    def callApi(self):
+        base_url = "https://www.ebi.ac.uk/ols/api/ontologies/"
+        prefix = self.parseUrl().get('ontology_name')
+        curie = self.parseUrl().get('curie')
+        # https://www.ebi.ac.uk/ols/api/ontologies/efo/terms
+        try:
+            r = urllib.request.Request(base_url + prefix + '/terms/' + quote(self.uri),
+                                       headers={"Accept": "application/json"})
+            response = urllib.request.urlopen(r).read()
+            response_json = json.loads(response.decode('utf-8'))
+            return response_json
+        except HTTPError as e:
+            if e.code == 404:
+                logging.getLogger().warning('Ontology validation error: {}'.format(e))
+            else:
+                logging.getLogger().warning("Unexpected error {}".format(e))
+
+
+def validateOntology(samples):
+    lookup_service = 'http://www.ebi.ac.uk/ols/api/terms/'
+
+    for sampleid in samples:
+        sample = samples.get(sampleid)
+        if sample.get('biomaterial_type') == 'Cell Line':
+            ontology = sample.get('sample_ontology_uri')
+            check_term = OntologyLookup(ontology)
+            check_term.callApi()
+            # check if ontology is efo and term is a valid
+            return check_term
 
 
 if __name__ == "__main__":
