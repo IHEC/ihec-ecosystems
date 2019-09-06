@@ -17,7 +17,7 @@ The metadata is stored and transmitted as an XML file. Here are instructions on 
 
 ## 2. Raw data submission
 
-Having prepared the metadata, proceed to submit the raw experimental data to the archive of your choice. 
+Having prepared the metadata, proceed to submit the raw experimental data to the archive of your choice. For sequencing raw data, the preferred format is FASTQ (over BAM and others). 
 
 ## 3. EpiRR submission
 
