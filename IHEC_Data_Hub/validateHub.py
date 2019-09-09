@@ -106,9 +106,11 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
         logging.getLogger().info('EpiRR validation passed.')
 
     # TF Target validation against HGNC
-    validateHgncSymbol(jsonObj)
+    datasets = jsonObj.get('datasets')
+    for dataset_name in datasets:
+        dataset = datasets.get(dataset_name)
+        validateHgncSymbol(dataset, dataset_name)
     validateOntology(jsonObj.get('samples'))
-
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
     """Validate that dataset objects properties are OK."""
@@ -276,59 +278,52 @@ def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
         return
 
 
-def validateHgncSymbol(jsonObj):
+def validateHgncSymbol(dataset, dataset_name):
     """ Validate experiment target tf against HGNC when experiment_type matches 'Transcription Factor'. """
 
     print()
 
-    datasets = jsonObj.get('datasets')
-
-    for dataset_name in datasets:
-        dataset = datasets.get(dataset_name)
-        exp_attr = dataset.get('experiment_attributes')
-        if isinstance(dataset.get('sample_id'), list):
-            ds_names = dataset.get('sample_id')
-        else:
-            ds_names = [dataset.get('sample_id')]
-
-        if exp_attr.get('experiment_type') == 'Transcription Factor':
-            logging.getLogger().info('Validating dataset "{}" against HGNC records...'.format(dataset_name))
-            tf_target = exp_attr.get('experiment_target_tf')
-
-            def symbolStatus(status, symbol):
-                """ Generic function to call HGNC APIs """
-                try:
-                    r = urllib.request.Request('http://rest.genenames.org/search/' + status + "/" + symbol,
-                                               headers={"Accept": "application/json"})
-                    response = urllib.request.urlopen(r).read()
-                    tftarget_json = json.loads(response.decode('utf-8'))
-                    return tftarget_json
-                except HTTPError as e:
-                    if e.code == 404:
-                        logging.getLogger().warning('TF target {} is not found ({})'.format(symbol, e))
-                    else:
-                        logging.getLogger().warning("Unexpected error {}".format(e))
-
-            for ds_name in ds_names:
-                logging.getLogger().info('Validating sample "{}" properties...'.format(ds_name))
-            # first, validating against currently valid symbol, if fails, check if symbol was previously valid
-            if tf_target:
-                logging.getLogger().info('Validating symbol: {}'.format(tf_target))
-                tftarget_json = symbolStatus(status='symbol', symbol=tf_target)
-                if tftarget_json.get('response').get('numFound') > 0:
-                    logging.getLogger().info('Symbol validation passed.')
-                else:
-                    logging.getLogger().info('Validating if symbol was approved previously...')
-                    prev_symbol_json = symbolStatus(status='prev_symbol', symbol=tf_target)
-                    if prev_symbol_json.get('response').get('numFound') > 0:
-                        logging.getLogger().info('Symbol validation passed.')
-                    else:
-                        logging.getLogger().info('Symbol validation failed.')
-
+    experiment_attr = dataset.get('experiment_attributes')
+    if experiment_attr.get('experiment_type') == 'Transcription Factor':
+        logging.getLogger().info('Validating dataset "{}" against HGNC records...'.format(dataset_name))
+        tf_target = experiment_attr.get('experiment_target_tf')
+        if tf_target:
+            success = 'Symbol validation passed.'
+            fail = 'Symbol validation failed.'
+            logging.getLogger().info('Validating symbol: {}'.format(tf_target))
+            status = symbolStatus(status='symbol', symbol=tf_target)
+            if status:
+                logging.getLogger().info(success)
+                return True
             else:
-                logging.getLogger().info('Experiment target tf is not found in metadata.')
+                logging.getLogger().info('Validating if symbol was approved previously...')
+                status = symbolStatus(status='prev_symbol', symbol=tf_target)
+                if status:
+                    logging.getLogger().info(success)
+                    return True
+                else:
+                    logging.getLogger().info(fail)
+                    return False
+        else:
+            logging.getLogger().error('Experiment target tf is not found in metadata.')
 
-            print()
+
+def symbolStatus(status, symbol):
+    """ Generic function to call HGNC API """
+
+    # HGNC status options: 'symbol', 'prev_symbol'
+    try:
+        r = urllib.request.Request('http://rest.genenames.org/search/' + status + "/" + symbol,
+                                   headers={"Accept": "application/json"})
+        response = urllib.request.urlopen(r).read()
+        tftarget_json = json.loads(response.decode('utf-8'))
+        tftarget_json = tftarget_json.get('response')
+        if tftarget_json.get('numFound') > 0:
+            return True
+        return False
+
+    except HTTPError as e:
+        logging.getLogger().warning("Unexpected error: {}".format(e))
 
 
 class OntologyLookup(object):
