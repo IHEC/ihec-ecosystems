@@ -8,7 +8,6 @@ import re
 import logging
 import urllib.request
 from urllib.error import HTTPError
-from urllib.parse import quote, quote_plus
 from ontology_lookup import OntologyLookup, ontology_rules
 
 
@@ -112,11 +111,8 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
         dataset = datasets.get(dataset_name)
         validateHgncSymbol(dataset, dataset_name)
 
-    # validate sample ontology uri in each sample
-    samples = jsonObj.get('samples')
-    for sample in samples:
-        sample_name = samples.get(sample)
-        validateOntology(sample_name)
+    # validation of accepted ontologies
+    validateOntologies(jsonObj)
 
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
@@ -333,20 +329,46 @@ def symbolStatus(status, symbol):
         logging.getLogger().warning("Unexpected error: {}".format(e))
 
 
-def validateOntology(sample):
-    """ Validate sample_ontology_uri according to biomaterial_type """
+def validateOntologies(jsonObj):
+    """
+    Validate all ontologies used in metadata: handles two cases
+    when ontology uris are present in experiment and in sample
+    """
 
-    curie = sample.get('sample_ontology_uri') #curie
-    ontology_term = OntologyLookup(curie)
-    ontology_rules = ontology_term.checkOntologyRules(sample, 'biomaterial_type', 'sample_ontology_uri')
-    if ontology_rules:
-        api_response = ontology_term.validateTerm()
-        if api_response:
-            logging.getLogger().info("Ontology checked and term is valid")
-            return True
-        else:
-            logging.getLogger().info("Term is not valid")
-            return False
+    # SAMPLES
+    samples = jsonObj.get('samples')
+    for sample_name in samples:
+        sample = samples.get(sample_name)
+        # refactor below
+        ontology_term = OntologyLookup(sample.get('sample_ontology_uri'))
+        print()
+        logging.getLogger().info('Validating "sample_ontology_uri" in {} ...'.format(sample_name))
+        val_rules = ontology_term.checkOntologyRules(
+            ontology_type='sample_ontology_uri', schemaObj=sample_name, subparam=sample.get('biomaterial_type')
+        )
+
+        if val_rules:
+            ontology_term.validateTerm()
+
+    # EXPERIMENTS
+    datasets = jsonObj.get('datasets')
+    for dataset_name in datasets:
+        dataset = datasets.get(dataset_name)
+        exp_attr = dataset.get('experiment_attributes')
+        for key, value in exp_attr.items():
+            # retrieve ontology type
+            if 'ontology_uri' in key:
+                ontology_term = OntologyLookup(exp_attr.get(key))
+                print()
+                logging.getLogger().info('Validating "{}" in {} ...'.format(key, dataset_name))
+                val_rules = ontology_term.checkOntologyRules(
+                    ontology_type=key, schemaObj=dataset_name
+                )
+
+                if val_rules:
+                    ontology_term.validateTerm()
+            else:
+                pass
 
 
 if __name__ == "__main__":
