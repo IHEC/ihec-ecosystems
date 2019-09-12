@@ -343,12 +343,12 @@ def validateOntologies(jsonObj):
         ontology_term = OntologyLookup(sample.get('sample_ontology_uri'))
         print()
         logging.getLogger().info('Validating "sample_ontology_uri" in {} ...'.format(sample_name))
-        val_rules = ontology_term.checkOntologyRules(
-            ontology_type='sample_ontology_uri', schemaObj=sample_name, subparam=sample.get('biomaterial_type')
+        val_rules = ontology_term.check_ontology_rules(
+            ontology_type='sample_ontology_uri', schema_object=sample_name, subparam=sample.get('biomaterial_type')
         )
 
         if val_rules:
-            ontology_term.validateTerm()
+            ontology_term.validate_term()
 
     # EXPERIMENTS
     datasets = jsonObj.get('datasets')
@@ -361,12 +361,12 @@ def validateOntologies(jsonObj):
                 ontology_term = OntologyLookup(exp_attr.get(key))
                 print()
                 logging.getLogger().info('Validating "{}" in {} ...'.format(key, dataset_name))
-                val_rules = ontology_term.checkOntologyRules(
-                    ontology_type=key, schemaObj=dataset_name
+                val_rules = ontology_term.check_ontology_rules(
+                    ontology_type=key, schema_object=dataset_name
                 )
 
                 if val_rules:
-                    ontology_term.validateTerm()
+                    ontology_term.validate_term()
             else:
                 pass
 
