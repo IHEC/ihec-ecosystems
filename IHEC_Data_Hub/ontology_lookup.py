@@ -30,15 +30,15 @@ class OntologyLookup(object):
         """
         follows CURIE pattern e.g. uberon:0013540
         """
-        url_data = {}
+        curie_data = {}
         try:
             parsed_url = self.curie.split(':')
-            url_data['ontology_name'] = parsed_url[0]
-            url_data['curie'] = parsed_url[1]
+            curie_data['ontology_name'] = parsed_url[0]
+            curie_data['curie'] = parsed_url[1]
         # if curie format was not validated
         except Exception as e:
             logging.getLogger().error('Error: {}'.format(e))
-        return url_data
+        return curie_data
 
 
     def check_ontology_rules(self, ontology_type, schema_object, subparam=None):
