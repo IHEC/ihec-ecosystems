@@ -32,9 +32,9 @@ class OntologyLookup(object):
         """
         curie_data = {}
         try:
-            parsed_url = self.curie.split(':')
-            curie_data['ontology_name'] = parsed_url[0]
-            curie_data['curie'] = parsed_url[1]
+            parsed_curie = self.curie.split(':')
+            curie_data['ontology_name'] = parsed_curie[0]
+            curie_data['curie'] = parsed_curie[1]
         # if curie format was not validated
         except Exception as e:
             logging.getLogger().error('Error: {}'.format(e))
