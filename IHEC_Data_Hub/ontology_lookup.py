@@ -55,7 +55,7 @@ class OntologyLookup(object):
         # the given ontology by input
         current_ontology = self.parse_curie().get('ontology_name')
         # check if rule is a dict, then unpack rule ontology based on subparam value
-        if isinstance(rule_ontology, dict)and subparam:
+        if isinstance(rule_ontology, dict) and subparam:
             rule_ontology = rule_ontology.get(subparam)
         if current_ontology == rule_ontology:
             return True
