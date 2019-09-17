@@ -6,8 +6,8 @@
     "type" : "object",
 
     "properties": {
-        "sample_ontology_curie" : {"type": "string", "description": "(Ontology: EFO) links to sample ontology information."},
-        "disease_ontology_curie" : {"type": "string", "description": "(Ontology: NCIM) links to sample disease ontology information. This property reflects the disease for this particular sample, not for the donor health condition. The NCImetathesaurus term C0277545 “Disease type AND/OR category unknown” should be used for unknown diseases. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) or in the free form DISEASE attribute. For samples without any known disease, use the NCImetathesaurus C0549184 term 'None'. If dealing with a rare disease consider identifiability issues."},
+        "sample_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: EFO) links to sample ontology information."},
+        "disease_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: NCIM) links to sample disease ontology information. This property reflects the disease for this particular sample, not for the donor health condition. The NCImetathesaurus term C0277545 “Disease type AND/OR category unknown” should be used for unknown diseases. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) or in the free form DISEASE attribute. For samples without any known disease, use the NCImetathesaurus C0549184 term 'None'. If dealing with a rare disease consider identifiability issues."},
         "disease" : {"type": "string", "description": "Free form field for more specific sample disease information. This property reflects the disease for this particular sample, not for the donor health condition. If dealing with a rare disease consider identifiability issues."},
         "biomaterial_provider" : {"type": "string", "description": "The name of the company, laboratory or person that provided the biological material."},
         "biomaterial_type" : {"type": "string", "enum":["Cell Line", "Primary Cell", "Primary Cell Culture", "Primary Tissue"], "description": ""},
@@ -46,7 +46,7 @@
     },
     "then": {
       "properties": {
-        "origin_sample_ontology_curie" : {"type": "string", "description": "(Ontology: UBERON) links to the tissue from which sample was extracted."},
+        "origin_sample_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: UBERON) links to the tissue from which sample was extracted."},
         "origin_sample" : {"type": "string", "description": "Description of the origin tissue from which sample was extracted."},
         "cell_type" : {"type": "string", "description": "The type of cell."},
         "markers" : {"type": "string", "description": "Markers used to isolate and identify the cell type."},
@@ -64,7 +64,7 @@
     },
     "then": {
       "properties": {
-        "origin_sample_ontology_curie" : {"type": "string", "description": "(Ontology: UBERON) links to the tissue from which sample was extracted."},
+        "origin_sample_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: UBERON) links to the tissue from which sample was extracted."},
         "origin_sample" : {"type": "string", "description": "Description of the origin tissue from which sample was extracted."},
         "cell_type" : {"type": "string", "description": ""},
         "markers" : {"type": "string", "description": "Markers used to isolate and identify the cell type."},
@@ -110,7 +110,7 @@
                 "donor_age_unit" : {"type": "string", "enum": ["year", "month", "week", "day"]},
                 "donor_life_stage": {"type": "string", "enum": ["fetal", "newborn", "child", "adult", "unknown", "embryonic", "postnatal"]},
                 "donor_health_status" : {"type": "string", "description": "The health status of the donor that provided the primary cell. NA if not available."},
-                "donor_health_status_ontology_curie" : {"type": "string", "description": "(Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 'Disease type AND/OR category unknown' should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 'None'. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues."},
+                "donor_health_status_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 'Disease type AND/OR category unknown' should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 'None'. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues."},
                 "donor_sex" : {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."},
                 "donor_ethnicity" : {"type": "string", "description": "The ethnicity of the donor that provided the primary cell. NA if not available. If dealing with small/vulnerable populations consider identifiability issues."}
             },
