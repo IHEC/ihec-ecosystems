@@ -9,7 +9,7 @@
         "reference_registry_id": {"type": "string", "description": "The IHEC EpiRR ID for this dataset, only for IHEC Reference Epigenome datasets. Otherwise leave empty."},
 
         "experiment_type": {"type": "string", "description": "(Controlled Vocabulary) The assay target (e.g. ‘DNA Methylation’, ‘mRNA-Seq’, ‘smRNA-Seq’, 'Histone H3K4me1')."},
-        "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: OBI) links to experiment ontology information."},
+        "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: OBI) links to experiment ontology information."}},
         "library_strategy": {"type": "string", "description": "(Controlled Vocabulary) The assay used. These are defined within the SRA metadata specifications with a controlled vocabulary (e.g. ‘Bisulfite-Seq’, ‘RNA-Seq’, ‘ChIP-Seq’). For a complete list, see https://www.ebi.ac.uk/ena/submit/reads-library-strategy."},
         "molecule_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: SO) links to molecule ontology information."},
         "molecule" : {"type": "string", "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "small RNA", "genomic DNA", "protein", "other"], "description": "(Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, small RNA, genomic DNA, protein, or other."}
@@ -38,9 +38,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["Chromatin Accessibility"]},
-                "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "library_strategy": {"type": "string", "enum": ["DNase-Hypersensitivity", "ATAC-seq", "NOME-Seq"]},
-                "molecule_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "molecule_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -52,9 +52,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["DNA Methylation"]},
-                "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "library_strategy": {"type": "string", "enum": ["Bisulfite-Seq"]},
-                "molecule_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "molecule_ontology_curie" : {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -82,9 +82,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["DNA Methylation"]},
-                "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "library_strategy": {"type": "string", "enum": ["MeDIP-Seq"]},
-                "molecule_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "molecule_ontology_curie" : {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -106,9 +106,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["DNA Methylation"]},
-                "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "library_strategy": {"type": "string", "enum": ["MRE-Seq"]},
-                "molecule_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "molecule_ontology_curie" : {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "mre_protocol": {"type": "string", "description": "The MRE protocol."},
@@ -125,9 +125,9 @@
                 "experiment_target_tf": {"type": "string", "description": "(Controlled vocabulary) An HGNC gene symbol"},
                 "experiment_target_tf_modification": {"type": "string", "description": "Post-transcriptional modification of the target protein"},
                 "experiment_target_histone": {"type": "string", "enum": ["H2AFZ", "H2AK5ac", "H2AK9ac", "H2BK120ac", "H2BK12ac", "H2BK15ac", "H2BK20ac", "H2BK5ac", "H3F3A", "H3K14ac", "H3K18ac", "H3K23ac", "H3K23me2", "H3K27ac", "H3K27me3", "H3K36me3", "H3K4ac", "H3K4me1", "H3K4me2", "H3K4me3", "H3K56ac", "H3K79me1", "H3K79me2", "H3K9ac", "H3K9me1", "H3K9me2", "H3K9me3", "H3T11ph", "H4K12ac", "H4K20me1", "H4K5ac", "H4K8ac", "H4K91ac"], "description": "Target histone mark"},
-                "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "library_strategy": {"type": "string", "enum": ["ChIP-Seq"]},
-                "molecule_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "molecule_ontology_curie" : {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "molecule" : {"type": "string", "enum": ["genomic DNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -151,9 +151,9 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["RNA-Seq", "mRNA-Seq", "smRNA-Seq", "total-RNA-Seq"]},
-                "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "library_strategy": {"type": "string", "enum": ["RNA-Seq", "miRNA-Seq"]},
-                "molecule_ontology_curie" : {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"},
+                "molecule_ontology_curie" : {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}},
                 "molecule" : {"type": "string", "enum": ["polyA RNA", "total RNA", "nuclear RNA", "cytoplasmic RNA", "small RNA"]},
 
                 "extraction_protocol": {"type": "string", "description": "The protocol used to isolate the extract material."},
@@ -203,7 +203,7 @@
             "type": "object",
             "properties": {
                 "experiment_type": {"type": "string", "enum": ["Other"]},
-                "experiment_ontology_curie": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}
+                "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*"}}
             }
         }
     }
