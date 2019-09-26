@@ -108,7 +108,9 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
     datasets = jsonObj.get('datasets')
     for dataset_name in datasets:
         dataset = datasets.get(dataset_name)
-        validateHgncSymbol(dataset, dataset_name)
+        experiment_attr = dataset.get('experiment_attributes')
+        if experiment_attr.get('experiment_type') == 'Transcription Factor':
+            validateHgncSymbol(dataset, dataset_name)
 
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
@@ -278,33 +280,29 @@ def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
 
 
 def validateHgncSymbol(dataset, dataset_name):
-    """ Validate experiment target tf against HGNC when experiment_type matches 'Transcription Factor'. """
+    """ Validate experiment target tf against HGNC when experiment_type is 'Transcription Factor'. """
 
-    print()
-
-    experiment_attr = dataset.get('experiment_attributes')
-    if experiment_attr.get('experiment_type') == 'Transcription Factor':
-        logging.getLogger().info('Validating dataset "{}" against HGNC records...'.format(dataset_name))
-        tf_target = experiment_attr.get('experiment_target_tf')
-        if tf_target:
-            success = 'Symbol validation passed.'
-            fail = 'Symbol validation failed.'
-            logging.getLogger().info('Validating symbol: {}'.format(tf_target))
-            status = symbolStatus(status='symbol', symbol=tf_target)
+    logging.getLogger().info('Validating dataset "{}" against HGNC records...'.format(dataset_name))
+    tf_target = dataset.get('experiment_attributes').get('experiment_target_tf')
+    if tf_target:
+        success = 'Symbol validation passed.'
+        fail = 'Symbol validation failed.'
+        logging.getLogger().info('Validating symbol: {}'.format(tf_target))
+        status = symbolStatus(status='symbol', symbol=tf_target)
+        if status:
+            logging.getLogger().info(success)
+            return True
+        else:
+            logging.getLogger().info('Validating if symbol was approved previously...')
+            status = symbolStatus(status='prev_symbol', symbol=tf_target)
             if status:
                 logging.getLogger().info(success)
                 return True
             else:
-                logging.getLogger().info('Validating if symbol was approved previously...')
-                status = symbolStatus(status='prev_symbol', symbol=tf_target)
-                if status:
-                    logging.getLogger().info(success)
-                    return True
-                else:
-                    logging.getLogger().info(fail)
-                    return False
-        else:
-            logging.getLogger().error('Experiment target tf is not found in metadata.')
+                logging.getLogger().info(fail)
+                return False
+    else:
+        logging.getLogger().error('Experiment target tf is not found in metadata.')
 
 
 def symbolStatus(status, symbol):
