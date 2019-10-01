@@ -1,6 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "http://epigenomesportal.ca/schemas/experiment.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://epigenomesportal.ca/schemas/experiment.json",
     "title": "IHEC Data Hub Experiment schema",
     "description": "IHEC Data Hub Experiment schema",
     "type" : "object",
@@ -14,21 +14,22 @@
         "molecule_ontology_uri" : {"type": "string", "description": "(Ontology: SO) links to molecule ontology information."},
         "molecule" : {"type": "string", "enum": ["total RNA", "polyA RNA", "cytoplasmic RNA", "nuclear RNA", "small RNA", "genomic DNA", "protein", "other"], "description": "(Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, small RNA, genomic DNA, protein, or other."}
     },
+    "required": ["library_strategy"],
 
     "allOf": [
         {"anyOf": [
-            { "$ref": "file:schema/experiment.json#/definitions/chromatin_accessibility" },
-            { "$ref": "file:schema/experiment.json#/definitions/bisulfite-seq" },
-            { "$ref": "file:schema/experiment.json#/definitions/medip-seq" },
-            { "$ref": "file:schema/experiment.json#/definitions/mre-seq" },
-            { "$ref": "file:schema/experiment.json#/definitions/chip-seq" },
-            { "$ref": "file:schema/experiment.json#/definitions/rna-seq" },
-            { "$ref": "file:schema/experiment.json#/definitions/wgs" },
-            { "$ref": "file:schema/experiment.json#/definitions/other" }
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/chromatin_accessibility" },
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/bisulfite-seq" },
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/medip-seq" },
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/mre-seq" },
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/chip-seq" },
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/rna-seq" },
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/wgs" },
+            { "$ref": "file:../schemas/json/experiment.json#/definitions/other" }
         ]},
         {"anyOf": [
-            {"required": ["experiment_ontology_uri", "library_strategy"]},
-            {"required": ["experiment_type", "library_strategy"]}
+            {"required": ["experiment_ontology_uri"]},
+            {"required": ["experiment_type"]}
         ]}
     ],
 

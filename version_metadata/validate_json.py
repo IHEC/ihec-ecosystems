@@ -47,7 +47,7 @@ class JsonSchema:
 		self.schema = json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
 		self.expectedpath = 'file:schema/'
-		self.newpath = 'file:{0}/json_schema/'.format(self.base) 
+		self.newpath = 'file:{0}/../schemas/json/'.format(self.base) 
 		for e in self.schema.get('anyOf', list()):
 			if '$ref' in e:
 				e['$ref'] = self.fixfilebase(e['$ref'])

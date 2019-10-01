@@ -28,3 +28,7 @@ IHEC Data Hub are the documents that IHEC members produce to exchange metadata. 
 ## Metadata Validation and Versioning
 
 For metadata versioning/validation submodule, see [available here](./metadata_version).
+
+## Updating this repo
+
+Please follow the [standard procedures](./SOP).

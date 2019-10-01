@@ -10,7 +10,7 @@ import urllib.request
 from urllib.error import HTTPError
 
 
-schema_file = os.path.dirname(os.path.realpath(__file__)) + '/schema/hub.json'
+schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
 
 
 def main(argv):
