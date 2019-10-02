@@ -10,9 +10,6 @@ import urllib.request
 from urllib.error import HTTPError
 
 
-schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
-
-
 def main(argv):
     """Command line way to valide a data hub"""
 
@@ -41,6 +38,8 @@ def main(argv):
         printHelp()
         exit()
 
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
+
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
 
@@ -57,6 +56,7 @@ def main(argv):
 def jsonschemaErrorReport(jsonObj):
     """ Return error report"""
 
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
     with open(schema_file) as jsonStr:
         json_schema = json.load(jsonStr)
     v = jsonschema.Draft7Validator(json_schema)
