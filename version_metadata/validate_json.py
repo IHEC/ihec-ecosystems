@@ -46,7 +46,7 @@ class JsonSchema:
 		self.verbose = verbose
 		self.schema = json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
-		self.expectedpath = 'file:schema/'
+		self.expectedpath = 'file:../schemas/json/'
 		self.newpath = 'file:{0}/../schemas/json/'.format(self.base) 
 		for e in self.schema.get('anyOf', list()):
 			if '$ref' in e:
