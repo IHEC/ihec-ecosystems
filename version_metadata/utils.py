@@ -14,7 +14,7 @@ class Logger:
 	def __init__(self):
 		pass
 	def __call__(self, m):
-		sys.stderr.write('{0}'.format(m))
+		sys.stderr.write(u'{0}'.format(m))
 	def warn(self, m):
 		self.__call__(m)
 	def trystr(self, x):

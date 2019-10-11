@@ -23,7 +23,7 @@ class SampleValidator(IHECJsonValidator):
 		self.sra = sra
 		self.xmljson = self.sra.obj_xmljson()
 		for (xml, attrs) in self.xmljson:
-			logger('\n#__normalizingTags:{0}\n'.format(attrs['title']))
+			logger(u'\n#__normalizingTags:{0}\n'.format(attrs['title']))
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
 		logger("\n\n")
 
