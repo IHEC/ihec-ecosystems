@@ -18,8 +18,7 @@ class Logger:
 	def warn(self, m):
 		self.__call__(m)
 	def debugonly(self, *args):
-		if self.debug:
-			print(args)
+		if self.debug: print(args) 
 	def trystr(self, x):
 		try:
 			# does nothing for python 3 and we no longer support 2...
@@ -35,20 +34,21 @@ logger = Logger()
 class Utils:
 	def __init__(self):
 		self.config = dict()
+		self.encoding = 'utf-8'
 	def fread(self, f):
 		with open(f) as infile:
 			return infile.read()
 	def fentries(self, f):
 		with open(f) as infile:
 			return [e.strip() for e in infile]
-	def writel(self, f, entries, sep=b'\n'):
+	def writel(self, f, entries, sep=b'\n', encoding=None):
+		if not encoding: encoding = self.encoding
 		assert isinstance(entries, list), ['expected list, found:' , type(entries)]
-		#print(entries)
 		with open(f, "wb") as outfile:
 			# handle mixed string, unicode lists
 			for e in entries:
 				if isinstance(e, str):
-					outfile.write(e.encode('utf-8'))
+					outfile.write(e.encode(encoding))
 				else:
 					outfile.write(e)  #sep.join(entries))
 				outfile.write(sep)
