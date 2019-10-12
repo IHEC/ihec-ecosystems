@@ -35,9 +35,9 @@ def main(args):
 			if required:
 				missing = [x for x in required if not x in e['attributes']]
 				missing2 = [x for x in missing if not patches.get(x, '-')  in e['attributes']]
-				print alias, ot, missing2, 'XXXX', missing
+				print (alias, ot, missing2, 'XXXX', missing)
 			else:
-				print alias, '__unknown_object_type__', ot
+				print (alias, '__unknown_object_type__', ot)
 
 if __name__ == '__main__':
 	main(config.Config.sys())

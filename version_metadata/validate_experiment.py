@@ -28,7 +28,7 @@ class ExperimentValidator(IHECJsonValidator):
 		miRNA_experiment_type =  attributes['experiment_type'] in miRNA_experiment_types
 		miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
 		if miRNA_experiment_type:
-			print miRNA_strategy, [attributes['experiment_type'], attributes['library_strategy'] ] 
+			print (miRNA_strategy, [attributes['experiment_type'], attributes['library_strategy'] ])
 			return miRNA_strategy
 		else:
 			# allow miRNA-Seq library strategy for any RNA-Seq experiment type 
@@ -56,7 +56,7 @@ class ExperimentValidator(IHECJsonValidator):
 
 # to do: refactor this code along with validate_sample into one module
 def main(args):
-	print args['-config']
+	print (args['-config'])
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["experiment"])
@@ -86,9 +86,9 @@ def main(args):
 
 
 	validated_xml_file = cmn.writel(outfile, versioned_xml)
-	print 'written:' + validated_xml_file
-	print 'validated:', len(validated)
-	print 'failed:', nObjs - len(validated)
+	print ('written:' + validated_xml_file)
+	print ('validated:', len(validated))
+	print ('failed:', nObjs - len(validated))
 	if validated:
 		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
 		assert validated_xml_set.is_valid__xml(xml_validator) or args.has("-skip-updated-xml-validation")
