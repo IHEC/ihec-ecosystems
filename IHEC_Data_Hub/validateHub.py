@@ -1,12 +1,13 @@
 from __future__ import print_function
 import jsonschema
-from sys import argv
+from sys import argv, _getframe
 import json
 import os
 import getopt
 import re
 import logging
-import urllib2
+import urllib.request
+from urllib.error import HTTPError
 
 
 def main(argv):
@@ -43,32 +44,38 @@ def main(argv):
         jsonObj = json.load(json_file)
 
     try:
+
         validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation)
 
         print("Data hub is valid.")
 
-    except jsonschema.exceptions.ValidationError as e:
+    except jsonschema.exceptions.ValidationError:
+        return jsonschemaErrorReport(jsonObj)
 
-        #Prepare full path to object with error
-        full_path = []
-        for el in list(e.path):
-            full_path.append(str(el))
 
-        print("--------------------------------------------------")
-        print("- Validation error in :", '.'.join(full_path))
-        print("--------------------------------------------------")
-        context_size = len(e.context)
-        if context_size > 0:
-            print('Multiple sub-schemas can apply. This is the errors for each:' )
+def jsonschemaErrorReport(jsonObj):
+    """ Return error report"""
+
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
+    with open(schema_file) as jsonStr:
+        json_schema = json.load(jsonStr)
+    v = jsonschema.Draft7Validator(json_schema)
+    errors = [e for e in v.iter_errors(jsonObj)]
+    logging.getLogger().info('Total errors: {}'.format(len(errors)))
+    print("--------------------------------------------------")
+    for error in sorted(errors, key=str):
+        logging.getLogger().error('Validation error in {}: {}'.format('.'.join(str(v) for v in error.path),
+                                                                      error.message))
+        if len(error.context) > 0:
+            logging.getLogger().info('Multiple sub-schemas can apply. This is the errors for each:')
             prev_schema = -1
-            for suberror in sorted(e.context, key=lambda e: e.schema_path):
+            for suberror in sorted(error.context, key=lambda e: e.schema_path):
                 schema_index = suberror.schema_path[0]
                 if prev_schema < schema_index:
-                    print('Schema %d:' % (schema_index+1))
+                    logging.getLogger().info('Schema {}:'.format(schema_index + 1))
                     prev_schema = schema_index
-                print('  %s' % (suberror.message))
-        else:
-            print(e.message)
+                logging.getLogger().error('{}'.format(suberror.message))
+        print("--------------------------------------------------")
 
 
 def printHelp():
@@ -97,6 +104,14 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
         validateEpirr(jsonObj)
         logging.getLogger().info('EpiRR validation passed.')
 
+    # TF Target validation against HGNC
+    datasets = jsonObj.get('datasets')
+    for dataset_name in datasets:
+        dataset = datasets.get(dataset_name)
+        experiment_attr = dataset.get('experiment_attributes')
+        if experiment_attr.get('experiment_type') == 'Transcription Factor':
+            validateHgncSymbol(dataset, dataset_name)
+
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
     """Validate that dataset objects properties are OK."""
@@ -114,7 +129,7 @@ def validateDatasets(datasets, sample_list, is_loose_validation):
                 if dataset['sample_id'] not in sample_list:
                     raise Exception(dataset['sample_id'])
         except Exception as e:
-            logging.getLogger().error('Dataset is linked to an unknown sample_id. (sample_id="%s" does not exist in "samples" dictionary).' % (e.message))
+            logging.getLogger().error('Dataset is linked to an unknown sample_id. (sample_id="%s" does not exist in "samples" dictionary).' % (e))
 
 
         for track_type in dataset['browser']:
@@ -133,7 +148,7 @@ def validateDatasets(datasets, sample_list, is_loose_validation):
                     validateMd5(track['md5sum'])
 
             except Exception as e:
-                raise Exception('Problem in dataset "%s" and track type "%s": %s' % (dn, track_type, e.message))
+                raise Exception('Problem in dataset "%s" and track type "%s": %s' % (dn, track_type, e))
 
 
 def validateMd5(md5):
@@ -179,7 +194,11 @@ def validateEpirr(jsonObj):
     for dataset_name in datasets:
         dataset = datasets[dataset_name]
         exp_attr = dataset['experiment_attributes']
-        exp_name = exp_attr['experiment_type']
+        # when there is no 'experiment_type' use 'experiment_ontology_uri'
+        if exp_attr.get('experiment_type'):
+            exp_name = exp_attr.get('experiment_type')
+        else:
+            exp_name = exp_attr.get('experiment_ontology_uri')
 
         if isinstance(dataset['sample_id'], list):
             ds_names = dataset['sample_id']
@@ -191,14 +210,19 @@ def validateEpirr(jsonObj):
             epirr_id = exp_attr['reference_registry_id']
             logging.getLogger().info('Validating dataset "%s" against EpiRR record "%s"...' % (dataset_name, epirr_id))
 
+
             try:
-                request = urllib2.Request('http://www.ebi.ac.uk/vg/epirr/view/' + epirr_id, headers={"Accept": "application/json"})
-                response = urllib2.urlopen(request).read()
-            except urllib2.HTTPError as e:
-                print('Unexpected error: %s' % (e.message))
+                r = urllib.request.Request('http://www.ebi.ac.uk/vg/epirr/view/' + epirr_id,
+                                           headers={"Accept": "application/json"})
+                response = urllib.request.urlopen(r).read()
+            except HTTPError as e:
+                if e.code == 404:
+                    logging.getLogger().warning("The record {} is not found ({})".format(epirr_id, e))
+                else:
+                    logging.getLogger().warning("Unexpected error {}".format(e))
                 continue
 
-            epirr_json = json.loads(response)
+            epirr_json = json.loads(response.decode('utf-8'))
             epirr_sample_metadata = epirr_json['meta_data']
 
             #Validate that each sample that this dataset refers to holds the correct metadata
@@ -253,6 +277,51 @@ def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
     if epirr_metadata[prop].lower() != sample_metadata[prop].lower():
         logging.getLogger().warning('-Property "%s" mismatch for experiment "%s": "%s" VS "%s"' % (prop, dataset_name, epirr_metadata[prop], sample_metadata[prop]))
         return
+
+
+def validateHgncSymbol(dataset, dataset_name):
+    """ Validate experiment target tf against HGNC when experiment_type is 'Transcription Factor'. """
+
+    func = _getframe().f_code.co_name
+    logging.getLogger(func).info('Validating dataset "{}" against HGNC records...'.format(dataset_name))
+    tf_target = dataset.get('experiment_attributes').get('experiment_target_tf')
+    if tf_target:
+        success = 'Symbol validation passed.'
+        fail = 'Symbol validation failed.'
+        logging.getLogger(func).info('Validating symbol: {}'.format(tf_target))
+        status = symbolStatus(status='symbol', symbol=tf_target)
+        if status:
+            logging.getLogger(func).info(success)
+            return True
+        else:
+            logging.getLogger(func).info('Validating if symbol was approved previously...')
+            status = symbolStatus(status='prev_symbol', symbol=tf_target)
+            if status:
+                logging.getLogger(func).info(success)
+                return True
+            else:
+                logging.getLogger(func).info(fail)
+                return False
+    else:
+        logging.getLogger(func).error('Experiment target tf is not found in metadata.')
+
+
+def symbolStatus(status, symbol):
+    """ Generic function to call HGNC API """
+
+    # HGNC status options: 'symbol', 'prev_symbol'
+    try:
+        r = urllib.request.Request('http://rest.genenames.org/search/' + status + "/" + symbol,
+                                   headers={"Accept": "application/json"})
+        response = urllib.request.urlopen(r).read()
+        tftarget_json = json.loads(response.decode('utf-8'))
+        tftarget_json = tftarget_json.get('response')
+        if tftarget_json.get('numFound') > 0:
+            return True
+        return False
+
+    except HTTPError as e:
+        logging.getLogger().warning("Unexpected error: {}".format(e))
 
 
 if __name__ == "__main__":
