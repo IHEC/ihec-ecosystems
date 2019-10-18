@@ -184,7 +184,7 @@ Points to data tracks for the experiment. Object keys represent the track type.
 
 * If a track is stranded (forward or reverse), the opposite strand track also needs to be provided.
 
-* If multiple tracks are of the same track type, the first track in the list shall be the "main" one, meaning it is the one that best represents this sample for this track type.
+* If multiple tracks are of the same track type, the track that has the "primary" field set to "true" represents this track type.
 
 
 ### Notes:
