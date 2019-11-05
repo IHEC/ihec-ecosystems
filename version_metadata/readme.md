@@ -1,16 +1,9 @@
 ### Tested with:
 
-    $ apy -V
-    Python 2.7.12 :: Anaconda 2.3.0 (64-bit)
+    $ python
+	Python 3.6.8 |Anaconda, Inc.| (default, Dec 30 2018, 01:22:34)
 
-Note that you can also use plain Python 2 and install required packages:
-* either by using pip directly (if you have root privileges)
-
-    `$ pip install -r requirements.txt`
-
-* or by using pipenv
-
-    `$ pipenv install --two -r requirements.txt`
+Note that python 2 is no longer supported.
 
 
 ### Usage

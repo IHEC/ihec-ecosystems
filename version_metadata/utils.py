@@ -15,6 +15,9 @@ class Logger:
 		self.debug = False # just wrap logging
 	def __call__(self, m):
 		sys.stderr.write(u'{0}'.format(m))
+	def entry(self, m): 
+		self.__call__(m)
+		self.__call__('\n')
 	def warn(self, m):
 		self.__call__(m)
 	def debugonly(self, *args):
@@ -126,7 +129,7 @@ class Json:
 	def pretty(self, arg):
 		return json.dumps(arg, sort_keys=self.sort_keys, indent=self.indent, separators=self.separators)
 	def pp(self, arg):
-		print (self.pretty(arg))
+		print(self.pretty(arg))
 		
 
 
