@@ -136,12 +136,12 @@
                 "chip_protocol": {"type": "string", "description": "The ChIP protocol used."},
                 "chip_protocol_chromatin_amount": {"type": "string", "description": "The amount of chromatin used in the ChIP protocol."},
                 "chip_protocol_bead_type": {"type": "string", "description": "The type of bead used in the ChIP protocol."},
-                "chip_protocol_bead_amount": {"type": "string", "description": "The amount of beads used in the ChIP protocol."},
-                "chip_protocol_antibody_amount": {"type": "string", "description": "The amount of antibody used in the ChIP protocol."},
-                "chip_antibody": {"type": "string", "description": "The specific antibody used in the ChIP protocol."},
-                "chip_antibody_provider": {"type": "string", "description": "The name of the company, laboratory or person that provided the antibody."},
-                "chip_antibody_catalog": {"type": "string", "description": "The catalog from which the antibody was purchased."},
-                "chip_antibody_lot": {"type": "string", "description": "The lot identifier of the antibody."},
+                "chip_protocol_bead_amount": {"type": ["string","null"], "description": "The amount of beads used in the ChIP protocol. Leave empty for Input."},
+                "chip_protocol_antibody_amount": {"type": ["string","null"], "description": "The amount of antibody used in the ChIP protocol. Leave empty for Input."},
+                "chip_antibody": {"type": ["string", "null"], "description": "The specific antibody used in the ChIP protocol. Leave empty for Input."},
+                "chip_antibody_provider": {"type": ["string", "null"], "description": "The name of the company, laboratory or person that provided the antibody. Leave empty for input."},
+                "chip_antibody_catalog": {"type": ["string", "null"], "description": "The catalog from which the antibody was purchased. Leave empty for input."},
+                "chip_antibody_lot": {"type": ["string", "null"], "description": "The lot identifier of the antibody. Leave empty for input"},
                 "chip_protocol_crosslink_time": {"type": "string", "description": "The timespan in which the chromatin is crosslinked"},
                 "library_generation_fragment_size_range": {"type": "string", "description": "The fragment size range of the preparation."}
             }
