@@ -253,6 +253,8 @@ __MOLECULE_ONTOLOGY_CURIE:__ (Ontology: SO) 'so:0000991' or any of its subclasse
 
 __MOLECULE:__ (Controlled Vocabulary) 'genomic DNA'.
 
+__OVERCONVERSION_CONTROL_GENOME:__ Overconversion control genome used. Use 'None' if no control is used.
+
 __EXTRACTION_PROTOCOL__ - The protocol used to isolate the extract material.
 
 __EXTRACTION_PROTOCOL_TYPE_OF_SONICATOR__ - The type of sonicator used for extraction.
