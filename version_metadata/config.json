@@ -4,7 +4,7 @@
             {
                 "schema": "../schemas/json/1.1/experiment.json",
                 "version": "1.1",
-                "version_description": "Required metadata specification of  March 2018 release"
+                "version_description": "Required metadata specification of  November 2019 release"
             },
             {
                 "schema": "../schemas/json/1.0/experiment.json",
@@ -14,9 +14,9 @@
         ],
         "sample": [
             {
-                "schema": "../schemas/json/1.0/sample.json",
+                "schema": "../schemas/json/1.1/sample.json",
                 "version": "1.1",
-                "version_description": "Required metadata specification of  March 2018 release"
+                "version_description": "Required metadata specification of  November 2019 release"
             },
 
             {
