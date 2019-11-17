@@ -60,7 +60,7 @@ def main(args):
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["experiment"])
-	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"], args)) for schema in config["ihec"]["experiment"]])
+	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"], args, version=schema["version"])) for schema in config["ihec"]["experiment"]])
 
 	objtype = 'EXPERIMENT'
 	objset = 'EXPERIMENT_SET'

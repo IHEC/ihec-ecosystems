@@ -65,7 +65,7 @@ class JsonSchema:
 			logger('#__couldNotExactId__:{0}\n'.format(e ))
 			return 'unknown'
 
-	def __init__(self, schema_file, config, tag = None, verbose = True, draft4schema=False):
+	def __init__(self, schema_file, config, version, tag = None, verbose = True, draft4schema=False):
 		self.sanitizer = Sanitizer()
 		if not tag:
 			tag = cmn.basename(schema_file).split('.')[0]
@@ -81,8 +81,8 @@ class JsonSchema:
 		self.verbose = verbose
 		self.schema = json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
-		self.expectedpath = 'file:../schemas/json/'
-		self.newpath = 'file:{0}/../schemas/json/'.format(self.base)
+		self.expectedpath = 'file:../schemas/json/' 
+		self.newpath = 'file:{0}/../schemas/json/{1}/'.format(self.base, version)
 		if draft4schema:
 			for e in self.schema.get('anyOf', list()):
 				if '$ref' in e:
