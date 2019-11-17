@@ -2,14 +2,25 @@
     "ihec": {
         "experiment": [
             {
-                "schema": "../schemas/json/experiment.json",
+                "schema": "../schemas/json/1.1/experiment.json",
+                "version": "1.1",
+                "version_description": "Required metadata specification of  March 2018 release"
+            },
+            {
+                "schema": "../schemas/json/1.0/experiment.json",
                 "version": "1.0",
                 "version_description": "Required metadata specification of  March 2018 release"
             }
         ],
         "sample": [
             {
-                "schema": "../schemas/json/sample.json",
+                "schema": "../schemas/json/1.0/sample.json",
+                "version": "1.1",
+                "version_description": "Required metadata specification of  March 2018 release"
+            },
+
+            {
+                "schema": "../schemas/json/1.0/sample.json",
                 "version": "1.0",
                 "version_description": "Required metadata specification of  March 2018 release"
             }
