@@ -1,4 +1,4 @@
-# IHEC Metadata Specification (version 1.0)
+# IHEC Metadata Specification (version 1.1)
 
 ## Introduction
 The IHEC metadata standards are extension of the standards used by the Roadmap Epigenomics Project. Please refer to Sections 1 and 2 of original specification (archived at https://github.com/IHEC/ihec-metadata/blob/master/specs/original_docs/IHEC-Metadata.pdf) for the data and metadata model.
