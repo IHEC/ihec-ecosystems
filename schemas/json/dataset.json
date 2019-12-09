@@ -58,7 +58,7 @@
                 "properties" : {
                     "big_data_url": {"type" : "string", "format": "uri", "description": "The URL from where this dataset track can be obtained online."},
                     "description_url": {"type": "string", "format": "uri", "description": "The URL of the document giving more information about this dataset track."},
-                    "md5sum": {"type": "string", "format": "md5", "description": "The checksum for this track."},
+                    "md5sum": {"type": "string", "description": "The checksum for this track."},
                     "subtype": {"type": "string", "description": "If there are multiple files for this track type, use this free text field to put more information about what kind of information this track represents."},
                     "sample_source": {"type": "string", "description": "Use this field if the track belongs to only one/some sample(s) of a merged dataset."},
                     "primary": {"type": "boolean", "description": "When there are multiple tracks for this track type, set this field to 'true' to express that this is the primary track to represent this track type."}
