@@ -66,6 +66,7 @@ class JsonSchema:
 			return 'unknown'
 
 	def __init__(self, schema_file, config, version, tag = None, verbose = True, draft4schema=False):
+		self.version = version
 		self.sanitizer = Sanitizer()
 		if not tag:
 			tag = cmn.basename(schema_file).split('.')[0]
@@ -94,7 +95,7 @@ class JsonSchema:
 						e['$ref'] = self.fixfilebase(e['$ref'])
 		else:
 			self.schema = json.loads(cmn.fread(self.f).replace(self.expectedpath, self.newpath)) 
-			
+		print('#__initialized: {0} {1}\n#__path: {2}'.format(self.f, self.version, self.newpath))	
 
 
 	def errlog(self, i, tag):

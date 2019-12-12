@@ -5,6 +5,7 @@ class IHECJsonValidator(object):
 	def __init__(self, validators):
 		self.validators = validators
 
+
 	def is_valid_ihec(self):
 		validated = list()
 		for (xml, attrs) in self.xmljson:
@@ -33,7 +34,9 @@ class IHECJsonValidator(object):
 		attrs = attributes['attributes']
 		for version in self.validators:
 			#print('xxxxxxxxx3')
+
 			validator = self.validators[version]
+			print('__checking_against_schema:', version, self.validators[version].f, self.validators[version].newpath)
 			valid = validator.validate(attrs, details=attributes, schema_version=version)
 			title_sanitized = logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
 			#logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', title_sanitized  ))

@@ -48,6 +48,7 @@ def main(args):
 	validated = list()
 	xmllist = args.args()
 	nObjs = 0
+	print('\n\n') 
 	for e in xmllist:
 		sra = SRAParseObjSet.from_file(e)
 		nObjs += sra.nOffspring()
