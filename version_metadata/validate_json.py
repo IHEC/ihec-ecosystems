@@ -13,23 +13,23 @@ import random
 
 
 
-def verbose_error(schema, obj):
+def verbose_error(schema, obj, tag):
 	error_log = list()
 	v = jsonschema.Draft7Validator(schema)
 	errors = [e for e in v.iter_errors(obj)]
 	error_log.append('Total errors: {}'.format(len(errors)))
     
 	for error in sorted(errors, key=str):
-		error_log.append('Validation error in {}: {}'.format('.'.join(str(v) for v in error.path), error.message))
+		error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
 		if len(error.context) > 0:
-			error_log.append('Multiple sub-schemas can apply. This is the errors for each:')
+			#error_log.append('Multiple sub-schemas can apply. This is the errors for each:')
 			prev_schema = -1
 			for suberror in sorted(error.context, key=lambda e: e.schema_path):
 				schema_index = suberror.schema_path[0]
 				if prev_schema < schema_index:
-					error_log.append('Schema {}:'.format(schema_index + 1))
+					error_log.append('__schema_id__:{}'.format(schema_index + 1))
 					prev_schema = schema_index
-				error_log.append('{}'.format(suberror.message))
+				error_log.append('\t{}'.format(suberror.message))
 		error_log.append("--------------------------------------------------")
 	return error_log
 
@@ -59,8 +59,8 @@ class JsonSchema:
 	def obj_id(self, e):
 		try:
 			idblock = e.get('@idblock', dict())
-			tags = [idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock]
-			return 'unknown' if not tags else self.sanitizer.filter_alphan('.'.join(tags), '.-_') 
+			tags = sorted(list(set([idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock])))
+			return 'unknown' if not tags else self.sanitizer.filter_alphan('.'.join(tags), '.-_1234567890') 
 		except Exception as e:
 			logger('#__couldNotExactId__:{0}\n'.format(e ))
 			return 'unknown'
@@ -98,6 +98,7 @@ class JsonSchema:
 
 
 	def errlog(self, i, tag):
+		print('xxxxxxxxxxxxxxxxxx', tag)
 		if not tag:
 			f = '{3}/errs.{2}.{0}.{1}.log'.format(i, self.now, self.tag, self.errdir)
 		else:
@@ -124,8 +125,9 @@ class JsonSchema:
 			
 			return True
 		except jsonschema.ValidationError as err:
-			errors = verbose_error(self.schema, jsonObj) 
-			logfile = self.errlog(len(self.errs),  self.obj_id(details))
+			tag = self.obj_id(details)
+			errors = verbose_error(self.schema, jsonObj, tag) 
+			logfile = self.errlog(len(self.errs),  tag) # self.obj_id(details))
 			logger.entry('#__writing_errors:' + logfile)
 			with open(logfile, "w") as errfile:
 				for e in errors:
@@ -134,6 +136,7 @@ class JsonSchema:
 			return False
 			
 	def validate_defaultlogging(self, jsonObj, details):
+		raise Exception('__deprecated__')
 		try:
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
 			return True
