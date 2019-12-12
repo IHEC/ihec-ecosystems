@@ -17,29 +17,9 @@ class ExperimentValidator(IHECJsonValidator):
 		self.sra = sra
 		self.xmljson = self.sra.obj_xmljson()
 		for (xml, attrs) in self.xmljson:
+			#print('xxxxxxx', 'jsons')
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
 	
-	def validate_semantics_stub(self, attrs):
-		# flip this switch based on miRNA/smRNA end result
-		raise NotImplementedError("__thisShouldBeUnreachable__")
-		attributes = attrs['attributes']
-		RNA_experiment_types = ["RNA-Seq", "mRNA-Seq", "smRNA-Seq", "total-RNA-Seq"]
-		miRNA_experiment_types = ["smRNA-Seq"]
-		miRNA_experiment_type =  attributes['experiment_type'] in miRNA_experiment_types
-		miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
-		if miRNA_experiment_type:
-			print (miRNA_strategy, [attributes['experiment_type'], attributes['library_strategy'] ])
-			return miRNA_strategy
-		else:
-			# allow miRNA-Seq library strategy for any RNA-Seq experiment type 
-			if miRNA_strategy:
-				logger.warn("#warn... experiment type not 'smRNA-Seq', but library strategy is 'miRNA-Seq'\n".format(miRNA_experiment_types))
-				if  attributes['experiment_type'] in RNA_experiment_types:
-					logger.warn("#warn... semantically okay as experiment_type:{1} is in {0}\n".format(RNA_experiment_types,  attributes['experiment_type']))
-				else:
-					logger.warn("#warn... will not accept as experiment_type:{1} is not in {0}\n".format(RNA_experiment_types, RNA_experiment_types ))
-					return False
-			return True
 
 	def validate_semantics(self, attrs):
 		try:

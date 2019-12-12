@@ -17,7 +17,7 @@ def verbose_error(schema, obj, tag):
 	error_log = list()
 	v = jsonschema.Draft7Validator(schema)
 	errors = [e for e in v.iter_errors(obj)]
-	error_log.append('Total errors: {}'.format(len(errors)))
+	error_log.append('__total_errors__:{}'.format(len(errors)))
     
 	for error in sorted(errors, key=str):
 		error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
@@ -98,7 +98,7 @@ class JsonSchema:
 
 
 	def errlog(self, i, tag):
-		print('xxxxxxxxxxxxxxxxxx', tag)
+		#print('xxxxxxxxxxxxxxxxxx', tag)
 		if not tag:
 			f = '{3}/errs.{2}.{0}.{1}.log'.format(i, self.now, self.tag, self.errdir)
 		else:
@@ -112,11 +112,11 @@ class JsonSchema:
 				
 		
 
-	def validate(self, jsonObj, details):
-		return self.validate_draft7logging(jsonObj, details)
+	def validate(self, jsonObj, details, schema_version):
+		return self.validate_draft7logging(jsonObj, details, schema_version)
 		#return self.validate_defaultlogging(jsonObj, details)
 
-	def validate_draft7logging(self, jsonObj, details):
+	def validate_draft7logging(self, jsonObj, details, schema_version):
 		try:
 			#logger.entry('#__errors__')
 			jsonschema.Draft7Validator(self.schema).validate(jsonObj)
@@ -127,39 +127,14 @@ class JsonSchema:
 		except jsonschema.ValidationError as err:
 			tag = self.obj_id(details)
 			errors = verbose_error(self.schema, jsonObj, tag) 
-			logfile = self.errlog(len(self.errs),  tag) # self.obj_id(details))
-			logger.entry('#__writing_errors:' + logfile)
+			logfile = self.errlog(len(self.errs),  tag + '.ihec_' + schema_version) # self.obj_id(details))
+			logger.entry('#__writing_errors[for IHEC spec={1}]: {0}'.format(logfile, schema_version))
 			with open(logfile, "w") as errfile:
 				for e in errors:
 					errfile.write(e)
 					errfile.write('\n')
 			return False
 			
-	def validate_defaultlogging(self, jsonObj, details):
-		raise Exception('__deprecated__')
-		try:
-			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
-			return True
-		except jsonschema.ValidationError as err:
-			if self.verbose:
-				self.errs.append(err)
-				logfile = self.errlog(len(self.errs),  self.obj_id(details)) + '.defaultlog'
-				with open(logfile, "w") as errs:
-					context_size = len(err.context)
-					if context_size > 0:
-						errs.write('Multiple sub-schemas can apply. This is what prevents successful validation in each:\n')
-						prev_schema = -1
-						for suberror in sorted(err.context, key=lambda e: e.schema_path):
-							schema_index = suberror.schema_path[0]
-							if prev_schema < schema_index:
-								errs.write('Schema %d:\n' % (schema_index + 1))
-								prev_schema = schema_index
-							errs.write('  %s\n' % (suberror.message))
-					else:
-						errs.write(err.message)
-
-				logger('#__validationFailuresFound: see {0}\n'.format(logfile))
-			return False
 				
 
 
