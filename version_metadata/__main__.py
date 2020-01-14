@@ -25,7 +25,7 @@ def main(args):
 	if True:
 		if args.has('-extract'):
 			import sraparse
-			return sraparse.SRAParseObjSet.extract_attributes_to_json(args.args())
+			return sraparse.SRAParseObjSet.extract_attributes_to_json(args.args(), args['-out'])
 		elif args.has("-test-sample"):
 			testargs = ["./examples/samples.xml", "-config:{0}".format(args['-config']), "-out:./examples/samples.versioned.xml"]
 			validate_sample.main(Config(testargs))
