@@ -1,0 +1,117 @@
+[
+    {
+        "@idblock": {
+            "alias": "SomeSampleA.SomeLibrary",
+            "center_name": "BCCA"
+        },
+        "attributes": {
+            "AMPLIFIED": [
+                "TRUE"
+            ],
+            "EXPERIMENT_ONTOLOGY_URI": [
+                "http://purl.obolibrary.org/obo/OBI_0001271"
+            ],
+            "EXPERIMENT_TYPE": [
+                "mRNA-Seq"
+            ],
+            "EXTRACTION_PROTOCOL": [
+                "BCCAGSC AllPrep and mirVana extraction protocol"
+            ],
+            "EXTRACTION_PROTOCOL_FRAGMENTATION": [
+                "NA"
+            ],
+            "EXTRACTION_PROTOCOL_MRNA_ENRICHMENT": [
+                "NEBNext Poly(A) mRNA Magnetic Isolation Module"
+            ],
+            "LIBRARY_GENERATION_3'_ADAPTER_SEQUENCE": [
+                "GAGCCGTAAGGACGACTTGGCGAGAAGGCTAG"
+            ],
+            "LIBRARY_GENERATION_5'_ADAPTER_SEQUENCE": [
+                "ACACTCTTTCCCTACACGACGCTCTTCCGATCT"
+            ],
+            "LIBRARY_GENERATION_FRAGMENTATION": [
+                "Covaris E210 or LE220 Sonication "
+            ],
+            "LIBRARY_GENERATION_FRAGMENT_SIZE_RANGE": [
+                "200-300bp"
+            ],
+            "LIBRARY_GENERATION_PCR_F_PRIMER_SEQUENCE": [
+                "AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT"
+            ],
+            "LIBRARY_GENERATION_PCR_NUMBER_CYCLES": [
+                "13"
+            ],
+            "LIBRARY_GENERATION_PCR_POLYMERASE_TYPE": [
+                "Phusion DNA Polymerase (Hot Start)"
+            ],
+            "LIBRARY_GENERATION_PCR_PRIMER_CONC": [
+                "1uM"
+            ],
+            "LIBRARY_GENERATION_PCR_PRODUCT_ISOLATION_PROTOCOL": [
+                "Bead based purification"
+            ],
+            "LIBRARY_GENERATION_PCR_R_PRIMER_SEQUENCE": [
+                "CAAGCAGAAGACGGCATACGAGATNNNNNNCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT"
+            ],
+            "LIBRARY_GENERATION_PCR_TEMPLATE_CONC": [
+                "NA"
+            ],
+            "LIBRARY_GENERATION_PCR_THERMOCYCLING_PROGRAM": [
+                "37C for 15min 98C 60 sec 13 cycle of 98C 15 sec 65C 30 sec 72C 30 sec then 72C 5 min 4C hold"
+            ],
+            "LIBRARY_GENERATION_PROTOCOL": [
+                "BCCAGSC strand specific RNA Seq plate based library construction protocol"
+            ],
+            "LIBRARY_STRATEGY": [
+                "RNA-Seq"
+            ],
+            "MRNA_PREPARATION_FRAGMENT_SIZE_RANGE": [
+                "NA"
+            ],
+            "PREPARATION_INITIAL_MRNA_QNTY": [
+                "NA"
+            ],
+            "PREPARATION_PCR_NUMBER_CYCLES": [
+                "NA"
+            ],
+            "PREPARATION_REVERSE_TRANSCRIPTION_PROTOCOL": [
+                "Thermo Scientific Maxima H minus RT"
+            ],
+            "RNA_PREPARATION_3'_RNA ADAPTER_LIGATION_PROTOCOL": [
+                "NA"
+            ],
+            "RNA_PREPARATION_3'_RNA_ADAPTER_SEQUENCE": [
+                "NA"
+            ],
+            "RNA_PREPARATION_5'_DEPHOSPHORYLATION": [
+                "NA"
+            ],
+            "RNA_PREPARATION_5'_PHOSPHORYLATION": [
+                "NA"
+            ],
+            "RNA_PREPARATION_5'_RNA_ADAPTER_LIGATION_PROTOCOL": [
+                "NA"
+            ],
+            "RNA_PREPARATION_5'_RNA_ADAPTER_SEQUENCE": [
+                "NA"
+            ],
+            "RNA_PREPARATION_REVERSE_TRANSCRIPTION_PRIMER_SEQUENCE": [
+                "NNNNNN (random hexamer)"
+            ],
+            "SUBMISSION_ALIAS": [
+                "SomeSampleA.SomeLibrary:RNA-Seq"
+            ],
+            "TEMPLATE_TYPE": [
+                "cDNA"
+            ],
+            "VALIDATED_AGAINST_METADATA_SPEC": [
+                "1.1/EXPERIMENT"
+            ]
+        },
+        "description": "__missing__:DESCRIPTION/[]",
+        "library_strategy": "RNA-Seq",
+        "primary_id": "__missing__:.//PRIMARY_ID/[]",
+        "submitter_id": "__missing__:.//SUBMITTER_ID/[]",
+        "title": "RNA-Seq (strand specific) analysis of SomeSampleA (library: SomeLibrary)."
+    }
+]
