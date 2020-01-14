@@ -12,7 +12,7 @@
 ## Setup
 Make sure you have the required dependencies. If you have ```pip``` on your machine, you can do:
 ```
-pip install
+pip3 install
 ```
 
 
