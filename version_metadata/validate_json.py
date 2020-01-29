@@ -38,7 +38,7 @@ def verbose_error(schema, obj, tag):
 
 
 
-
+import egautils
 
 
 
@@ -60,6 +60,9 @@ class JsonSchema:
 		return f
 
 	def obj_id(self, e):
+		return egautils.obj_id(e)
+
+
 		try:
 			idblock = e.get('@idblock', dict())
 			tags = sorted(list(set([idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock])))
@@ -118,13 +121,16 @@ class JsonSchema:
 
 	def validate(self, jsonObj, details, schema_version):
 		tag = self.obj_id(details)
-		prevalidate =  self.prevalidation.prevalidate(jsonObj, tag)
+		prevalidate=  self.prevalidation.prevalidate(jsonObj, tag)
 		if prevalidate:
 			print('#__prevalidation_passed__', tag, schema_version)
-			return self.validate_draft7logging(jsonObj, details, schema_version)
+			ok, status =  self.validate_draft7logging(jsonObj, details, schema_version)
 		else:
 			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
-			return False
+			ok = False
+		return ok
+				
+
 
 		#return self.validate_defaultlogging(jsonObj, details)
 
@@ -134,18 +140,21 @@ class JsonSchema:
 			jsonschema.Draft7Validator(self.schema).validate(jsonObj)
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
 			#json2.pp(jsonObj)
-			
-			return True
+		
+			tag = self.obj_id(details)
+			return True, {tag: {'errors' : [], 'ok' : True, 'version' : schema_version}   }
 		except jsonschema.ValidationError as err:
 			tag = self.obj_id(details)
 			errors = verbose_error(self.schema, jsonObj, tag) 
 			logfile = self.errlog(len(self.errs),  tag + '.ihec_' + schema_version) # self.obj_id(details))
 			logger.entry('#__writing_errors[for IHEC spec={1}]: {0}'.format(logfile, schema_version))
+			log = []
 			with open(logfile, "w") as errfile:
 				for e in errors:
 					errfile.write(e)
 					errfile.write('\n')
-			return False
+					log.append(e)
+			return False, {tag : {'errors' :  log, 'ok' : False, 'version': schema_version}}
 			
 				
 
