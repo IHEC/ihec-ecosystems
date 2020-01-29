@@ -1,23 +1,12 @@
 from config import Config
 from utils import cmn, json2, logger
 
-#def objid(x):
-#	return ':'.join([x['@idblock'][k] for k in sorted(list(x['@idblock'].keys()))])
+
+
+import egautils
 
 
 
-
-def strategy2schema(s):
-	found = lambda x, y: x in y or x.lower() in [e.lower() for e in y]
-	if found(s, ["DNase-Hypersensitivity", "ATAC-seq", "NOME-Seq"]): return "chromatin_accessibility"
-	elif found(s, ["Bisulfite-Seq"]): return "bisulfite-seq"
-	elif found(s, ["MeDIP-Seq"]): return "medip-seq"
-	elif found(s, ["MRE-Seq"]): return "mre-seq"
-	elif found(s, ["RNA-Seq", "miRNA-Seq"]): return "rna-seq"
-	elif found(s, ["WGS"]): return "wgs"
-	elif s[0:4].lower() in ['chip', 'hist']: return 'chip-seq'
-	else:
-		return s
 
 
 
@@ -65,7 +54,7 @@ class Prevalidate:
 			print('__prevalidate_fail', tag ,': missing library strategy: cannot determine schema to use')
 			return False
 
-		exp_type =  strategy2schema(attrs['library_strategy'])
+		exp_type =  egautils.strategy2schema(attrs['library_strategy'])
 		if not exp_type in self.bytype:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False

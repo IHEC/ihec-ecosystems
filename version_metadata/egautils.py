@@ -15,3 +15,21 @@ def obj_id(e):
 	except Exception as e:
 		logger.info('#__couldNotExactId__:{0}\n'.format(e ))
 		return '__unknown'
+
+
+def strategy2schema(s):
+	def found(x, alist):
+		if x in alist: return True
+		else:
+			return x.lower() in [e.lower() for e in alist]
+			
+	if found(s, ["DNase-Hypersensitivity", "ATAC-seq", "NOME-Seq"]): return "chromatin_accessibility"
+	elif found(s, ["Bisulfite-Seq"]): return "bisulfite-seq"
+	elif found(s, ["MeDIP-Seq"]): return "medip-seq"
+	elif found(s, ["MRE-Seq"]): return "mre-seq"
+	elif found(s, ["RNA-Seq", "miRNA-Seq"]): return "rna-seq"
+	elif found(s, ["WGS"]): return "wgs"
+	elif s[0:4].lower() in ['chip', 'hist']: return 'chip-seq'
+	else:
+		return s
+
