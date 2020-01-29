@@ -1,15 +1,25 @@
 from config import Config
 from utils import cmn, json2, logger
 
-def objid(x):
-	return ':'.join([x['@idblock'][k] for k in sorted(list(x['@idblock'].keys()))])
+#def objid(x):
+#	return ':'.join([x['@idblock'][k] for k in sorted(list(x['@idblock'].keys()))])
 
 
 
-def exptype(e):
-	if e in 'DNA Methylation': return 'bisulfite-seq'
-	elif e in  ["RNA-Seq", "mRNA-Seq", "smRNA-Seq", "total-RNA-Seq"]: return 'rna-seq'
-	else: raise NotImplementedError(e)
+
+def strategy2schema(s):
+	found = lambda x, y: x in y or x.lower() in [e.lower() for e in y]
+	if found(s, ["DNase-Hypersensitivity", "ATAC-seq", "NOME-Seq"]): return "chromatin_accessibility"
+	elif found(s, ["Bisulfite-Seq"]): return "bisulfite-seq"
+	elif found(s, ["MeDIP-Seq"]): return "medip-seq"
+	elif found(s, ["MRE-Seq"]): return "mre-seq"
+	elif found(s, ["RNA-Seq", "miRNA-Seq"]): return "rna-seq"
+	elif found(s, ["WGS"]): return "wgs"
+	elif s[0:4].lower() in ['chip', 'hist']: return 'chip-seq'
+	else:
+		return s
+
+
 
 class Prevalidate:
 	def __init__(self, jsonschemas, version):
@@ -26,7 +36,7 @@ class Prevalidate:
 		return {k.lower():v for k, v in obj['attributes'].items()}
 	
 	def check_sample_properties(self, obj):
-		attrs = self.attributes(obj)
+		attrs = obj
 
 		if not 'biomaterial_type' in attrs:
 			print(objid(obj) + ': missing biomaterial_type: cannot determine schema to use')
@@ -46,25 +56,35 @@ class Prevalidate:
 		return True
 			
 			
-	def check_experiment_properties(self, obj):
-		attrs = self.attributes(obj)
+	def check_experiment_properties(self, obj, tag):
+		attrs = obj
 		if not 'experiment_type' in attrs:
-			print(objid(obj) + ': missing experiment_type: cannot determine schema to use')
+			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
+			return False
+		if not 'library_strategy' in attrs:
+			print('__prevalidate_fail', tag ,': missing library strategy: cannot determine schema to use')
 			return False
 
-		exp_type = exptype(attrs['experiment_type'][0])
+		exp_type =  strategy2schema(attrs['library_strategy'])
 		if not exp_type in self.bytype:
-			print(objid(obj) + ': invalid experiment_type: ' + exp_type)
+			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False
 			
 		keys = self.bytype[exp_type]
 		missing = [k for k in keys if not k in attrs]
 		if missing:
-			print(objid(obj) + ': missing attributes for experiment_type: {0} , {1}'.format(biomaterial_type, missing))
+			print('__prevalidate_fail', tag , ': missing attributes for experiment_type: {0} , {1}'.format(exp_type, missing))
 			return False
-		print(objid(obj) + ':prevalidates') 
+		#print(objid(obj) + ':prevalidates') 
 		return True
 
+
+	def prevalidate(self, obj, tag):
+		if  self.schema_id in ['experiment']:
+			return self.check_experiment_properties(obj, tag)
+		else:
+			print('#__warn:__no_prevalidation_available_for_sample_schema_yet__')
+			return True
 
 
 if __name__ == '__main__':
@@ -74,8 +94,4 @@ if __name__ == '__main__':
 		for e in json2.loadf(example):
 			prevalidate.check_experiment_properties(e)
 
-	# sample schema is more work to parse
-	#for example in ['./examples/samples.with_one_invalid.xml.extracted.json']:
-	#	for e in json2.loadf(example):
-	#		prevalidate.check_sample_properties(e)
 

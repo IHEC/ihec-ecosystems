@@ -47,7 +47,7 @@
     },
     "then": {
       "properties": {
-        "origin_sample_ontology_curie" : {"type": "array", "items": {{"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: UBERON) links to the tissue from which sample was extracted."}},
+        "origin_sample_ontology_curie" : {"type": "array", "items": {"type": "string", "pattern": "^(?!http|https|www)([a-z]*):[A-Za-z0-9]*", "description": "(Ontology: UBERON) links to the tissue from which sample was extracted."}},
         "origin_sample" : {"type": "string", "description": "Description of the origin tissue from which sample was extracted."},
         "cell_type" : {"type": "string", "description": "The type of cell."},
         "markers" : {"type": "string", "description": "Markers used to isolate and identify the cell type."},

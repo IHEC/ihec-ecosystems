@@ -5,6 +5,8 @@ import string
 import json
 import sys
 import random
+from prevalidate import Prevalidate
+
 
 # scrap trying to use ihec_data_hub verbose_error :(
 #from pathlib import Path
@@ -63,7 +65,7 @@ class JsonSchema:
 			return 'unknown' if not tags else self.sanitizer.filter_alphan('.'.join(tags), '.-_1234567890') 
 		except Exception as e:
 			logger('#__couldNotExactId__:{0}\n'.format(e ))
-			return 'unknown'
+			return '__unknown'
 
 	def __init__(self, schema_file, config, version, tag = None, verbose = True, draft4schema=False):
 		self.version = version
@@ -96,7 +98,7 @@ class JsonSchema:
 		else:
 			self.schema = json.loads(cmn.fread(self.f).replace(self.expectedpath, self.newpath)) 
 		print('#__initialized: {0} {1}\n#__path: {2}'.format(self.f, self.version, self.newpath))	
-
+		self.prevalidation = Prevalidate([ json2.copyobj(self.schema)   ],   version) 
 
 	def errlog(self, i, tag):
 		#print('xxxxxxxxxxxxxxxxxx', tag)
@@ -114,7 +116,15 @@ class JsonSchema:
 		
 
 	def validate(self, jsonObj, details, schema_version):
-		return self.validate_draft7logging(jsonObj, details, schema_version)
+		tag = self.obj_id(details)
+		prevalidate =  self.prevalidation.prevalidate(jsonObj, tag)
+		if prevalidate:
+			print('#__prevalidation_passed__', tag, schema_version)
+			return self.validate_draft7logging(jsonObj, details, schema_version)
+		else:
+			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
+			return False
+
 		#return self.validate_defaultlogging(jsonObj, details)
 
 	def validate_draft7logging(self, jsonObj, details, schema_version):

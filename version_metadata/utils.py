@@ -106,11 +106,15 @@ class Json:
 		self.indent = 4
 		self.separators = (',', ': ')
 	def loadf(self, f):
-		if self.multidict:
-			return self.multidictLoadf(f)
-		else:
-			with open(f) as target:
-				return json.load(target)
+		try:
+			if self.multidict:
+				return self.multidictLoadf(f)
+			else:
+				with open(f) as target:
+					return json.load(target)
+		except Exception as e:
+			print('__failed_at:' , f)
+			raise e
 	def dumpf(self, f, data):
 		stringed = self.pretty(data)
 		with open(f, 'w') as outfile:
@@ -131,7 +135,8 @@ class Json:
 	def pp(self, arg):
 		print(self.pretty(arg))
 		
-
+	def copyobj(self, x):
+		return self.multidictLoadStr(self.pretty(x))
 
 
 json2 = Json()

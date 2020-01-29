@@ -2,8 +2,7 @@ from sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
 from utils import cmn, json2, logger
 from validate_json import JsonSchema
 from ihec_validator_base import  IHECJsonValidator
-
-
+import exp_semantic_rules
 
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
@@ -20,16 +19,21 @@ class ExperimentValidator(IHECJsonValidator):
 			#print('xxxxxxx', 'jsons')
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
 	
+		self.semantic_rules = [e for e in dir(exp_semantic_rules) if e.startswith('rule_')]
+		
+
 
 	def validate_semantics(self, attrs):
 		try:
 			attributes = attrs['attributes']
-			miRNA_experiment_type =  attributes['experiment_type'] in ['smRNA-Seq'] # abstract all this using a Rule interface... another day
-			miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
-			validation_status = miRNA_strategy 	if miRNA_experiment_type else not miRNA_strategy
-			if not validation_status:
-				logger.warn('#warn: __semantic_validation_failed__: smRNA-Seq library strategy if and only if miRNA-Seq experiment type\n')
-			return validation_status
+			status = True
+			for rule_name in self.semantic_rules:
+				f = getattr(semantic_rules, rule_name)
+				ok = f(attributes)
+				status = status and ok
+				if not ok:
+					print('__semantic_validation_failure__', rule_name)
+			return status
 		except KeyError as e:
 			logger.warn('#warn keyerror in validate_semantics, probably is not even syntactically valid\n')
 			return False
