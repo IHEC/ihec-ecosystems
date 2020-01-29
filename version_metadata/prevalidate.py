@@ -74,7 +74,7 @@ class Prevalidate:
 			return self.check_experiment_properties(obj, tag)
 		else:
 			print('#__warn:__no_prevalidation_available_for_sample_schema_yet__')
-			return True
+			return True, {'__warn__' : 'prevalidation ignored'}
 
 
 if __name__ == '__main__':

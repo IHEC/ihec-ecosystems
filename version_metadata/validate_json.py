@@ -63,13 +63,6 @@ class JsonSchema:
 		return egautils.obj_id(e)
 
 
-		try:
-			idblock = e.get('@idblock', dict())
-			tags = sorted(list(set([idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock])))
-			return 'unknown' if not tags else self.sanitizer.filter_alphan('.'.join(tags), '.-_1234567890') 
-		except Exception as e:
-			logger('#__couldNotExactId__:{0}\n'.format(e ))
-			return '__unknown'
 
 	def __init__(self, schema_file, config, version, tag = None, verbose = True, draft4schema=False):
 		self.version = version
@@ -127,8 +120,9 @@ class JsonSchema:
 			ok, status =  self.validate_draft7logging(jsonObj, details, schema_version)
 		else:
 			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
-			ok = False, 
-			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors}}
+			ok = False 
+			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors, 'version' : schema_version}}
+		#status[tag]['ok'] = ok
 		return ok, status
 				
 
