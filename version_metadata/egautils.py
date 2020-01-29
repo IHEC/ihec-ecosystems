@@ -1,5 +1,4 @@
-
-
+import string
 import logging
 
 logger = logging.getLogger()
@@ -13,8 +12,8 @@ def obj_id(e):
 		tags = sorted(list(set([idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock])))
 		return 'unknown' if not tags else filter_alphan('.'.join(tags), '.-_1234567890')
 	except Exception as e:
-		logger.info('#__couldNotExactId__:{0}\n'.format(e ))
-		return '__unknown'
+		logger.info('#__could_not_exact_id__:{0}\n'.format(e ))
+		return '__cannot_understand_id_block__'
 
 
 def strategy2schema(s):

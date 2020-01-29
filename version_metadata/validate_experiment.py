@@ -52,6 +52,8 @@ def main(args):
 	validated = list()
 	xmllist = args.args()
 	nObjs = 0
+	expvalidator = dict()
+	
 	print('\n\n') 
 	for e in xmllist:
 		sra = SRAParseObjSet.from_file(e)
@@ -60,6 +62,7 @@ def main(args):
 		assert sra.is_valid__xml(xml_validator) or args.has("-not-sra-xml-but-try")
 		v = ExperimentValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())
+		expvalidator[e] = v
 
 	versioned_xml = ['<{0}>'.format(objset) ]
 	for e in validated:
@@ -82,5 +85,6 @@ def main(args):
 	else:
 		logger('..no valid objects found\n')
 	
-	json2.pp({"valid" : [tag + ' = ' + version  for (version, xml, tag) in validated ]})
+	json2.pp({ e : v.errorlog  for e, v in expvalidator.items()})
+
 

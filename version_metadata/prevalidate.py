@@ -25,6 +25,7 @@ class Prevalidate:
 		return {k.lower():v for k, v in obj['attributes'].items()}
 	
 	def check_sample_properties(self, obj):
+		raise NotImplementedError('sample')
 		attrs = obj
 
 		if not 'biomaterial_type' in attrs:
@@ -49,23 +50,23 @@ class Prevalidate:
 		attrs = obj
 		if not 'experiment_type' in attrs:
 			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
-			return False
+			return False, ['missing experiment_type']
 		if not 'library_strategy' in attrs:
 			print('__prevalidate_fail', tag ,': missing library strategy: cannot determine schema to use')
-			return False
+			return False, ['missing library strategy']
 
 		exp_type =  egautils.strategy2schema(attrs['library_strategy'])
 		if not exp_type in self.bytype:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
-			return False
+			return False, ['invalid experiment_type']
 			
 		keys = self.bytype[exp_type]
 		missing = [k for k in keys if not k in attrs]
 		if missing:
 			print('__prevalidate_fail', tag , ': missing attributes for experiment_type: {0} , {1}'.format(exp_type, missing))
-			return False
+			return False, ['missing', missing]
 		#print(objid(obj) + ':prevalidates') 
-		return True
+		return True, []
 
 
 	def prevalidate(self, obj, tag):

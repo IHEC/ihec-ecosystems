@@ -1,10 +1,10 @@
 from utils import logger
-
+import egautils
 
 class IHECJsonValidator(object):
 	def __init__(self, validators):
 		self.validators = validators
-
+		self.errorlog = list()
 
 	def is_valid_ihec(self):
 		validated = list()
@@ -38,9 +38,10 @@ class IHECJsonValidator(object):
 
 			validator = self.validators[version]
 			print('__checking_against_schema:', version, self.validators[version].f, self.validators[version].newpath)
-			valid = validator.validate(attrs, details=attributes, schema_version=version)
-			title_sanitized = logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
+			valid, errlog = validator.validate(attrs, details=attributes, schema_version=version)
+			title_sanitized =  egautils.obj_id(attributes)  #logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
 			#logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', title_sanitized  ))
+			self.errorlog.append(errlog)
 			if valid:
 				return (version, title_sanitized)
 		return (None, None) 

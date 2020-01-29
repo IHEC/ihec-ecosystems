@@ -121,14 +121,15 @@ class JsonSchema:
 
 	def validate(self, jsonObj, details, schema_version):
 		tag = self.obj_id(details)
-		prevalidate=  self.prevalidation.prevalidate(jsonObj, tag)
+		prevalidate, errors =  self.prevalidation.prevalidate(jsonObj, tag)
 		if prevalidate:
 			print('#__prevalidation_passed__', tag, schema_version)
 			ok, status =  self.validate_draft7logging(jsonObj, details, schema_version)
 		else:
 			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
-			ok = False
-		return ok
+			ok = False, 
+			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors}}
+		return ok, status
 				
 
 
@@ -154,7 +155,7 @@ class JsonSchema:
 					errfile.write(e)
 					errfile.write('\n')
 					log.append(e)
-			return False, {tag : {'errors' :  log, 'ok' : False, 'version': schema_version}}
+			return False, {tag : {'errors' :  logfile, 'error_type' : 'jsonschema',  'ok' : False, 'version': schema_version}}
 			
 				
 
