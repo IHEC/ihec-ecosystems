@@ -41,6 +41,7 @@ def verbose_error(schema, obj, tag):
 
 
 
+
 class Sanitizer:
 	def __init__(self):
 		pass

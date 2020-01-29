@@ -63,12 +63,13 @@ def main(args):
 
 	versioned_xml = ['<{0}>'.format(objset) ]
 	for e in validated:
-		(version, xml) = e
+		(version, xml, tag) = e
 		sra_versioned = SRAParseObj(xml)
 		sra_versioned.add_attribute("VALIDATED_AGAINST_METADATA_SPEC", "{0}/{1}".format(version, objtype))
 		versioned_xml.append(sra_versioned.tostring())
 	versioned_xml.append('</{0}>'.format(objset))
 
+	
 
 	validated_xml_file = cmn.writel(outfile, versioned_xml)
 	print ('written:' + validated_xml_file)
@@ -80,4 +81,6 @@ def main(args):
 		logger('ok\n')
 	else:
 		logger('..no valid objects found\n')
+	
+	json2.pp({"valid" : [tag + ' = ' + version  for (version, xml, tag) in validated ]})
 

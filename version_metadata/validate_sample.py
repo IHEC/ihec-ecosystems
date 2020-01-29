@@ -62,7 +62,7 @@ def main(args):
 
 	versioned_xml = ['<{0}>'.format(objset) ]
 	for e in validated:
-		(version, xml) = e
+		(version, xml, tag) = e
 		sra_versioned = SRAParseObj(xml)
 		sra_versioned.add_attribute("VALIDATED_AGAINST_METADATA_SPEC", "{0}/{1}".format(version, objtype))
 		versioned_xml.append(sra_versioned.tostring())
@@ -81,7 +81,7 @@ def main(args):
 	else:
 		logger('..no valid objects found\n')
 
-
+	json2.pp({"valid" : [tag + ' = ' + version  for (version, xml, tag) in validated ]})
 
 
 	

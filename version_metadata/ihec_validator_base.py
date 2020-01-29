@@ -8,6 +8,7 @@ class IHECJsonValidator(object):
 
 	def is_valid_ihec(self):
 		validated = list()
+		invalid = list()
 		for (xml, attrs) in self.xmljson:
 			#print('xxxxxxxxx2')
 			(version, title_sanitized)  = self.latest_valid_spec(attrs)
@@ -16,7 +17,7 @@ class IHECJsonValidator(object):
 			except Exception as err:
 				semantics_ok = False
 			if version and semantics_ok:
-				validated.append((version, xml))
+				validated.append((version, xml, egautils.obj_id(attrs)   ))
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('True', version, title_sanitized))
 			else:
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('False', '__invalid__', title_sanitized))
