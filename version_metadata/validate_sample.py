@@ -3,12 +3,15 @@ from utils import cmn, json2, logger
 from validate_json import JsonSchema
 from ihec_validator_base import  IHECJsonValidator
 
-
+arrayed_attributes = ["sample_ontology_curie", "disease_ontology_curie", "biological_replicates", "origin_sample_ontology_curie", "donor_health_status_ontology_curie"]
 
 class SampleValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
 		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}	
-		uniq_values = {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
+		uniq_values = {k :cmn.tryuniq(v) for k, v in fix_tag_names.items() if k not in arrayed_attributes}
+		for attribute in arrayed_attributes:
+			if attribute in fix_tag_names:
+				uniq_values[attribute] = fix_tag_names[attribute]
 		try:
 			if 'donor_age' in uniq_values:
 				age = int(uniq_values['donor_age'])

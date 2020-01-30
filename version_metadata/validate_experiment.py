@@ -3,12 +3,16 @@ from utils import cmn, json2, logger
 from validate_json import JsonSchema
 from ihec_validator_base import  IHECJsonValidator
 
-
+arrayed_attributes = ["experiment_ontology_curie", "molecule_ontology_curie"]
 
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
 		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}
-		return {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
+		uniq_values = {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
+		for attribute in arrayed_attributes:
+			if attribute in uniq_values and isinstance(uniq_values[attribute], str):
+				uniq_values[attribute] = [uniq_values[attribute]]
+		return uniq_values
 
 	def __init__(self, sra, validators):
 		super(ExperimentValidator, self).__init__(validators)	
