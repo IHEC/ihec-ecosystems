@@ -1,6 +1,6 @@
 from __future__ import print_function
 import jsonschema
-from sys import argv
+from sys import argv, _getframe
 import json
 import os
 import getopt
@@ -9,9 +9,6 @@ import logging
 import urllib.request
 from urllib.error import HTTPError
 from ontology_lookup import OntologyLookup, ontology_rules
-
-
-schema_file = os.path.dirname(os.path.realpath(__file__)) + '/schema/hub.json'
 
 
 def main(argv):
@@ -42,6 +39,8 @@ def main(argv):
         printHelp()
         exit()
 
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
+
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
 
@@ -58,6 +57,7 @@ def main(argv):
 def jsonschemaErrorReport(jsonObj):
     """ Return error report"""
 
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/hub.json'
     with open(schema_file) as jsonStr:
         json_schema = json.load(jsonStr)
     v = jsonschema.Draft7Validator(json_schema)
@@ -109,7 +109,9 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
     datasets = jsonObj.get('datasets')
     for dataset_name in datasets:
         dataset = datasets.get(dataset_name)
-        validateHgncSymbol(dataset, dataset_name)
+        experiment_attr = dataset.get('experiment_attributes')
+        if experiment_attr.get('experiment_type') == 'Transcription Factor':
+            validateHgncSymbol(dataset, dataset_name)
 
     # validation of accepted ontologies
     validateOntologies(jsonObj)
@@ -196,7 +198,7 @@ def validateEpirr(jsonObj):
     for dataset_name in datasets:
         dataset = datasets[dataset_name]
         exp_attr = dataset['experiment_attributes']
-        # what if there is no "experiment_type" as it is allowed by experiment.json schema
+        # when there is no 'experiment_type' use 'experiment_ontology_uri'
         if exp_attr.get('experiment_type'):
             exp_name = exp_attr.get('experiment_type')
         else:
@@ -282,33 +284,30 @@ def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
 
 
 def validateHgncSymbol(dataset, dataset_name):
-    """ Validate experiment target tf against HGNC when experiment_type matches 'Transcription Factor'. """
+    """ Validate experiment target tf against HGNC when experiment_type is 'Transcription Factor'. """
 
-    print()
-
-    experiment_attr = dataset.get('experiment_attributes')
-    if experiment_attr.get('experiment_type') == 'Transcription Factor':
-        logging.getLogger().info('Validating dataset "{}" against HGNC records...'.format(dataset_name))
-        tf_target = experiment_attr.get('experiment_target_tf')
-        if tf_target:
-            success = 'Symbol validation passed.'
-            fail = 'Symbol validation failed.'
-            logging.getLogger().info('Validating symbol: {}'.format(tf_target))
-            status = symbolStatus(status='symbol', symbol=tf_target)
+    func = _getframe().f_code.co_name
+    logging.getLogger(func).info('Validating dataset "{}" against HGNC records...'.format(dataset_name))
+    tf_target = dataset.get('experiment_attributes').get('experiment_target_tf')
+    if tf_target:
+        success = 'Symbol validation passed.'
+        fail = 'Symbol validation failed.'
+        logging.getLogger(func).info('Validating symbol: {}'.format(tf_target))
+        status = symbolStatus(status='symbol', symbol=tf_target)
+        if status:
+            logging.getLogger(func).info(success)
+            return True
+        else:
+            logging.getLogger(func).info('Validating if symbol was approved previously...')
+            status = symbolStatus(status='prev_symbol', symbol=tf_target)
             if status:
-                logging.getLogger().info(success)
+                logging.getLogger(func).info(success)
                 return True
             else:
-                logging.getLogger().info('Validating if symbol was approved previously...')
-                status = symbolStatus(status='prev_symbol', symbol=tf_target)
-                if status:
-                    logging.getLogger().info(success)
-                    return True
-                else:
-                    logging.getLogger().info(fail)
-                    return False
-        else:
-            logging.getLogger().error('Experiment target tf is not found in metadata.')
+                logging.getLogger(func).info(fail)
+                return False
+    else:
+        logging.getLogger(func).error('Experiment target tf is not found in metadata.')
 
 
 def symbolStatus(status, symbol):

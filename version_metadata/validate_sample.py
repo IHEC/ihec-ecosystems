@@ -23,7 +23,7 @@ class SampleValidator(IHECJsonValidator):
 		self.sra = sra
 		self.xmljson = self.sra.obj_xmljson()
 		for (xml, attrs) in self.xmljson:
-			logger('\n#__normalizingTags:{0}\n'.format(attrs['title']))
+			logger(u'\n#__normalizingTags:{0}\n'.format(attrs['title']))
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
 		logger("\n\n")
 
@@ -40,7 +40,7 @@ class SampleValidator(IHECJsonValidator):
 
 
 def main(args):
-	print args['-config']
+	print (args['-config'])
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["sample"])
@@ -70,9 +70,9 @@ def main(args):
 
 
 	validated_xml_file = cmn.writel(outfile, versioned_xml)
-	print 'written:' + validated_xml_file
-	print 'validated:', len(validated)
-	print 'failed:', nObjs - len(validated)
+	print ('written:' + validated_xml_file)
+	print ('validated:', len(validated))
+	print ('failed:', nObjs - len(validated))
 	
 	if validated:
 		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)

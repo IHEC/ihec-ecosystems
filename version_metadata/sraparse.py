@@ -48,7 +48,7 @@ class SRAParseObjSet:
 	@staticmethod
 	def extract_attributes_to_json(args):
 		for arg in args:
-			print json2.dumpf( arg + '.extracted.json', SRAParseObjSet.from_file(arg).attributes())
+			print (json2.dumpf( arg + '.extracted.json', SRAParseObjSet.from_file(arg).attributes()))
 	def __init__(self, xml, tag):
 		self.tag = tag
 		self.xml = xml
@@ -57,7 +57,7 @@ class SRAParseObjSet:
 			"EXPERIMENT": ['TITLE', './/PRIMARY_ID', './/SUBMITTER_ID',  'DESCRIPTION',  './/LIBRARY_STRATEGY']
 		}
 		self.expected_root_tags = ['SAMPLE_SET', 'EXPERIMENT_SET']
-		self.expected_obj_tags = map(lambda x: x[0:-4], self.expected_root_tags)
+		self.expected_obj_tags = list(map(lambda x: x[0:-4], self.expected_root_tags))
 	def is_valid__xml(self, validator):
 		valid = validator.validate(self.xml)
 		logger("# xml validates [against:{2}]... {0} [{1}]\n".format(valid, self.tag, validator.source))
@@ -89,7 +89,7 @@ class SRAParseObjSet:
 		for k in optional_core_fields:   
 			found = self.extract_optional(obj,k)
 			key = k.lower().split('/')[-1]
-			hashed[key] = cmn.tryuniq(map(lambda x: x.text, found)) if found else  "__missing__:{0}/{1}".format(k, found)
+			hashed[key] = cmn.tryuniq(list(map(lambda x: x.text, found))) if found else  "__missing__:{0}/{1}".format(k, found)
 		hashed['@idblock'] = {k: obj.attrib[k] for k in obj.attrib}
 		if object_type in ['EXPERIMENT']:
 			hashed = self.extract_additional_experiment_attributes(obj, hashed)
@@ -105,7 +105,7 @@ class SRAParseObjSet:
 		#hashed['attributes']['@idblock'] = hashed['@idblock']	
 		return hashed
 	def parse_attributes_block(self, obj, objtype):
-		assert objtype in self.expected_obj_tags
+		assert objtype in self.expected_obj_tags, [objtype, self.expected_obj_tags]
 		attrtag = '{0}_ATTRIBUTES'.format(objtype)
 		attributes_found = list(obj.findall(attrtag))
 		if len(attributes_found) == 0:
@@ -124,11 +124,12 @@ class SRAParseObjSet:
 		return dict(attrhash)
 	def parse(self, obj):
 		hashed =  self.extract_from_sra_body(obj)
+		logger.debugonly(hashed, obj)
 		hashed['attributes'] = self.parse_attributes_block(obj, obj.tag)
 		return self.from_sra_main_to_attributes(hashed)
 	def obj_xmljson(self):
 		root = self.xml.getroot()
-		offspring = root.getchildren()
+		offspring = list(root.getchildren())
 		return [(e, self.parse(e)) for e in offspring]
 	def attributes(self):
 		root = self.xml.getroot()

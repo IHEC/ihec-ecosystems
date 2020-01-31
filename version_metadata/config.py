@@ -37,8 +37,8 @@ class Config:
         return k in self.keys or k in self.flags
     def orElse(self, k, default):
         return self.keys.get(k, default)
-	def __contains__(self, item):
-		return self.has(k)
+    def __contains__(self, item):
+        return self.has(k)
     def __getitem__(self, k):
         if k in self.keys: return self.keys[k]
         elif k in self.flags: return True

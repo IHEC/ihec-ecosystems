@@ -12,14 +12,20 @@ class NonUniqException(Exception):
 
 class Logger:
 	def __init__(self):
-		pass
+		self.debug = False # just wrap logging
 	def __call__(self, m):
-		sys.stderr.write('{0}'.format(m))
+		sys.stderr.write(u'{0}'.format(m))
+	def entry(self, m): 
+		self.__call__(m)
+		self.__call__('\n')
 	def warn(self, m):
 		self.__call__(m)
+	def debugonly(self, *args):
+		if self.debug: print(args) 
 	def trystr(self, x):
 		try:
-			return unicode(x).encode('utf-8', errors='ignore').strip().decode('ascii', 'ignore')
+			# does nothing for python 3 and we no longer support 2...
+			return x #unicode(x).encode('utf-8', errors='ignore').strip().decode('ascii', 'ignore')
 		except Exception as e:
 			self.__call__('#warn... unicode issue... ' + str(e))
 			return x
@@ -31,15 +37,24 @@ logger = Logger()
 class Utils:
 	def __init__(self):
 		self.config = dict()
+		self.encoding = 'utf-8'
 	def fread(self, f):
 		with open(f) as infile:
 			return infile.read()
 	def fentries(self, f):
 		with open(f) as infile:
 			return [e.strip() for e in infile]
-	def writel(self, f, entries, sep='\n'):
-		with open(f, "w") as outfile:
-			outfile.write(sep.join(entries))
+	def writel(self, f, entries, sep=b'\n', encoding=None):
+		if not encoding: encoding = self.encoding
+		assert isinstance(entries, list), ['expected list, found:' , type(entries)]
+		with open(f, "wb") as outfile:
+			# handle mixed string, unicode lists
+			for e in entries:
+				if isinstance(e, str):
+					outfile.write(e.encode(encoding))
+				else:
+					outfile.write(e)  #sep.join(entries))
+				outfile.write(sep)
 		return f
 	def fexists(self, filename):
 		if os.path.exists(filename): return True
@@ -114,7 +129,7 @@ class Json:
 	def pretty(self, arg):
 		return json.dumps(arg, sort_keys=self.sort_keys, indent=self.indent, separators=self.separators)
 	def pp(self, arg):
-		print self.pretty(arg)
+		print(self.pretty(arg))
 		
 
 
