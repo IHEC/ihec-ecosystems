@@ -331,23 +331,24 @@ def symbolStatus(status, symbol):
 def validateOntologies(jsonObj):
     """
     Validate all ontologies used in metadata: handles two cases
-    when ontology uris are present in experiment and in sample
+    when ontology curies are present in experiment and in sample
     """
 
     # SAMPLES
-    samples = jsonObj.get('samples')
+    samples = jsonObj['samples']
     for sample_name in samples:
         sample = samples.get(sample_name)
         # refactor below
-        ontology_term = OntologyLookup(sample.get('sample_ontology_uri'))
-        print()
-        logging.getLogger().info('Validating "sample_ontology_uri" in {} ...'.format(sample_name))
-        val_rules = ontology_term.check_ontology_rules(
-            ontology_type='sample_ontology_uri', schema_object=sample_name, subparam=sample.get('biomaterial_type')
-        )
+        for curie in sample['sample_ontology_curie']:
+            ontology_term = OntologyLookup(curie)
+            print()
+            logging.getLogger().info('Validating "sample_ontology_uri" in {} ...'.format(sample_name))
+            val_rules = ontology_term.check_ontology_rules(
+                ontology_type='sample_ontology_curie', schema_object=sample_name, subparam=sample.get('biomaterial_type')
+            )
 
-        if val_rules:
-            ontology_term.validate_term()
+            if val_rules:
+                ontology_term.validate_term()
 
     # EXPERIMENTS
     datasets = jsonObj.get('datasets')

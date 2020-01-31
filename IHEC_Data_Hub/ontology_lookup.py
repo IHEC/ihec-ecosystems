@@ -5,16 +5,16 @@ logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 
 ontology_rules = {
-    'sample_ontology_uri': {
+    'sample_ontology_curie': {
         'Cell Line': 'efo',
         'Primary Cell': 'cl',
         'Primary Tissue': 'uberon'
     },
-    'experiment_ontology_uri': 'obi',
-    'molecule_ontology_uri': 'so',
+    'experiment_ontology_curie': 'obi',
+    'molecule_ontology_curie': 'so',
     # leaving out these two for now
-    # 'disease_ontology_uri': 'ncim',
-    # 'donor_health_status_ontology_uri': 'ncim'
+    # 'disease_ontology_curie': 'ncim',
+    # 'donor_health_status_ontology_curie': 'ncim'
 }
 
 
@@ -43,10 +43,10 @@ class OntologyLookup(object):
 
     def check_ontology_rules(self, ontology_type, schema_object, subparam=None):
         """
-        :param ontology_type: E.g. 'sample_ontology_uri', 'molecule_ontology_uri'
+        :param ontology_type: E.g. 'sample_ontology_curie', 'molecule_ontology_curie'
         :param schema_object: Schema object where ontology term is located. Needed for an error message.
         :param subparam: Used to handle complex validation when accepted ontology depends on value of another property,
-        e.g. if 'biomaterial_type': 'Cell Line' then accepted ontology for 'sample_ontology_uri' is EFO
+        e.g. if 'biomaterial_type': 'Cell Line' then accepted ontology for 'sample_ontology_curie' is EFO
         :return: True if validation passed. False if not.
         """
 
@@ -94,4 +94,4 @@ class OntologyLookup(object):
                 logging.getLogger().info('Error: Ontology term {} is not found'.format(self.curie))
                 return False
         except requests.exceptions.HTTPError as e:
-            logging.getLogger().warning("Unexpected error {}".format(e))
+            logging.getLogger().warning('Unexpected error {}'.format(e))
