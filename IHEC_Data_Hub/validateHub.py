@@ -357,16 +357,17 @@ def validateOntologies(jsonObj):
         exp_attr = dataset.get('experiment_attributes')
         for key, value in exp_attr.items():
             # retrieve ontology type
-            if 'ontology_uri' in key:
-                ontology_term = OntologyLookup(exp_attr.get(key))
-                print()
-                logging.getLogger().info('Validating "{}" in {} ...'.format(key, dataset_name))
-                val_rules = ontology_term.check_ontology_rules(
-                    ontology_type=key, schema_object=dataset_name
-                )
+            if 'experiment_ontology_curie' in key:
+                for curie in exp_attr[key]:
+                    ontology_term = OntologyLookup(curie)
+                    print()
+                    logging.getLogger().info('Validating "{}" in {} ...'.format(key, dataset_name))
+                    val_rules = ontology_term.check_ontology_rules(
+                        ontology_type=key, schema_object=dataset_name
+                    )
 
-                if val_rules:
-                    ontology_term.validate_term()
+                    if val_rules:
+                        ontology_term.validate_term()
             else:
                 pass
 
