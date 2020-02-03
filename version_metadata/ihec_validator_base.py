@@ -1,4 +1,4 @@
-from utils import logger
+from  utils import logger
 import egautils
 
 class IHECJsonValidator(object):

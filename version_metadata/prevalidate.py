@@ -1,12 +1,61 @@
 from config import Config
 from utils import cmn, json2, logger
 
-
-
 import egautils
+import markdown
 
 
 
+class SchemaParser:
+	def __init__(self, jsonschema, cfg=None): 
+		def get(h, k):
+			return (k, h.get(k, "__undef__"))
+		
+		
+
+		property_attrs = ["type" , "minItems", "maxItems"]
+
+		bytype = dict()
+		for defn in jsonschema['definitions']:
+			assert not defn in bytype
+			if not cfg:
+				bytype[defn] = list(jsonschema['definitions'][defn]['properties'].keys())
+			else:
+				properties = jsonschema['definitions'][defn]['properties']
+				bytype[defn] = {p :   cmn.safedict([ get(properties[p], e) for e in property_attrs]) for p in properties}
+				for p in properties:
+					item_attr = properties[p].get("items", {})
+					bytype[defn][p]["description"] = item_attr.get("description", "_undef_")
+					bytype[defn][p]["enum"] = item_attr.get("enum", "")
+
+		self.rules = self.semantic_rules() 
+		self.bytype = bytype
+		
+	def definitions(self):
+		return self.bytype
+		
+	def semantic_rules(self):
+		data = dict()
+		import exp_semantic_rules
+		rules = [e for e in dir(exp_semantic_rules) if e.startswith('rule_')]
+		for r in rules:
+			f = getattr(exp_semantic_rules, r)
+			data[r] = json2.loads(f.__doc__)
+		ruleshash = dict()
+		for r in data.values():
+			print(r)
+			[e1, e2] = r["applies"]
+			if not e1 in ruleshash: ruleshash[e1] = dict()
+			if not e2 in ruleshash[e1]: ruleshash[e1][e2] = list()
+			ruleshash[e1][e2].append(r["description"])
+		return ruleshash
+
+
+	def md(self):
+		txt = []
+		for k in self.bytype:
+			txt.append(markdown.markdown(k, self.bytype[k], self.rules.get(k, {})))
+		return '\n'.join(txt)
 
 
 
@@ -16,10 +65,7 @@ class Prevalidate:
 		for jsonschema in self.jsonschemas:
 			self.schema_id = jsonschema['$id'].split('/')[-1].replace('.json', '')
 			assert self.schema_id in ['experiment', 'sample']
-			self.bytype = dict()
-			for defn in jsonschema['definitions']:
-				assert not defn in self.bytype
-				self.bytype[defn] = list(jsonschema['definitions'][defn]['properties'].keys())
+			self.bytype = SchemaParser(jsonshema).definitions()
 	
 	def attributes(self, obj):
 		return {k.lower():v for k, v in obj['attributes'].items()}
@@ -78,10 +124,13 @@ class Prevalidate:
 
 
 if __name__ == '__main__':
-	schemafiles = ['../schemas/json/1.1/experiment.json', '../schemas/json/1.1/sample.json']
-	prevalidate = Prevalidate([json2.loadf(f) for f in schemafiles] , '1.1')
-	for example in ['./examples/experiment.some_invalid.validated.xml.extracted.json']:
-		for e in json2.loadf(example):
-			prevalidate.check_experiment_properties(e)
+	schemafile = '../schemas/json/1.1/experiment.json'
+	parser = SchemaParser(json2.loadf(schemafile) , True)
+	#json2.pp([parser.bytype, parser.rules])
+	print(cmn.dumpf('experiment_attributes.md', parser.md()))
+
+	
+
+
 
 

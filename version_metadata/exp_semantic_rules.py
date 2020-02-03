@@ -2,8 +2,8 @@ verbose = True
 
 def rule_miRNA_smRNA_strategy(attributes):
 	""" {
-		"rule" : "miRNA",
-		"desc" : "If 'experiment_type' is 'smRNA-Seq', then 'library_strategy' must be set to 'miRNA-Seq'"
+		"applies" : ["rna-seq", "experiment_type"],
+		"description" : "If 'experiment_type' is 'smRNA-Seq', then 'library_strategy' must be set to 'miRNA-Seq'"
 		
 	}  """
 

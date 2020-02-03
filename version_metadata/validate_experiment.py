@@ -28,7 +28,7 @@ class ExperimentValidator(IHECJsonValidator):
 			attributes = attrs['attributes']
 			status = True
 			for rule_name in self.semantic_rules:
-				f = getattr(semantic_rules, rule_name)
+				f = getattr(exp_semantic_rules, rule_name)
 				ok = f(attributes)
 				status = status and ok
 				if not ok:

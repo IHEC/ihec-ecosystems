@@ -1,15 +1,17 @@
-from config import Config
+from config  import Config
 from utils import cmn, json2, logger
 
 import validate_sample
 import validate_experiment
 
-
+import os
 
 def main(args):
 
+	base = os.path.dirname(os.path.realpath(__file__))
+
 	if not args.has('-config'):
-		args.add_key('-config',  "./config.json")
+		args.add_key('-config',  "{0}/config.json".format(base))
 
 	logger(str([args.keys, args.args()]) + '\n')
 
