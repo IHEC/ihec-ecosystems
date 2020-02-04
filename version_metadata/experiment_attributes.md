@@ -20,7 +20,7 @@ The metadata specifictaion for Bisulfite Seq experiments is as defined below
 
 <strong>EXPERIMENT_ONTOLOGY_CURIE</strong>:_undef_.
 
-<strong>EXPERIMENT_TYPE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TYPE</strong>:_undef_. Allowed values are: "DNA Methylation". At most 1 instance(s) are allowed.
 
 <strong>EXTRACTION_PROTOCOL</strong>:The protocol used to isolate the extract material. At most 1 instance(s) are allowed.
 
@@ -44,9 +44,9 @@ The metadata specifictaion for Bisulfite Seq experiments is as defined below
 
 <strong>LIBRARY_GENERATION_PCR_THERMOCYCLING_PROGRAM</strong>:The thermocycling program used for library generation. At most 1 instance(s) are allowed.
 
-<strong>LIBRARY_STRATEGY</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>LIBRARY_STRATEGY</strong>:_undef_. Allowed values are: "Bisulfite-Seq". At most 1 instance(s) are allowed.
 
-<strong>MOLECULE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>MOLECULE</strong>:_undef_. Allowed values are: "genomic DNA". At most 1 instance(s) are allowed.
 
 <strong>MOLECULE_ONTOLOGY_CURIE</strong>:_undef_.
 
@@ -77,7 +77,7 @@ The metadata specifictaion for ChIP-Seq experiments is as defined below
 
 <strong>EXPERIMENT_ONTOLOGY_CURIE</strong>:_undef_.
 
-<strong>EXPERIMENT_TARGET_HISTONE</strong>:Target histone mark. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TARGET_HISTONE</strong>:Target histone mark. Allowed values are: "H2AFZ", "H2AK5ac", "H2AK9ac", "H2BK120ac", "H2BK12ac", "H2BK15ac", "H2BK20ac", "H2BK5ac", "H3F3A", "H3K14ac", "H3K18ac", "H3K23ac", "H3K23me2", "H3K27ac", "H3K27me3", "H3K36me3", "H3K4ac", "H3K4me1", "H3K4me2", "H3K4me3", "H3K56ac", "H3K79me1", "H3K79me2", "H3K9ac", "H3K9me1", "H3K9me2", "H3K9me3", "H3T11ph", "H4K12ac", "H4K20me1", "H4K5ac", "H4K8ac", "H4K91ac". At most 1 instance(s) are allowed.
 
 <strong>EXPERIMENT_TARGET_TF</strong>:(Controlled vocabulary) An HGNC gene symbol. At most 1 instance(s) are allowed.
 
@@ -93,9 +93,9 @@ The metadata specifictaion for ChIP-Seq experiments is as defined below
 
 <strong>LIBRARY_GENERATION_FRAGMENT_SIZE_RANGE</strong>:The fragment size range of the preparation. At most 1 instance(s) are allowed.
 
-<strong>LIBRARY_STRATEGY</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>LIBRARY_STRATEGY</strong>:_undef_. Allowed values are: "ChIP-Seq". At most 1 instance(s) are allowed.
 
-<strong>MOLECULE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>MOLECULE</strong>:_undef_. Allowed values are: "genomic DNA". At most 1 instance(s) are allowed.
 
 <strong>MOLECULE_ONTOLOGY_CURIE</strong>:_undef_.
 
@@ -108,13 +108,13 @@ The metadata specifictaion for Chromatin Accessibility experiments is as defined
 
 <strong>EXPERIMENT_ONTOLOGY_CURIE</strong>:_undef_.
 
-<strong>EXPERIMENT_TYPE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TYPE</strong>:_undef_. Allowed values are: "Chromatin Accessibility". At most 1 instance(s) are allowed.
 
 <strong>EXTRACTION_PROTOCOL</strong>:The protocol used to isolate the extract material. At most 1 instance(s) are allowed.
 
-<strong>LIBRARY_STRATEGY</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>LIBRARY_STRATEGY</strong>:_undef_. Allowed values are: "ATAC-seq", "DNase-Hypersensitivity", "NOME-Seq". At most 1 instance(s) are allowed.
 
-<strong>MOLECULE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>MOLECULE</strong>:_undef_. Allowed values are: "genomic DNA". At most 1 instance(s) are allowed.
 
 <strong>MOLECULE_ONTOLOGY_CURIE</strong>:_undef_.
 
@@ -125,7 +125,7 @@ The metadata specifictaion for MeDIP-Seq experiments is as defined below
 
 <strong>EXPERIMENT_ONTOLOGY_CURIE</strong>:_undef_.
 
-<strong>EXPERIMENT_TYPE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TYPE</strong>:_undef_. Allowed values are: "DNA Methylation". At most 1 instance(s) are allowed.
 
 <strong>EXTRACTION_PROTOCOL</strong>:The protocol used to isolate the extract material. At most 1 instance(s) are allowed.
 
@@ -133,7 +133,7 @@ The metadata specifictaion for MeDIP-Seq experiments is as defined below
 
 <strong>EXTRACTION_PROTOCOL_TYPE_OF_SONICATOR</strong>:The type of sonicator used for extraction. At most 1 instance(s) are allowed.
 
-<strong>LIBRARY_STRATEGY</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>LIBRARY_STRATEGY</strong>:_undef_. Allowed values are: "MeDIP-Seq". At most 1 instance(s) are allowed.
 
 <strong>MEDIP_ANTIBODY</strong>:The specific antibody used in the MeDIP protocol. At most 1 instance(s) are allowed.
 
@@ -153,7 +153,7 @@ The metadata specifictaion for MeDIP-Seq experiments is as defined below
 
 <strong>MEDIP_PROTOCOL_DNA_AMOUNT</strong>:The amount of DNA used in the MeDIP protocol. At most 1 instance(s) are allowed.
 
-<strong>MOLECULE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>MOLECULE</strong>:_undef_. Allowed values are: "genomic DNA". At most 1 instance(s) are allowed.
 
 <strong>MOLECULE_ONTOLOGY_CURIE</strong>:_undef_.
 
@@ -164,11 +164,11 @@ The metadata specifictaion for MRE-Seq experiments is as defined below
 
 <strong>EXPERIMENT_ONTOLOGY_CURIE</strong>:_undef_.
 
-<strong>EXPERIMENT_TYPE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TYPE</strong>:_undef_. Allowed values are: "DNA Methylation". At most 1 instance(s) are allowed.
 
-<strong>LIBRARY_STRATEGY</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>LIBRARY_STRATEGY</strong>:_undef_. Allowed values are: "MRE-Seq". At most 1 instance(s) are allowed.
 
-<strong>MOLECULE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>MOLECULE</strong>:_undef_. Allowed values are: "genomic DNA". At most 1 instance(s) are allowed.
 
 <strong>MOLECULE_ONTOLOGY_CURIE</strong>:_undef_.
 
@@ -187,7 +187,7 @@ The metadata specifictaion for Other experiments is as defined below
 
 <strong>EXPERIMENT_ONTOLOGY_CURIE</strong>:_undef_.
 
-<strong>EXPERIMENT_TYPE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TYPE</strong>:_undef_. Allowed values are: "Other". At most 1 instance(s) are allowed.
 
 
 ## RNA-Seq 
@@ -198,7 +198,7 @@ The metadata specifictaion for RNA-Seq experiments is as defined below
 
 <strong>EXPERIMENT_ONTOLOGY_CURIE</strong>:_undef_.
 
-<strong>EXPERIMENT_TYPE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TYPE</strong>:_undef_. Allowed values are: "RNA-Seq", "mRNA-Seq", "smRNA-Seq", "total-RNA-Seq". At most 1 instance(s) are allowed.
 
  * If 'experiment_type' is 'smRNA-Seq', then 'library_strategy' must be set to 'miRNA-Seq'
 
@@ -234,9 +234,9 @@ The metadata specifictaion for RNA-Seq experiments is as defined below
 
 <strong>LIBRARY_GENERATION_PROTOCOL</strong>:The protocol used to generate the library. At most 1 instance(s) are allowed.
 
-<strong>LIBRARY_STRATEGY</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>LIBRARY_STRATEGY</strong>:_undef_. Allowed values are: "RNA-Seq", "miRNA-Seq". At most 1 instance(s) are allowed.
 
-<strong>MOLECULE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>MOLECULE</strong>:_undef_. Allowed values are: "cytoplasmic RNA", "nuclear RNA", "polyA RNA", "small RNA", "total RNA". At most 1 instance(s) are allowed.
 
 <strong>MOLECULE_ONTOLOGY_CURIE</strong>:_undef_.
 
@@ -269,11 +269,11 @@ The metadata specifictaion for RNA-Seq experiments is as defined below
 
 The metadata specifictaion for WGS experiments is as defined below
 
-<strong>EXPERIMENT_TYPE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>EXPERIMENT_TYPE</strong>:_undef_. Allowed values are: "WGS". At most 1 instance(s) are allowed.
 
 <strong>EXTRACTION_PROTOCOL</strong>:The protocol used to isolate the extract material. At most 1 instance(s) are allowed.
 
-<strong>LIBRARY_STRATEGY</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>LIBRARY_STRATEGY</strong>:_undef_. Allowed values are: "WGS". At most 1 instance(s) are allowed.
 
-<strong>MOLECULE</strong>:_undef_. At most 1 instance(s) are allowed.
+<strong>MOLECULE</strong>:_undef_. Allowed values are: "genomic DNA". At most 1 instance(s) are allowed.
 

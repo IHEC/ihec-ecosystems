@@ -19,15 +19,17 @@ def std_exp(e):
 def markdown(classification, schema, ruleshash):
 	def entry(k, record, rules):
 		m = "<strong>{0}</strong>:{1}".format(k.upper(), record["description"])
-		if not m[-1] == '.': m = m  + '.'
-		if record["enum"]: m + " " + "Allowed values are: {0}.".format(", ".join( ['"{0}"'.format(e) for e in sorted(record["enum"])]  ))
+		if not m[-1] == '.':
+			m = m  + '.'
+		if record["enum"]:
+			m = m + " " + "Allowed values are: {0}.".format(", ".join( ['"{0}"'.format(e) for e in sorted(record["enum"])]  ))
 		try:
 			num = "At most {0} instance(s) are allowed.".format(record["maxItems"] - record["minItems"] + 1)
 		except Exception as err:
 			num = ""
-		if num: m = m + " " + num
+		if num:
+			m = m + " " + num
 		if rules:
-			print(rules, 'YYYY')
 			m = m + "\n\n * " + "\n * ".join(rules)
 		
 		return m
