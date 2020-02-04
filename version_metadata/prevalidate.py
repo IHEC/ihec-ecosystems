@@ -47,8 +47,10 @@ class SchemaParser:
 
 	def md(self):
 		txt = []
+		print(self.rules)
 		for k in sorted(self.bytype.keys()):
 			txt.append(markdown.markdown(k, self.bytype[k], self.rules.get(k, {})))
+			print(k, self.rules, 'XX')
 		return '\n'.join(txt) + '\n\n'
 
 
