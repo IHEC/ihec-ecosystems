@@ -1,10 +1,10 @@
-#Minimum required track files:
+# Minimum required track files:
 
 This document aims at describing a minimum set of analysis tracks that should be provided for any dataset, for IHEC Core Assays. Other non-core assays are also described at the end of the document.
 
 Please refer to the [tracks generation standards](./tracks_generation.md) for information on how to generate each track types.
 
-##IHEC Core Assays 
+## IHEC Core Assays 
 
 #### ChIP-Seq Histone (H3K*):
 
