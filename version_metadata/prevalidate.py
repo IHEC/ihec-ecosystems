@@ -8,13 +8,8 @@ import markdown
 
 class SchemaParser:
 	def __init__(self, jsonschema, cfg=None): 
-		def get(h, k):
-			return (k, h.get(k, "__undef__"))
-		
-		
-
+		getprop = lambda h, k: (k, h.get(k, "__undef__"))		
 		property_attrs = ["type" , "minItems", "maxItems"]
-
 		bytype = dict()
 		for defn in jsonschema['definitions']:
 			assert not defn in bytype
@@ -22,7 +17,7 @@ class SchemaParser:
 				bytype[defn] = list(jsonschema['definitions'][defn]['properties'].keys())
 			else:
 				properties = jsonschema['definitions'][defn]['properties']
-				bytype[defn] = {p :   cmn.safedict([ get(properties[p], e) for e in property_attrs]) for p in properties}
+				bytype[defn] = {p :   cmn.safedict([ getprop(properties[p], e) for e in property_attrs]) for p in properties}
 				for p in properties:
 					item_attr = properties[p].get("items", {})
 					bytype[defn][p]["description"] = item_attr.get("description", "_undef_")
@@ -50,18 +45,18 @@ class SchemaParser:
 			ruleshash[e1][e2].append(r["description"])
 		return ruleshash
 
-
 	def md(self):
 		txt = []
-		for k in self.bytype:
+		for k in sorted(self.bytype.keys()):
 			txt.append(markdown.markdown(k, self.bytype[k], self.rules.get(k, {})))
-		return '\n'.join(txt)
+		return '\n'.join(txt) + '\n\n'
 
 
 
 class Prevalidate:
 	def __init__(self, jsonschemas, version):
 		self.jsonschemas = [j for j in jsonschemas]
+		assert len(jsonschemas) == 1 # no more lists here
 		for jsonschema in self.jsonschemas:
 			self.schema_id = jsonschema['$id'].split('/')[-1].replace('.json', '')
 			assert self.schema_id in ['experiment', 'sample']
