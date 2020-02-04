@@ -60,7 +60,7 @@ class OntologyLookup(object):
         if current_ontology == rule_ontology:
             return True
         else:
-            logging.getLogger().error('Error in {}: ontology {} is not accepted for {}.'
+            logging.getLogger().error('Error in {}: ontology {} is not accepted for this {}.'
                                       'The only accepted ontology is {}.'
                                       .format(schema_object, current_ontology.upper(),
                                               ontology_type, rule_ontology.upper()))

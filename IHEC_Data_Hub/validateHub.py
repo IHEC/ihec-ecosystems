@@ -344,20 +344,22 @@ def validateOntologies(jsonObj):
             print()
             logging.getLogger().info('Validating "sample_ontology_uri" in {} ...'.format(sample_name))
             val_rules = ontology_term.check_ontology_rules(
-                ontology_type='sample_ontology_curie', schema_object=sample_name, subparam=sample.get('biomaterial_type')
+                ontology_type='sample_ontology_curie', schema_object=sample_name,
+                subparam=sample.get('biomaterial_type')
             )
 
             if val_rules:
                 ontology_term.validate_term()
 
-    # EXPERIMENTS
+    # EXPERIMENTS: there are ontology type here - experiment_ontology_curie & molecule_ontology_curie
+    # it handles both
     datasets = jsonObj.get('datasets')
     for dataset_name in datasets:
         dataset = datasets.get(dataset_name)
         exp_attr = dataset.get('experiment_attributes')
         for key, value in exp_attr.items():
             # retrieve ontology type
-            if 'experiment_ontology_curie' in key:
+            if 'ontology_curie' in key:
                 for curie in exp_attr[key]:
                     ontology_term = OntologyLookup(curie)
                     print()
