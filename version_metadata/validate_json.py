@@ -63,13 +63,6 @@ class JsonSchema:
 		return egautils.obj_id(e)
 
 
-		try:
-			idblock = e.get('@idblock', dict())
-			tags = sorted(list(set([idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock])))
-			return 'unknown' if not tags else self.sanitizer.filter_alphan('.'.join(tags), '.-_1234567890') 
-		except Exception as e:
-			logger('#__couldNotExactId__:{0}\n'.format(e ))
-			return '__unknown'
 
 	def __init__(self, schema_file, config, version, tag = None, verbose = True, draft4schema=False):
 		self.version = version
@@ -121,14 +114,16 @@ class JsonSchema:
 
 	def validate(self, jsonObj, details, schema_version):
 		tag = self.obj_id(details)
-		prevalidate=  self.prevalidation.prevalidate(jsonObj, tag)
+		prevalidate, errors =  self.prevalidation.prevalidate(jsonObj, tag)
 		if prevalidate:
 			print('#__prevalidation_passed__', tag, schema_version)
 			ok, status =  self.validate_draft7logging(jsonObj, details, schema_version)
 		else:
 			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
-			ok = False
-		return ok
+			ok = False 
+			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors, 'version' : schema_version}}
+		#status[tag]['ok'] = ok
+		return ok, status
 				
 
 
@@ -154,7 +149,7 @@ class JsonSchema:
 					errfile.write(e)
 					errfile.write('\n')
 					log.append(e)
-			return False, {tag : {'errors' :  log, 'ok' : False, 'version': schema_version}}
+			return False, {tag : {'errors' :  logfile, 'error_type' : 'jsonschema',  'ok' : False, 'version': schema_version}}
 			
 				
 
