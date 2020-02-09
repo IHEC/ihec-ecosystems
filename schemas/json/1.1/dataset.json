@@ -16,8 +16,8 @@
                 }
             ]
         },
-        "experiment_attributes": { "$ref": "file:../schemas/json/experiment.json" },
-        "analysis_attributes": { "$ref": "file:../schemas/json/analysis.json" },
+        "experiment_attributes": { "$ref": "file:../schemas/json/1.1/experiment.json" },
+        "analysis_attributes": { "$ref": "file:../schemas/json/1.1/analysis.json" },
         "browser": {
             "type": "object",
             "properties": {
