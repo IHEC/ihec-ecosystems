@@ -18,7 +18,7 @@ Note that there are no space in arguments like `-out:./examples/samples.versione
 
 Here's an example of `SAMPLE_SET` xml containing two objects both of which validate. 
 
-    $ apy __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
+    $ apy main.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
     {'-config': './config.json', '-out': './examples/samples.versioned.xml'}
     ./config.json
     # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.xml]
