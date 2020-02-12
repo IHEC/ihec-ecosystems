@@ -119,7 +119,7 @@ class Prevalidate:
 			else:
 				return (True, [])
 		else:
-			raise Exception("unknown version:" + seff.version)
+			raise Exception("unknown version:" + self.version)
 
 
 
