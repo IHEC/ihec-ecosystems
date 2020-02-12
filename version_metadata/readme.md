@@ -18,7 +18,7 @@ Note that there are no space in arguments like `-out:./examples/samples.versione
 
 Here's an example of `SAMPLE_SET` xml containing two objects both of which validate. 
 
-    $ apy __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
+    $ apy main.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
     {'-config': './config.json', '-out': './examples/samples.versioned.xml'}
     ./config.json
     # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.xml]
@@ -28,7 +28,7 @@ Here's an example of `SAMPLE_SET` xml containing two objects both of which valid
 
 Similarly to run the above example using pipenv 
     
-    `$ pipenv run python __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml`
+    `$ pipenv run python main.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml`
 
 
 Note if you are running from a different directory then you may need to modify paths in `config.json`. 
@@ -67,7 +67,7 @@ Note that example xml given validates against SRA XML schema, and conforms to IH
 
 ### Example where one of the objects doesn't validate. 
 
-    apy __main__.py -sample -out:./examples/samples.with_one_invalid.versioned.xml ./examples/samples.with_one_invalid.xml -overwrite-outfile
+    apy main.py -sample -out:./examples/samples.with_one_invalid.versioned.xml ./examples/samples.with_one_invalid.xml -overwrite-outfile
     [{'-config': './config.json', '-out': './examples/samples.with_one_invalid.versioned.xml'}, ['./examples/samples.with_one_invalid.xml']]
     # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.with_one_invalid.xml]
     #__normalizingTags:Primary Tissue from Some Donor
@@ -79,7 +79,7 @@ Note that example xml given validates against SRA XML schema, and conforms to IH
 
 ### With multiple invalids/valids
 
-    apy __main__.py -sample -out:./examples/samples.with_multiple_valid_invalid.versioned.xml ./examples/samples.with_multiple_valid_invalid.xml -overwrite-outfile
+    apy main.py -sample -out:./examples/samples.with_multiple_valid_invalid.versioned.xml ./examples/samples.with_multiple_valid_invalid.xml -overwrite-outfile
     [{'-config': './config.json', '-out': './examples/samples.with_multiple_valid_invalid.versioned.xml'}, ['./examples/samples.with_multiple_valid_invalid.xml']]
     # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.with_multiple_valid_invalid.xml]
     #__normalizingTags:Primary Tissue from Some Donor A
@@ -101,7 +101,7 @@ Note that example xml given validates against SRA XML schema, and conforms to IH
 
 An example where all experiments in the set validate.
 
-    apy __main__.py -experiment ./examples/experiment.xml -out:examples/experiment.validated.xml -overwrite-outfile
+    apy main.py -experiment ./examples/experiment.xml -out:examples/experiment.validated.xml -overwrite-outfile
     [{'-config': './config.json', '-out': 'examples/experiment.validated.xml'}, ['./examples/experiment.xml']]
     ./config.json
     # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./examples/experiment.xml]
@@ -113,7 +113,7 @@ An example where all experiments in the set validate.
 
 An example where some only experiments in the set validate.
 
-    $ apy __main__.py -experiment ./examples/experiment.some_invalid.xml -out:examples/experiment.some_invalid.validated.xml -overwrite-outfile
+    $ apy main.py -experiment ./examples/experiment.some_invalid.xml -out:examples/experiment.some_invalid.validated.xml -overwrite-outfile
     [{'-config': './config.json', '-out': 'examples/experiment.some_invalid.validated.xml'}, ['./examples/experiment.some_invalid.xml']]
     ./config.json
     # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./examples/experiment.some_invalid.xml]
