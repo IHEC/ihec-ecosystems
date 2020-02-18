@@ -87,7 +87,7 @@ def main(args):
 
 	errlog = { e : v.errorlog  for e, v in expvalidator.items()}
 	if args.has('-jsonlog'):
-		print(json2.dumpf(args['-jsonlog'], errlog)
+		print(json2.dumpf(args['-jsonlog'], errlog))
 	else:
 		json2.pp(errlog)
 
