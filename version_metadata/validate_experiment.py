@@ -84,7 +84,11 @@ def main(args):
 		logger('ok\n')
 	else:
 		logger('..no valid objects found\n')
-	
-	json2.pp({ e : v.errorlog  for e, v in expvalidator.items()})
+
+	errlog = { e : v.errorlog  for e, v in expvalidator.items()}
+	if args.has('-jsonlog'):
+		print(json2.dumpf(args['-jsonlog'], errlog)
+	else:
+		json2.pp(errlog)
 
 
