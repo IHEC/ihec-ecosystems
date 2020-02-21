@@ -50,7 +50,7 @@ Tags with ontologies are labelled as "Ontology".
 
 ###### Note for metadata resubmission
 
-In order to pass IHEC metadata validation, all datasets submitted prior to 2018 must include all sample properties defined within each specific BIOMATERIAL_TYPE below.
+In order to pass IHEC metadata validation, all datasets must include all sample properties defined within each specific BIOMATERIAL_TYPE below, unless marked explicitly as optional.
 
 ## Cell Line
 
@@ -64,7 +64,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE:__ - (Controlled Vocabulary) "Cell Line".
 
-__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __LINE__ - The name of the cell line.
 
@@ -94,7 +94,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE:__ - (Controlled Vocabulary) "Primary Cell".
 
-__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __ORIGIN_SAMPLE_ONTOLOGY_URI__ - (Ontology: UBERON) Links to the origin tissue from which the sample was extracted.
 
@@ -134,7 +134,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE__ - (Controlled Vocabulary) "Primary Cell Culture".
 
-__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __ORIGIN_SAMPLE_ONTOLOGY_URI__ - (Ontology: UBERON) links to the origin tissue from which the sample was extracted.
 
@@ -176,7 +176,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE:__ - (Controlled Vocabulary) "Primary Tissue".
 
-__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __TISSUE_TYPE__ - The type of tissue.
 
