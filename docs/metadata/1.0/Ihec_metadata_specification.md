@@ -204,11 +204,11 @@ __DONOR_ETHNICITY__ - The ethnicity of the donor that provided the primary tissu
 # EXPERIMENTS
 
 ###### Note for metadata resubmission
-In order to pass IHEC metadata validation, all datasets submitted prior to 2018 __must__ include the following properties:
+In order to pass IHEC metadata validation, all datasets __must__ include the following properties:
 
 * LIBRARY_STRATEGY
 * EXPERIMENT_TYPE or EXPERIMENT_ONTOLOGY_CURIE
-* MOLECULE or MOLECULE_ONTOLOGY_CURIE, either defined in the experiment or sample object. Because of the complexity to validate the presence of this field in either object, this requirement will be validated at the time of submission to EpiRR.
+* MOLECULE or MOLECULE_ONTOLOGY_CURIE, in the experiment (or sample object for submissions prior to 2018). Because of the complexity to validate the presence of this field in either object, this requirement will be validated at the time of submission to EpiRR.
 
 ###### Common fields
 
