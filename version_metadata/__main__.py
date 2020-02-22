@@ -1,8 +1,8 @@
-from config  import Config
-from utils import cmn, json2, logger
+from .config  import Config
+from .utils import cmn, json2, logger
 
-import validate_sample
-import validate_experiment
+from . import validate_sample
+from . import validate_experiment
 
 import os
 

@@ -7,7 +7,7 @@
 
     "properties": {
         "reference_registry_id" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "The IHEC EpiRR ID for this dataset, only for IHEC Reference Epigenome datasets. Otherwise leave empty."}},
-
+		"qc_flags" : {"type": "array", "minItems": 0, "items": {"type": "string", "description": "Any quanlity control observations can be noted here. This field can be omitted if empty"}},
         "experiment_type" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "(Controlled Vocabulary) The assay target (e.g. ‘DNA Methylation’, ‘mRNA-Seq’, ‘smRNA-Seq’, 'Histone H3K4me1')."}},
         "experiment_ontology_curie": {"type": "array", "items": {"type": "string", "pattern": "^[A-Za-z]*:[A-Za-z0-9]*", "description": "(Ontology: OBI) links to experiment ontology information."}},
         "library_strategy" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "(Controlled Vocabulary) The assay used. These are defined within the SRA metadata specifications with a controlled vocabulary (e.g. ‘Bisulfite-Seq’, ‘RNA-Seq’, ‘ChIP-Seq’). For a complete list, see https://www.ebi.ac.uk/ena/submit/reads-library-strategy."}},
@@ -18,14 +18,14 @@
 
     "allOf": [
         {"anyOf": [
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/chromatin_accessibility" },
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/bisulfite-seq" },
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/medip-seq" },
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/mre-seq" },
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/chip-seq" },
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/rna-seq" },
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/wgs" },
-            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/other" }
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/chromatin_accessibility" },
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/bisulfite-seq" },
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/medip-seq" },
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/mre-seq" },
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/chip-seq" },
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/rna-seq" },
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/wgs" },
+            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/other" }
         ]},
         {"anyOf": [
             {"required": ["experiment_ontology_curie"]},

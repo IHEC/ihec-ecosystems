@@ -1,7 +1,7 @@
-from sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
-from utils import cmn, json2, logger
-from validate_json import JsonSchema
-from ihec_validator_base import  IHECJsonValidator
+from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
+from .utils import cmn, json2, logger
+from .validate_json import JsonSchema
+from .ihec_validator_base import  IHECJsonValidator
 
 
 

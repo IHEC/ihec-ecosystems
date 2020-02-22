@@ -1,8 +1,9 @@
-from config import Config
-from utils import cmn, json2, logger
+from .config import Config
+from .utils import cmn, json2, logger
 
-import egautils
-import markdown
+from . import egautils
+from . import markdown
+from . import exp_semantic_rules
 
 
 
@@ -31,7 +32,6 @@ class SchemaParser:
 		
 	def semantic_rules(self):
 		data = dict()
-		import exp_semantic_rules
 		rules = [e for e in dir(exp_semantic_rules) if e.startswith('rule_')]
 		for r in rules:
 			f = getattr(exp_semantic_rules, r)

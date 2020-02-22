@@ -2,37 +2,37 @@
     "ihec": {
         "experiment": [
             {
-                "schema": "../schemas/json/1.1/experiment.json",
+                "schema": "schemas/json/1.1/experiment.json",
                 "version": "1.1",
                 "version_description": "Required metadata specification of  November 2019 release"
             },
             {
-                "schema": "../schemas/json/1.0/experiment.json",
+                "schema": "schemas/json/1.0/experiment.json",
                 "version": "1.0",
                 "version_description": "Required metadata specification of  March 2018 release"
             }
         ],
         "sample": [
             {
-                "schema": "../schemas/json/1.1/sample.json",
+                "schema": "schemas/json/1.1/sample.json",
                 "version": "1.1",
                 "version_description": "Required metadata specification of  November 2019 release"
             },
 
             {
-                "schema": "../schemas/json/1.0/sample.json",
+                "schema": "schemas/json/1.0/sample.json",
                 "version": "1.0",
                 "version_description": "Required metadata specification of  March 2018 release"
             }
         ]
     },
     "sra": {
-        "analysis": "../schemas/xml/SRA.analysis.xsd",
-        "common": "../schemas/xml/SRA.common.xsd",
-        "dataset": "../schemas/xml/EGA.dataset.xsd",
-        "experiment": "../schemas/xml/SRA.experiment.xsd",
-        "run": "../schemas/xml/SRA.run.xsd",
-        "sample": "../schemas/xml/SRA.sample.xsd",
-        "submission": "../schemas/xml/SRA.submission.xsd"
+        "analysis": "schemas/xml/SRA.analysis.xsd",
+        "common": "schemas/xml/SRA.common.xsd",
+        "dataset": "schemas/xml/EGA.dataset.xsd",
+        "experiment": "schemas/xml/SRA.experiment.xsd",
+        "run": "schemas/xml/SRA.run.xsd",
+        "sample": "schemas/xml/SRA.sample.xsd",
+        "submission": "schemas/xml/SRA.submission.xsd"
     }
 }

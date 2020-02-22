@@ -1,6 +1,6 @@
 from lxml import etree
 from collections import defaultdict
-from utils import cmn, json2, logger, NonUniqException
+from .utils import cmn, json2, logger, NonUniqException
 
 class XMLValidator:
 	def __init__(self, xsd):

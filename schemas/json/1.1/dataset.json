@@ -16,17 +16,17 @@
                 }
             ]
         },
-        "experiment_attributes": { "$ref": "file:../schemas/json/1.1/experiment.json" },
-        "analysis_attributes": { "$ref": "file:../schemas/json/1.1/analysis.json" },
+        "experiment_attributes": { "$ref": "file:./schemas/json/1.1/experiment.json" },
+        "analysis_attributes": { "$ref": "file:./schemas/json/1.1/analysis.json" },
         "browser": {
             "type": "object",
             "properties": {
-                "signal_unstranded": {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"},
-                "signal_forward": {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"},
-                "signal_reverse": {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"},
-                "peak_calls": {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"},
-                "methylation_profile":  {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"},
-                "contigs":  {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"}
+                "signal_unstranded": {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"},
+                "signal_forward": {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"},
+                "signal_reverse": {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"},
+                "peak_calls": {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"},
+                "methylation_profile":  {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"},
+                "contigs":  {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"}
             },
             "dependencies": {
                 "signal_forward": ["signal_reverse"],
@@ -36,9 +36,9 @@
         "download": {
             "type": "object",
             "properties": {
-                "rpkm_forward": {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"},
-                "rpkm_reverse": {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"},
-                "rpkm_unstranded": {"$ref": "file:../schemas/json/1.1/dataset.json#/definitions/track"}
+                "rpkm_forward": {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"},
+                "rpkm_reverse": {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"},
+                "rpkm_unstranded": {"$ref": "file:./schemas/json/1.1/dataset.json#/definitions/track"}
             },
             "additionalProperties": false,
             "dependencies": {
