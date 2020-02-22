@@ -54,7 +54,7 @@
         "passage_if_expanded" : {"type": "string", "description": "If the primary cell has been expanded, the number of times the primary cell has been re-plated and allowed to grow back to confluency or to some maximum density if using suspension cultures. NA if no expansion."}
       },
         "required": ["cell_type"],
-        "allOf": [{ "$ref": "file:../schemas/json/sample.json#/definitions/donor" }]
+        "allOf": [{ "$ref": "file:./schemas/json/1.0/sample.json#/definitions/donor" }]
      }
     },
     {"if": {
@@ -73,7 +73,7 @@
         "passage_if_expanded" : {"type": "string", "description": "If the primary cell culture has been expanded, the number of times the primary cell culture has been re-plated and allowed to grow back to confluency or to some maximum density if using suspension cultures. NA if no expansion."}
       },
         "required": ["cell_type", "culture_conditions"],
-        "allOf": [{ "$ref": "file:../schemas/json/sample.json#/definitions/donor"}]
+        "allOf": [{ "$ref": "file:./schemas/json/1.0/sample.json#/definitions/donor"}]
      }
     },
     {"if": {
@@ -89,7 +89,7 @@
         "collection_method" : {"type": "string", "description": "The protocol for collecting the primary tissue."}
       },
         "required": ["tissue_type", "tissue_depot"],
-        "allOf": [{ "$ref": "file:../schemas/json/sample.json#/definitions/donor" }]
+        "allOf": [{ "$ref": "file:./schemas/json/1.0/sample.json#/definitions/donor" }]
       }
     }
     ],

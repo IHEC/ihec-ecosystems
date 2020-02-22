@@ -1,5 +1,5 @@
-from  utils import logger
-import egautils
+from  .utils import logger
+from . import egautils
 
 class IHECJsonValidator(object):
 	def __init__(self, validators):

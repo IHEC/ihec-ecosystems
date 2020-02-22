@@ -1,12 +1,12 @@
-from utils import json2, cmn, logger
+from .utils import json2, cmn, logger
 import jsonschema
 import os
 import string
 import json
 import sys
 import random
-from prevalidate import Prevalidate
-
+from .prevalidate import Prevalidate
+from . import egautils
 
 # scrap trying to use ihec_data_hub verbose_error :(
 #from pathlib import Path
@@ -14,6 +14,8 @@ from prevalidate import Prevalidate
 #import IHEC_Data_Hub as ihec_data_hub
 
 
+
+from .utils import json2
 
 def verbose_error(schema, obj, tag):
 	error_log = list()
@@ -36,9 +38,6 @@ def verbose_error(schema, obj, tag):
 	return error_log
 
 
-
-
-import egautils
 
 
 
@@ -81,9 +80,12 @@ class JsonSchema:
 		self.verbose = verbose
 		self.schema = json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
-		self.expectedpath = 'file:../schemas/json/' 
-		self.newpath = 'file:{0}/../schemas/json/{1}/'.format(self.base, version)
+		self.cwd = os.getcwd()
+		self.expectedpath = 'file:./schemas/json/' 
+		self.newpath = 'file:{0}/schemas/json/'.format(self.cwd, version)
+		#self.newpath = 'file:{0}/../schemas/json/{1}'.format(self.base, version)
 		if draft4schema:
+			raise Exception("__no_longer_supported__")
 			for e in self.schema.get('anyOf', list()):
 				if '$ref' in e:
 					e['$ref'] = self.fixfilebase(e['$ref'])
@@ -93,7 +95,9 @@ class JsonSchema:
 					if '$ref' in e:
 						e['$ref'] = self.fixfilebase(e['$ref'])
 		else:
-			self.schema = json.loads(cmn.fread(self.f).replace(self.expectedpath, self.newpath)) 
+			schema_json = cmn.fread(self.f)
+			schema_json_fixed = schema_json.replace(self.expectedpath, self.newpath)
+			self.schema = json.loads(schema_json_fixed) 
 		print('#__initialized: {0} {1}\n#__path: {2}'.format(self.f, self.version, self.newpath))	
 		self.prevalidation = Prevalidate([ json2.copyobj(self.schema)   ],   version) 
 
@@ -140,6 +144,7 @@ class JsonSchema:
 			return True, {tag: {'errors' : [], 'ok' : True, 'version' : schema_version}   }
 		except jsonschema.ValidationError as err:
 			tag = self.obj_id(details)
+			#json2.pp(self.schema)
 			errors = verbose_error(self.schema, jsonObj, tag) 
 			logfile = self.errlog(len(self.errs),  tag + '.ihec_' + schema_version) # self.obj_id(details))
 			logger.entry('#__writing_errors[for IHEC spec={1}]: {0}'.format(logfile, schema_version))

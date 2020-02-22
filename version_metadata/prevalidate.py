@@ -1,9 +1,9 @@
-from config import Config
-from utils import cmn, json2, logger
+from .config import Config
+from .utils import cmn, json2, logger
 
-import egautils
-import markdown
-import exp_semantic_rules
+from . import egautils
+from . import markdown
+from . import exp_semantic_rules
 
 
 

@@ -1,8 +1,8 @@
-from sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
-from utils import cmn, json2, logger
-from validate_json import JsonSchema
-from ihec_validator_base import  IHECJsonValidator
-import exp_semantic_rules
+from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
+from .utils import cmn, json2, logger
+from .validate_json import JsonSchema
+from .ihec_validator_base import  IHECJsonValidator
+from . import exp_semantic_rules
 
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
