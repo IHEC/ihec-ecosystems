@@ -6,8 +6,7 @@ from . import exp_semantic_rules
 
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
-		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}
-		return {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
+		return { self.normalize(k) :v for k, v in hashed.items()}
 
 	def __init__(self, sra, validators):
 		super(ExperimentValidator, self).__init__(validators)	
