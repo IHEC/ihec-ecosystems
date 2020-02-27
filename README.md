@@ -8,7 +8,7 @@ This repository contains code and documentation associated with the IHEC Ecosyst
 
 ### Metadata Specification
 
-Description of the metadata properties, along with used ontologies and controlled vocabularies, that IHEC members need to comply with, is  [available here.](https://github.com/IHEC/ihec-metadata/blob/master/specs/Ihec_metadata_specification.md)
+Description of the metadata properties, along with used ontologies and controlled vocabularies, that IHEC members need to comply with, is  [available here.](https://github.com/IHEC/ihec-ecosystems/blob/master/docs/metadata/1.0/Ihec_metadata_specification.md)
 
 
 ### Reference Builds and Gene Annotations
