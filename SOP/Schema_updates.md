@@ -12,7 +12,7 @@ Before submitting a PR check that you have done the following:
 	- The schema stored in `schemas/json/dev` is considered to be work in development, and modifications are always made to that copy.
 	- On a roughly yearly basis (typically at the IHEC annual meeting, when it happens):
 		- The dev schema is reviewed (both on the JSON and MarkDown) and made official. 
-		- This schema is thus given a version number:
+		- This schema is given a version number:
 			- Schemas are numbered with two numbers, a major followed by a minor release number, e.g. `V1.2`.
 			- The minor number is incremented each time changes are made official.
 			- The major number is incremented at each major change, i.e. when submissions compliant with the latest schema are no longer compliant with the previous schema. 
