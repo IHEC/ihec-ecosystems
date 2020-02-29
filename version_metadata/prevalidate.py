@@ -89,7 +89,7 @@ class SchemaParser:
 		return { k: Constraint(rules.get(k, {}), required.get(k, {}), dependencies.get(k, {}), bytype[k] )  for k in bytype}
 		
 	def definitions(self):
-		return self.constraints.properties
+		return {k: self.constraints[k].properties  for k in self.constraints}
 		
 	def semantic_rules(self):
 		data = dict()
