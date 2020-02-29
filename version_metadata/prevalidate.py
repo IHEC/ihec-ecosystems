@@ -195,7 +195,10 @@ class Prevalidate:
 
 
 def main(args):
-	schemas = {'1.0':  ['./schemas/json/1.0/experiment.json', './schemas/json/1.0/sample.json']}
+	schemas = {
+		'1.0':  ['./schemas/json/1.0/experiment.json', './schemas/json/1.0/sample.json'],
+		'1.1':  ['./schemas/json/1.1/experiment.json', './schemas/json/1.1/sample.json']
+	}
 	for version, schemafiles in schemas.items():
 		for schemafile in schemafiles:	
 			parser = SchemaParser(json2.loadf(schemafile) , True)
