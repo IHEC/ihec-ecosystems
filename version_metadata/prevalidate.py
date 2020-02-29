@@ -42,10 +42,13 @@ class SchemaParser:
 		getprop = lambda h, k: (k, h.get(k, "__undef__"))
 		parsed = {p :   cmn.safedict([ getprop(properties[p], e) for e in property_attrs]) for p in properties}
 		for p in properties:
-			print(p, properties)
-			item_attr = properties[p].get("items", {})
-			parsed[p]["description"] = item_attr.get("description", "_undef_")
-			parsed[p]["enum"] = item_attr.get("enum", "")
+			if properties[p].get("type", "").lower() != "array": 
+				parsed[p]["description"] = "__malformed-schema__"
+				parsed[p]["enum"] = ""
+			else:
+				item_attr = properties[p].get("items", {})
+				parsed[p]["description"] = item_attr.get("description", "<strong>_undef_</strong>")
+				parsed[p]["enum"] = item_attr.get("enum", "")
 		return parsed
 
 	def sample(self, js):

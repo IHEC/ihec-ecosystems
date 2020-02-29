@@ -76,7 +76,7 @@ The metadata specification for donor samples is as defined below.
 
 <strong>DONOR_AGE</strong>:The age of the donor that provided the cells/tissues. NA if not available. If over 90 years enter as 90+. If entering a range of ages use the format “{age}-{age}”.  This attribute is <strong>required</strong>. At most 1 instance(s) are allowed.
 
-<strong>DONOR_AGE_UNIT</strong>:_undef_.  This attribute is <strong>required</strong>. Allowed values are: "day", "month", "week", "year". At most 1 instance(s) are allowed.
+<strong>DONOR_AGE_UNIT</strong>:<strong>_undef_</strong>.  This attribute is <strong>required</strong>. Allowed values are: "day", "month", "week", "year". At most 1 instance(s) are allowed.
 
 <strong>DONOR_ETHNICITY</strong>:The ethnicity of the donor that provided the primary cell. NA if not available. If dealing with small/vulnerable populations consider identifiability issues.  This attribute is <strong>required</strong>. At most 1 instance(s) are allowed.
 
@@ -86,7 +86,7 @@ The metadata specification for donor samples is as defined below.
 
 <strong>DONOR_ID</strong>:An identifying designation for the donor that provided the cells/tissues.  This attribute is <strong>required</strong>. At most 1 instance(s) are allowed.
 
-<strong>DONOR_LIFE_STAGE</strong>:_undef_.  This attribute is <strong>required</strong>.
+<strong>DONOR_LIFE_STAGE</strong>:__malformed-schema__.  This attribute is <strong>required</strong>.
 
 <strong>DONOR_SEX</strong>:'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples.  This attribute is <strong>required</strong>. Allowed values are: "Female", "Male", "Mixed", "Unknown". At most 1 instance(s) are allowed.
 
