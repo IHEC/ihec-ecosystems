@@ -8,12 +8,14 @@ from .ihec_validator_base import  IHECJsonValidator
 class SampleValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
 		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}	
-		if 'donor_age' in fix_tag_names:
-			try:
-				fix_tag_names['donor_age'] = [int(val) for val in fix_tag_names['donor_age']]
-			except Exception as err:
-				logger.warn( '#__warning: failed to cast donor age to number\n'.format(err) + str(fix_tag_names))
-		return fix_tag_names 
+		uniq_values = {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
+		try:
+			if 'donor_age' in uniq_values:
+				age = int(uniq_values['donor_age'])
+				uniq_values['donor_age'] = age
+		except Exception as err:
+			logger.warn( '#__warning: failed to cast donor age to number\n'.format(err) + str(uniq_values))
+		return uniq_values
 
 	def __init__(self, sra, validators):
 		super(SampleValidator, self).__init__(validators)
