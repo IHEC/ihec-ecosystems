@@ -1,7 +1,7 @@
-from sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
-from utils import cmn, json2, logger
-from validate_json import JsonSchema
-from ihec_validator_base import  IHECJsonValidator
+from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
+from .utils import cmn, json2, logger
+from .validate_json import JsonSchema
+from .ihec_validator_base import  IHECJsonValidator
 
 
 
@@ -44,7 +44,7 @@ def main(args):
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["sample"])
-	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"], args)) for schema in config["ihec"]["sample"]])
+	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"], args, version=schema["version"])) for schema in config["ihec"]["sample"]])
 	
 	objtype = 'SAMPLE'
 	objset = 'SAMPLE_SET'
@@ -62,7 +62,7 @@ def main(args):
 
 	versioned_xml = ['<{0}>'.format(objset) ]
 	for e in validated:
-		(version, xml) = e
+		(version, xml, tag) = e
 		sra_versioned = SRAParseObj(xml)
 		sra_versioned.add_attribute("VALIDATED_AGAINST_METADATA_SPEC", "{0}/{1}".format(version, objtype))
 		versioned_xml.append(sra_versioned.tostring())
@@ -81,7 +81,7 @@ def main(args):
 	else:
 		logger('..no valid objects found\n')
 
-
+	json2.pp({"valid" : [tag + ' = ' + version  for (version, xml, tag) in validated ]})
 
 
 	

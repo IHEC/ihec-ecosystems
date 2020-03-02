@@ -1,16 +1,12 @@
-from .config  import Config
-from .utils import cmn, json2, logger
+from config  import Config
+from utils import cmn, json2, logger
 
-from . import validate_sample
-from . import validate_experiment
-from . import prevalidate
+import validate_sample
+import validate_experiment
 
 import os
 
 def main(args):
-	if args.has('-prevalidate') or args.has('-gendoc'):
-		return prevalidate.main(args)
-
 
 	base = os.path.dirname(os.path.realpath(__file__))
 

@@ -8,7 +8,7 @@ Note that python 2 is no longer supported.
 
 ### Usage
 
-Note that there are no space in arguments like `-out:./examples/samples.versioned.xml`.
+Note that there are no space in arguments like `-out:./version_metadata/examples/samples.versioned.xml`.
 
 
 ### Examples of validating sample xml.
@@ -18,17 +18,17 @@ Note that there are no space in arguments like `-out:./examples/samples.versione
 
 Here's an example of `SAMPLE_SET` xml containing two objects both of which validate. 
 
-    $ apy __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml
-    {'-config': './config.json', '-out': './examples/samples.versioned.xml'}
+    $ python -m version_metadata -sample -out:./version_metadata/examples/samples.versioned.xml ./version_metadata/examples/samples.xml
+    {'-config': './config.json', '-out': './version_metadata/examples/samples.versioned.xml'}
     ./config.json
-    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.xml]
+    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./version_metadata/examples/samples.xml]
     # is valid ihec spec:True version:1.0 [Primary Tissue from Some Donor]
     # is valid ihec spec:True version:1.0 [Primary Tissue from Some Other Donor]
-    written:./examples/samples.versioned.xml
+    written:./version_metadata/examples/samples.versioned.xml
 
 Similarly to run the above example using pipenv 
     
-    `$ pipenv run python __main__.py -sample -out:./examples/samples.versioned.xml ./examples/samples.xml`
+    `$ pipenv run python main.py -sample -out:./version_metadata/examples/samples.versioned.xml ./version_metadata/examples/samples.xml`
 
 
 Note if you are running from a different directory then you may need to modify paths in `config.json`. 
@@ -37,7 +37,7 @@ Note if you are running from a different directory then you may need to modify p
 
 In case all object validate, and only one xml was given for validation, then the only difference between the xmls should be the version tag. This should *always* be verified.
 
-    $ diff ./examples/samples.xml ./examples/samples.versioned.xml
+    $ diff ./version_metadata/examples/samples.xml ./version_metadata/examples/samples.versioned.xml
     27c27
     <         <SAMPLE_ATTRIBUTE><TAG>DONOR_SEX</TAG><VALUE>Male</VALUE></SAMPLE_ATTRIBUTE>
     ---
@@ -60,28 +60,28 @@ In case all object validate, and only one xml was given for validation, then the
 
 Finally check versioned xml still validates against SRA:
     
-    $ xmllint ./examples/samples.versioned.xml --schema .../schemas/xml/xml/SRA.sample.xsd > /dev/null
-    ./examples/samples.versioned.xml validates
+    $ xmllint ./version_metadata/examples/samples.versioned.xml --schema .../schemas/xml/xml/SRA.sample.xsd > /dev/null
+    ./version_metadata/examples/samples.versioned.xml validates
 
 Note that example xml given validates against SRA XML schema, and conforms to IHEC schema, but EGA will not accept this as it does not include "gender", "subject_id" and "phenotype" attributes. This should be included. 
 
 ### Example where one of the objects doesn't validate. 
 
-    apy __main__.py -sample -out:./examples/samples.with_one_invalid.versioned.xml ./examples/samples.with_one_invalid.xml -overwrite-outfile
-    [{'-config': './config.json', '-out': './examples/samples.with_one_invalid.versioned.xml'}, ['./examples/samples.with_one_invalid.xml']]
-    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.with_one_invalid.xml]
+    python -m version_metadata -sample -out:./version_metadata/examples/samples.with_one_invalid.versioned.xml ./version_metadata/examples/samples.with_one_invalid.xml -overwrite-outfile
+    [{'-config': './config.json', '-out': './version_metadata/examples/samples.with_one_invalid.versioned.xml'}, ['./version_metadata/examples/samples.with_one_invalid.xml']]
+    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./version_metadata/examples/samples.with_one_invalid.xml]
     #__normalizingTags:Primary Tissue from Some Donor
     #__normalizingTags:Primary Tissue from Some Other Donor
     # is valid ihec spec:True version:0.9 [Primary Tissue from Some Donor]
     #__validationFailuresFound: see ./errs.Jan-8-2018-15.25.54.log.1
     # is valid ihec spec:False version:__invalid__ [Primary Tissue from Some Other Donor]
-    written:./examples/samples.with_one_invalid.versioned.xml
+    written:./version_metadata/examples/samples.with_one_invalid.versioned.xml
 
 ### With multiple invalids/valids
 
-    apy __main__.py -sample -out:./examples/samples.with_multiple_valid_invalid.versioned.xml ./examples/samples.with_multiple_valid_invalid.xml -overwrite-outfile
-    [{'-config': './config.json', '-out': './examples/samples.with_multiple_valid_invalid.versioned.xml'}, ['./examples/samples.with_multiple_valid_invalid.xml']]
-    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./examples/samples.with_multiple_valid_invalid.xml]
+    python -m version_metadata -sample -out:./version_metadata/examples/samples.with_multiple_valid_invalid.versioned.xml ./version_metadata/examples/samples.with_multiple_valid_invalid.xml -overwrite-outfile
+    [{'-config': './config.json', '-out': './version_metadata/examples/samples.with_multiple_valid_invalid.versioned.xml'}, ['./version_metadata/examples/samples.with_multiple_valid_invalid.xml']]
+    # xml validates [against:../schemas/xml/SRA.sample.xsd]... True [./version_metadata/examples/samples.with_multiple_valid_invalid.xml]
     #__normalizingTags:Primary Tissue from Some Donor A
     #__normalizingTags:Primary Tissue from Some Donor B
     #__normalizingTags:Primary Tissue from Some Donor D
@@ -94,17 +94,17 @@ Note that example xml given validates against SRA XML schema, and conforms to IH
     # is valid ihec spec:False version:__invalid__ [Primary Tissue from Some Donor D]
     #__validationFailuresFound: see ./errs.Jan-8-2018-15.23.55.log.2
     # is valid ihec spec:False version:__invalid__ [Primary Tissue from Some Donor C]
-    written:./examples/samples.with_multiple_valid_invalid.versioned.xml
+    written:./version_metadata/examples/samples.with_multiple_valid_invalid.versioned.xml
 
 
 ### Examples of validating experimnet xml
 
 An example where all experiments in the set validate.
 
-    apy __main__.py -experiment ./examples/experiment.xml -out:examples/experiment.validated.xml -overwrite-outfile
-    [{'-config': './config.json', '-out': 'examples/experiment.validated.xml'}, ['./examples/experiment.xml']]
+    python -m version_metadata -experiment ./version_metadata/examples/experiment.xml -out:examples/experiment.validated.xml -overwrite-outfile
+    [{'-config': './config.json', '-out': 'examples/experiment.validated.xml'}, ['./version_metadata/examples/experiment.xml']]
     ./config.json
-    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./examples/experiment.xml]
+    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./version_metadata/examples/experiment.xml]
     # is valid ihec spec:True 1.0 [WGBS (whole genome bisulfite sequencing) analysis of SomeSampleA (library: SomeLibraryA).]
     # is valid ihec spec:True 1.0 [WGBS (whole genome bisulfite sequencing) analysis of SomeSampleB (library: SomeLibraryB).]
     written:examples/experiment.validated.xml
@@ -113,10 +113,10 @@ An example where all experiments in the set validate.
 
 An example where some only experiments in the set validate.
 
-    $ apy __main__.py -experiment ./examples/experiment.some_invalid.xml -out:examples/experiment.some_invalid.validated.xml -overwrite-outfile
-    [{'-config': './config.json', '-out': 'examples/experiment.some_invalid.validated.xml'}, ['./examples/experiment.some_invalid.xml']]
+    $ python -m version_metadata -experiment ./version_metadata/examples/experiment.some_invalid.xml -out:examples/experiment.some_invalid.validated.xml -overwrite-outfile
+    [{'-config': './config.json', '-out': 'examples/experiment.some_invalid.validated.xml'}, ['./version_metadata/examples/experiment.some_invalid.xml']]
     ./config.json
-    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./examples/experiment.some_invalid.xml]
+    # xml validates [against:../schemas/xml/SRA.experiment.xsd]... True [./version_metadata/examples/experiment.some_invalid.xml]
     # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleC (library: SomeLibrary).]
     # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleB (library: SomeLibrary).]
     # is valid ihec spec:True 1.0 [RNA-Seq (strand specific) analysis of SomeSampleA (library: SomeLibrary).]

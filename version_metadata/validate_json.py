@@ -1,10 +1,12 @@
-from utils import json2, cmn, logger
+from .utils import json2, cmn, logger
 import jsonschema
 import os
 import string
 import json
 import sys
 import random
+from .prevalidate import Prevalidate
+from . import egautils
 
 # scrap trying to use ihec_data_hub verbose_error :(
 #from pathlib import Path
@@ -13,27 +15,27 @@ import random
 
 
 
-def verbose_error(schema, obj):
+from .utils import json2
+
+def verbose_error(schema, obj, tag):
 	error_log = list()
 	v = jsonschema.Draft7Validator(schema)
 	errors = [e for e in v.iter_errors(obj)]
-	error_log.append('Total errors: {}'.format(len(errors)))
+	error_log.append('__total_errors__:{}'.format(len(errors)))
     
 	for error in sorted(errors, key=str):
-		error_log.append('Validation error in {}: {}'.format('.'.join(str(v) for v in error.path), error.message))
+		error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
 		if len(error.context) > 0:
-			error_log.append('Multiple sub-schemas can apply. This is the errors for each:')
+			#error_log.append('Multiple sub-schemas can apply. This is the errors for each:')
 			prev_schema = -1
 			for suberror in sorted(error.context, key=lambda e: e.schema_path):
 				schema_index = suberror.schema_path[0]
 				if prev_schema < schema_index:
-					error_log.append('Schema {}:'.format(schema_index + 1))
+					error_log.append('__schema_id__:{}'.format(schema_index + 1))
 					prev_schema = schema_index
-				error_log.append('{}'.format(suberror.message))
+				error_log.append('\t{}'.format(suberror.message))
 		error_log.append("--------------------------------------------------")
 	return error_log
-
-
 
 
 
@@ -57,15 +59,12 @@ class JsonSchema:
 		return f
 
 	def obj_id(self, e):
-		try:
-			idblock = e.get('@idblock', dict())
-			tags = [idblock[k]  for k in ['alias', 'refname', 'accession'] if k in idblock]
-			return 'unknown' if not tags else self.sanitizer.filter_alphan('.'.join(tags), '.-_') 
-		except Exception as e:
-			logger('#__couldNotExactId__:{0}\n'.format(e ))
-			return 'unknown'
+		return egautils.obj_id(e)
 
-	def __init__(self, schema_file, config, tag = None, verbose = True, draft4schema=False):
+
+
+	def __init__(self, schema_file, config, version, tag = None, verbose = True, draft4schema=False):
+		self.version = version
 		self.sanitizer = Sanitizer()
 		if not tag:
 			tag = cmn.basename(schema_file).split('.')[0]
@@ -81,9 +80,12 @@ class JsonSchema:
 		self.verbose = verbose
 		self.schema = json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
-		self.expectedpath = 'file:../schemas/json/'
-		self.newpath = 'file:{0}/../schemas/json/'.format(self.base)
+		self.cwd = os.getcwd()
+		self.expectedpath = 'file:./schemas/json/' 
+		self.newpath = 'file:{0}/schemas/json/'.format(self.cwd, version)
+		#self.newpath = 'file:{0}/../schemas/json/{1}'.format(self.base, version)
 		if draft4schema:
+			raise Exception("__no_longer_supported__")
 			for e in self.schema.get('anyOf', list()):
 				if '$ref' in e:
 					e['$ref'] = self.fixfilebase(e['$ref'])
@@ -93,11 +95,14 @@ class JsonSchema:
 					if '$ref' in e:
 						e['$ref'] = self.fixfilebase(e['$ref'])
 		else:
-			self.schema = json.loads(cmn.fread(self.f).replace(self.expectedpath, self.newpath)) 
-			
-
+			schema_json = cmn.fread(self.f)
+			schema_json_fixed = schema_json.replace(self.expectedpath, self.newpath)
+			self.schema = json.loads(schema_json_fixed) 
+		print('#__initialized: {0} {1}\n#__path: {2}'.format(self.f, self.version, self.newpath))	
+		self.prevalidation = Prevalidate([ json2.copyobj(self.schema)   ],   version) 
 
 	def errlog(self, i, tag):
+		#print('xxxxxxxxxxxxxxxxxx', tag)
 		if not tag:
 			f = '{3}/errs.{2}.{0}.{1}.log'.format(i, self.now, self.tag, self.errdir)
 		else:
@@ -111,52 +116,46 @@ class JsonSchema:
 				
 		
 
-	def validate(self, jsonObj, details):
-		return self.validate_draft7logging(jsonObj, details)
+	def validate(self, jsonObj, details, schema_version):
+		tag = self.obj_id(details)
+		prevalidate, errors =  self.prevalidation.prevalidate(jsonObj, tag)
+		if prevalidate:
+			print('#__prevalidation_passed__', tag, schema_version)
+			ok, status =  self.validate_draft7logging(jsonObj, details, schema_version)
+		else:
+			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
+			ok = False 
+			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors, 'version' : schema_version}}
+		#status[tag]['ok'] = ok
+		return ok, status
+				
+
+
 		#return self.validate_defaultlogging(jsonObj, details)
 
-	def validate_draft7logging(self, jsonObj, details):
+	def validate_draft7logging(self, jsonObj, details, schema_version):
 		try:
 			#logger.entry('#__errors__')
 			jsonschema.Draft7Validator(self.schema).validate(jsonObj)
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
 			#json2.pp(jsonObj)
-			
-			return True
+		
+			tag = self.obj_id(details)
+			return True, {tag: {'errors' : [], 'ok' : True, 'version' : schema_version}   }
 		except jsonschema.ValidationError as err:
-			errors = verbose_error(self.schema, jsonObj) 
-			logfile = self.errlog(len(self.errs),  self.obj_id(details))
-			logger.entry('#__writing_errors:' + logfile)
+			tag = self.obj_id(details)
+			#json2.pp(self.schema)
+			errors = verbose_error(self.schema, jsonObj, tag) 
+			logfile = self.errlog(len(self.errs),  tag + '.ihec_' + schema_version) # self.obj_id(details))
+			logger.entry('#__writing_errors[for IHEC spec={1}]: {0}'.format(logfile, schema_version))
+			log = []
 			with open(logfile, "w") as errfile:
 				for e in errors:
 					errfile.write(e)
 					errfile.write('\n')
-			return False
+					log.append(e)
+			return False, {tag : {'errors' :  logfile, 'error_type' : 'jsonschema',  'ok' : False, 'version': schema_version}}
 			
-	def validate_defaultlogging(self, jsonObj, details):
-		try:
-			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
-			return True
-		except jsonschema.ValidationError as err:
-			if self.verbose:
-				self.errs.append(err)
-				logfile = self.errlog(len(self.errs),  self.obj_id(details)) + '.defaultlog'
-				with open(logfile, "w") as errs:
-					context_size = len(err.context)
-					if context_size > 0:
-						errs.write('Multiple sub-schemas can apply. This is what prevents successful validation in each:\n')
-						prev_schema = -1
-						for suberror in sorted(err.context, key=lambda e: e.schema_path):
-							schema_index = suberror.schema_path[0]
-							if prev_schema < schema_index:
-								errs.write('Schema %d:\n' % (schema_index + 1))
-								prev_schema = schema_index
-							errs.write('  %s\n' % (suberror.message))
-					else:
-						errs.write(err.message)
-
-				logger('#__validationFailuresFound: see {0}\n'.format(logfile))
-			return False
 				
 
 

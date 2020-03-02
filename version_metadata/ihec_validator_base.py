@@ -1,20 +1,23 @@
-from utils import logger
-
+from  .utils import logger
+from . import egautils
 
 class IHECJsonValidator(object):
 	def __init__(self, validators):
 		self.validators = validators
+		self.errorlog = list()
 
 	def is_valid_ihec(self):
 		validated = list()
+		invalid = list()
 		for (xml, attrs) in self.xmljson:
+			#print('xxxxxxxxx2')
 			(version, title_sanitized)  = self.latest_valid_spec(attrs)
 			try:
 				semantics_ok = self.validate_semantics(attrs)
 			except Exception as err:
 				semantics_ok = False
 			if version and semantics_ok:
-				validated.append((version, xml))
+				validated.append((version, xml, egautils.obj_id(attrs)   ))
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('True', version, title_sanitized))
 			else:
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('False', '__invalid__', title_sanitized))
@@ -31,10 +34,14 @@ class IHECJsonValidator(object):
 	def latest_valid_spec(self, attributes):
 		attrs = attributes['attributes']
 		for version in self.validators:
+			#print('xxxxxxxxx3')
+
 			validator = self.validators[version]
-			valid = validator.validate(attrs, details=attributes)
-			title_sanitized = logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
+			print('__checking_against_schema:', version, self.validators[version].f, self.validators[version].newpath)
+			valid, errlog = validator.validate(attrs, details=attributes, schema_version=version)
+			title_sanitized =  egautils.obj_id(attributes)  #logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
 			#logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', title_sanitized  ))
+			self.errorlog.append(errlog)
 			if valid:
 				return (version, title_sanitized)
 		return (None, None) 
