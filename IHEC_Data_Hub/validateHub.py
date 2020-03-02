@@ -8,7 +8,7 @@ import re
 import logging
 import urllib.request
 from urllib.error import HTTPError
-from ontology_lookup import OntologyLookup, ontology_rules
+from ontology_lookup import OntologyLookup
 
 
 def main(argv):
@@ -345,7 +345,7 @@ def validateOntologies(jsonObj):
             logging.getLogger().info('Validating "sample_ontology_uri" in {} ...'.format(sample_name))
             val_rules = ontology_term.check_ontology_rules(
                 ontology_type='sample_ontology_curie', schema_object=sample_name,
-                subparam=sample.get('biomaterial_type')
+                subparam=sample['biomaterial_type']
             )
 
             if val_rules:

@@ -51,12 +51,17 @@ class OntologyLookup(object):
         """
 
         # check what ontology must be applied by rule
-        rule_ontology = ontology_rules.get(ontology_type) # e.g 'so' or {'Cell Line': 'efo'}
+        rule_ontology = ontology_rules[ontology_type] # e.g 'so' or {'Cell Line': 'efo'}
         # the given ontology by input
-        current_ontology = self.parse_curie().get('ontology_name')
+        current_ontology = self.parse_curie()['ontology_name']
         # check if rule is a dict, then unpack rule ontology based on subparam value
-        if isinstance(rule_ontology, dict) and subparam:
-            rule_ontology = rule_ontology.get(subparam)
+        if isinstance(rule_ontology, dict):
+            if subparam:
+                rule_ontology = rule_ontology[subparam]
+            # if rule_ontology is a dict and subparam is None raise an error
+            else:
+                raise TypeError('Provide subparam value.')
+
         if current_ontology == rule_ontology:
             return True
         else:
@@ -73,8 +78,8 @@ class OntologyLookup(object):
         """
         # Note: ontology lookup service's curie is case sensitive
 
-        q = self.parse_curie().get('ontology_name').upper() + '_' + self.parse_curie().get('curie')
-        ontology = self.parse_curie().get('ontology_name')
+        q = self.parse_curie()['ontology_name'].upper() + '_' + self.parse_curie()['curie']
+        ontology = self.parse_curie()['ontology_name']
         return {'q': q, 'ontology': ontology}
 
     def validate_term(self):
