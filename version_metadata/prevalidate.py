@@ -156,18 +156,35 @@ class Prevalidate:
 			
 	def check_experiment_properties(self, obj, tag):
 		attrs = obj
-		if not 'experiment_type' in attrs:
-			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
-			return False, ['missing experiment_type']
+		
 		if not 'library_strategy' in attrs:
 			print('__prevalidate_fail', tag ,': missing library strategy: cannot determine schema to use')
 			return False, ['missing library strategy']
 
-		exp_type =  egautils.strategy2schema(attrs['library_strategy'][0])
+
+		if len(attrs['library_strategy']) > 1:
+			return False, ['unique library strategy expected:' + str(attrs['library_strategy']) ]
+			
+		exp_type =  egautils.strategy2schema(cmn.demanduniq(attrs['library_strategy']))
+			
+	
 		if not exp_type in self.bytype:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False, ['invalid experiment_type']
-	
+		
+		# separate branch for 1.0
+		if self.version in ["1.0"]:
+			assert 'library_strategy' in attrs # this is known from above
+			if not "experiment_ontology_uri" in attrs and not "experiment_type" in attrs:
+				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
+			else:
+				return (True, [])
+
+		if not 'experiment_type' in attrs:
+			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
+			return False, ['missing experiment_type']
+
+
 		if self.version in ["2.0"]:
 			keys = self.bytype[exp_type]
 			missing = [k for k in keys if not k in attrs]
@@ -175,12 +192,6 @@ class Prevalidate:
 				print('__prevalidate_fail', tag , ': missing attributes for experiment_type: {0} , {1}'.format(exp_type, missing))
 			return (False, ['missing', missing]) if missing else (True, [])
 		#print(objid(obj) + ':prevalidates') 
-		elif self.version in ["1.0"]:
-			assert 'library_strategy' in attrs # this is known from above
-			if not "experiment_ontology_uri" in attrs and not "experiment_type" in attrs:
-				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
-			else:
-				return (True, [])
 		else:
 			raise Exception("unknown version:" + self.version)
 
