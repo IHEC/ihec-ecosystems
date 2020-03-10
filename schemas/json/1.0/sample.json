@@ -35,7 +35,7 @@
         "sex" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "enum": ["Male", "Female", "Unknown", "Mixed"], "description": "'Male', 'Female', 'Unknown', or 'Mixed' for pooled samples."}},
         "batch" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "The batch from which the cell line is derived. Primarily applicable to initial H1 cell line batches. NA if not applicable."}}
       },
-        "required": ["line", "lineage", "differentiation_stage", "passage", "medium", "sex", "batch"]
+        "required": ["line", "lineage", "differentiation_stage", "differentiation_method", "passage", "medium", "sex", "batch"]
       }
     },
     {
