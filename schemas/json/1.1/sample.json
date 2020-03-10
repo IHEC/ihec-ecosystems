@@ -20,7 +20,7 @@
     "allOf": [
     {"if": {
       "properties": {
-        "biomaterial_type": {"const": "Cell Line"}
+        "biomaterial_type": {"const": ["Cell Line"]}
       },
       "required": ["biomaterial_type"]
     },
@@ -41,7 +41,7 @@
     {
     "if": {
       "properties": {
-        "biomaterial_type": {"const": "Primary Cell"}
+        "biomaterial_type": {"const": ["Primary Cell"]}
       },
       "required": ["biomaterial_type"]
     },
@@ -59,7 +59,7 @@
     },
     {"if": {
       "properties": {
-        "biomaterial_type": {"const": "Primary Cell Culture"}
+        "biomaterial_type": {"const": ["Primary Cell Culture"]}
       },
       "required": ["biomaterial_type"]
     },
@@ -78,7 +78,7 @@
     },
     {"if": {
       "properties": {
-        "biomaterial_type": {"const": "Primary Tissue"}
+        "biomaterial_type": {"const": ["Primary Tissue"]}
       },
       "required": ["biomaterial_type"]
     },
