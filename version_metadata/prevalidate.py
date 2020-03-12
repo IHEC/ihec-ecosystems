@@ -133,26 +133,26 @@ class Prevalidate:
 	def attributes(self, obj):
 		return {k.lower():v for k, v in obj['attributes'].items()}
 	
-	def check_sample_properties(self, obj):
-		raise NotImplementedError('sample')
+	def check_sample_properties(self, obj, tag):
+		#raise NotImplementedError('sample')
 		attrs = obj
 
 		if not 'biomaterial_type' in attrs:
-			print(objid(obj) + ': missing biomaterial_type: cannot determine schema to use')
-			return False
+			print(tag + ': missing biomaterial_type: cannot determine schema to use')
+			return False, ['missing biomaterial_type']
 
 		biomaterial_type = attrs['biomaterial_type'][0]
 		if not biomaterial_type in self.bytype:
-			print(objid(obj) + ': invalid biomaterial_type: ' + biomaterial_type)
-			return False
+			print(tag + ': invalid biomaterial_type: ' + biomaterial_type)
+			return False, ['unknown biomaterial tyoe:' + biomaterial_type ]
 			
 		keys = self.bytype[biomaterial_type]
 		missing = [k for k in keys if not k in attrs]
 		if missing:
-			print(objid(obj) + ': missing attributes for biomaterial_type: {0} , {1}'.format(biomaterial_type, missing))
-			return False
-		print(objid(obj) + ':prevalidates')
-		return True
+			print(tag + ': missing attributes for biomaterial_type: {0} , {1}'.format(biomaterial_type, missing))
+			return False, ['missing', missing]
+		print(tag + ':prevalidates')
+		return True, []
 			
 			
 	def check_experiment_properties(self, obj, tag):
@@ -202,6 +202,7 @@ class Prevalidate:
 		if  self.schema_id in ['experiment']:
 			return self.check_experiment_properties(obj, tag)
 		else:
+			return self.check_sample_properties(obj, tag)
 			print('#__warn:__no_prevalidation_available_for_sample_schema_yet__')
 			return True, {'__warn__' : 'prevalidation ignored'}
 
