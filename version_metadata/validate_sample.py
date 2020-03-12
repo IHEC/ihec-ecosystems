@@ -2,7 +2,7 @@ from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
 from .utils import cmn, json2, logger
 from .validate_json import JsonSchema
 from .ihec_validator_base import  IHECJsonValidator
-
+from . import validate_main
 
 
 class SampleValidator(IHECJsonValidator):
@@ -50,6 +50,7 @@ def main(args):
 	validated = list()
 	xmllist = args.args()
 	nObjs = 0
+	sample_validator = dict()
 	for e in xmllist:
 		sra = SRAParseObjSet.from_file(e)
 		nObjs += sra.nOffspring()
@@ -57,6 +58,7 @@ def main(args):
 		assert sra.is_valid__xml(xml_validator) or args.has('-not-sra-xml-but-try')
 		v = SampleValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())
+		sample_validator[e] = v 
 
 	versioned_xml = ['<{0}>'.format(objset) ]
 	for e in validated:
@@ -67,19 +69,9 @@ def main(args):
 	versioned_xml.append('</{0}>'.format(objset))
 
 
-	validated_xml_file = cmn.writel(outfile, versioned_xml)
-	print ('written:' + validated_xml_file)
-	print ('validated:', len(validated))
-	print ('failed:', nObjs - len(validated))
-	
-	if validated:
-		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
-		assert validated_xml_set.is_valid__xml(xml_validator)  or args.has("-skip-updated-xml-validation")
-		logger('ok\n')
-	else:
-		logger('..no valid objects found\n')
+	return validate_main.main(args, versioned_xml, validated, nObjs, sample_validator, xml_validator)
 
-	json2.pp({"valid" : [tag + ' = ' + version  for (version, xml, tag) in validated ]})
+
 
 
 	
