@@ -3,6 +3,8 @@ from .utils import cmn, json2, logger
 from .validate_json import JsonSchema
 from .ihec_validator_base import  IHECJsonValidator
 from . import exp_semantic_rules
+from . import validate_main
+
 
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
@@ -73,21 +75,8 @@ def main(args):
 
 	
 
-	validated_xml_file = cmn.writel(outfile, versioned_xml)
-	print ('written:' + validated_xml_file)
-	print ('validated:', len(validated))
-	print ('failed:', nObjs - len(validated))
-	if validated:
-		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
-		assert validated_xml_set.is_valid__xml(xml_validator) or args.has("-skip-updated-xml-validation")
-		logger('ok\n')
-	else:
-		logger('..no valid objects found\n')
+	return validate_main.main(args, versioned_xml, validated, nObjs, expvalidator, xml_validator)
 
-	errlog = { e : v.errorlog  for e, v in expvalidator.items()}
-	if args.has('-jsonlog'):
-		print(json2.dumpf(args['-jsonlog'], errlog))
-	else:
-		json2.pp(errlog)
+
 
 

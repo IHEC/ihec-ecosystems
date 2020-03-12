@@ -79,7 +79,7 @@ class JsonSchema:
 		self.errs = list()
 		self.now  = cmn.now()
 		self.verbose = verbose
-		self.schema = hack.load_schema(f) #json2.loadf(self.f)
+		self.schema = hack.load_schema(self.f) #json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
 		self.cwd = os.getcwd()
 		self.expectedpath = 'file:./schemas/json/' 
