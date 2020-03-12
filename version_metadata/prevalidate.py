@@ -213,7 +213,7 @@ def main(args):
 	}
 	for version, schemafiles in schemas.items():
 		for schemafile in schemafiles:	
-			parser = SchemaParser(hack.load_schema(schemafile)), True)
+			parser = SchemaParser(hack.load_schema(schemafile), True)
 			outfile = cmn.basename(schemafile) 
 			outfile = './autodocs/' + outfile.replace('.json', '_' + version + '.md')
 			print("outfile:", outfile)
