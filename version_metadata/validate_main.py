@@ -1,6 +1,17 @@
 from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
 from .utils import cmn, json2, logger
 
+class ValidatorTemplate:
+	def __init__(self, objtype):
+		self.nObj = 0
+		self.validated = list()
+		self.objtype = objtype
+		self.objset = self.objtype + '_SET'
+		self.validator_log = dict()
+		self.versioned_xml = list()
+		self.validated = list()
+
+
 def main(args, versioned_xml, validated, nObjs, validator, xml_validator):
 	validated_xml_file = cmn.writel(args['-out'], versioned_xml)
 	print ('written:' + validated_xml_file)
