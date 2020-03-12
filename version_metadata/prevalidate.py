@@ -66,7 +66,7 @@ class SchemaParser:
 
 		for subtype in js["allOf"]:
 			print(subtype)
-			biomaterial_type = subtype['if']['properties']['biomaterial_type']["const"]
+			biomaterial_type = subtype['if']['properties']['biomaterial_type']["const"][0]
 			assert biomaterial_type in ["Cell Line",  "Primary Cell", "Primary Cell Culture", "Primary Tissue"]
 			properties = subtype["then"]["properties"]
 			bytype[biomaterial_type] = SchemaParser.properties(properties) 
