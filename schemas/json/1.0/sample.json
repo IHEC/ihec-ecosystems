@@ -104,7 +104,7 @@
                     "oneOf": [
                         { "type": "number" },
                         { "type": "string", "enum": ["90+", "NA"] },
-                        { "type": "string", "format": "uri" }
+                        { "type": "string", "pattern": "^\\d+-\\d+$" }
                     ]
                 }},
                 "donor_age_unit" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "enum": ["year", "month", "week", "day"]}},
