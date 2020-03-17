@@ -232,9 +232,9 @@
               "items": {
                 "description": "The age of the donor that provided the cells/tissues. NA if not available. If over 90 years enter as 90+. If entering a range of ages use the format “{age}-{age}”.",
                 "oneOf": [
-                { "type": "number" },
-                { "type": "string", "enum": ["90+", "NA"] },
-                { "type": "string", "format": "uri" }
+                  { "type": "number" },
+                  { "type": "string", "enum": ["90+", "NA"] },
+                  { "type": "string", "pattern": "^\\d+-\\d+$" }
                 ]
               }},
             "donor_age_unit" : {
