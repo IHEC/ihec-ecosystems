@@ -1,9 +1,14 @@
 #!/bin/bash
 
 
+
+
+
+
 examples() {
 	cd ..
 	m="version_metadata"
+    python -m $m -sample -out:$m/examples/samples.versioned.xml ./examples/sample_1.0_1.1.xmll ;
 	python -m $m -sample -out:$m/examples/samples.versioned.xml $m/examples/samples.xml ; 
 	python -m $m -sample -out:$m/examples/samples.with_one_invalid.versioned.xml $m/examples/samples.with_one_invalid.xml -overwrite-outfile ;
 	python -m $m -sample -out:$m/examples/samples.with_multiple_valid_invalid.versioned.xml $m/examples/samples.with_multiple_valid_invalid.xml -overwrite-outfile ;
