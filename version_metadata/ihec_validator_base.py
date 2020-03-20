@@ -35,14 +35,14 @@ class IHECJsonValidator(object):
 		all_valid_versions = list()
 		for version in self.validators:
 			validator = self.validators[version]
-			print('__checking_against_schema:', version, self.validators[version].f, self.validators[version].newpath)
+			print('__checking_against_schema:', version, self.validators[version].f)
 			valid, errlog = validator.validate(attrs, details=attributes, schema_version=version)
 			title_sanitized =  egautils.obj_id(attributes)  #logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
 			#logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', title_sanitized  ))
 			self.errorlog.append(errlog)
 			if valid:
 				all_valid_versions.append((version, title_sanitized))
-		return (None, None) if not all_valid_versions else all_valid_versions
+		return (None, None) if len(all_valid_versions) == 0 else all_valid_versions[0]
 		 
 
 

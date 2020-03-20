@@ -9,15 +9,6 @@ from .prevalidate import Prevalidate
 from . import egautils
 from . import hack 
 
-# scrap trying to use ihec_data_hub verbose_error :(
-#from pathlib import Path
-#sys.path.append(Path(os.path.abspath(Path(__file__).parent)).parent)
-#import IHEC_Data_Hub as ihec_data_hub
-
-
-
-from .utils import json2
-
 def verbose_error(schema, obj, tag):
 	error_log = list()
 	v = jsonschema.Draft7Validator(schema)
@@ -82,24 +73,14 @@ class JsonSchema:
 		self.schema = hack.load_schema(self.f) #json2.loadf(self.f)
 		self.base = os.path.dirname(os.path.abspath(__file__))
 		self.cwd = os.getcwd()
-		self.expectedpath = 'file:./schemas/json/' 
-		self.newpath = 'file:{0}/schemas/json/'.format(self.cwd, version)
+		#self.expectedpath = 'file:./schemas/json/' 
+		#self.newpath = 'file:{0}/schemas/json/'.format(self.cwd, version)
 		#self.newpath = 'file:{0}/../schemas/json/{1}'.format(self.base, version)
 		if draft4schema:
-			raise Exception("__no_longer_supported__")
-			for e in self.schema.get('anyOf', list()):
-				if '$ref' in e:
-					e['$ref'] = self.fixfilebase(e['$ref'])
-
-			for x in self.schema.get('allOf', dict()):
-				for e in x['anyOf']:
-					if '$ref' in e:
-						e['$ref'] = self.fixfilebase(e['$ref'])
+			raise Exception("__v4_schema_no_longer_supported__")
 		else:
-			schema_json = cmn.fread(self.f)
-			schema_json_fixed = schema_json.replace(self.expectedpath, self.newpath)
-			self.schema = json.loads(schema_json_fixed) 
-		print('#__initialized: {0} {1}\n#__path: {2}'.format(self.f, self.version, self.newpath))	
+			self.schema = hack.load_schema(self.f)  
+		print('#__initialized: {0} {1}\n'.format(self.f, self.version))	
 		self.prevalidation = Prevalidate([ json2.copyobj(self.schema)   ],   version) 
 
 	def errlog(self, i, tag):
