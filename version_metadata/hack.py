@@ -2,7 +2,7 @@ from .utils import json2, cmn
 import os
 import json 
 
-def load_schema(f, ):
+def load_schema(f):
 	base = os.path.dirname(os.path.abspath(__file__))
 	cwd = os.getcwd()
 	expectedpath = 'file:./schemas/json/' 
