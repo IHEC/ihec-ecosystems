@@ -90,7 +90,8 @@ class SchemaParser:
 				bytype[defn] =  SchemaParser.properties(properties)   #  {p :   cmn.safedict([ getprop(properties[p], e) for e in property_attrs]) for p in properties}
 
 		common = {e : jsonschema['properties'][e] for e in jsonschema['properties']}
-		return { k: Constraint(rules.get(k, {}), required.get(k, {}), dependencies.get(k, {}), bytype[k] )  for k in bytype}
+		common_required = jsonschema['required']
+		return { k: Constraint(rules.get(k, {}), required.get(k, []) + common_required, dependencies.get(k, {}), bytype[k] )  for k in bytype}
 		
 	def definitions(self):
 		return {k: self.constraints[k].properties  for k in self.constraints}
@@ -173,13 +174,16 @@ class Prevalidate:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False, ['invalid experiment_type']
 		
-		# separate branch for 1.0
+		assert 'library_strategy' in attrs # this is known from above
+
 		if self.version in ["1.0"]:
-			assert 'library_strategy' in attrs # this is known from above
 			if not "experiment_ontology_uri" in attrs and not "experiment_type" in attrs:
 				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
 			else:
 				return (True, [])
+		elif self.version in ["1.1"]:
+			if not "experiment_ontology_curie" in attrs and not "experiment_type" in attrs:
+				return (False, "__mising_both__:__experiment_ontology_curie+experiment_type__")
 
 		if not 'experiment_type' in attrs:
 			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
