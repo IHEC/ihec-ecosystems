@@ -120,22 +120,12 @@ class JsonSchema:
 			#logger.entry('#__errors__')
 			jsonschema.Draft7Validator(self.schema).validate(jsonObj)
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
-			#json2.pp(jsonObj)
-		
 			tag = self.obj_id(details)
+			print('#__validates__', tag, schema_version)
 			return True, {tag: {'errors' : [], 'ok' : True, 'version' : schema_version}   }
 		except jsonschema.ValidationError as err:
 			tag = self.obj_id(details)
-			#json2.pp(self.schema)
 			errors = verbose_error(self.schema, jsonObj, tag) 
-			#logfile = self.errlog(len(self.errs),  tag + '.ihec_' + schema_version) # self.obj_id(details))
-			#logger.entry('#__writing_errors[for IHEC spec={1}]: {0}'.format(logfile, schema_version))
-			#log = []
-			#with open(logfile, "w") as errfile:
-		#		for e in errors:
-		#			errfile.write(e)
-		#			errfile.write('\n')
-		#			log.append(e)
 			return False, {tag : {'errors' :  errors,  'error_type' : 'jsonschema',  'ok' : False, 'version': schema_version}}
 			
 				
