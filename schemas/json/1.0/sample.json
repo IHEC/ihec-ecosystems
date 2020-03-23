@@ -161,7 +161,7 @@
           }
         },
         "required": ["origin_sample_ontology_uri", "origin_sample", "cell_type", "markers", "passage_if_expanded"],
-        "allOf": [{ "$ref": "file:./schemas/json/1.0/sample.json#/definitions/donor" }]
+        "allOf": [{ "$ref": "file:../schemas/json/1.0/sample.json#/definitions/donor" }]
       }
     },
     {"if": {
@@ -210,7 +210,7 @@
         }
       },
       "required": ["origin_sample_ontology_uri", "origin_sample", "cell_type", "markers", "culture_conditions", "passage_if_expanded"],
-      "allOf": [{ "$ref": "file:./schemas/json/1.0/sample.json#/definitions/donor" }]
+      "allOf": [{ "$ref": "file:../schemas/json/1.0/sample.json#/definitions/donor" }]
     }
     },
     {"if": {
@@ -241,7 +241,7 @@
         }
       },
       "required": ["tissue_type", "tissue_depot", "collection_method"],
-      "allOf": [{ "$ref": "file:./schemas/json/1.0/sample.json#/definitions/donor" }]
+      "allOf": [{ "$ref": "file:../schemas/json/1.0/sample.json#/definitions/donor" }]
     }
     }
     ],

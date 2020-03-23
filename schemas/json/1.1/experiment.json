@@ -18,14 +18,14 @@
 
     "allOf": [
         {"anyOf": [
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/chromatin_accessibility" },
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/bisulfite-seq" },
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/medip-seq" },
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/mre-seq" },
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/chip-seq" },
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/rna-seq" },
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/wgs" },
-            { "$ref": "file:./schemas/json/1.1/experiment.json#/definitions/other" }
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/chromatin_accessibility" },
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/bisulfite-seq" },
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/medip-seq" },
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/mre-seq" },
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/chip-seq" },
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/rna-seq" },
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/wgs" },
+            { "$ref": "file:../schemas/json/1.1/experiment.json#/definitions/other" }
         ]},
         {"anyOf": [
             {"required": ["experiment_ontology_curie"]},
