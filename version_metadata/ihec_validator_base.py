@@ -42,6 +42,7 @@ class IHECJsonValidator(object):
 			self.errorlog.append(errlog)
 			if valid:
 				all_valid_versions.append((version, title_sanitized))
+				return (version, title_sanitized)
 		return (None, None) if len(all_valid_versions) == 0 else all_valid_versions[0]
 		 
 
