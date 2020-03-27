@@ -49,7 +49,7 @@
       "description": "List of biological replicate sample accessions"
     }
   },
-  "required": ["sample_ontology_uri", "disease_ontology_uri", "disease", "biomaterial_provider", "biomaterial_type", "treatment", "biological_replicates"],
+  "required": ["sample_ontology_curie", "disease_ontology_curie", "disease", "biomaterial_provider", "biomaterial_type", "treatment", "biological_replicates"],
 
   "allOf": [
   {
@@ -155,7 +155,7 @@
           "description": "If the primary cell has been expanded, the number of times the primary cell has been re-plated and allowed to grow back to confluency or to some maximum density if using suspension cultures. NA if no expansion."
         }
       },
-      "required": ["origin_sample_ontology_uri", "origin_sample", "cell_type", "markers", "passage_if_expanded"],
+      "required": ["origin_sample_ontology_curie", "origin_sample", "cell_type", "markers", "passage_if_expanded"],
       "allOf": [{ "$ref": "file:../schemas/json/1.1/sample.json#/definitions/donor" }]
     }
   },
@@ -206,7 +206,7 @@
           "description": "If the primary cell culture has been expanded, the number of times the primary cell culture has been re-plated and allowed to grow back to confluency or to some maximum density if using suspension cultures. NA if no expansion."
         }
       },
-      "required": ["origin_sample_ontology_uri", "origin_sample", "cell_type", "markers", "culture_conditions", "passage_if_expanded"], 
+      "required": ["origin_sample_ontology_curie", "origin_sample", "cell_type", "markers", "culture_conditions", "passage_if_expanded"], 
       "allOf": [{ "$ref": "file:../schemas/json/1.1/sample.json#/definitions/donor"}]
     }
   },
