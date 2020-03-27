@@ -1,0 +1,40 @@
+<SAMPLE_SET>
+  <SAMPLE accession="ENCBS188BKX" center_name="ENCODE">
+    <TITLE>Homo sapiens female CD14-positive monocyte primary cell</TITLE>
+    <SAMPLE_NAME>
+      <TAXON_ID>9606</TAXON_ID>
+      <SCIENTIFIC_NAME>Homo sapiens</SCIENTIFIC_NAME>
+      <COMMON_NAME>human</COMMON_NAME>
+    </SAMPLE_NAME>
+    <SAMPLE_ATTRIBUTES>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>BIOMATERIAL_TYPE</TAG>
+        <VALUE>Primary Cell</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>CELL_TYPE</TAG>
+        <VALUE>CD14-positive monocyte</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>MARKERS</TAG>
+        <VALUE>unknown</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>ORIGIN_SAMPLE</TAG>
+        <VALUE>Tissue</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>ORIGIN_SAMPLE_ONTOLOGY_URI</TAG>
+        <VALUE>http://purl.obolibrary.org/obo/UBERON_2001160</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>ORIGIN_SAMPLE_ONTOLOGY_CURIE</TAG>
+        <VALUE>uberon:2001160</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>PASSAGE_IF_EXPANDED</TAG>
+        <VALUE>NA</VALUE>
+      </SAMPLE_ATTRIBUTE>
+    </SAMPLE_ATTRIBUTES>
+  </SAMPLE>
+</SAMPLE_SET>

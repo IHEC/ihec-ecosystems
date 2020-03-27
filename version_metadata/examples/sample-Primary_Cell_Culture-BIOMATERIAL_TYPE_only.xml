@@ -1,0 +1,16 @@
+<SAMPLE_SET>
+  <SAMPLE accession="ENCBS188BKX" center_name="ENCODE">
+    <TITLE>Homo sapiens female CD14-positive monocyte primary cell</TITLE>
+    <SAMPLE_NAME>
+      <TAXON_ID>9606</TAXON_ID>
+      <SCIENTIFIC_NAME>Homo sapiens</SCIENTIFIC_NAME>
+      <COMMON_NAME>human</COMMON_NAME>
+    </SAMPLE_NAME>
+    <SAMPLE_ATTRIBUTES>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>BIOMATERIAL_TYPE</TAG>
+        <VALUE>Primary Cell Culture</VALUE>
+      </SAMPLE_ATTRIBUTE>
+    </SAMPLE_ATTRIBUTES>
+  </SAMPLE>
+</SAMPLE_SET>
