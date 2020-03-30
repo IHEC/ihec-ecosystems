@@ -163,7 +163,7 @@ class Prevalidate:
 			print('__prevalidate_fail', tag ,': missing library strategy: cannot determine schema to use')
 			return False, ['missing library strategy']
 
-		exp_type =  egautils.strategy2schema(attrs['library_strategy'])
+		exp_type =  egautils.strategy2schema(attrs['library_strategy'][0])
 		if not exp_type in self.bytype:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False, ['invalid experiment_type']
