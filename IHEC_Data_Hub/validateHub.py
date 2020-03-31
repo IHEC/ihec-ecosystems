@@ -331,18 +331,17 @@ def symbolStatus(status, symbol):
 def validateOntologies(jsonObj):
     """
     Validate all ontologies used in metadata: handles two cases
-    when ontology curies are present in experiment and in sample
+    when ontology curies are present in sample and in experiment
     """
 
+    func = _getframe().f_code.co_name
     # SAMPLES
     samples = jsonObj['samples']
     for sample_name in samples:
         sample = samples.get(sample_name)
-        # refactor below
         for curie in sample['sample_ontology_curie']:
             ontology_term = OntologyLookup(curie)
-            print()
-            logging.getLogger().info('Validating "sample_ontology_uri" in {} ...'.format(sample_name))
+            logging.getLogger(func).info('Validating "sample_ontology_curie" in {} ...'.format(sample_name))
             val_rules = ontology_term.check_ontology_rules(
                 ontology_type='sample_ontology_curie', schema_object=sample_name,
                 subparam=sample['biomaterial_type']
@@ -350,8 +349,7 @@ def validateOntologies(jsonObj):
 
             if val_rules:
                 ontology_term.validate_term()
-
-    # EXPERIMENTS: there are ontology type here - experiment_ontology_curie & molecule_ontology_curie
+    # EXPERIMENTS: two ontology types here - experiment_ontology_curie & molecule_ontology_curie
     # it handles both
     datasets = jsonObj.get('datasets')
     for dataset_name in datasets:
@@ -362,12 +360,10 @@ def validateOntologies(jsonObj):
             if 'ontology_curie' in key:
                 for curie in exp_attr[key]:
                     ontology_term = OntologyLookup(curie)
-                    print()
-                    logging.getLogger().info('Validating "{}" in {} ...'.format(key, dataset_name))
+                    logging.getLogger(func).info('Validating "{}" in {} ...'.format(key, dataset_name))
                     val_rules = ontology_term.check_ontology_rules(
                         ontology_type=key, schema_object=dataset_name
                     )
-
                     if val_rules:
                         ontology_term.validate_term()
             else:

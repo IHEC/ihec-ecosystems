@@ -3,6 +3,7 @@ import json
 import logging
 logging.getLogger('urllib3').setLevel(logging.WARNING)
 
+ontology_lookup_logger = logging.getLogger('ontology_lookup')
 
 ontology_rules = {
     'sample_ontology_curie': {
@@ -26,6 +27,9 @@ class OntologyLookup(object):
     def __init__(self, curie):
         self.curie = curie
 
+    def logger(self, level, msg):
+        return ontology_lookup_logger.log(level, msg)
+
     def parse_curie(self):
         """
         follows CURIE pattern e.g. uberon:0013540
@@ -37,16 +41,17 @@ class OntologyLookup(object):
             curie_data['curie'] = parsed_curie[1]
         # if curie format was not validated
         except Exception as e:
-            logging.getLogger().error('Error: {}'.format(e))
+            self.logger(logging.ERROR, 'Error: {}'.format(e))
         return curie_data
 
 
-    def check_ontology_rules(self, ontology_type, schema_object, subparam=None):
+    def check_ontology_rules(self, ontology_type, schema_object, subparam=None, msg=None):
         """
         :param ontology_type: E.g. 'sample_ontology_curie', 'molecule_ontology_curie'
         :param schema_object: Schema object where ontology term is located. Needed for an error message.
         :param subparam: Used to handle complex validation when accepted ontology depends on value of another property,
         e.g. if 'biomaterial_type': 'Cell Line' then accepted ontology for 'sample_ontology_curie' is EFO
+        :param msg: custom error message is term is not accepted
         :return: True if validation passed. False if not.
         """
 
@@ -65,10 +70,14 @@ class OntologyLookup(object):
         if current_ontology == rule_ontology:
             return True
         else:
-            logging.getLogger().error('Error in {}: ontology {} is not accepted for this {}.'
+            if not msg:
+                self.logger(logging.ERROR, 'Error in {}: ontology {} is not accepted for this {}.'
                                       'The only accepted ontology is {}.'
                                       .format(schema_object, current_ontology.upper(),
                                               ontology_type, rule_ontology.upper()))
+            else:
+                self.logger(logging.ERROR, msg)
+
             return False
 
     def payload(self):
@@ -93,10 +102,10 @@ class OntologyLookup(object):
             response = json.loads(r.content.decode('utf-8'))
             response = response.get('response')
             if response.get('numFound') > 0:
-                logging.getLogger().info('Ontology term {} is valid'.format(self.curie))
+                self.logger(logging.INFO, 'Ontology term {} is valid'.format(self.curie))
                 return True
             else:
-                logging.getLogger().info('Error: Ontology term {} is not found'.format(self.curie))
+                self.logger(logging.ERROR, 'Error: Ontology term {} is not found'.format(self.curie))
                 return False
         except requests.exceptions.HTTPError as e:
-            logging.getLogger().warning('Unexpected error {}'.format(e))
+            self.logger(logging.ERROR, 'Unexpected error {}'.format(e))
