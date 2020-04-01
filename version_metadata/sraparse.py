@@ -1,6 +1,6 @@
 from lxml import etree
 from collections import defaultdict
-from utils import cmn, json2, logger, NonUniqException
+from .utils import cmn, json2, logger, NonUniqException
 
 class XMLValidator:
 	def __init__(self, xsd):
@@ -46,9 +46,13 @@ class SRAParseObjSet:
 		xml = etree.parse(f)
 		return SRAParseObjSet(xml, f)
 	@staticmethod
-	def extract_attributes_to_json(args):
+	def extract_attributes_to_json(args, outfile):
+		extracted = list()
 		for arg in args:
-			print (json2.dumpf( arg + '.extracted.json', SRAParseObjSet.from_file(arg).attributes()))
+			attrs = SRAParseObjSet.from_file(arg).attributes()
+			print (json2.dumpf( arg + '.extracted.json', attrs))
+			extracted.extend(attrs)
+		print(json2.dumpf(outfile, extracted))
 	def __init__(self, xml, tag):
 		self.tag = tag
 		self.xml = xml

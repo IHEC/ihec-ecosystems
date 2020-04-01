@@ -1,21 +1,19 @@
-from sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
-from utils import cmn, json2, logger
-from validate_json import JsonSchema
-from ihec_validator_base import  IHECJsonValidator
+from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
+from .utils import cmn, json2, logger
+from .validate_json import JsonSchema
+from .ihec_validator_base import  IHECJsonValidator
 
 
 
 class SampleValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
 		fix_tag_names =  { self.normalize(k) :v for k, v in hashed.items()}	
-		uniq_values = {k :cmn.tryuniq(v) for k, v in fix_tag_names.items()}
-		try:
-			if 'donor_age' in uniq_values:
-				age = int(uniq_values['donor_age'])
-				uniq_values['donor_age'] = age
-		except Exception as err:
-			logger.warn( '#__warning: failed to cast donor age to number\n'.format(err) + str(uniq_values))
-		return uniq_values
+		if 'donor_age' in fix_tag_names:
+			try:
+				fix_tag_names['donor_age'] = [int(val) for val in fix_tag_names['donor_age']]
+			except Exception as err:
+				logger.warn( '#__warning: failed to cast donor age to number\n'.format(err) + str(fix_tag_names))
+		return fix_tag_names 
 
 	def __init__(self, sra, validators):
 		super(SampleValidator, self).__init__(validators)
@@ -44,7 +42,7 @@ def main(args):
 	outfile = args['-out']
 	config = json2.loadf(args['-config'])
 	xml_validator = XMLValidator(config["sra"]["sample"])
-	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"], args)) for schema in config["ihec"]["sample"]])
+	ihec_validators = cmn.safedict([(schema["version"] ,  JsonSchema(schema["schema"], args, version=schema["version"])) for schema in config["ihec"]["sample"]])
 	
 	objtype = 'SAMPLE'
 	objset = 'SAMPLE_SET'
@@ -62,7 +60,7 @@ def main(args):
 
 	versioned_xml = ['<{0}>'.format(objset) ]
 	for e in validated:
-		(version, xml) = e
+		(version, xml, tag) = e
 		sra_versioned = SRAParseObj(xml)
 		sra_versioned.add_attribute("VALIDATED_AGAINST_METADATA_SPEC", "{0}/{1}".format(version, objtype))
 		versioned_xml.append(sra_versioned.tostring())
@@ -81,7 +79,7 @@ def main(args):
 	else:
 		logger('..no valid objects found\n')
 
-
+	json2.pp({"valid" : [tag + ' = ' + version  for (version, xml, tag) in validated ]})
 
 
 	

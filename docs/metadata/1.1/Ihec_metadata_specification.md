@@ -1,4 +1,4 @@
-# IHEC Metadata Specification (version 1.0)
+# IHEC Metadata Specification (version 1.1)
 
 ## Introduction
 The IHEC metadata standards are extension of the standards used by the Roadmap Epigenomics Project. Please refer to Sections 1 and 2 of original specification (archived at https://github.com/IHEC/ihec-metadata/blob/master/specs/original_docs/IHEC-Metadata.pdf) for the data and metadata model.
@@ -11,16 +11,16 @@ The SRA XML schemas are here: [http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?vi
 
 ## How to define multiple values per metadata tag
 
-The same attribute may be used multiple times in a single XML record. This may be most useful, for example, for supplying CURIEs to multiple ontologies or for supplying multiple references to a single ontology such as in the case of DISEASE_ONTOLOGY_CURIE. For example, describing a brain primary tissue using ontology terms for ('Brodmann (1909) area 8', 'Brodmann (1909) area 9') would be:
+The same attribute may be used multiple times in a single XML record. This may be most useful, for example, for supplying URIs to multiple ontologies or for supplying multiple references to a single ontology such as in the case of DISEASE_ONTOLOGY_URI. For example, describing a brain primary tissue using ontology terms for ('Brodmann (1909) area 8', 'Brodmann (1909) area 9') would be:
 
 ```
 <SAMPLE_ATTRIBUTE>
-    <TAG>SAMPLE_ONTOLOGY_CURIE</TAG>
-    <VALUE>uberon:0013539</VALUE>
+    <TAG>SAMPLE_ONTOLOGY_URI</TAG>
+    <VALUE>http://purl.obolibrary.org/obo/UBERON_0013539</VALUE>
 </SAMPLE_ATTRIBUTE>
 <SAMPLE_ATTRIBUTE>
-    <TAG>SAMPLE_ONTOLOGY_CURIE</TAG>
-    <VALUE>uberon:0013540</VALUE>
+    <TAG>SAMPLE_ONTOLOGY_URI</TAG>
+    <VALUE>http://purl.obolibrary.org/obo/UBERON_0013540</VALUE>
 </SAMPLE_ATTRIBUTE>
 ```
 
@@ -28,18 +28,18 @@ The same attribute may be used multiple times in a single XML record. This may b
 
 __Only__ terms from following ontologies are acceptable for annotating the metadata:
 
-Field __SAMPLE_ONTOLOGY_CURIE__:
+Field __SAMPLE_ONTOLOGY_URI__:
 * Cell Lines: Experimental Factor Ontology (__EFO__ - [https://www.ebi.ac.uk/efo/](https://www.ebi.ac.uk/efo/))
 * Primary Cells: Cell Ontology (__CL__ - [http://cellontology.org](http://cellontology.org))
 * Primary Tissue: Uberon (__UBERON__ - [http://uberon.org](http://uberon.org))
 
-Fields __DISEASE_ONTOLOGY_CURIE__ and __DONOR_HEALTH_STATUS_ONTOLOGY_CURIE__:
+Fields __DISEASE_ONTOLOGY_URI__ and __DONOR_HEALTH_STATUS_ONTOLOGY_URI__:
 * NCI Metathesaurus (__NCIM__ - [https://ncim.nci.nih.gov/ncimbrowser/](https://ncim.nci.nih.gov/ncimbrowser/))
 
-Field __EXPERIMENT_ONTOLOGY_CURIE__:
+Field __EXPERIMENT_ONTOLOGY_URI__:
 * Ontology for Biomedical Investigations (__OBI__ - [http://obi-ontology.org/](http://obi-ontology.org/))
 
-Field __MOLECULE_ONTOLOGY_CURIE__:
+Field __MOLECULE_ONTOLOGY_URI__:
 * Sequence Ontology (__SO__ - [http://www.sequenceontology.org/](http://www.sequenceontology.org/)) 
 
 Tags with controlled vocabularies are labelled as "Controlled Vocabulary".
@@ -50,13 +50,13 @@ Tags with ontologies are labelled as "Ontology".
 
 ###### Note for metadata resubmission
 
-In order to pass IHEC metadata validation, all datasets must include all sample properties defined within each specific BIOMATERIAL_TYPE below, unless marked explicitly as optional.
+In order to pass IHEC metadata validation, all datasets submitted prior to 2018 must include all sample properties defined within each specific BIOMATERIAL_TYPE below.
 
 ## Cell Line
 
-__SAMPLE_ONTOLOGY_CURIE__ - (Ontology: EFO) Links to sample ontology information.
+__SAMPLE_ONTOLOGY_URI__ - (Ontology: EFO) Links to sample ontology information.
 
-__DISEASE_ONTOLOGY_CURIE__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) and/or in the free form DISEASE attribute.
+__DISEASE_ONTOLOGY_URI__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) and/or in the free form DISEASE attribute.
 
 __DISEASE:__ - Free form field for more specific sample disease information. This property reflects the disease for this particular sample, not the donor health condition.
 
@@ -64,7 +64,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE:__ - (Controlled Vocabulary) "Cell Line".
 
-__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __LINE__ - The name of the cell line.
 
@@ -84,9 +84,9 @@ __BATCH__ - The batch from which the cell line is derived. Primarily applicable 
 
 ## Primary Cell
 
-__SAMPLE_ONTOLOGY_CURIE__ - (Ontology: CL) links to sample ontology information.
+__SAMPLE_ONTOLOGY_URI__ - (Ontology: CL) links to sample ontology information.
 
-__DISEASE_ONTOLOGY_CURIE__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) and/or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
+__DISEASE_ONTOLOGY_URI__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) and/or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
 
 __DISEASE:__ - Free form field for more specific sample disease information. This property reflects the disease for this particular sample, not the donor health condition. If dealing with a rare disease, please consider identifiability issues.
 
@@ -94,7 +94,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE:__ - (Controlled Vocabulary) "Primary Cell".
 
-__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __ORIGIN_SAMPLE_ONTOLOGY_URI__ - (Ontology: UBERON) Links to the origin tissue from which the sample was extracted.
 
@@ -112,7 +112,7 @@ __DONOR_AGE_UNIT__ - (Controlled Vocabulary) "year", "month", "week", or "day".
 
 __DONOR_LIFE_STAGE__ - (Controlled Vocabulary) "fetal", "newborn", "child", "adult", "unknown", "embryonic", "postnatal".
 
-__DONOR_HEALTH_STATUS_ONTOLOGY_CURIE__ - (Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) or in the free form DISEASE attribute. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". If dealing with a rare disease, please consider identifiability issues.
+__DONOR_HEALTH_STATUS_ONTOLOGY_URI__ - (Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) or in the free form DISEASE attribute. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". If dealing with a rare disease, please consider identifiability issues.
 
 __DONOR_HEALTH_STATUS__ - The health status of the donor that provided the primary cell. NA if not available.
 
@@ -124,9 +124,9 @@ __PASSAGE_IF_EXPANDED__ - If the primary cell has been expanded, the number of t
 
 ## Primary Cell Culture
 
-__SAMPLE_ONTOLOGY_CURIE__ - (Ontology: CL) Links to sample ontology information.
+__SAMPLE_ONTOLOGY_URI__ - (Ontology: CL) Links to sample ontology information.
 
-__DISEASE_ONTOLOGY_CURIE__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) and/or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
+__DISEASE_ONTOLOGY_URI__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) and/or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
 
 __DISEASE__ - Free form field for more specific sample disease information. This property reflects the disease for this particular sample, not the donor health condition. If dealing with a rare disease, please consider identifiability issues.
 
@@ -134,7 +134,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE__ - (Controlled Vocabulary) "Primary Cell Culture".
 
-__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __ORIGIN_SAMPLE_ONTOLOGY_URI__ - (Ontology: UBERON) links to the origin tissue from which the sample was extracted.
 
@@ -154,7 +154,7 @@ __DONOR_AGE_UNIT__ - (Controlled Vocabulary) "year", "month", "week", or "day".
 
 __DONOR_LIFE_STAGE__ - (Controlled Vocabulary) "fetal", "newborn", "child", "adult", "unknown", "embryonic", "postnatal"
 
-__DONOR_HEALTH_STATUS_ONTOLOGY_CURIE__ - (Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
+__DONOR_HEALTH_STATUS_ONTOLOGY_URI__ - (Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
 
 __DONOR_HEALTH_STATUS__ - The health status of the donor that provided the primary cell. NA if not available.
 
@@ -166,9 +166,9 @@ __PASSAGE_IF_EXPANDED__ - If the primary cell culture has been expanded, the num
 
 ## Primary Tissue
 
-__SAMPLE_ONTOLOGY_CURIE__ - (Ontology: UBERON) Links to sample ontology information.
+__SAMPLE_ONTOLOGY_URI__ - (Ontology: UBERON) Links to sample ontology information.
 
-__DISEASE_ONTOLOGY_CURIE__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) and/or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
+__DISEASE_ONTOLOGY_URI__ - (Ontology: NCIM) Links to sample disease ontology information. This attribute reflects the disease for this particular sample, not the donor health condition. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) and/or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
 
 __DISEASE:__ - Free form field for more specific sample disease information. This property reflects the disease for this particular sample, not for the donor health condition. If dealing with a rare disease, please consider identifiability issues.
 
@@ -176,7 +176,7 @@ __BIOMATERIAL_PROVIDER__ - The name of the company, laboratory or person that pr
 
 __BIOMATERIAL_TYPE:__ - (Controlled Vocabulary) "Primary Tissue".
 
-__TREATMENT__ - (OPTIONAL - String) Any artificial modification (differentiation, activation, genome editing, etc).
+__TREATMENT__ - (String) Any artificial modification (differentiation, activation, genome editing, etc).
 
 __TISSUE_TYPE__ - The type of tissue.
 
@@ -192,7 +192,7 @@ __DONOR_AGE_UNIT__ - (Controlled Vocabulary) "year", "month", "week", or "day".
 
 __DONOR_LIFE_STAGE__ - (Controlled Vocabulary) "fetal", "newborn", "child", "adult", "unknown", "embryonic", "postnatal"
 
-__DONOR_HEALTH_STATUS_ONTOLOGY_CURIE__ - (Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_CURIEs (if available) or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
+__DONOR_HEALTH_STATUS_ONTOLOGY_URI__ - (Ontology: NCIM) Links to the health status of the donor that provided the primary cell. The NCImetathesaurus term C0277545 "Disease type AND/OR category unknown" should be used for unknown diseases. For samples without any known disease, use the NCImetathesaurus term C0549184 "None". Phenotypes associated with the disease should be submitted as DISEASE_ONTOLOGY_URIs (if available) or in the free form DISEASE attribute. If dealing with a rare disease, please consider identifiability issues.
 
 __DONOR_HEALTH_STATUS__ - The health status of the donor that provided the primary tissue. NA if not available.
 
@@ -204,11 +204,11 @@ __DONOR_ETHNICITY__ - The ethnicity of the donor that provided the primary tissu
 # EXPERIMENTS
 
 ###### Note for metadata resubmission
-In order to pass IHEC metadata validation, all datasets __must__ include the following properties:
+In order to pass IHEC metadata validation, all datasets submitted prior to 2018 __must__ include the following properties:
 
 * LIBRARY_STRATEGY
-* EXPERIMENT_TYPE or EXPERIMENT_ONTOLOGY_CURIE
-* MOLECULE or MOLECULE_ONTOLOGY_CURIE, in the experiment (or sample object for submissions prior to 2018). Because of the complexity to validate the presence of this field in either object, this requirement will be validated at the time of submission to EpiRR.
+* EXPERIMENT_TYPE or EXPERIMENT_ONTOLOGY_URI
+* MOLECULE or MOLECULE_ONTOLOGY_URI, either defined in the experiment or sample object. Because of the complexity to validate the presence of this field in either object, this requirement will be validated at the time of submission to EpiRR.
 
 ###### Common fields
 
@@ -216,11 +216,11 @@ All experiments types include these fields:
 
 __EXPERIMENT_TYPE__ - (Controlled Vocabulary) The assay target (e.g. ‘DNA Methylation’, ‘mRNA-Seq’, ‘smRNA-Seq’, 'Histone H3K4me1').
 
-__EXPERIMENT_ONTOLOGY_CURIE__ - (Ontology: OBI) links to experiment ontology information.
+__EXPERIMENT_ONTOLOGY_URI__ - (Ontology: OBI) links to experiment ontology information.
 
 __LIBRARY_STRATEGY__ - (Controlled Vocabulary) The assay used. These are defined within the SRA metadata specifications with a controlled vocabulary (e.g. ‘Bisulfite-Seq’, ‘RNA-Seq’, ‘ChIP-Seq’). For a complete list, see [https://www.ebi.ac.uk/ena/submit/reads-library-strategy](https://www.ebi.ac.uk/ena/submit/reads-library-strategy).
 
-__MOLECULE_ONTOLOGY_CURIE__ - (Ontology: SO) links to molecule ontology information.
+__MOLECULE_ONTOLOGY_URI__ - (Ontology: SO) links to molecule ontology information.
 
 __MOLECULE__ - (Controlled Vocabulary) The type of molecule that was extracted from the biological material. Include one of the following: total RNA, polyA RNA, cytoplasmic RNA, nuclear RNA, small RNA, genomic DNA, protein, or other.
 
@@ -229,11 +229,11 @@ __MOLECULE__ - (Controlled Vocabulary) The type of molecule that was extracted f
 
 __EXPERIMENT_TYPE:__ (Controlled Vocabulary) 'Chromatin Accessibility'.
 
-__EXPERIMENT_ONTOLOGY_CURIE:__ (Ontology: OBI) obi:OBI_0002039, obi:OBI_0001853' or any of its subclasses.
+__EXPERIMENT_ONTOLOGY_URI:__ (Ontology: OBI) http://purl.obolibrary.org/obo/OBI_0002039, 'http://purl.obolibrary.org/obo/OBI_0001853' or any of its subclasses.
 
 __LIBRARY_STRATEGY:__ (Controlled Vocabulary) 'ATAC-Seq', 'DNase-Hypersensitivity'.
 
-__MOLECULE_ONTOLOGY_CURIE:__ (Ontology: SO) 'so:0000991' or any of its subclasses.
+__MOLECULE_ONTOLOGY_URI:__ (Ontology: SO) 'http://purl.obolibrary.org/obo/SO_0000991' or any of its subclasses.
 
 __MOLECULE:__ (Controlled Vocabulary) 'genomic DNA'.
 
@@ -245,13 +245,15 @@ __EXPERIMENT_PROTOCOL__ - The protocol used for library preparation (e.g. DNAse 
 
 __EXPERIMENT_TYPE:__ (Controlled Vocabulary) 'DNA Methylation'.
 
-__EXPERIMENT_ONTOLOGY_CURIE:__ (Ontology: OBI) 'obi:OBI_0001863' or any of its subclasses.
+__EXPERIMENT_ONTOLOGY_URI:__ (Ontology: OBI) 'http://purl.obolibrary.org/obo/OBI_0001863' or any of its subclasses.
 
 __LIBRARY_STRATEGY:__ (Controlled Vocabulary) 'Bisulfite-Seq'.
 
-__MOLECULE_ONTOLOGY_CURIE:__ (Ontology: SO) 'so:0000991' or any of its subclasses.
+__MOLECULE_ONTOLOGY_URI:__ (Ontology: SO) 'http://purl.obolibrary.org/obo/SO_0000991' or any of its subclasses.
 
 __MOLECULE:__ (Controlled Vocabulary) 'genomic DNA'.
+
+__OVERCONVERSION_CONTROL_GENOME:__ Overconversion control genome used. Use 'None' if no control is used.
 
 __EXTRACTION_PROTOCOL__ - The protocol used to isolate the extract material.
 
@@ -293,11 +295,11 @@ __LIBRARY_GENERATION_PCR_PRODUCT_ISOLATION_PROTOCOL__ - The protocol for isolati
 
 __EXPERIMENT_TYPE:__ (Controlled Vocabulary) 'DNA Methylation'.
 
-__EXPERIMENT_ONTOLOGY_CURIE:__ (Ontology: OBI) 'obi:OBI_0000693' or any of its subclasses.
+__EXPERIMENT_ONTOLOGY_URI:__ (Ontology: OBI) 'http://purl.obolibrary.org/obo/OBI_0000693' or any of its subclasses.
 
 __LIBRARY_STRATEGY:__ (Controlled Vocabulary) 'MeDIP-Seq'.
 
-__MOLECULE_ONTOLOGY_CURIE:__ (Ontology: SO) 'so:0000991' or any of its subclasses.
+__MOLECULE_ONTOLOGY_URI:__ (Ontology: SO) 'http://purl.obolibrary.org/obo/SO_0000991' or any of its subclasses.
 
 __MOLECULE:__ (Controlled Vocabulary) 'genomic DNA'.
 
@@ -329,11 +331,11 @@ __MeDIP_ANTIBODY_LOT__ - The lot identifier of the antibody.
 
 __EXPERIMENT_TYPE:__ (Controlled Vocabulary) 'DNA Methylation'.
 
-__EXPERIMENT_ONTOLOGY_CURIE:__ (Ontology: OBI) 'obi:OBI_0001861' or any of its subclasses.
+__EXPERIMENT_ONTOLOGY_URI:__ (Ontology: OBI) 'http://purl.obolibrary.org/obo/OBI_0001861' or any of its subclasses.
 
 __LIBRARY_STRATEGY:__ - (Controlled Vocabulary) 'MRE-Seq'.
 
-__MOLECULE_ONTOLOGY_CURIE:__ (Ontology: SO) 'so:0000991' or any of its subclasses.
+__MOLECULE_ONTOLOGY_URI:__ (Ontology: SO) 'http://purl.obolibrary.org/obo/SO_0000991' or any of its subclasses.
 
 __MOLECULE:__ (Controlled Vocabulary) 'genomic DNA'.
 
@@ -355,11 +357,11 @@ __EXPERIMENT_TARGET_TF_MODIFICATION__ (String) Post-transcriptional modification
 
 __EXPERIMENT_TARGET_HISTONE__ (Controlled vocabulary) One of ('H2AFZ', 'H2AK5ac', 'H2AK9ac', 'H2BK120ac', 'H2BK12ac', 'H2BK15ac', 'H2BK20ac', 'H2BK5ac', 'H3F3A', 'H3K14ac', 'H3K18ac', 'H3K23ac', 'H3K23me2', 'H3K27ac', 'H3K27me3', 'H3K36me3', 'H3K4ac', 'H3K4me1', 'H3K4me2', 'H3K4me3', 'H3K56ac', 'H3K79me1', 'H3K79me2', 'H3K9ac', 'H3K9me1', 'H3K9me2', 'H3K9me3', 'H3T11ph', 'H4K12ac', 'H4K20me1', 'H4K5ac', 'H4K8ac', 'H4K91ac'),
 
-__EXPERIMENT_ONTOLOGY_CURIE:__ (Ontology: OBI) 'obi:OBI_0000716' or any of its subclasses.
+__EXPERIMENT_ONTOLOGY_URI:__ (Ontology: OBI) 'http://purl.obolibrary.org/obo/OBI_0000716' or any of its subclasses.
 
 __LIBRARY_STRATEGY:__ (Controlled Vocabulary) 'ChIP-Seq'.
 
-__MOLECULE_ONTOLOGY_CURIE:__ (Ontology: SO) 'so:0000991' or any of its subclasses.
+__MOLECULE_ONTOLOGY_URI:__ (Ontology: SO) 'http://purl.obolibrary.org/obo/SO_0000991' or any of its subclasses.
 
 __MOLECULE:__ (Controlled Vocabulary) 'genomic DNA'.
 
@@ -395,11 +397,11 @@ __LIBRARY_GENERATION_FRAGMENT_SIZE_RANGE__ - The fragment size range of the prep
 
 __EXPERIMENT_TYPE:__ (Controlled Vocabulary) 'RNA-Seq'.
 
-__EXPERIMENT_ONTOLOGY_CURIE:__ (Ontology: OBI) 'obi:OBI_0001271' or any of its subclasses.
+__EXPERIMENT_ONTOLOGY_URI:__ (Ontology: OBI) 'http://purl.obolibrary.org/obo/OBI_0001271' or any of its subclasses.
 
 __LIBRARY_STRATEGY__ - (Controlled Vocabulary) 'RNA-Seq'.
 
-__MOLECULE_ONTOLOGY_CURIE:__ (Ontology: SO) 'so:0000234' or any of its subclasses.
+__MOLECULE_ONTOLOGY_URI:__ (Ontology: SO) 'http://purl.obolibrary.org/obo/SO_0000234' or any of its subclasses.
 
 __MOLECULE:__ (Controlled Vocabulary) 'polyA RNA', 'total RNA', 'nuclear RNA', 'cytoplasmic RNA' or 'small RNA'.
 

@@ -56,6 +56,10 @@ class Utils:
 					outfile.write(e)  #sep.join(entries))
 				outfile.write(sep)
 		return f
+	def dumpf(self, f, data):
+		with open(f, "w") as out:
+			out.write(data)
+		return f
 	def fexists(self, filename):
 		if os.path.exists(filename): return True
 		try:
@@ -97,7 +101,16 @@ class Utils:
 	def basename(self, f):
 		return os.path.basename(f)
 
-
+	def getpath(data, ifmissing, *args):
+		d = data
+		path = list()
+		try:
+			for e in args:
+				path.append(e)
+				d = d[e]
+			return d
+		except Exception as err:
+			return ifmissing
 
 class Json:
 	def __init__(self):
@@ -106,11 +119,15 @@ class Json:
 		self.indent = 4
 		self.separators = (',', ': ')
 	def loadf(self, f):
-		if self.multidict:
-			return self.multidictLoadf(f)
-		else:
-			with open(f) as target:
-				return json.load(target)
+		try:
+			if self.multidict:
+				return self.multidictLoadf(f)
+			else:
+				with open(f) as target:
+					return json.load(target)
+		except Exception as e:
+			print('__failed_at:' , f)
+			raise e
 	def dumpf(self, f, data):
 		stringed = self.pretty(data)
 		with open(f, 'w') as outfile:
@@ -119,6 +136,8 @@ class Json:
 	def multidictLoadf(self, f):
 		with open(f) as target:
 			return self.multidictLoadStr(target.read())
+	def loads(self, data):
+		return self.multidictLoadStr(data)
 	def multidictLoadStr(self, data):
 		def multidictParser(pairs):
 			d = defaultdict(list)
@@ -131,7 +150,8 @@ class Json:
 	def pp(self, arg):
 		print(self.pretty(arg))
 		
-
+	def copyobj(self, x):
+		return self.multidictLoadStr(self.pretty(x))
 
 
 json2 = Json()
