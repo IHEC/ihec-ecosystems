@@ -39,7 +39,7 @@ def main(argv):
         printHelp()
         exit()
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.1/hub.json'
 
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
@@ -57,7 +57,7 @@ def main(argv):
 def jsonschemaErrorReport(jsonObj):
     """ Return error report"""
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.1/hub.json'
     with open(schema_file) as jsonStr:
         json_schema = json.load(jsonStr)
     v = jsonschema.Draft7Validator(json_schema)
@@ -344,7 +344,7 @@ def validateOntologies(jsonObj):
             logging.getLogger(func).info('Validating "sample_ontology_curie" in {} ...'.format(sample_name))
             val_rules = ontology_term.check_ontology_rules(
                 ontology_type='sample_ontology_curie', schema_object=sample_name,
-                subparam=sample['biomaterial_type']
+                subparam=sample['biomaterial_type'][0]
             )
 
             if val_rules:
