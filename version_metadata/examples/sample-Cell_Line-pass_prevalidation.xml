@@ -1,0 +1,48 @@
+<SAMPLE_SET>
+    <SAMPLE accession="ENCBS046ENC" center_name="ENCODE">
+        <TITLE>Mus musculus strain MEL MEL cell line</TITLE>
+        <SAMPLE_NAME>
+            <TAXON_ID>10090</TAXON_ID>
+            <SCIENTIFIC_NAME>Mus musculus</SCIENTIFIC_NAME>
+            <COMMON_NAME>mouse</COMMON_NAME>
+        </SAMPLE_NAME>
+        <SAMPLE_ATTRIBUTES>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>BIOMATERIAL_TYPE</TAG>
+                <VALUE>Cell Line</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>BATCH</TAG>
+                <VALUE>unknown</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>DIFFERENTIATION_METHOD</TAG>
+                <VALUE>unknown</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>DIFFERENTIATION_STAGE</TAG>
+                <VALUE>unknown</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>LINE</TAG>
+                <VALUE>MEL cell line</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>LINEAGE</TAG>
+                <VALUE>endoderm,mesoderm</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>MEDIUM</TAG>
+                <VALUE>unknown</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>PASSAGE</TAG>
+                <VALUE>unknown</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+                <TAG>SEX</TAG>
+                <VALUE>Unknown</VALUE>
+            </SAMPLE_ATTRIBUTE>
+          </SAMPLE_ATTRIBUTES>
+    </SAMPLE>
+</SAMPLE_SET>

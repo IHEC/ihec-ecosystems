@@ -13,20 +13,21 @@ def verbose_error(schema, obj, tag):
 	error_log = list()
 	v = jsonschema.Draft7Validator(schema)
 	errors = [e for e in v.iter_errors(obj)]
-	error_log.append('__total_errors__:{}'.format(len(errors)))
+	#error_log.append('__total_errors__:{}'.format(len(errors)))
     
 	for error in sorted(errors, key=str):
-		error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
+		#error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
+		error_log.append('{0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
 		if len(error.context) > 0:
 			#error_log.append('Multiple sub-schemas can apply. This is the errors for each:')
 			prev_schema = -1
 			for suberror in sorted(error.context, key=lambda e: e.schema_path):
 				schema_index = suberror.schema_path[0]
 				if prev_schema < schema_index:
-					error_log.append('__schema_id__:{}'.format(schema_index + 1))
+					#error_log.append('{}'.format(schema_index + 1))
 					prev_schema = schema_index
-				error_log.append('\t{}'.format(suberror.message))
-		error_log.append("--------------------------------------------------")
+				#error_log.append('{}'.format(suberror.message))
+		#error_log.append("--------------------------------------------------")
 	return error_log
 
 

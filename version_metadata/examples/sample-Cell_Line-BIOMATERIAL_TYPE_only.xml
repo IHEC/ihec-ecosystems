@@ -1,0 +1,16 @@
+<SAMPLE_SET>
+  <SAMPLE accession="ENCBS046ENC" center_name="ENCODE">
+    <TITLE>Mus musculus strain MEL MEL cell line</TITLE>
+    <SAMPLE_NAME>
+      <TAXON_ID>10090</TAXON_ID>
+      <SCIENTIFIC_NAME>Mus musculus</SCIENTIFIC_NAME>
+      <COMMON_NAME>mouse</COMMON_NAME>
+    </SAMPLE_NAME>
+    <SAMPLE_ATTRIBUTES>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>BIOMATERIAL_TYPE</TAG>
+        <VALUE>Cell Line</VALUE>
+      </SAMPLE_ATTRIBUTE>
+    </SAMPLE_ATTRIBUTES>
+  </SAMPLE>
+</SAMPLE_SET>

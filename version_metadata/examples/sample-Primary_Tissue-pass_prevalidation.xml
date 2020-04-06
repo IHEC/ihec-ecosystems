@@ -1,0 +1,28 @@
+<SAMPLE_SET>
+  <SAMPLE accession="ENCBS054KUO" center_name="ENCODE">
+    <TITLE>Homo sapiens male embryo (108 days) small intestine tissue</TITLE>
+    <SAMPLE_NAME>
+      <TAXON_ID>9606</TAXON_ID>
+      <SCIENTIFIC_NAME>Homo sapiens</SCIENTIFIC_NAME>
+      <COMMON_NAME>human</COMMON_NAME>
+    </SAMPLE_NAME>
+    <SAMPLE_ATTRIBUTES>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>BIOMATERIAL_TYPE</TAG>
+        <VALUE>Primary Tissue</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>COLLECTION_METHOD</TAG>
+        <VALUE>unknown</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>TISSUE_DEPOT</TAG>
+        <VALUE>Ian Glass at Congenital Defects Lab, University of Washington</VALUE>
+      </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>TISSUE_TYPE</TAG>
+        <VALUE>small intestine</VALUE>
+      </SAMPLE_ATTRIBUTE>
+    </SAMPLE_ATTRIBUTES>
+  </SAMPLE>
+</SAMPLE_SET>
