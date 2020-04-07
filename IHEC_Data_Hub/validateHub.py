@@ -8,6 +8,7 @@ import re
 import logging
 import urllib.request
 from urllib.error import HTTPError
+from ontology_lookup import OntologyLookup
 
 
 def main(argv):
@@ -38,7 +39,7 @@ def main(argv):
         printHelp()
         exit()
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.1/hub.json'
 
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
@@ -56,7 +57,7 @@ def main(argv):
 def jsonschemaErrorReport(jsonObj):
     """ Return error report"""
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.1/hub.json'
     with open(schema_file) as jsonStr:
         json_schema = json.load(jsonStr)
     v = jsonschema.Draft7Validator(json_schema)
@@ -111,6 +112,9 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
         experiment_attr = dataset.get('experiment_attributes')
         if experiment_attr.get('experiment_type') == 'Transcription Factor':
             validateHgncSymbol(dataset, dataset_name)
+
+    # validation of accepted ontologies
+    validateOntologies(jsonObj)
 
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
@@ -322,6 +326,48 @@ def symbolStatus(status, symbol):
 
     except HTTPError as e:
         logging.getLogger().warning("Unexpected error: {}".format(e))
+
+
+def validateOntologies(jsonObj):
+    """
+    Validate all ontologies used in metadata: handles two cases
+    when ontology curies are present in sample and in experiment
+    """
+
+    func = _getframe().f_code.co_name
+    # SAMPLES
+    samples = jsonObj['samples']
+    for sample_name in samples:
+        sample = samples.get(sample_name)
+        for curie in sample['sample_ontology_curie']:
+            ontology_term = OntologyLookup(curie)
+            logging.getLogger(func).info('Validating "sample_ontology_curie" in {} ...'.format(sample_name))
+            val_rules = ontology_term.check_ontology_rules(
+                ontology_type='sample_ontology_curie', schema_object=sample_name,
+                subparam=sample['biomaterial_type'][0]
+            )
+
+            if val_rules:
+                ontology_term.validate_term()
+    # EXPERIMENTS: two ontology types here - experiment_ontology_curie & molecule_ontology_curie
+    # it handles both
+    datasets = jsonObj.get('datasets')
+    for dataset_name in datasets:
+        dataset = datasets.get(dataset_name)
+        exp_attr = dataset.get('experiment_attributes')
+        for key, value in exp_attr.items():
+            # retrieve ontology type
+            if 'ontology_curie' in key:
+                for curie in exp_attr[key]:
+                    ontology_term = OntologyLookup(curie)
+                    logging.getLogger(func).info('Validating "{}" in {} ...'.format(key, dataset_name))
+                    val_rules = ontology_term.check_ontology_rules(
+                        ontology_type=key, schema_object=dataset_name
+                    )
+                    if val_rules:
+                        ontology_term.validate_term()
+            else:
+                pass
 
 
 if __name__ == "__main__":

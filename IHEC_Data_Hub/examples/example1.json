@@ -12,9 +12,9 @@
     "samples": {
         "sample_id_1": {
             "biomaterial_type": "Cell Line",
-            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "sample_ontology_curie": ["efo:0001639"],
             "disease": "Mammary gland-Breast Fibrocystic Disease",
-            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "disease_ontology_curie": ["ncit:C1336077"],
             "line": "MCF10A",
             "lineage": "unknown",
             "differentiation_stage": "B_cell",
@@ -23,10 +23,10 @@
         },
         "sample_id_2": {
             "biomaterial_type": "Primary Cell",
-            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "sample_ontology_curie": ["efo:0001639"],
             "molecule": "polyA RNA",
             "disease": "Acute Myeloid Leukemia",
-            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "disease_ontology_curie": ["ncit:C1336077"],
             "donor_id" : "pz 300",
             "donor_age" : "30-40",
             "donor_age_unit" : "year",
@@ -38,10 +38,10 @@
         },
         "sample_id_3": {
             "biomaterial_type": "Primary Tissue",
-            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "sample_ontology_curie": ["efo:0001634"],
             "molecule": "polyA RNA",
             "disease": "None",
-            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "disease_ontology_curie": ["ncit:C1336077"],
             "donor_id" : "STL001",
             "donor_age" : "30-40",
             "donor_age_unit" : "year",
@@ -54,10 +54,10 @@
         },
         "sample_id_4": {
             "biomaterial_type": "Primary Tissue",
-            "sample_ontology_uri": "http://www.ebi.ac.uk/efo/EFO_0001639",
+            "sample_ontology_curie": ["efo:0001639"],
             "molecule": "polyA RNA",
             "disease": "None",
-            "disease_ontology_uri": "http://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&amp;code=C1336077",
+            "disease_ontology_curie": ["ncit:C1336077"],
             "donor_id" : "STL001",
             "donor_age" : "30-40",
             "donor_age_unit" : "year",
@@ -75,7 +75,7 @@
             "sample_id": "sample_id_1",
             "experiment_attributes": {
                 "experiment_type": "DNA Methylation",
-                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+                "experiment_ontology_curie": ["obi:0001863"],
                 "library_strategy": "Bisulfite-Seq",
                 "molecule": "genomic DNA",
                 "reference_registry_id": "IHECRE00000001"
@@ -116,7 +116,7 @@
             "sample_id": "sample_id_2",
             "experiment_attributes": {
                 "experiment_type": "RNA-Seq",
-                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+                "experiment_ontology_curie": ["obi:0001271"],
                 "library_strategy": "RNA-Seq",
                 "molecule": "total RNA",
                 "reference_registry_id": "IHECRE00001554"
@@ -166,7 +166,7 @@
             "sample_id": ["sample_id_3", "sample_id_4"],
             "experiment_attributes": {
                 "experiment_type": "Histone H3K4me1",
-                "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001858",
+                "experiment_ontology_curie": ["obi:0001858"],
                 "library_strategy": "ChIP-Seq",
                 "molecule": "genomic DNA",
                 "reference_registry_id": "IHECRE00000969"
