@@ -168,7 +168,7 @@ class Prevalidate:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False, ['invalid experiment_type']
 	
-		if self.version in ["1.1"]:
+		if self.version in ["2.0"]:
 			keys = self.bytype[exp_type]
 			missing = [k for k in keys if not k in attrs]
 			if missing:
@@ -197,7 +197,7 @@ class Prevalidate:
 def main(args):
 	schemas = {
 		'1.0':  ['./schemas/json/1.0/experiment.json', './schemas/json/1.0/sample.json'],
-		'1.1':  ['./schemas/json/1.1/experiment.json', './schemas/json/1.1/sample.json']
+		'2.0':  ['./schemas/json/2.0/experiment.json', './schemas/json/2.0/sample.json']
 	}
 	for version, schemafiles in schemas.items():
 		for schemafile in schemafiles:	
