@@ -4,7 +4,7 @@ from .utils import cmn, json2, logger
 from . import egautils
 from . import markdown
 from . import semantic
-from . import hack
+from . import io_adaptor
 
 from collections import namedtuple
 
@@ -218,7 +218,7 @@ def main(args):
 	}
 	for version, schemafiles in schemas.items():
 		for schemafile in schemafiles:	
-			parser = SchemaParser(hack.load_schema(schemafile), True)
+			parser = SchemaParser(io_adaptor.load_schema(schemafile), True)
 			outfile = cmn.basename(schemafile) 
 			outfile = './autodocs/' + outfile.replace('.json', '_' + version + '.md')
 			print("outfile:", outfile)

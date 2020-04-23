@@ -1,5 +1,7 @@
 from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
 from .utils import cmn, json2, logger
+from .import io_adaptor
+
 
 class ValidatorTemplate:
 	def __init__(self, objtype):
@@ -26,8 +28,10 @@ def main(args, versioned_xml, validated, nObjs, validator, xml_validator):
 
 	errlog = { e : v.errorlog  for e, v in validator.items()}
 
+	errlog = io_adaptor.format_errlog(errlog)
+
 	if args.has('-jsonlog'):
 		print(json2.dumpf(args['-jsonlog'], errlog))
 	else:
 		json2.pp(errlog)
-	return 
+	return errlog
