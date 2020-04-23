@@ -7,7 +7,7 @@ import sys
 import random
 from .prevalidate import Prevalidate
 from . import egautils
-from . import hack 
+from . import io_adaptor 
 
 def verbose_error(schema, obj, tag):
 	error_log = list()
@@ -71,21 +71,17 @@ class JsonSchema:
 		self.errs = list()
 		self.now  = cmn.now()
 		self.verbose = verbose
-		self.schema = hack.load_schema(self.f) #json2.loadf(self.f)
+		self.schema = io_adaptor.load_schema(self.f) 
 		self.base = os.path.dirname(os.path.abspath(__file__))
 		self.cwd = os.getcwd()
-		#self.expectedpath = 'file:./schemas/json/' 
-		#self.newpath = 'file:{0}/schemas/json/'.format(self.cwd, version)
-		#self.newpath = 'file:{0}/../schemas/json/{1}'.format(self.base, version)
 		if draft4schema:
 			raise Exception("__v4_schema_no_longer_supported__")
 		else:
-			self.schema = hack.load_schema(self.f)  
+			self.schema = io_adaptor.load_schema(self.f)  
 		print('#__initialized: {0} {1}\n'.format(self.f, self.version))	
 		self.prevalidation = Prevalidate([ json2.copyobj(self.schema)   ],   version) 
 
 	def errlog(self, i, tag):
-		#print('xxxxxxxxxxxxxxxxxx', tag)
 		if not tag:
 			f = '{3}/errs.{2}.{0}.{1}.log'.format(i, self.now, self.tag, self.errdir)
 		else:
