@@ -21,7 +21,7 @@ def format_errlog(errlog):
 			return e.strip()
 
 	def clean_prevalidate(v):
-		if not isinstance(v['errors'], list): return v['errors']
+		if not isinstance(v['errors'], list): return [v['errors']]
 		else:
 			assert len(v['errors']) == 2, v['errors']
 			error = v['errors'][0]
