@@ -1,6 +1,7 @@
 from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
 from .utils import cmn, json2, logger
-from .import io_adaptor
+from . import io_adaptor
+from . import utils
 
 
 class ValidatorTemplate:
@@ -21,7 +22,8 @@ def main(args, versioned_xml, validated, nObjs, validator, xml_validator):
 	print ('failed:', nObjs - len(validated))
 	if validated:
 		validated_xml_set = SRAParseObjSet.from_file(validated_xml_file)
-		assert validated_xml_set.is_valid__xml(xml_validator) or args.has("-skip-updated-xml-validation")
+		if not (validated_xml_set.is_valid__xml(xml_validator) or args.has("-skip-updated-xml-validation")):
+			utils.sanity_check_fail('__xml_validation_failed__')
 		logger('ok\n')
 	else:
 		logger('..no valid objects found\n')

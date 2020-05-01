@@ -59,8 +59,10 @@ def main(args):
 	for e in xmllist:
 		sra = SRAParseObjSet.from_file(e)
 		nObjs += sra.nOffspring()
-		assert sra.xml.getroot().tag == objset, [sra.xml.getroot().tag , objset] 
-		assert sra.is_valid__xml(xml_validator) or args.has("-not-sra-xml-but-try")
+		if not sra.xml.getroot().tag == objset:
+			utils.sanity_check_fail('__unexpected_xmltype:' + e)
+		if not sra.is_valid__xml(xml_validator) or args.has("-not-sra-xml-but-try"):
+			utils.sanity_check_fail('__invalid_xml:' + e)
 		v = ExperimentValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())
 		expvalidator[e] = v
