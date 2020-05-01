@@ -10,6 +10,8 @@ from collections import namedtuple
 
 #from . import exp_semantic_rules
 
+from . import utils
+
 Constraint = namedtuple('Constraint', ['rules', 'required', 'dependencies', 'properties'])
 
 class SchemaParser:
@@ -56,7 +58,8 @@ class SchemaParser:
 		rules = self.semantic_rules()
 		bytype, required, dependencies = dict(), dict(), dict()
 		
-		assert list(js['definitions'].keys()) == ['donor'], js['definitions']
+		if list(js['definitions'].keys()) != ['donor']:
+			utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [1]') 
 
 		for defn in js['definitions']:
 			properties = js['definitions'][defn]['properties']
@@ -67,7 +70,8 @@ class SchemaParser:
 		for subtype in js["allOf"]:
 			print(subtype)
 			biomaterial_type = subtype['if']['properties']['biomaterial_type']["const"][0]
-			assert biomaterial_type in ["Cell Line",  "Primary Cell", "Primary Cell Culture", "Primary Tissue"]
+			if not biomaterial_type in ["Cell Line",  "Primary Cell", "Primary Cell Culture", "Primary Tissue"]:
+				utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [2]')
 			properties = subtype["then"]["properties"]
 			bytype[biomaterial_type] = SchemaParser.properties(properties) 
 			required[biomaterial_type] = subtype["then"]["required"]
@@ -82,7 +86,8 @@ class SchemaParser:
 		rules = self.semantic_rules()
 		bytype, required, dependencies = dict(), dict(), dict()
 		for defn in jsonschema['definitions']:
-			assert not defn in bytype
+			if defn in bytype:
+				utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [3]:' + defn)
 			if not self.cfg:
 				bytype[defn] = list(jsonschema['definitions'][defn]['properties'].keys())
 			else:
@@ -123,11 +128,13 @@ class SchemaParser:
 class Prevalidate:
 	def __init__(self, jsonschemas, version):
 		self.jsonschemas = [j for j in jsonschemas]
-		assert len(jsonschemas) == 1 # no more lists here
+		if not len(jsonschemas) == 1: # no more lists here
+			utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [4]')
 		#for jsonschema in self.jsonschemas:
 		jsonschema = jsonschemas[0]
 		self.schema_id = SchemaParser.schema_id(jsonschema)   #jsonschema['$id'].split('/')[-1].replace('.json', '')
-		assert self.schema_id in ['experiment', 'sample']
+		if not self.schema_id in ['experiment', 'sample']:
+			utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [5]')
 		self.bytype = SchemaParser(jsonschema).definitions()
 		self.version = version
 
@@ -174,8 +181,6 @@ class Prevalidate:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False, ['invalid experiment_type']
 		
-		assert 'library_strategy' in attrs # this is known from above
-
 		if self.version in ["1.0"]:
 			if not "experiment_ontology_uri" in attrs and not "experiment_type" in attrs:
 				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
