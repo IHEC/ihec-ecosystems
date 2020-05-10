@@ -98,7 +98,7 @@ class SchemaParser:
 		common_required = jsonschema['required']
 		preval= { k: Constraint(rules.get(k, {}), required.get(k, []) + common_required, dependencies.get(k, {}), bytype[k] )  for k in bytype}
 		
-		print(preval)
+		#print(preval)
 		return preval
 
 	def definitions(self):
@@ -189,9 +189,17 @@ class Prevalidate:
 				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
 			else:
 				return (True, [])
-		elif self.version in ["1.1"]:
+		elif self.version in ["1.1", "2.0"]:
 			if not "experiment_ontology_curie" in attrs and not "experiment_type" in attrs:
 				return (False, "__mising_both__:__experiment_ontology_curie+experiment_type__")
+			required = ['library_strategy', 'experiment_type', 'experiment_ontology_curie', 'molecule', 'molecule_ontology_curie']
+			missing = [e for e in required if not e in attrs]
+			if missing:
+				return (False, ['missing at prevalidate', missing])
+			else:
+				return (True, [])
+				
+
 
 		if not 'experiment_type' in attrs:
 			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')

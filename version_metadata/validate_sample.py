@@ -3,6 +3,7 @@ from .utils import cmn, json2, logger
 from .validate_json import JsonSchema
 from .ihec_validator_base import  IHECJsonValidator
 from . import validate_main
+from . import utils
 
 
 class SampleValidator(IHECJsonValidator):
