@@ -96,8 +96,11 @@ class SchemaParser:
 
 		common = {e : jsonschema['properties'][e] for e in jsonschema['properties']}
 		common_required = jsonschema['required']
-		return { k: Constraint(rules.get(k, {}), required.get(k, []) + common_required, dependencies.get(k, {}), bytype[k] )  for k in bytype}
+		preval= { k: Constraint(rules.get(k, {}), required.get(k, []) + common_required, dependencies.get(k, {}), bytype[k] )  for k in bytype}
 		
+		print(preval)
+		return preval
+
 	def definitions(self):
 		return {k: self.constraints[k].properties  for k in self.constraints}
 		

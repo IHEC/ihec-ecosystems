@@ -23,9 +23,10 @@ def format_errlog(errlog):
 	def clean_prevalidate(v):
 		if not isinstance(v['errors'], list): return [v['errors']]
 		else:
-			assert len(v['errors']) == 2, v['errors']
+			list_get =  lambda a, i : a[i] if i < len(a) else ['prevalidation']
+			#assert len(v['errors']) == 2, v['errors']
 			error = v['errors'][0]
-			return [error + " : " + error_instance for error_instance in v['errors'][1]]
+			return [error + " : " + error_instance for error_instance in list_get(v['errors'],1)]
 			
 		
 	
