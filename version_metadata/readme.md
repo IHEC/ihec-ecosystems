@@ -27,6 +27,12 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/install
 	cd ihec-ecosystem # IMPORTANT: Currently you have to run the validator from this directory
 	git checkout feb2020 # To be merged
 
+### SRA Schema Definition
+It is simple to test any XML file against SRA once the conda environment is installed.
+
+	xmllint versioned.xml --schema schemas/xml/SRA.sample.xsd >/dev/null
+	versioned.xml validates
+
 ### Usage
 
 Note that there are no space in arguments like `-out:./version_metadata/examples/samples.versioned.xml`.
@@ -137,11 +143,7 @@ Again, the important information is at the end:
 	    ]
 	}
 
-### SRA Schema Definition
-It is simple to test any XML file against SRA:
 
-	xmllint versioned.xml --schema schemas/xml/SRA.sample.xsd >/dev/null
-	versioned.xml validates
 
 
 ## Old documentation
