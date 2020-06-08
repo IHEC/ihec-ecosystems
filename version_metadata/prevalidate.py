@@ -4,10 +4,13 @@ from .utils import cmn, json2, logger
 from . import egautils
 from . import markdown
 from . import semantic
+from . import io_adaptor
 
 from collections import namedtuple
 
 #from . import exp_semantic_rules
+
+from . import utils
 
 Constraint = namedtuple('Constraint', ['rules', 'required', 'dependencies', 'properties'])
 
@@ -55,7 +58,8 @@ class SchemaParser:
 		rules = self.semantic_rules()
 		bytype, required, dependencies = dict(), dict(), dict()
 		
-		assert list(js['definitions'].keys()) == ['donor'], js['definitions']
+		if list(js['definitions'].keys()) != ['donor']:
+			utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [1]') 
 
 		for defn in js['definitions']:
 			properties = js['definitions'][defn]['properties']
@@ -66,7 +70,8 @@ class SchemaParser:
 		for subtype in js["allOf"]:
 			print(subtype)
 			biomaterial_type = subtype['if']['properties']['biomaterial_type']["const"][0]
-			assert biomaterial_type in ["Cell Line",  "Primary Cell", "Primary Cell Culture", "Primary Tissue"]
+			if not biomaterial_type in ["Cell Line",  "Primary Cell", "Primary Cell Culture", "Primary Tissue"]:
+				utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [2]')
 			properties = subtype["then"]["properties"]
 			bytype[biomaterial_type] = SchemaParser.properties(properties) 
 			required[biomaterial_type] = subtype["then"]["required"]
@@ -81,7 +86,8 @@ class SchemaParser:
 		rules = self.semantic_rules()
 		bytype, required, dependencies = dict(), dict(), dict()
 		for defn in jsonschema['definitions']:
-			assert not defn in bytype
+			if defn in bytype:
+				utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [3]:' + defn)
 			if not self.cfg:
 				bytype[defn] = list(jsonschema['definitions'][defn]['properties'].keys())
 			else:
@@ -89,8 +95,12 @@ class SchemaParser:
 				bytype[defn] =  SchemaParser.properties(properties)   #  {p :   cmn.safedict([ getprop(properties[p], e) for e in property_attrs]) for p in properties}
 
 		common = {e : jsonschema['properties'][e] for e in jsonschema['properties']}
-		return { k: Constraint(rules.get(k, {}), required.get(k, {}), dependencies.get(k, {}), bytype[k] )  for k in bytype}
+		common_required = jsonschema['required']
+		preval= { k: Constraint(rules.get(k, {}), required.get(k, []) + common_required, dependencies.get(k, {}), bytype[k] )  for k in bytype}
 		
+		#print(preval)
+		return preval
+
 	def definitions(self):
 		return {k: self.constraints[k].properties  for k in self.constraints}
 		
@@ -121,53 +131,81 @@ class SchemaParser:
 class Prevalidate:
 	def __init__(self, jsonschemas, version):
 		self.jsonschemas = [j for j in jsonschemas]
-		assert len(jsonschemas) == 1 # no more lists here
+		if not len(jsonschemas) == 1: # no more lists here
+			utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [4]')
 		#for jsonschema in self.jsonschemas:
 		jsonschema = jsonschemas[0]
 		self.schema_id = SchemaParser.schema_id(jsonschema)   #jsonschema['$id'].split('/')[-1].replace('.json', '')
-		assert self.schema_id in ['experiment', 'sample']
+		if not self.schema_id in ['experiment', 'sample']:
+			utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [5]')
 		self.bytype = SchemaParser(jsonschema).definitions()
 		self.version = version
 
 	def attributes(self, obj):
 		return {k.lower():v for k, v in obj['attributes'].items()}
 	
-	def check_sample_properties(self, obj):
-		raise NotImplementedError('sample')
+	def check_sample_properties(self, obj, tag):
+		#raise NotImplementedError('sample')
 		attrs = obj
 
 		if not 'biomaterial_type' in attrs:
-			print(objid(obj) + ': missing biomaterial_type: cannot determine schema to use')
-			return False
+			print(tag + ': missing biomaterial_type: cannot determine schema to use')
+			return False, ['missing biomaterial_type']
 
 		biomaterial_type = attrs['biomaterial_type'][0]
 		if not biomaterial_type in self.bytype:
-			print(objid(obj) + ': invalid biomaterial_type: ' + biomaterial_type)
-			return False
+			print(tag + ': invalid biomaterial_type: ' + biomaterial_type)
+			return False, ['unknown biomaterial tyoe:' + biomaterial_type ]
 			
 		keys = self.bytype[biomaterial_type]
 		missing = [k for k in keys if not k in attrs]
 		if missing:
-			print(objid(obj) + ': missing attributes for biomaterial_type: {0} , {1}'.format(biomaterial_type, missing))
-			return False
-		print(objid(obj) + ':prevalidates')
-		return True
+			print(tag + ': missing attributes for biomaterial_type: {0} , {1}'.format(biomaterial_type, missing))
+			return False, ['missing', missing]
+		print(tag + ':prevalidates')
+		return True, []
 			
 			
 	def check_experiment_properties(self, obj, tag):
 		attrs = obj
-		if not 'experiment_type' in attrs:
-			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
-			return False, ['missing experiment_type']
+		
 		if not 'library_strategy' in attrs:
 			print('__prevalidate_fail', tag ,': missing library strategy: cannot determine schema to use')
 			return False, ['missing library strategy']
 
-		exp_type =  egautils.strategy2schema(attrs['library_strategy'][0])
+
+		if len(attrs['library_strategy']) > 1:
+			return False, ['unique library strategy expected:' + str(attrs['library_strategy']) ]
+			
+		exp_type =  egautils.strategy2schema(cmn.demanduniq(attrs['library_strategy']))
+			
+	
 		if not exp_type in self.bytype:
 			print('__prevalidate_fail', tag , ': invalid experiment_type: ' + exp_type)
 			return False, ['invalid experiment_type']
-	
+		
+		if self.version in ["1.0"]:
+			if not "experiment_ontology_uri" in attrs and not "experiment_type" in attrs:
+				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
+			else:
+				return (True, [])
+		elif self.version in ["1.1", "2.0"]:
+			if not "experiment_ontology_curie" in attrs and not "experiment_type" in attrs:
+				return (False, "__mising_both__:__experiment_ontology_curie+experiment_type__")
+			required = ['library_strategy', 'experiment_type', 'experiment_ontology_curie', 'molecule', 'molecule_ontology_curie']
+			missing = [e for e in required if not e in attrs]
+			if missing:
+				return (False, ['missing at prevalidate', missing])
+			else:
+				return (True, [])
+				
+
+
+		if not 'experiment_type' in attrs:
+			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
+			return False, ['missing experiment_type']
+
+
 		if self.version in ["2.0"]:
 			keys = self.bytype[exp_type]
 			missing = [k for k in keys if not k in attrs]
@@ -175,12 +213,6 @@ class Prevalidate:
 				print('__prevalidate_fail', tag , ': missing attributes for experiment_type: {0} , {1}'.format(exp_type, missing))
 			return (False, ['missing', missing]) if missing else (True, [])
 		#print(objid(obj) + ':prevalidates') 
-		elif self.version in ["1.0"]:
-			assert 'library_strategy' in attrs # this is known from above
-			if not "experiment_ontology_uri" in attrs and not "experiment_type" in attrs:
-				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
-			else:
-				return (True, [])
 		else:
 			raise Exception("unknown version:" + self.version)
 
@@ -190,6 +222,7 @@ class Prevalidate:
 		if  self.schema_id in ['experiment']:
 			return self.check_experiment_properties(obj, tag)
 		else:
+			return self.check_sample_properties(obj, tag)
 			print('#__warn:__no_prevalidation_available_for_sample_schema_yet__')
 			return True, {'__warn__' : 'prevalidation ignored'}
 
@@ -201,7 +234,7 @@ def main(args):
 	}
 	for version, schemafiles in schemas.items():
 		for schemafile in schemafiles:	
-			parser = SchemaParser(json2.loadf(schemafile) , True)
+			parser = SchemaParser(io_adaptor.load_schema(schemafile), True)
 			outfile = cmn.basename(schemafile) 
 			outfile = './autodocs/' + outfile.replace('.json', '_' + version + '.md')
 			print("outfile:", outfile)

@@ -7,34 +7,27 @@ import sys
 import random
 from .prevalidate import Prevalidate
 from . import egautils
-
-# scrap trying to use ihec_data_hub verbose_error :(
-#from pathlib import Path
-#sys.path.append(Path(os.path.abspath(Path(__file__).parent)).parent)
-#import IHEC_Data_Hub as ihec_data_hub
-
-
-
-from .utils import json2
+from . import io_adaptor 
 
 def verbose_error(schema, obj, tag):
 	error_log = list()
 	v = jsonschema.Draft7Validator(schema)
 	errors = [e for e in v.iter_errors(obj)]
-	error_log.append('__total_errors__:{}'.format(len(errors)))
+	#error_log.append('__total_errors__:{}'.format(len(errors)))
     
 	for error in sorted(errors, key=str):
-		error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
+		#error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
+		error_log.append('{0} {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
 		if len(error.context) > 0:
 			#error_log.append('Multiple sub-schemas can apply. This is the errors for each:')
 			prev_schema = -1
 			for suberror in sorted(error.context, key=lambda e: e.schema_path):
 				schema_index = suberror.schema_path[0]
 				if prev_schema < schema_index:
-					error_log.append('__schema_id__:{}'.format(schema_index + 1))
+					#error_log.append('{}'.format(schema_index + 1))
 					prev_schema = schema_index
-				error_log.append('\t{}'.format(suberror.message))
-		error_log.append("--------------------------------------------------")
+				#error_log.append('{}'.format(suberror.message))
+		#error_log.append("--------------------------------------------------")
 	return error_log
 
 
@@ -51,7 +44,8 @@ class Sanitizer:
 
 class JsonSchema:
 	def fixfilebase(self, f):
-		assert f.startswith(self.expectedpath), [f, self.expectedpath]
+		if not f.startswith(self.expectedpath):
+			utils.sanity_check_fail('__malformed_jsonschema__')
 		f = self.newpath + f[len(self.expectedpath):]
 		schemafile = f.split(':')[-1].split('#')[0]
 		if not cmn.fexists(schemafile):
@@ -78,31 +72,17 @@ class JsonSchema:
 		self.errs = list()
 		self.now  = cmn.now()
 		self.verbose = verbose
-		self.schema = json2.loadf(self.f)
+		self.schema = io_adaptor.load_schema(self.f) 
 		self.base = os.path.dirname(os.path.abspath(__file__))
 		self.cwd = os.getcwd()
-		self.expectedpath = 'file:./schemas/json/' 
-		self.newpath = 'file:{0}/schemas/json/'.format(self.cwd, version)
-		#self.newpath = 'file:{0}/../schemas/json/{1}'.format(self.base, version)
 		if draft4schema:
-			raise Exception("__no_longer_supported__")
-			for e in self.schema.get('anyOf', list()):
-				if '$ref' in e:
-					e['$ref'] = self.fixfilebase(e['$ref'])
-
-			for x in self.schema.get('allOf', dict()):
-				for e in x['anyOf']:
-					if '$ref' in e:
-						e['$ref'] = self.fixfilebase(e['$ref'])
+			raise Exception("__v4_schema_no_longer_supported__")
 		else:
-			schema_json = cmn.fread(self.f)
-			schema_json_fixed = schema_json.replace(self.expectedpath, self.newpath)
-			self.schema = json.loads(schema_json_fixed) 
-		print('#__initialized: {0} {1}\n#__path: {2}'.format(self.f, self.version, self.newpath))	
+			self.schema = io_adaptor.load_schema(self.f)  
+		print('#__initialized: {0} {1}\n'.format(self.f, self.version))	
 		self.prevalidation = Prevalidate([ json2.copyobj(self.schema)   ],   version) 
 
 	def errlog(self, i, tag):
-		#print('xxxxxxxxxxxxxxxxxx', tag)
 		if not tag:
 			f = '{3}/errs.{2}.{0}.{1}.log'.format(i, self.now, self.tag, self.errdir)
 		else:
@@ -125,7 +105,7 @@ class JsonSchema:
 		else:
 			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
 			ok = False 
-			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors, 'version' : schema_version}}
+			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors, 'version' : schema_version, "ok":False}}
 		#status[tag]['ok'] = ok
 		return ok, status
 				
@@ -138,23 +118,13 @@ class JsonSchema:
 			#logger.entry('#__errors__')
 			jsonschema.Draft7Validator(self.schema).validate(jsonObj)
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
-			#json2.pp(jsonObj)
-		
 			tag = self.obj_id(details)
+			print('#__validates__', tag, schema_version)
 			return True, {tag: {'errors' : [], 'ok' : True, 'version' : schema_version}   }
 		except jsonschema.ValidationError as err:
 			tag = self.obj_id(details)
-			#json2.pp(self.schema)
 			errors = verbose_error(self.schema, jsonObj, tag) 
-			logfile = self.errlog(len(self.errs),  tag + '.ihec_' + schema_version) # self.obj_id(details))
-			logger.entry('#__writing_errors[for IHEC spec={1}]: {0}'.format(logfile, schema_version))
-			log = []
-			with open(logfile, "w") as errfile:
-				for e in errors:
-					errfile.write(e)
-					errfile.write('\n')
-					log.append(e)
-			return False, {tag : {'errors' :  logfile, 'error_type' : 'jsonschema',  'ok' : False, 'version': schema_version}}
+			return False, {tag : {'errors' :  errors,  'error_type' : 'jsonschema',  'ok' : False, 'version': schema_version}}
 			
 				
 

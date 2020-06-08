@@ -5,6 +5,11 @@ import time
 from collections import defaultdict
 
 
+def sanity_check_fail(msg):
+	print(msg)
+	sys.exit(1)
+
+
 class NonUniqException(Exception):
 	def __init__(self, message, iterable):
 		self.message = message
