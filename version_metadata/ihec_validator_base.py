@@ -10,7 +10,6 @@ class IHECJsonValidator(object):
 		validated = list()
 		invalid = list()
 		for (xml, attrs) in self.xmljson:
-			#print('xxxxxxxxx2')
 			(version, title_sanitized)  = self.latest_valid_spec(attrs)
 			try:
 				semantics_ok = self.validate_semantics(attrs)
@@ -33,18 +32,19 @@ class IHECJsonValidator(object):
 
 	def latest_valid_spec(self, attributes):
 		attrs = attributes['attributes']
+		all_valid_versions = list()
 		for version in self.validators:
-			#print('xxxxxxxxx3')
-
 			validator = self.validators[version]
-			print('__checking_against_schema:', version, self.validators[version].f, self.validators[version].newpath)
+			print('__checking_against_schema:', version, self.validators[version].f)
 			valid, errlog = validator.validate(attrs, details=attributes, schema_version=version)
 			title_sanitized =  egautils.obj_id(attributes)  #logger.trystr(attributes['title'])  # .decode('ascii', 'ignore')
 			#logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format(valid, version if valid else '__invalid__', title_sanitized  ))
 			self.errorlog.append(errlog)
 			if valid:
+				all_valid_versions.append((version, title_sanitized))
 				return (version, title_sanitized)
-		return (None, None) 
+		return (None, None) if len(all_valid_versions) == 0 else all_valid_versions[0]
+		 
 
 
 

@@ -20,7 +20,8 @@ class SRAParseObj:
 	def add_attribute(self, tag, value):
 		obj = self.xml
 		objtype = obj.tag
-		assert objtype in ['SAMPLE', 'EXPERIMENT']
+		if not objtype in ['SAMPLE', 'EXPERIMENT']:
+			utils.sanity_check_fail('__xml_is_unknown_type:' + objtype)
 		attrtag = '{0}_ATTRIBUTES'.format(objtype)
 		attribute_list = obj.findall(attrtag)
 		attrs = cmn.demanduniq(list(obj.findall(attrtag)))
@@ -109,7 +110,8 @@ class SRAParseObjSet:
 		#hashed['attributes']['@idblock'] = hashed['@idblock']	
 		return hashed
 	def parse_attributes_block(self, obj, objtype):
-		assert objtype in self.expected_obj_tags, [objtype, self.expected_obj_tags]
+		if not objtype in self.expected_obj_tags: # [objtype, self.expected_obj_tags]
+			utils.sanity_check_fail('__unexpected_object_type__:' + objtype)
 		attrtag = '{0}_ATTRIBUTES'.format(objtype)
 		attributes_found = list(obj.findall(attrtag))
 		if len(attributes_found) == 0:
@@ -138,7 +140,8 @@ class SRAParseObjSet:
 	def attributes(self):
 		root = self.xml.getroot()
 		root_tag = root.tag
-		assert root_tag in self.expected_root_tags
+		if not root_tag in self.expected_root_tags:
+			utils.sanity_check_fail('__root_tag_not_as_expected__:' + root_tag)
 		objtype = root_tag[0:-4]
 		offspring = root.getchildren()
 		objs = [self.parse(e) for e in offspring]

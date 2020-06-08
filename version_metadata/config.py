@@ -24,13 +24,12 @@ class Config:
                 if len(keyvalue) == 1:
                     self.flags.add(e)
                 else:
-                    assert not keyvalue[0] in self.keys
+                    if keyvalue[0] in self.keys: 
+                        print('#warn.. overwriting: argument:' + keyvalue[0]) 
                     self.keys[keyvalue[0]] = keydelim.join(keyvalue[1:])
             else:
                 self.values.append(e)
     def add_key(self, k, v, update=False):
-        if not update:
-            assert not k in self.keys
         self.keys[k] = v
         return v
     def has(self, k):
