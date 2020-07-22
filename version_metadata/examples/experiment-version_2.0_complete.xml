@@ -24,6 +24,31 @@
                 <TAG>EXPERIMENT_TYPE</TAG>
                 <VALUE>Histone H3K4me1</VALUE>
             </EXPERIMENT_ATTRIBUTE>
+            <!-- v1.0 -->
+            <EXPERIMENT_ATTRIBUTE>
+                <TAG>EXPERIMENT_ONTOLOGY_URI</TAG>
+                <VALUE>http://purl.obolibrary.org/obo/OBI_0000716</VALUE>
+            </EXPERIMENT_ATTRIBUTE>
+            <!-- v2.0 -->
+            <EXPERIMENT_ATTRIBUTE>
+                <TAG>EXPERIMENT_ONTOLOGY_CURIE</TAG>
+                <VALUE>OBI:0000716</VALUE>
+            </EXPERIMENT_ATTRIBUTE>
+            <!-- v1.0 -->
+            <EXPERIMENT_ATTRIBUTE>
+                <TAG>MOLECULE_ONTOLOGY_URI</TAG>
+                <VALUE>http://purl.obolibrary.org/obo/SO_0000991</VALUE>
+            </EXPERIMENT_ATTRIBUTE>
+            <!-- v2.0 -->
+            <EXPERIMENT_ATTRIBUTE>
+                <TAG>MOLECULE_ONTOLOGY_CURIE</TAG>
+                <VALUE>SO:0000991</VALUE>
+            </EXPERIMENT_ATTRIBUTE>
+            <EXPERIMENT_ATTRIBUTE>
+                <TAG>MOLECULE</TAG>
+                <VALUE>genomic DNA</VALUE>
+            </EXPERIMENT_ATTRIBUTE>
+            <!-- Mandatory only for ChIP-Seq v2.0 -->
             <EXPERIMENT_ATTRIBUTE>
                 <TAG>EXPERIMENT_TARGET_HISTONE</TAG>
                 <VALUE>H3K4me1</VALUE>
@@ -31,18 +56,6 @@
             <EXPERIMENT_ATTRIBUTE>
                 <TAG>EXPERIMENT_TARGET_TF</TAG>
                 <VALUE>HOXA13</VALUE>
-            </EXPERIMENT_ATTRIBUTE>
-            <EXPERIMENT_ATTRIBUTE>
-                <TAG>EXPERIMENT_ONTOLOGY_URI</TAG>
-                <VALUE>http://purl.obolibrary.org/obo/OBI_0000716</VALUE>
-            </EXPERIMENT_ATTRIBUTE>
-            <EXPERIMENT_ATTRIBUTE>
-                <TAG>MOLECULE_ONTOLOGY_URI</TAG>
-                <VALUE>http://purl.obolibrary.org/obo/SO_0000991</VALUE>
-            </EXPERIMENT_ATTRIBUTE>
-            <EXPERIMENT_ATTRIBUTE>
-                <TAG>MOLECULE</TAG>
-                <VALUE>genomic DNA</VALUE>
             </EXPERIMENT_ATTRIBUTE>
         </EXPERIMENT_ATTRIBUTES>
     </EXPERIMENT>
