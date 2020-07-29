@@ -53,7 +53,7 @@
         }
     },
 
-    "required": ["sample_ontology_uri", "disease_ontology_uri", "disease", "biomaterial_provider", "biomaterial_type", "treatment"],
+    "required": ["sample_ontology_uri", "disease_ontology_uri", "disease", "biomaterial_provider", "biomaterial_type"],
 
     "allOf": [
     {
