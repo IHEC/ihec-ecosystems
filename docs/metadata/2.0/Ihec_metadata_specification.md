@@ -9,6 +9,8 @@ Documentation for the core SRA XML elements is here: [http://www.ncbi.nlm.nih.go
 
 The SRA XML schemas are here: [http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=xml_schemas](http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=xml_schemas)
 
+The older 1.0 specification can be found [here](https://github.com/IHEC/ihec-ecosystems/blob/master/docs/metadata/1.0/Ihec_metadata_specification.md).
+
 ## How to define multiple values per metadata tag
 
 The same attribute may be used multiple times in a single XML record. This may be most useful, for example, for supplying CURIEs to multiple ontologies or for supplying multiple references to a single ontology such as in the case of DISEASE_ONTOLOGY_CURIE. For example, describing a brain primary tissue using ontology terms for ('Brodmann (1909) area 8', 'Brodmann (1909) area 9') would be:
