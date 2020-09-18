@@ -1,5 +1,5 @@
 from .sraparse import SRAParseObjSet, SRAParseObj,  XMLValidator
-from .utils import cmn, json2, logger
+from .utils import cmn, json2, logger, sanity_check_fail
 from .validate_json import JsonSchema
 from .ihec_validator_base import  IHECJsonValidator
 from . import exp_semantic_rules
@@ -60,9 +60,9 @@ def main(args):
 		sra = SRAParseObjSet.from_file(e)
 		nObjs += sra.nOffspring()
 		if not sra.xml.getroot().tag == objset:
-			utils.sanity_check_fail('__unexpected_xmltype:' + e)
+			sanity_check_fail('__unexpected_xmltype:' + e)
 		if not sra.is_valid__xml(xml_validator) or args.has("-not-sra-xml-but-try"):
-			utils.sanity_check_fail('__invalid_xml:' + e)
+			sanity_check_fail('__invalid_xml:' + e)
 		v = ExperimentValidator(sra, ihec_validators)
 		validated.extend(v.is_valid_ihec())
 		expvalidator[e] = v

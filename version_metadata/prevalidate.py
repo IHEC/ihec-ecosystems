@@ -68,7 +68,6 @@ class SchemaParser:
 			dependencies[defn] = SchemaParser.dependencies(js['definitions'][defn])
 
 		for subtype in js["allOf"]:
-			print(subtype)
 			biomaterial_type = subtype['if']['properties']['biomaterial_type']["const"][0]
 			if not biomaterial_type in ["Cell Line",  "Primary Cell", "Primary Cell Culture", "Primary Tissue"]:
 				utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [2]')
@@ -112,7 +111,6 @@ class SchemaParser:
 		
 		ruleshash = dict()
 		for r in data.values():
-			print(r)
 			[e1, e2] = r["applies"]
 			if not e1 in ruleshash: ruleshash[e1] = dict()
 			if not e2 in ruleshash[e1]: ruleshash[e1][e2] = list()
