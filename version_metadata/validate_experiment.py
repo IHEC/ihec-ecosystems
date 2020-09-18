@@ -4,6 +4,7 @@ from .validate_json import JsonSchema
 from .ihec_validator_base import  IHECJsonValidator
 from . import exp_semantic_rules
 from . import validate_main
+from . import utils
 
 
 class ExperimentValidator(IHECJsonValidator):
@@ -78,7 +79,3 @@ def main(args):
 	
 
 	return validate_main.main(args, versioned_xml, validated, nObjs, expvalidator, xml_validator)
-
-
-
-
