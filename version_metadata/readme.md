@@ -24,6 +24,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/install
 
 	conda create --name ihec python=3.8 lxml jsonschema
 	conda activate ihec
+	git clone https://github.com/IHEC/ihec-ecosystems
 	cd ihec-ecosystem # IMPORTANT: Currently you have to run the validator from this directory
 
 ### SRA Schema Definition
