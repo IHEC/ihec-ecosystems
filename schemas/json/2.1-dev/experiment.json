@@ -129,7 +129,8 @@
                 "library_strategy" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "enum": ["ChIP-Seq"]}},
                 "molecule_ontology_curie" : {"type": "array", "items": {"type": "string", "pattern": "^[A-Za-z]*:[A-Za-z0-9]*"}},
                 "molecule" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "enum": ["genomic DNA"]}},
-
+		"umi_enabled" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "enum": ["true", "false"]}},   
+		"umi_read_structure" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string"}},     
                 "extraction_protocol" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "The protocol used to isolate the extract material."}},
                 "extraction_protocol_type_of_sonicator" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "The type of sonicator used for extraction."}},
                 "extraction_protocol_sonication_cycles" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "The number of sonication cycles used for extraction."}},
