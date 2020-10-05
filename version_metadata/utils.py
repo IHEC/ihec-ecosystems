@@ -44,7 +44,7 @@ class Utils:
 		self.config = dict()
 		self.encoding = 'utf-8'
 	def fread(self, f):
-		with open(f) as infile:
+		with open(f, encoding='utf-8') as infile:
 			return infile.read()
 	def fentries(self, f):
 		with open(f) as infile:

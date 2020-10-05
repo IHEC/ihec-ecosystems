@@ -5,7 +5,7 @@ from . import validate_sample
 from . import validate_experiment
 from . import prevalidate
 
-import sraparse
+from . import sraparse
 import os
 
 def main(args):
@@ -16,7 +16,7 @@ def main(args):
 	base = os.path.dirname(os.path.realpath(__file__))
 
 	if not args.has('-config'):
-		if not cfg.has('-dev'):
+		if not args.has('-dev'):
 			args.add_key('-config',  "{0}/config.json".format(base))
 		else:
 			args.add_key('-config',  "{0}/config-dev.json".format(base))  

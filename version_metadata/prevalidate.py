@@ -187,7 +187,7 @@ class Prevalidate:
 				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
 			else:
 				return (True, [])
-		elif self.version in ["1.1", "2.0"]:
+		elif self.version in ["1.1", "2.0", "2.1-dev"]:
 			if not "experiment_ontology_curie" in attrs and not "experiment_type" in attrs:
 				return (False, "__mising_both__:__experiment_ontology_curie+experiment_type__")
 			required = ['library_strategy', 'experiment_type', 'experiment_ontology_curie', 'molecule', 'molecule_ontology_curie']
@@ -196,13 +196,15 @@ class Prevalidate:
 				return (False, ['missing at prevalidate', missing])
 			else:
 				return (True, [])
-				
-
+			
+	
 
 		if not 'experiment_type' in attrs:
 			print('__prevalidate_fail', tag , ': missing experiment_type: cannot determine schema to use')
 			return False, ['missing experiment_type']
 
+
+		raise Exception("__unreachable__")
 
 		if self.version in ["2.0"]:
 			keys = self.bytype[exp_type]
