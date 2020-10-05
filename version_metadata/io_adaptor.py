@@ -7,7 +7,7 @@ def load_schema(f):
 	cwd = os.getcwd()
 	expectedpath = 'file:../schemas/json/' 
 	newpath = 'file:{0}/../schemas/json/'.format(base)
-	schema_json = cmn.fread(f)
+	schema_json = cmn.fread(f, encoding = 'utf-8')
 	schema_json_fixed = schema_json.replace(expectedpath, newpath)
 	return json.loads(schema_json_fixed)
 

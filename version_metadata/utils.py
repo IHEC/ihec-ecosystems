@@ -43,9 +43,13 @@ class Utils:
 	def __init__(self):
 		self.config = dict()
 		self.encoding = 'utf-8'
-	def fread(self, f):
-		with open(f, encoding='utf-8') as infile:
-			return infile.read()
+	def fread(self, f, encoding=''):
+		if encoding:
+			with open(f, encoding=encoding) as infile:
+				return infile.read()
+		else:
+			with open(f, encoding=encoding) as infile: 
+				return infile.read()
 	def fentries(self, f):
 		with open(f) as infile:
 			return [e.strip() for e in infile]
