@@ -5,6 +5,7 @@ from . import validate_sample
 from . import validate_experiment
 from . import prevalidate
 
+import sraparse
 import os
 
 def main(args):
@@ -15,7 +16,11 @@ def main(args):
 	base = os.path.dirname(os.path.realpath(__file__))
 
 	if not args.has('-config'):
-		args.add_key('-config',  "{0}/config.json".format(base))
+		if not cfg.has('-dev'):
+			args.add_key('-config',  "{0}/config.json".format(base))
+		else:
+			args.add_key('-config',  "{0}/config-dev.json".format(base))  
+
 
 	logger(str([args.keys, args.args()]) + '\n')
 
@@ -30,7 +35,7 @@ def main(args):
 	#try:
 	if True:
 		if args.has('-extract'):
-			import sraparse
+			#import sraparse
 			return sraparse.SRAParseObjSet.extract_attributes_to_json(args.args(), args['-out'])
 		elif args.has("-test-sample"):
 			testargs = ["./examples/samples.xml", "-config:{0}".format(args['-config']), "-out:./examples/samples.versioned.xml"]
