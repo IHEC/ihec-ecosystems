@@ -48,10 +48,10 @@ def patch_curie_uri(attrs):
 	for e in attr_names:
 		
 		e_new = ''
-		if e.endswith('_uri'):
-			e_new = e[0:-len('_uri')]  + '_curie'
-		elif e.endswith('_curie'):
-			e_new = e[0:-len('_curie')]  + '_uri' 
+		if e.endswith('_URI'):
+			e_new = e[0:-len('_URI')]  + '_CURIE'
+		elif e.endswith('_CURIE'):
+			e_new = e[0:-len('_CURIE')]  + '_URI' 
 		
 		if e_new:
 			if e_new in attrs:
