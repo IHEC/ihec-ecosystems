@@ -14,6 +14,7 @@ def load_schema(f):
 
 def format_errlog(errlog):
 	# change errlog here
+
 	def clean_error(e):
 		if isinstance(e, list):
 			return e
@@ -38,3 +39,6 @@ def format_errlog(errlog):
 				else:
 					v['errors'] = [clean_error(x) for x in v['errors']]
 	return errlog
+
+
+
