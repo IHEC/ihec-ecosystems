@@ -2,6 +2,10 @@ from .utils import json2, cmn
 import os
 import json 
 
+
+def warn(*msg):
+	print(*msg)
+
 def load_schema(f):
 	base = os.path.dirname(os.path.abspath(__file__))
 	cwd = os.getcwd()
@@ -38,3 +42,27 @@ def format_errlog(errlog):
 				else:
 					v['errors'] = [clean_error(x) for x in v['errors']]
 	return errlog
+
+def patch_curie_uri(attrs):
+	attr_names = list(attrs.keys())
+	for e in attr_names:
+		
+		e_new = ''
+		if e.endswith('_uri'):
+			e_new = e[0:-len('_uri')]  + '_curie'
+		elif e.endswith('_curie'):
+			e_new = e[0:-len('_curie')]  + '_uri' 
+		
+		if e_new:
+			if e_new in attrs:
+				warn('# __curie_uri_not_patched_as_patch_attr_exists__', e, e_new, attrs[e], attrs[e_new])
+			else:
+				attrs[e_new] = attrs[e]
+	return attrs
+
+			
+
+
+
+
+

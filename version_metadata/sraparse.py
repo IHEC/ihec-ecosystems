@@ -132,6 +132,8 @@ class SRAParseObjSet:
 		hashed =  self.extract_from_sra_body(obj)
 		logger.debugonly(hashed, obj)
 		hashed['attributes'] = self.parse_attributes_block(obj, obj.tag)
+		# handle curie/uri patching
+		hashed['attributes'] = io_adaptor.patch_curie_uri(hashed['attributes']) 
 		return self.from_sra_main_to_attributes(hashed)
 	def obj_xmljson(self):
 		root = self.xml.getroot()
