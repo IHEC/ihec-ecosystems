@@ -102,6 +102,7 @@
                 "experiment_ontology_curie": ["obi:0001863"],
                 "library_strategy": ["Bisulfite-Seq"],
                 "molecule": ["genomic DNA"],
+                "molecule_ontology_curie": ["so:0000991"],
                 "reference_registry_id": ["IHECRE00000001"]
             },
             "analysis_attributes": {
@@ -143,6 +144,7 @@
                 "experiment_ontology_curie": ["obi:0001271"],
                 "library_strategy": ["RNA-Seq"],
                 "molecule": ["total RNA"],
+                "molecule_ontology_curie": ["so:0000356"],
                 "reference_registry_id": ["IHECRE00001554"]
             },
             "analysis_attributes": {
@@ -193,7 +195,9 @@
                 "experiment_ontology_curie": ["obi:0001858"],
                 "library_strategy": ["ChIP-Seq"],
                 "molecule": ["genomic DNA"],
-                "reference_registry_id": ["IHECRE00000969"]
+                "molecule_ontology_curie": ["so:0000991"],
+                "reference_registry_id": ["IHECRE00000969"],
+                "experiment_target_histone": ["H3K4me1"]
             },
             "analysis_attributes": {
                 "analysis_group": "EMBL-EBI",

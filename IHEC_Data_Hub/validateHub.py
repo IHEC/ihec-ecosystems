@@ -18,15 +18,18 @@ def main(argv):
     logging.basicConfig(format=FORMAT)
     logging.getLogger().setLevel(logging.INFO)
 
-    opts, args = getopt.getopt(argv, "", ["json=", "loose-validation", "verbose", "epirr"])
+    opts, args = getopt.getopt(argv, "", ["json=", "version=", "loose-validation", "verbose", "epirr"])
 
     json_filename = ''
     is_loose_validation = False
     validate_epirr = False
+    version = '1.0'
 
     for opt, arg in opts:
         if opt == '--json':
             json_filename = arg
+        elif opt == '--version':
+            version = arg
         elif opt == '--loose-validation':
             is_loose_validation = True
         elif opt == '--verbose':
@@ -39,7 +42,7 @@ def main(argv):
         printHelp()
         exit()
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/2.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/' + version + '/hub.json'
 
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
@@ -51,13 +54,14 @@ def main(argv):
         print("Data hub is valid.")
 
     except jsonschema.exceptions.ValidationError:
-        return jsonschemaErrorReport(jsonObj)
+        return jsonschemaErrorReport(jsonObj, version)
 
 
-def jsonschemaErrorReport(jsonObj):
+def jsonschemaErrorReport(jsonObj, schema_version):
     """ Return error report"""
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/2.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/' + schema_version + '/hub.json'
+
     with open(schema_file) as jsonStr:
         json_schema = json.load(jsonStr)
     v = jsonschema.Draft7Validator(json_schema)
