@@ -84,7 +84,7 @@ def jsonschemaErrorReport(jsonObj, schema_version):
 
 
 def printHelp():
-    print("Usage: python validateHub.py --json=doc.json [--loose-validation --verbose --epirr]")
+    print("Usage: python validateHub.py --json=doc.json [--version --loose-validation --verbose --epirr]")
 
 
 def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
@@ -117,8 +117,11 @@ def validateJson(jsonObj, schema_file, validate_epirr, is_loose_validation):
         if experiment_attr.get('experiment_type') == 'Transcription Factor':
             validateHgncSymbol(dataset, dataset_name)
 
-    # validation of accepted ontologies
-    validateOntologies(jsonObj)
+    # get schema version
+    schema_version = schema_file.split('/hub.json')[0].split('json/')[1]
+    # run ontologies validation if v2.0 since it ontology validation works only for the CURIEs and v1.0 allows URIs
+    if schema_version == "2.0":
+        validateOntologies(jsonObj)
 
 
 def validateDatasets(datasets, sample_list, is_loose_validation):
