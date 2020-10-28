@@ -207,9 +207,9 @@ def validateEpirr(jsonObj):
         exp_attr = dataset['experiment_attributes']
         # when there is no 'experiment_type' use 'experiment_ontology_uri'
         if exp_attr.get('experiment_type'):
-            exp_name = exp_attr.get('experiment_type')
+            exp_name = exp_attr.get('experiment_type')[0]
         else:
-            exp_name = exp_attr.get('experiment_ontology_uri')
+            exp_name = exp_attr.get('experiment_ontology_uri')[0]
 
         if isinstance(dataset['sample_id'], list):
             ds_names = dataset['sample_id']
@@ -218,7 +218,7 @@ def validateEpirr(jsonObj):
 
         #If dataset has an EpiRR id, validate that metadata matches
         if 'reference_registry_id' in exp_attr:
-            epirr_id = exp_attr['reference_registry_id']
+            epirr_id = exp_attr['reference_registry_id'][0]
             logging.getLogger().info('Validating dataset "%s" against EpiRR record "%s"...' % (dataset_name, epirr_id))
 
 
@@ -285,7 +285,7 @@ def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
         logging.getLogger().warning('-Property "%s" is missing in data hub sample object for experiment "%s".' % (prop, dataset_name))
         return
 
-    if epirr_metadata[prop].lower() != sample_metadata[prop].lower():
+    if epirr_metadata[prop].lower() != sample_metadata[prop][0].lower():
         logging.getLogger().warning('-Property "%s" mismatch for experiment "%s": "%s" VS "%s"' % (prop, dataset_name, epirr_metadata[prop], sample_metadata[prop]))
         return
 
