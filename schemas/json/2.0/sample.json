@@ -37,7 +37,7 @@
       "description": "The type of the biosample used (Cell Line, Primary Cell, Primary Cell Culture, Primary Tissue)"
     },
     "treatment" : {
-      "type": "array", "minItems": 1, "maxItems": 1,
+      "type": "array", "maxItems": 1,
       "items": {
         "type": "string"},
       "description": "Any artificial modification (differentiation, activation, genome editing, etc)."
@@ -49,7 +49,7 @@
       "description": "List of biological replicate sample accessions"
     }
   },
-  "required": ["sample_ontology_curie", "disease_ontology_curie", "disease", "biomaterial_provider", "biomaterial_type", "treatment", "biological_replicates"],
+  "required": ["sample_ontology_curie", "disease_ontology_curie", "disease", "biomaterial_provider", "biomaterial_type", "biological_replicates"],
 
   "allOf": [
   {
@@ -267,8 +267,9 @@
           "donor_age_unit" : {
             "type": "array", "minItems": 1, "maxItems": 1,
             "items": {
-              "type": "string", "enum": ["year", "month", "week", "day"]},
-            "description": "One of: year, month, week, day"
+              "type": "string",
+              "enum": ["year", "month", "week", "day", "gestational weeks"]},
+            "description": "The unit of measurement used to describe the age of the sample (year, month, week, day, gestational weeks)"
           },
           "donor_life_stage": {
             "type": "array", "minItems": 1, "maxItems": 1,
