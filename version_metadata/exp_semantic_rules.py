@@ -1,4 +1,38 @@
+import re
+
 verbose = True
+
+
+class UMIValidator:
+	def __init__(self):
+		self.umi_regex= re.compile('((\d+)(T|B|M|S))+')
+	def __call__(self, term):
+		# http://fulcrumgenomics.github.io/fgbio/tools/latest/ExtractUmisFromBam.html
+		term = term.strip()
+		if len(term) == 0: return False
+		
+		if not term[-1] in 'TBMS': return False
+		
+		term2 = term.split('+')[0]
+		if not len(term2) in [len(term)-2, len(term)]: return False
+		
+		matched = self.umi_regex.match(term2)
+		if not matched: return False
+		(start, end) = matched.span()
+		return end == len(term2) and start == 0
+	def tests():
+		umi = UMIValidator()
+		good = '3M2S75T'
+		good2 =  '3M2S+T'
+		assert umi(good)
+		assert umi(good2)
+		assert not umi("")
+		assert not umi("A"+ good)
+		assert not umi(good + "A")
+		assert not umi("3M2S++T")
+		return True
+
+umi_validator = UMIValidator()
 
 def rule_miRNA_smRNA_strategy(attributes):
 	""" {
@@ -27,14 +61,12 @@ def rule_chip_umi_read_structure(attributes):
 		if struct is None: return False
 		if not struct.strip(): return False
 		else:
-			return True
-	if verbose:
-		print('#__rule:', rule_chip_umi_read_structure.__name__,)
+			return umi_validator(struct)
 	
 	if not attributes['experiment_type'] in ['ChIP-Seq']:
 		if verbose: print('#__rule:', rule_chip_umi_read_structure.__name__, '__does_not_apply__') 
 		return True
-	else:
+	elif verbose:
 		print('#__rule:', rule_chip_umi_read_structure.__name__) 
 
 	is_umi = attributes.get('umi_enabled')
@@ -44,3 +76,7 @@ def rule_chip_umi_read_structure(attributes):
 		return read_struct(attributes.get("umi_read_structure"))
 	else:
 		return True
+
+
+if __name__ == "__main__":
+	print("__umi_tests_ok__", UMIValidator.tests())

@@ -39,7 +39,7 @@ def main(argv):
         printHelp()
         exit()
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/2.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
 
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
@@ -57,7 +57,7 @@ def main(argv):
 def jsonschemaErrorReport(jsonObj):
     """ Return error report"""
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/2.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
     with open(schema_file) as jsonStr:
         json_schema = json.load(jsonStr)
     v = jsonschema.Draft7Validator(json_schema)
@@ -211,7 +211,7 @@ def validateEpirr(jsonObj):
 
         #If dataset has an EpiRR id, validate that metadata matches
         if 'reference_registry_id' in exp_attr:
-            epirr_id = exp_attr['reference_registry_id']
+            epirr_id = exp_attr['reference_registry_id'][0]
             logging.getLogger().info('Validating dataset "%s" against EpiRR record "%s"...' % (dataset_name, epirr_id))
 
 
@@ -236,8 +236,8 @@ def validateEpirr(jsonObj):
                 validateSample(epirr_sample_metadata, hub_sample_metadata, dataset_name)
 
             #Case-insensitive check that each experiment that has an EpiRR id is actually registered at EpiRR.
-            raw_data_per_exp = {rd['experiment_type'].lower(): rd for rd in epirr_json['raw_data']}
-            if exp_name.lower() not in raw_data_per_exp:
+            raw_data_per_exp = {rd['experiment_type'][0].lower(): rd for rd in epirr_json['raw_data']}
+            if exp_name[0].lower() not in raw_data_per_exp:
                 logging.getLogger().error('-Experiment "%s" could not be found in EpiRR record %s.' % (exp_name, epirr_id))
 
             print()
@@ -278,7 +278,7 @@ def validateProperty(epirr_metadata, sample_metadata, dataset_name, prop):
         logging.getLogger().warning('-Property "%s" is missing in data hub sample object for experiment "%s".' % (prop, dataset_name))
         return
 
-    if epirr_metadata[prop].lower() != sample_metadata[prop].lower():
+    if epirr_metadata[prop].lower() != sample_metadata[prop][0].lower():
         logging.getLogger().warning('-Property "%s" mismatch for experiment "%s": "%s" VS "%s"' % (prop, dataset_name, epirr_metadata[prop], sample_metadata[prop]))
         return
 
@@ -333,7 +333,7 @@ def validateOntologies(jsonObj):
     Validate all ontologies used in metadata: handles two cases
     when ontology curies are present in sample and in experiment
     """
-
+    return True
     func = _getframe().f_code.co_name
     # SAMPLES
     samples = jsonObj['samples']
