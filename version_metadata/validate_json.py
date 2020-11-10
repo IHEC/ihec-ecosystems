@@ -11,7 +11,7 @@ from . import io_adaptor
 
 def verbose_error(schema, obj, tag):
 	error_log = list()
-	v = jsonschema.Draft7Validator(schema)
+	v = jsonschema.Draft7Validator(schema, format_checker=jsonschema.FormatChecker())
 	errors = [e for e in v.iter_errors(obj)]
 	#error_log.append('__total_errors__:{}'.format(len(errors)))
     
