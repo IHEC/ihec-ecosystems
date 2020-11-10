@@ -18,11 +18,11 @@ The same attribute may be used multiple times in a single XML record. This may b
 ```
 <SAMPLE_ATTRIBUTE>
     <TAG>SAMPLE_ONTOLOGY_URI</TAG>
-    <VALUE>uberon:0013539</VALUE>
+    <VALUE>http://purl.obolibrary.org/obo/UBERON_0013539</VALUE>
 </SAMPLE_ATTRIBUTE>
 <SAMPLE_ATTRIBUTE>
     <TAG>SAMPLE_ONTOLOGY_URI</TAG>
-    <VALUE>uberon:0013540</VALUE>
+    <VALUE>http://purl.obolibrary.org/obo/UBERON_0013540</VALUE>
 </SAMPLE_ATTRIBUTE>
 ```
 
