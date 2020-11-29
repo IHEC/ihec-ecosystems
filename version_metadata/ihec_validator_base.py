@@ -5,6 +5,7 @@ class IHECJsonValidator(object):
 	def __init__(self, validators):
 		self.validators = validators
 		self.errorlog = list()
+		self.semanticlog = list()
 
 	def is_valid_ihec(self):
 		validated = list()
@@ -12,9 +13,9 @@ class IHECJsonValidator(object):
 		for (xml, attrs) in self.xmljson:
 			(version, title_sanitized)  = self.latest_valid_spec(attrs)
 			try:
-				semantics_ok = self.validate_semantics(attrs)
+				semantics_ok, failed_rules = self.validate_semantics(attrs)
 			except Exception as err:
-				semantics_ok = False
+				semantics_ok, failed_rules = False, [str(err)]
 			if version and semantics_ok:
 				validated.append((version, xml, egautils.obj_id(attrs)   ))
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('True', version, title_sanitized))
@@ -22,9 +23,11 @@ class IHECJsonValidator(object):
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('False', '__invalid__', title_sanitized))
 			if version and not semantics_ok:
 				logger("# found a valid spec version but failed semantic validation:{2}\n".format('', '', title_sanitized))
-			
+				self.semanticlog.append({title_sanitized : {'semantic_failures' : failed_rules}})
 
-				
+		
+
+
 		return validated
 
 	def validate_semantics(self, attrs):

@@ -4,7 +4,7 @@ from .validate_json import JsonSchema
 from .ihec_validator_base import  IHECJsonValidator
 from . import validate_main
 from . import utils
-
+from . import sample_semantic_rules
 
 class SampleValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
@@ -18,6 +18,7 @@ class SampleValidator(IHECJsonValidator):
 
 	def __init__(self, sra, validators):
 		super(SampleValidator, self).__init__(validators)
+		self.semantic_rules = [e for e in dir(sample_semantic_rules) if e.startswith('rule_')]
 		self.normalize = lambda t: t.lower().replace(' ', '_')
 		self.sra = sra
 		self.xmljson = self.sra.obj_xmljson()
@@ -25,14 +26,39 @@ class SampleValidator(IHECJsonValidator):
 			logger(u'\n#__normalizingTags:{0}\n'.format(attrs['title']))
 			attrs['attributes'] = self.normalize_tags(attrs['attributes'])
 		logger("\n\n")
+		
+
 
 	def validate_semantics(self, attrs):
 		attributes = attrs['attributes']
+		failed = list()
+		status = True
 		if 'donor_age_unit' in attributes and attributes['donor_age_unit'] == 'year' and isinstance(attributes['donor_age'], int):
 			age = int(attributes['donor_age'])
 			if age > 90:
 				logger('#__error: Donors over 90 years of age should be entered as "90+"\n')
-				return False
+				status = False 
+				failed.append('__semantic_validation_failure__'+'Donors over 90 years of age should be entered as "90+"')
+		try:
+		#if True:
+			for rule_name in self.semantic_rules:
+				f = getattr(sample_semantic_rules, rule_name)
+				ok = f(attributes)
+				status = status and ok
+				if not ok:
+					print('__semantic_validation_failure__', rule_name)
+					failed.append(rule_name)
+			return status, failed
+		except KeyError as e:
+		#else:
+			logger.warn('#warn keyerror in validate_semantics, probably is not even syntactically valid:{0}\n'.format(e))
+			return False, failed
+
+
+
+
+
+
 
 		return True
 

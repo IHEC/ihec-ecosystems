@@ -29,11 +29,15 @@ def main(args, versioned_xml, validated, nObjs, validator, xml_validator):
 		logger('..no valid objects found\n')
 
 	errlog = { e : v.errorlog  for e, v in validator.items()}
+	semanticlog = { e : v.semanticlog  for e, v in validator.items()}
+
 
 	errlog = io_adaptor.format_errlog(errlog)
 
 	if args.has('-jsonlog'):
 		print(json2.dumpf(args['-jsonlog'], errlog))
+		print(json2.dumpf(args['-jsonlog'] + '.sem.json', semanticlog))
 	else:
 		json2.pp(errlog)
+		json2.pp(semanticlog)
 	return errlog

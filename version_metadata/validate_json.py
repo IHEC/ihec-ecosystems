@@ -106,6 +106,8 @@ class JsonSchema:
 			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
 			ok = False 
 			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors, 'version' : schema_version, "ok":False}}
+		#### 
+		
 		#status[tag]['ok'] = ok
 		return ok, status
 				

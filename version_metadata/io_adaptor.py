@@ -29,8 +29,8 @@ def format_errlog(errlog):
 			error = v['errors'][0]
 			return [error + " : " + error_instance for error_instance in list_get(v['errors'],1)]
 			
-		
 	
+	print(errlog)
 	for xml in errlog:
 		for e in errlog[xml]:
 			for k, v in e.items():

@@ -78,5 +78,26 @@ def rule_chip_umi_read_structure(attributes):
 		return True
 
 
+def rule_valid_experiment_ontology_curie(attr):
+	""" {
+        "applies" : ["experiment_ontology_curie"],
+        "description" : "'experiment_ontology_curie' attributes must validate"
+	} """
+	if not "experiment_ontology_curie" in attr: return True
+	else:
+		return validate_ontology.check_term(attr["experiment_ontology_curie"], "experiment_ontology_curie")
+
+
+def rule_valid_molecule_ontology_curie(attr):
+	""" {
+        "applies" : ["molecule_ontology_curie"],
+        "description" : "'molecule_ontology_curie' attributes must validate"
+	} """
+	if not "molecule_ontology_curie" in attr: return True
+	else:
+		return validate_ontology.check_term(attr["molecule_ontology_curie"], "molecule_ontology_curie")
+
+
+
 if __name__ == "__main__":
 	print("__umi_tests_ok__", UMIValidator.tests())
