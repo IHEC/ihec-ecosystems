@@ -1,4 +1,5 @@
 import re
+from . import validate_ontology
 
 verbose = True
 
@@ -80,7 +81,7 @@ def rule_chip_umi_read_structure(attributes):
 
 def rule_valid_experiment_ontology_curie(attr):
 	""" {
-        "applies" : ["experiment_ontology_curie"],
+        "applies" : ["*", "experiment_ontology_curie"],
         "description" : "'experiment_ontology_curie' attributes must validate"
 	} """
 	if not "experiment_ontology_curie" in attr: return True
@@ -90,7 +91,7 @@ def rule_valid_experiment_ontology_curie(attr):
 
 def rule_valid_molecule_ontology_curie(attr):
 	""" {
-        "applies" : ["molecule_ontology_curie"],
+        "applies" : ["*", "molecule_ontology_curie"],
         "description" : "'molecule_ontology_curie' attributes must validate"
 	} """
 	if not "molecule_ontology_curie" in attr: return True

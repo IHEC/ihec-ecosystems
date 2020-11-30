@@ -74,17 +74,17 @@ class OntologyValidation:
 			response = response.get('response')
 			if response.get('numFound') > 0:
 				if self.verbose: logger('#__validated_curie__: {0}'.format(term))
-				self.cache[term] = True
-				return {'ok': True}
+				r = {'ok': True}
 			else:
 				if self.verbose: logger('#__does_not_validate__: {0}'.format(term))
-				self.cache[term] = False
-				return {'ok':False, 'err': '__notfound__'}
+				r =  {'ok':False, 'err': '__notfound__'}
+			self.cache[term] = r
+			return r
 		except Exception as err:
 			return {'ok': False, 'err':str(err)}
 			
 validate_ontology = OntologyValidation()
-validate_ontology.mock = True
+#validate_ontology.mock = True
 
 
 
@@ -94,20 +94,16 @@ def check_term(term, termtype, subparam=None):
 		ok1 = validate_ontology.accepteddb(e, ontology_type = termtype, subparam=subparam)
 		if ok1['ok']:
 			ok2 = validate_ontology(e)
-		#else:
-			#if debug: print(e,termtype, subparam,  'bad_db', ok1)
 		ok = ok and ok1['ok'] and ok2['ok']
 	return ok
 
 def tests():
 	print(validate_ontology('obi:000185812'))
 	print(validate_ontology('obi:0001858'))
-
 	print(validate_ontology('ncit:C115935xxxxxxxxx'))
-
 	check_term(['ncit:C115935xxxxxxxxx'], 'disease_ontology_curie')
-
-	for e in [('disease_ontology_curie', ['ncit:C115935']), ('sample_ontology_curie', ['cl:0001054']), ('donor_health_status_ontology_curie', ['ncit:C0277545'])]:
+	
+	for e in [("molecule_ontology_curie", ["so:0000991"]), ("experiment_ontology_curie", ["obi:OBI_0001863"]), ('disease_ontology_curie', ['ncit:C115935']), ('sample_ontology_curie', ['cl:0001054']), ('donor_health_status_ontology_curie', ['ncit:C0277545'])]:
 		print(e, check_term(e[1], e[0], 'Primary Cell'))
 
 

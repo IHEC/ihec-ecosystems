@@ -5,7 +5,7 @@ from .ihec_validator_base import  IHECJsonValidator
 from . import exp_semantic_rules
 from . import validate_main
 from . import utils
-
+from . import validate_ontology
 
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
