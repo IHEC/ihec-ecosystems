@@ -42,3 +42,29 @@ def format_errlog(errlog):
 
 
 
+
+
+
+
+
+def collectreports(reports):
+	collected = dict()
+	
+	uniqkey = lambda x: cmn.demanduniq(list(x.keys()))
+	expectedxmls = None
+
+	for name, report in reports.items():
+		if not expectedxmls: expectedxmls = set(list(report.keys()))
+		else:
+			assert set(list(report.keys())) == expectedxmls, 'cannot collect reports'
+		for xml in report:
+			if not xml in collected: collected[xml] = dict()
+			hashed = cmn.safedict([( uniqkey(record), record[uniqkey(record)] )  for record in report[xml]])
+			for k in hashed:
+				if not k in collected[xml]: collected[xml][k] = dict()
+				assert not name in collected[xml][k]
+				collected[xml][k][name] = hashed[k]
+	return collected
+
+
+

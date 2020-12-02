@@ -33,11 +33,13 @@ def main(args, versioned_xml, validated, nObjs, validator, xml_validator):
 
 
 	errlog = io_adaptor.format_errlog(errlog)
+	collected = io_adaptor.collectreports({"versioning":errlog, "semantic_rules": semanticlog}) 
 
 	if args.has('-jsonlog'):
-		print(json2.dumpf(args['-jsonlog'], errlog))
+		print(json2.dumpf(args['-jsonlog'] + '.err.json', errlog))
 		print(json2.dumpf(args['-jsonlog'] + '.sem.json', semanticlog))
+		print(json2.dumpf(args['-jsonlog'], collected))
 	else:
-		json2.pp(errlog)
-		json2.pp(semanticlog)
+		json2.pp(collected)
+	
 	return errlog

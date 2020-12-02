@@ -38,7 +38,7 @@ class SampleValidator(IHECJsonValidator):
 			if age > 90:
 				logger('#__error: Donors over 90 years of age should be entered as "90+"\n')
 				status = False 
-				failed.append('__semantic_validation_failure__'+'Donors over 90 years of age should be entered as "90+"')
+				failed.append('semantic_rule:'+'\'Donors over 90 years of age should be entered as "90+"\'=failed')
 		try:
 		#if True:
 			for rule_name in self.semantic_rules:
@@ -47,7 +47,8 @@ class SampleValidator(IHECJsonValidator):
 				status = status and ok
 				if not ok:
 					print('__semantic_validation_failure__', rule_name)
-					failed.append(rule_name)
+					#failed.append(rule_name)
+					failed.append('semantic_rule:' + rule_name + '=failed')
 			return status, failed
 		except KeyError as e:
 		#else:
