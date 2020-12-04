@@ -12,6 +12,7 @@ class IHECJsonValidator(object):
 		invalid = list()
 		for (xml, attrs) in self.xmljson:
 			(version, title_sanitized)  = self.latest_valid_spec(attrs)
+			assert title_sanitized, '__regression_failure__'
 			try:
 				semantics_ok, failed_rules = self.validate_semantics(attrs)
 			except Exception as err:
@@ -48,7 +49,7 @@ class IHECJsonValidator(object):
 			if valid:
 				all_valid_versions.append((version, title_sanitized))
 				return (version, title_sanitized)
-		return (None, None) if len(all_valid_versions) == 0 else all_valid_versions[0]
+		return (None, title_sanitized) if len(all_valid_versions) == 0 else all_valid_versions[0]
 		 
 
 

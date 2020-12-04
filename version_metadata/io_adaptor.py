@@ -48,8 +48,15 @@ def format_errlog(errlog):
 
 
 def collectreports(reports):
+	def collectaliases(kv):
+		hashed = dict()
+		for k, v in kv:
+			if not k in hashed: hashed[k] = list()
+			hashed[k].append(v)
+		return hashed
+
 	collected = dict()
-	
+
 	uniqkey = lambda x: cmn.demanduniq(list(x.keys()))
 	expectedxmls = None
 
@@ -59,7 +66,7 @@ def collectreports(reports):
 			assert set(list(report.keys())) == expectedxmls, 'cannot collect reports'
 		for xml in report:
 			if not xml in collected: collected[xml] = dict()
-			hashed = cmn.safedict([( uniqkey(record), record[uniqkey(record)] )  for record in report[xml]])
+			hashed = collectaliases([( uniqkey(record), record[uniqkey(record)] )  for record in report[xml]])
 			for k in hashed:
 				if not k in collected[xml]: collected[xml][k] = dict()
 				assert not name in collected[xml][k]
