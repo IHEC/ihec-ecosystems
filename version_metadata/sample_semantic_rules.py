@@ -1,6 +1,6 @@
 from . import validate_ontology
 
-def rule_valid_disease_ontology_curie(attr):
+def skip_rule_valid_disease_ontology_curie(attr):
 	""" {
         "applies" : ["disease_ontology_curie"],
         "description" : "'disease_ontology_curie' attributes must validate"
@@ -10,7 +10,7 @@ def rule_valid_disease_ontology_curie(attr):
 		return validate_ontology.check_term(attr["disease_ontology_curie"], "disease_ontology_curie")
 	
 
-def rule_valid_donor_health_status_ontology_curie(attr):
+def skip_rule_valid_donor_health_status_ontology_curie(attr):
 	""" {
         "applies" : ["donor_health_status_ontology_curie"],
         "description" : "'donor_health_status_ontology_curie' attributes must validate"

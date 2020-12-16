@@ -42,6 +42,20 @@ def format_errlog(errlog):
 
 
 
+def reformat_report(report):
+	for e in report:
+		for alias_id in report[e]:
+			for record in report[e][alias_id]["versioning"]:
+				record["versioning_ok"] = record.pop("ok")
+			assert len(report[e][alias_id]["semantic_rules"]) == 1, report[e][alias_id]["semantic_rules"]
+			assert len(report[e][alias_id]["versioning"]) > 0
+			semantics = cmn.demanduniq(report[e][alias_id]["semantic_rules"])
+			versions = [e["version"] for e in report[e][alias_id]["versioning"] if e["versioning_ok"]]
+			if semantics["semantics_ok"] and versions:
+				report[e][alias_id]["version_assigned"] = versions
+			else:
+				report[e][alias_id]["version_assigned"] = []
+	return report
 
 
 
@@ -71,7 +85,13 @@ def collectreports(reports):
 				if not k in collected[xml]: collected[xml][k] = dict()
 				assert not name in collected[xml][k]
 				collected[xml][k][name] = hashed[k]
-	return collected
+	return reformat_report(collected)
+
+
+
+
+
+
 
 
 

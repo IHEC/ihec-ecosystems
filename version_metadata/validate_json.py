@@ -118,7 +118,7 @@ class JsonSchema:
 	def validate_draft7logging(self, jsonObj, details, schema_version):
 		try:
 			#logger.entry('#__errors__')
-			jsonschema.Draft7Validator(self.schema).validate(jsonObj)
+			jsonschema.Draft7Validator(self.schema, format_checker=jsonschema.FormatChecker()).validate(jsonObj)
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
 			tag = self.obj_id(details)
 			print('#__validates__', tag, schema_version)
