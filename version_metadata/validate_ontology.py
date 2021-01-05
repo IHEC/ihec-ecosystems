@@ -45,7 +45,7 @@ class OntologyValidation:
 
 	def accepteddb(self, term, ontology_type, subparam=None):
 		rule_ontology = OntologyValidation.ontology_rules[ontology_type]
-		current_ontology = self.parse_curie(term)['ontology_name']
+		current_ontology = self.parse_curie(term)['ontology_name'].lower()
 		termdata = self.parse_curie(term)
 		if subparam and isinstance(rule_ontology, dict):
 			rule_ontology = rule_ontology[subparam]
@@ -92,9 +92,11 @@ def check_term(term, termtype, subparam=None):
 	ok = True
 	for e in term:
 		ok1 = validate_ontology.accepteddb(e, ontology_type = termtype, subparam=subparam)
+		ok2 = {'ok':False}
 		if ok1['ok']:
 			ok2 = validate_ontology(e)
 		ok = ok and ok1['ok'] and ok2['ok']
+		print(e, ok1, ok2)
 	return ok
 
 def tests():
