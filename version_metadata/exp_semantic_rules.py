@@ -98,7 +98,16 @@ def rule_valid_molecule_ontology_curie(attr):
 	else:
 		return validate_ontology.check_term(attr["molecule_ontology_curie"], "molecule_ontology_curie")
 
-
+def rule_valid_histone_target(attr):
+	""" {
+        "applies" : ["ChIP-Seq", "experiment_target_histone"],
+        "description" : "'experiment_target_histone' attributes must be 'NA' only for ChIP-Seq Input"
+    } """
+	histone = attr.get('experiment_target_histone', '')
+	if attr['experiment_type'].lower() in ['ChIP-Seq Input'.lower()]:
+		return histone == 'NA'
+	else:
+		return histone != 'NA'
 
 if __name__ == "__main__":
 	print("__umi_tests_ok__", UMIValidator.tests())
