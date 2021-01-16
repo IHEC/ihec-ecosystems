@@ -16,9 +16,10 @@ class SampleValidator(IHECJsonValidator):
 				logger.warn( '#__warning: failed to cast donor age to number\n'.format(err) + str(fix_tag_names))
 		return fix_tag_names 
 
-	def __init__(self, sra, validators):
+	def __init__(self, sra, validators, ignore_rules=None):
 		super(SampleValidator, self).__init__(validators)
-		self.semantic_rules = [e for e in dir(sample_semantic_rules) if e.startswith('rule_')]
+		if ignore_rules is None: ignore_rules = []
+		self.semantic_rules = [e for e in dir(sample_semantic_rules) if e.startswith('rule_') and not e in ignore_rules]
 		self.normalize = lambda t: t.lower().replace(' ', '_')
 		self.sra = sra
 		self.xmljson = self.sra.obj_xmljson()
