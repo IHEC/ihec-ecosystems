@@ -91,10 +91,14 @@ validate_ontology = OntologyValidation()
 def check_term(term, termtype, subparam=None):
 	ok = True
 	for e in term:
-		ok1 = validate_ontology.accepteddb(e, ontology_type = termtype, subparam=subparam)
-		if ok1['ok']:
-			ok2 = validate_ontology(e)
-		ok = ok and ok1['ok'] and ok2['ok']
+		tags = e.split(':')
+		if len(tags) == 2:
+			ok1 = validate_ontology.accepteddb(e, ontology_type = termtype, subparam=subparam)
+			if ok1['ok']:
+				ok2 = validate_ontology(e)
+			ok = ok and ok1['ok'] and ok2['ok']
+		else:
+			ok = False
 	return ok
 
 def tests():
