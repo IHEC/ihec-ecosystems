@@ -92,7 +92,7 @@ def check_term(term, termtype, subparam=None):
 	ok = True
 	for e in term:
 		if not e:
-			ok = False:
+			ok = False
 		else:
 			tags = e.split(':')
 			if len(tags) == 2:
