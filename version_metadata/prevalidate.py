@@ -174,8 +174,9 @@ class Prevalidate:
 
 		if len(attrs['library_strategy']) > 1:
 			return False, ['unique library strategy expected:' + str(attrs['library_strategy']) ]
-			
-		exp_type =  egautils.strategy2schema(cmn.demanduniq(attrs['library_strategy']))
+		
+		strategy = cmn.demanduniq(attrs['library_strategy'])
+		exp_type =  egautils.strategy2schema(strategy)
 			
 	
 		if not exp_type in self.bytype:
@@ -188,6 +189,8 @@ class Prevalidate:
 			else:
 				return (True, [])
 		elif self.version in ["1.1", "2.0", "2.1-dev"]:
+			if strategy in ['ChIP-Seq'] and not "experiment_target_histone" in attrs and not "experiment_target_tf" in attrs and self.version in ["2.0"]:
+				return (False, "1 is required : experiment_target_histone  or  experiment_target_tf")
 			if not "experiment_ontology_curie" in attrs and not "experiment_type" in attrs:
 				return (False, "__mising_both__:__experiment_ontology_curie+experiment_type__")
 			required = ['library_strategy', 'experiment_type', 'experiment_ontology_curie', 'molecule', 'molecule_ontology_curie']
@@ -206,15 +209,6 @@ class Prevalidate:
 
 		raise Exception("__unreachable__")
 
-		if self.version in ["2.0"]:
-			keys = self.bytype[exp_type]
-			missing = [k for k in keys if not k in attrs]
-			if missing:
-				print('__prevalidate_fail', tag , ': missing attributes for experiment_type: {0} , {1}'.format(exp_type, missing))
-			return (False, ['missing', missing]) if missing else (True, [])
-		#print(objid(obj) + ':prevalidates') 
-		else:
-			raise Exception("unknown version:" + self.version)
 
 
 

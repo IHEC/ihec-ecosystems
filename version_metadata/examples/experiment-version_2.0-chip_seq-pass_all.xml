@@ -26,7 +26,7 @@
             </EXPERIMENT_ATTRIBUTE>
             <EXPERIMENT_ATTRIBUTE>
                 <TAG>EXPERIMENT_ONTOLOGY_CURIE</TAG>
-                <VALUE>OBI:0000716</VALUE>
+                <VALUE>obi:0000716</VALUE>
             </EXPERIMENT_ATTRIBUTE>
             <EXPERIMENT_ATTRIBUTE>
                 <TAG>MOLECULE_ONTOLOGY_CURIE</TAG>

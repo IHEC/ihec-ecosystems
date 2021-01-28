@@ -14,7 +14,7 @@ def verbose_error(schema, obj, tag):
 	v = jsonschema.Draft7Validator(schema, format_checker=jsonschema.FormatChecker())
 	errors = [e for e in v.iter_errors(obj)]
 	#error_log.append('__total_errors__:{}'.format(len(errors)))
-    
+	print(errors)    
 	for error in sorted(errors, key=str):
 		#error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
 		error_log.append('{0} {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
