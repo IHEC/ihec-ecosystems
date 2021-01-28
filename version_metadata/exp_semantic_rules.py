@@ -46,8 +46,8 @@ def rule_miRNA_smRNA_strategy(attributes):
 		print('#__rule:', rule_miRNA_smRNA_strategy.__name__,)
 
 	try:
-		miRNA_experiment_type =  attributes['experiment_type'] in ['smRNA-Seq']	
-		miRNA_strategy = attributes['library_strategy'] in ['miRNA-Seq']
+		miRNA_experiment_type =  attributes['experiment_type'][0] in ['smRNA-Seq']	
+		miRNA_strategy = attributes['library_strategy'][0] in ['miRNA-Seq']
 		validation_status = miRNA_strategy  if miRNA_experiment_type else not miRNA_strategy
 		return validation_status
 	except Exception as e:
@@ -64,17 +64,17 @@ def rule_chip_umi_read_structure(attributes):
 		else:
 			return umi_validator(struct)
 	
-	if not attributes['experiment_type'] in ['ChIP-Seq']:
+	if not attributes['experiment_type'][0] in ['ChIP-Seq']:
 		if verbose: print('#__rule:', rule_chip_umi_read_structure.__name__, '__does_not_apply__') 
 		return True
 	elif verbose:
 		print('#__rule:', rule_chip_umi_read_structure.__name__) 
 
-	is_umi = attributes.get('umi_enabled')
+	is_umi = attributes.get('umi_enabled')[0]
 	if not is_umi in ['true', 'false']:
 		return False
 	elif is_umi in  ["true"]:
-		return read_struct(attributes.get("umi_read_structure"))
+		return read_struct(attributes.get("umi_read_structure", [None])[0])
 	else:
 		return True
 
@@ -98,7 +98,17 @@ def rule_valid_molecule_ontology_curie(attr):
 	else:
 		return validate_ontology.check_term(attr["molecule_ontology_curie"], "molecule_ontology_curie")
 
-
+def rule_valid_histone_target(attr):
+	""" {
+        "applies" : ["ChIP-Seq", "experiment_target_histone"],
+        "description" : "'experiment_target_histone' attributes must be 'NA' only for ChIP-Seq Input"
+    } """
+	histone = attr.get('experiment_target_histone', [''])[0]
+	print('XXXXXXX', attr)
+	if attr['experiment_type'][0].lower() in ['ChIP-Seq Input'.lower()]:
+		return histone == 'NA'
+	else:
+		return histone != 'NA'
 
 if __name__ == "__main__":
 	print("__umi_tests_ok__", UMIValidator.tests())
