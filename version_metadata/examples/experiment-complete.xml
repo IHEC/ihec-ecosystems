@@ -1,5 +1,3 @@
-
-
 <EXPERIMENT_SET>
   <EXPERIMENT center_name="BCCA" alias="Experiment-pass_1.0">
     <TITLE>WGBS (whole genome bisulfite sequencing) analysis of SomeSampleA (library: SomeLibraryA).</TITLE>
@@ -1009,5 +1007,4 @@
       <EXPERIMENT_ATTRIBUTE><TAG>LIBRARY_GENERATION_PCR_PRODUCT_ISOLATION_PROTOCOL</TAG><VALUE>Bead based purification</VALUE></EXPERIMENT_ATTRIBUTE>
     </EXPERIMENT_ATTRIBUTES>
   </EXPERIMENT>
-  
 </EXPERIMENT_SET>
