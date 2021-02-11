@@ -1,5 +1,5 @@
 <SAMPLE_SET>
-<SAMPLE alias="CEMTXY.gDNA" center_name="BCCA">
+<SAMPLE alias="CEMTXY2.gDNA" center_name="BCCA">
 <TITLE>Primary Tissue from Some Donor A</TITLE>
 <SAMPLE_NAME>
         <TAXON_ID>9606</TAXON_ID>
@@ -91,7 +91,7 @@
 </SAMPLE_ATTRIBUTES>
 </SAMPLE>
 
-<SAMPLE alias="CEMTXX.gDNA" center_name="BCCA">
+<SAMPLE alias="CEMTXX2.gDNA" center_name="BCCA">
 <TITLE>Primary Tissue from Some Donor C</TITLE>
 <SAMPLE_NAME>
         <TAXON_ID>9606</TAXON_ID>

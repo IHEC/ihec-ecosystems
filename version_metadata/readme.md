@@ -1,5 +1,3 @@
-### Current stable branch: revert
-
 ### General
 The validator tests if a given Experiment or Sample XML validates against SRA XML Schema Definitions and IHEC Schema specifications.
 

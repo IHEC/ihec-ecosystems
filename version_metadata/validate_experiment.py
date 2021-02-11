@@ -5,7 +5,7 @@ from .ihec_validator_base import  IHECJsonValidator
 from . import exp_semantic_rules
 from . import validate_main
 from . import utils
-
+from . import validate_ontology
 
 class ExperimentValidator(IHECJsonValidator):
 	def normalize_tags(self, hashed):
@@ -26,6 +26,7 @@ class ExperimentValidator(IHECJsonValidator):
 
 
 	def validate_semantics(self, attrs):
+		failed = list()
 		try:
 			attributes = attrs['attributes']
 			status = True
@@ -34,11 +35,12 @@ class ExperimentValidator(IHECJsonValidator):
 				ok = f(attributes)
 				status = status and ok
 				if not ok:
+					failed.append('semantic_rule:' + rule_name + '=failed')
 					print('__semantic_validation_failure__', rule_name)
-			return status
+			return status, failed
 		except KeyError as e:
 			logger.warn('#warn keyerror in validate_semantics, probably is not even syntactically valid\n')
-			return False
+			return False, failed
 
 # to do: refactor this code along with validate_sample into one module
 def main(args):

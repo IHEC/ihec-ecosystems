@@ -11,10 +11,10 @@ from . import io_adaptor
 
 def verbose_error(schema, obj, tag):
 	error_log = list()
-	v = jsonschema.Draft7Validator(schema)
+	v = jsonschema.Draft7Validator(schema, format_checker=jsonschema.FormatChecker())
 	errors = [e for e in v.iter_errors(obj)]
 	#error_log.append('__total_errors__:{}'.format(len(errors)))
-    
+	print(errors)    
 	for error in sorted(errors, key=str):
 		#error_log.append('#__validation_error_in__: {2} \n\n# {0}: {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
 		error_log.append('{0} {1}'.format('.'.join(str(v) for v in error.path), error.message, tag))
@@ -106,6 +106,8 @@ class JsonSchema:
 			print('#__prevalidation_failed__', tag, schema_version, '__validation_skipped__')
 			ok = False 
 			status = {tag : {'error_type' : '__prevalidation__', 'errors' : errors, 'version' : schema_version, "ok":False}}
+		#### 
+		
 		#status[tag]['ok'] = ok
 		return ok, status
 				
@@ -116,7 +118,7 @@ class JsonSchema:
 	def validate_draft7logging(self, jsonObj, details, schema_version):
 		try:
 			#logger.entry('#__errors__')
-			jsonschema.Draft7Validator(self.schema).validate(jsonObj)
+			jsonschema.Draft7Validator(self.schema, format_checker=jsonschema.FormatChecker()).validate(jsonObj)
 			jsonschema.validate(jsonObj, self.schema, format_checker=jsonschema.FormatChecker())
 			tag = self.obj_id(details)
 			print('#__validates__', tag, schema_version)

@@ -1,4 +1,6 @@
 from . import exp_semantic_rules
+from . import sample_semantic_rules
+
 from .utils import json2
 from . import utils
 
