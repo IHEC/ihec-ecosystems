@@ -1,6 +1,7 @@
 import requests
 import json
 import logging
+
 logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 ontology_lookup_logger = logging.getLogger('ontology_lookup')
@@ -44,7 +45,6 @@ class OntologyLookup(object):
             self.logger(logging.ERROR, 'Error: {}'.format(e))
         return curie_data
 
-
     def check_ontology_rules(self, ontology_type, schema_object, subparam=None, msg=None):
         """
         :param ontology_type: E.g. 'sample_ontology_curie', 'molecule_ontology_curie'
@@ -56,7 +56,7 @@ class OntologyLookup(object):
         """
 
         # check what ontology must be applied by rule
-        rule_ontology = ontology_rules[ontology_type] # e.g 'so' or {'Cell Line': 'efo'}
+        rule_ontology = ontology_rules[ontology_type]  # e.g 'so' or {'Cell Line': 'efo'}
         # the given ontology by input
         current_ontology = self.parse_curie()['ontology_name']
         # check if rule is a dict, then unpack rule ontology based on subparam value
@@ -71,10 +71,10 @@ class OntologyLookup(object):
             return True
         else:
             if not msg:
-                self.logger(logging.ERROR, 'Error in {}: ontology {} is not accepted for this {}.'
-                                      'The only accepted ontology is {}.'
-                                      .format(schema_object, current_ontology.upper(),
-                                              ontology_type, rule_ontology.upper()))
+                self.logger(logging.ERROR, 'Error in {}: ontology {} is not accepted for the {}. '
+                                           'The only accepted ontology is {}.'
+                            .format(schema_object, current_ontology,
+                                    ontology_type, rule_ontology))
             else:
                 self.logger(logging.ERROR, msg)
 
