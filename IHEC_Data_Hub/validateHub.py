@@ -43,7 +43,7 @@ def main(argv):
         printHelp()
         exit()
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/' + version + '/hub.json'
 
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
@@ -61,7 +61,8 @@ def main(argv):
 def jsonschemaErrorReport(jsonObj, schema_version):
     """ Return error report. """
 
-    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/1.0/hub.json'
+    schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/' + schema_version + '/hub.json'
+
     with open(schema_file) as jsonStr:
         json_schema = json.load(jsonStr)
     v = jsonschema.Draft7Validator(json_schema, format_checker=jsonschema.FormatChecker())
@@ -255,10 +256,10 @@ def validateEpirr(jsonObj):
                     logging.getLogger().debug('Validating sample "%s" properties...' % (ds_name))
                     validateSample(epirr_sample_metadata, hub_sample_metadata, dataset_name)
 
-            #Case-insensitive check that each experiment that has an EpiRR id is actually registered at EpiRR.
-            raw_data_per_exp = {rd['experiment_type'][0].lower(): rd for rd in epirr_json['raw_data']}
-            if exp_name[0].lower() not in raw_data_per_exp:
-                logging.getLogger().error('-Experiment "%s" could not be found in EpiRR record %s.' % (exp_name, epirr_id))
+                # Case-insensitive check that each experiment that has an EpiRR id is actually registered at EpiRR.
+                raw_data_per_exp = {rd['experiment_type'].lower(): rd for rd in epirr_json['raw_data']}
+                if exp_name.lower() not in raw_data_per_exp:
+                    logging.getLogger().error('-Experiment "%s" could not be found in EpiRR record %s.' % (exp_name, epirr_id))
 
                 print()
 
@@ -353,7 +354,7 @@ def validateOntologies(jsonObj):
     Validate all ontologies used in metadata: handles two cases
     when ontology curies are present in sample and in experiment
     """
-    return True
+
     func = _getframe().f_code.co_name
     # SAMPLES
     samples = jsonObj['samples']
