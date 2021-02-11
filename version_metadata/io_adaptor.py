@@ -16,10 +16,16 @@ def format_errlog(errlog):
 	# change errlog here
 
 	def clean_error(e):
+		def clean_no_match_error(x):
+			if x.endswith("is not valid under any of the given schemas"):
+				return "no valid experiment/sample subtype identified:" + x
+			else:
+				return x
+
 		if isinstance(e, list):
-			return e
+			return [ clean_no_match_error(x) for x in e]
 		else:
-			return e.strip()
+			return clean_no_match_error(e.strip())
 
 	def clean_prevalidate(v):
 		if not isinstance(v['errors'], list): return [v['errors']]
