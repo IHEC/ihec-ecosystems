@@ -16,7 +16,6 @@ class IHECJsonValidator(object):
 			try:
 			#if True:
 				semantics_ok, failed_rules = self.validate_semantics(attrs)
-				if not semantics_ok: assert failed_rules
 			#else:
 			except Exception as err:
 				semantics_ok, failed_rules = False, ['__exception_in_semantic_validation__:' +  str(err)]

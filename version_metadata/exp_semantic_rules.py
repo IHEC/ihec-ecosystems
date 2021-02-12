@@ -45,6 +45,8 @@ def rule_miRNA_smRNA_strategy(attributes):
 	if verbose:
 		print('#__rule:', rule_miRNA_smRNA_strategy.__name__,)
 
+	if not 'experiment_type' in attributes:
+		return True
 	try:
 		miRNA_experiment_type =  attributes['experiment_type'][0] in ['smRNA-Seq']	
 		miRNA_strategy = attributes['library_strategy'][0] in ['miRNA-Seq']
@@ -63,7 +65,10 @@ def rule_chip_umi_read_structure(attributes):
 		if not struct.strip(): return False
 		else:
 			return umi_validator(struct)
-	
+
+	if not 'experiment_type' in attributes and not "experiment_target_histone" in attributes and not "experiment_target_tf" in attributes:
+		return True
+		
 	if not attributes['experiment_type'][0] in ['ChIP-Seq']:
 		if verbose: print('#__rule:', rule_chip_umi_read_structure.__name__, '__does_not_apply__') 
 		return True
@@ -104,8 +109,7 @@ def rule_valid_histone_target(attr):
         "description" : "'experiment_target_histone' attributes must be 'NA' only for ChIP-Seq Input"
     } """
 	histone = attr.get('experiment_target_histone', [''])[0]
-	print('XXXXXXX', attr)
-	if attr['experiment_type'][0].lower() in ['ChIP-Seq Input'.lower()]:
+	if attr.get('experiment_type', [""])[0].lower() in ['ChIP-Seq Input'.lower()]:
 		return histone == 'NA'
 	else:
 		return histone != 'NA'

@@ -28,17 +28,24 @@ class ExperimentValidator(IHECJsonValidator):
 	def validate_semantics(self, attrs):
 		failed = list()
 		try:
+		#if True:
 			attributes = attrs['attributes']
 			status = True
 			for rule_name in self.semantic_rules:
 				f = getattr(exp_semantic_rules, rule_name)
-				ok = f(attributes)
+				try:
+					semantic_err = ""
+					ok = f(attributes)
+				except Exception as err:
+					semantic_err = " , " + str(err)
+					ok = False
 				status = status and ok
 				if not ok:
-					failed.append('semantic_rule:' + rule_name + '=failed')
+					failed.append('semantic_rule:' + rule_name + '=failed' + semantic_err)
 					print('__semantic_validation_failure__', rule_name)
 			return status, failed
 		except KeyError as e:
+		#else:
 			logger.warn('#warn keyerror in validate_semantics, probably is not even syntactically valid\n')
 			return False, failed
 
