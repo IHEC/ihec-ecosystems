@@ -1,6 +1,7 @@
 from .utils import json2, cmn
 import os
 import json 
+import re
 
 def load_schema(f):
 	base = os.path.dirname(os.path.abspath(__file__))
@@ -17,10 +18,7 @@ def format_errlog(errlog):
 
 	def clean_error(e):
 		def clean_no_match_error(x):
-			if x.endswith("is not valid under any of the given schemas"):
-				return "no valid experiment/sample subtype identified:" + x
-			else:
-				return x
+			return x
 
 		if isinstance(e, list):
 			return [ clean_no_match_error(x) for x in e]
@@ -99,5 +97,61 @@ def collectreports(reports):
 
 
 
+
+def improve_error_messages(error):
+    pattern = "at prevalidate : "
+    new     = ""
+    error   = re.sub(pattern, new, error)
+
+    pattern = "'(\w*)' is a required property"
+    new     = r"missing : \1"
+    error   = re.sub(pattern, new, error)
+
+    pattern = "__mising_both__:__experiment_ontology_curie\+experiment_type__"
+    new     = "1 is required : experiment_ontology_curie or experiment_type"
+    error   = re.sub(pattern, new, error)
+
+    pattern = "__mising_both__:__experiment_ontology_uri\+experiment_type__"
+    new     = "1 is required : experiment_ontology_uri or experiment_type"
+    error   = re.sub(pattern, new, error)
+
+    pattern = "missing biomaterial_type : prevalidation"
+    new     = "missing : biomaterial_type"
+    error   = re.sub(pattern, new, error)
+
+    pattern = "semantic_rule:rule_valid_(\w+)=failed"
+    new     = r"invalid : \1"
+    error   = re.sub(pattern, new, error)
+
+    pattern = "invalid experiment_type : prevalidation"
+    new     = "invalid : experiment_type"
+    error   = re.sub(pattern, new, error)
+
+    pattern = "missing ([A-Za-z_])"
+    new     = r"missing : \1"
+    error   = re.sub(pattern, new, error)
+    return error
+
+
+
+def better_errors(raw):
+	def semantic(record):
+		for e in record:
+			e['failed_rules'] = [improve_error_messages(err) for err in e['failed_rules']]
+		return record
+
+	def versioning(record):
+		for e in record:
+			e['errors'] = [improve_error_messages(err) for err in e['errors']]
+		return record
+
+
+	for xmlpath in raw:
+		hashed = raw[xmlpath]
+		for alias in hashed:
+			hashed[alias]["versioning"] = versioning(hashed[alias]["versioning"]) 
+			hashed[alias]["semantic_rules"] = semantic(hashed[alias]["semantic_rules"])
+
+	return raw
 
 

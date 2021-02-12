@@ -1,0 +1,8 @@
+#!/bin/bash
+
+base=$PWD
+m="version_metadata"
+cd ..
+python -m $m  -experiment -out:$base/temp.xml -overwrite-outfile $1 -jsonlog:$base/temp.json
+cd -
+

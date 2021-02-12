@@ -38,8 +38,11 @@ def main(args, versioned_xml, validated, nObjs, validator, xml_validator):
 	if args.has('-jsonlog'):
 		print(json2.dumpf(args['-jsonlog'] + '.err.json', errlog))
 		print(json2.dumpf(args['-jsonlog'] + '.sem.json', semanticlog))
-		print(json2.dumpf(args['-jsonlog'], collected))
+		print(json2.dumpf(args['-jsonlog'] + '.raw.json', collected))
+		better_errors = io_adaptor.better_errors(collected)
+		print(json2.dumpf(args['-jsonlog'], better_errors))
 	else:
-		json2.pp(collected)
+		better_errors = io_adaptor.better_errors(collected)
+		json2.pp(better_errors)
 	
-	return errlog
+	return better_errors
