@@ -14,10 +14,13 @@ class IHECJsonValidator(object):
 			(version, title_sanitized)  = self.latest_valid_spec(attrs)
 			assert title_sanitized, '__regression_failure__'
 			try:
+			#if True:
 				semantics_ok, failed_rules = self.validate_semantics(attrs)
+				if not semantics_ok: assert failed_rules
+			#else:
 			except Exception as err:
 				semantics_ok, failed_rules = False, ['__exception_in_semantic_validation__:' +  str(err)]
-			
+				if not semantics_ok: assert failed_rules	
 			if version and semantics_ok:
 				validated.append((version, xml, egautils.obj_id(attrs)   ))
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('True', version, title_sanitized))
@@ -25,7 +28,7 @@ class IHECJsonValidator(object):
 				logger("# is valid ihec spec:{0} version:{1} [{2}]\n".format('False', '__invalid__', title_sanitized))
 			if version and not semantics_ok:
 				logger("# found a valid spec version but failed semantic validation:{2}\n".format('', '', title_sanitized))
-			
+			if not semantics_ok: assert failed_rules	
 			self.semanticlog.append({title_sanitized : {'semantics_ok' : semantics_ok, "failed_rules": failed_rules}})
 
 		

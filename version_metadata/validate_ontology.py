@@ -14,7 +14,8 @@ class OntologyValidation:
     'sample_ontology_curie': {
         'Cell Line': 'efo',
         'Primary Cell': 'cl',
-        'Primary Tissue': 'uberon'
+        'Primary Tissue': 'uberon',
+		'Primary Cell Culture' :  "__no_ontology_defined__",
     },
 		'origin_sample_ontology_curie' : 'uberon',
     	'experiment_ontology_curie': 'obi',
@@ -44,11 +45,15 @@ class OntologyValidation:
 			return {'err': str(err), 'term':term}
 
 	def accepteddb(self, term, ontology_type, subparam=None):
+		
 		rule_ontology = OntologyValidation.ontology_rules[ontology_type]
 		current_ontology = self.parse_curie(term)['ontology_name'].lower()
 		termdata = self.parse_curie(term)
 		if subparam and isinstance(rule_ontology, dict):
 			rule_ontology = rule_ontology[subparam]
+		if rule_ontology == "__no_ontology_defined__":
+			return {'ok': True}
+		
 		if not current_ontology == rule_ontology:
 			err = '#__invalid_ontology_db__: "' + current_ontology +  '" is not valid for ' + ontology_type + '/' + str(subparam) + ', expected ' + str(rule_ontology) 
 			return {'ok':False, 'err':err}

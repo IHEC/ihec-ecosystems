@@ -1,4 +1,5 @@
 from .utils import json2, cmn
+from . import runcfg
 import os
 import json 
 import re
@@ -98,51 +99,56 @@ def collectreports(reports):
 
 
 
-def improve_error_messages(error):
-    pattern = "at prevalidate : "
-    new     = ""
-    error   = re.sub(pattern, new, error)
+def improve_error_messages(error, additional_reformats):
+	pattern = "at prevalidate : "
+	new     = ""
+	error   = re.sub(pattern, new, error)
 
-    pattern = "'(\w*)' is a required property"
-    new     = r"missing : \1"
-    error   = re.sub(pattern, new, error)
+	pattern = "'(\w*)' is a required property"
+	new     = r"missing : \1"
+	error   = re.sub(pattern, new, error)
 
-    pattern = "__mising_both__:__experiment_ontology_curie\+experiment_type__"
-    new     = "1 is required : experiment_ontology_curie or experiment_type"
-    error   = re.sub(pattern, new, error)
+	pattern = "__mising_both__:__experiment_ontology_curie\+experiment_type__"
+	new     = "1 is required : experiment_ontology_curie or experiment_type"
+	error   = re.sub(pattern, new, error)
 
-    pattern = "__mising_both__:__experiment_ontology_uri\+experiment_type__"
-    new     = "1 is required : experiment_ontology_uri or experiment_type"
-    error   = re.sub(pattern, new, error)
+	pattern = "__mising_both__:__experiment_ontology_uri\+experiment_type__"
+	new     = "1 is required : experiment_ontology_uri or experiment_type"
+	error   = re.sub(pattern, new, error)
 
-    pattern = "missing biomaterial_type : prevalidation"
-    new     = "missing : biomaterial_type"
-    error   = re.sub(pattern, new, error)
+	pattern = "missing biomaterial_type : prevalidation"
+	new     = "missing : biomaterial_type"
+	error   = re.sub(pattern, new, error)
 
-    pattern = "semantic_rule:rule_valid_(\w+)=failed"
-    new     = r"invalid : \1"
-    error   = re.sub(pattern, new, error)
+	pattern = "semantic_rule:rule_valid_(\w+)=failed"
+	new     = r"invalid : \1"
+	error   = re.sub(pattern, new, error)
 
-    pattern = "invalid experiment_type : prevalidation"
-    new     = "invalid : experiment_type"
-    error   = re.sub(pattern, new, error)
+	pattern = "invalid experiment_type : prevalidation"
+	new     = "invalid : experiment_type"
+	error   = re.sub(pattern, new, error)
 
-    pattern = "missing ([A-Za-z_])"
-    new     = r"missing : \1"
-    error   = re.sub(pattern, new, error)
-    return error
+	pattern = "missing ([A-Za-z_])"
+	new     = r"missing : \1"
+	error   = re.sub(pattern, new, error)
+
+	if additional_reformats:
+		if error.endswith("is not valid under any of the given schemas"):
+			error = "The experiment/sample type cannot be identified"
+
+	return error
 
 
 
 def better_errors(raw):
 	def semantic(record):
 		for e in record:
-			e['failed_rules'] = [improve_error_messages(err) for err in e['failed_rules']]
+			e['failed_rules'] = [improve_error_messages(err, runcfg.additional_reformats) for err in e['failed_rules']]
 		return record
 
 	def versioning(record):
 		for e in record:
-			e['errors'] = [improve_error_messages(err) for err in e['errors']]
+			e['errors'] = [improve_error_messages(err, runcfg.additional_reformats) for err in e['errors']]
 		return record
 
 
