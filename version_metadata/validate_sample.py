@@ -47,7 +47,7 @@ class SampleValidator(IHECJsonValidator):
 				try:
 					semantic_err = ""
 					ok = f(attributes)
-				except:
+				except Exception as err:
 					semantic_err = " , " + str(err)
 					ok = False
 				status = status and ok
