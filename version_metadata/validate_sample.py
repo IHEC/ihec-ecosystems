@@ -44,12 +44,17 @@ class SampleValidator(IHECJsonValidator):
 		#if True:
 			for rule_name in self.semantic_rules:
 				f = getattr(sample_semantic_rules, rule_name)
-				ok = f(attributes)
+				try:
+					semantic_err = ""
+					ok = f(attributes)
+				except:
+					semantic_err = " , " + str(err)
+					ok = False
 				status = status and ok
 				if not ok:
-					print('__semantic_validation_failure__', rule_name)
+					print('__semantic_validation_failure__', rule_name + '=failed' + semantic_err)
 					#failed.append(rule_name)
-					failed.append('semantic_rule:' + rule_name + '=failed')
+					failed.append('semantic_rule:' + rule_name + '=failed' + semantic_err )
 			return status, failed
 		except KeyError as e:
 		#else:
