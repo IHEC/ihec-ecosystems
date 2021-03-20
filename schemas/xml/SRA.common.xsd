@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- version:1.5.39 -->
+<!--
+  ~ Copyright 2018 EMBL - European Bioinformatics Institute
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+  ~ file except in compliance with the License. You may obtain a copy of the License at
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the
+  ~ License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  ~ CONDITIONS OF ANY KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations under the License.
+  -->
+
+<!-- version:1.5.61 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:com="SRA.common"
     targetNamespace="SRA.common">
 
@@ -654,6 +665,17 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="DNBSEQ">
+                <xs:annotation>
+                    <xs:documentation> Sequencers based on DNBSEQ by MGI Tech. </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="INSTRUMENT_MODEL" maxOccurs="1" minOccurs="1"
+                                    type="com:typeDnbSeqModel"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
         </xs:choice>
 
     </xs:complexType>
@@ -906,6 +928,7 @@
             <xs:enumeration value="Illumina HiSeq 2500"/>
             <xs:enumeration value="Illumina HiSeq 3000"/>
             <xs:enumeration value="Illumina HiSeq 4000"/>
+            <xs:enumeration value="Illumina iSeq 100"/>
             <xs:enumeration value="Illumina MiSeq"/>
             <xs:enumeration value="Illumina MiniSeq"/>
             <xs:enumeration value="Illumina NovaSeq 6000"/>          
@@ -960,6 +983,7 @@
             <xs:enumeration value="PacBio RS"/>
             <xs:enumeration value="PacBio RS II"/>
             <xs:enumeration value="Sequel"/>
+            <xs:enumeration value="Sequel II"/>
             <xs:enumeration value="unspecified"/>
         </xs:restriction>
     </xs:simpleType>
@@ -983,6 +1007,16 @@
             <xs:enumeration value="AB 3130xL Genetic Analyzer"/>
             <xs:enumeration value="AB 3130 Genetic Analyzer"/>
             <xs:enumeration value="AB 310 Genetic Analyzer"/>
+            <xs:enumeration value="unspecified"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="typeDnbSeqModel">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DNBSEQ-T7"/>
+            <xs:enumeration value="DNBSEQ-G400"/>
+            <xs:enumeration value="DNBSEQ-G50"/>
+            <xs:enumeration value="DNBSEQ-G400 FAST"/>
             <xs:enumeration value="unspecified"/>
         </xs:restriction>
     </xs:simpleType>
