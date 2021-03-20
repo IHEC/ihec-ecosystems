@@ -30,5 +30,5 @@ def strategy2schema(s):
 	elif found(s, ["WGS"]): return "wgs"
 	elif s[0:4].lower() in ['chip', 'hist']: return 'chip-seq'
 	else:
-		return s
+		return s.lower()
 
