@@ -127,8 +127,8 @@
         "origin_sample_ontology_curie" : {
           "type": "array", "minItems": 1,
           "items": {
-            "type": "string", "pattern": "^(efo|cl|uberon):[0-9]{7}$"},
-          "description": "(Ontologies: efo, cl, uberon) links to the tissue from which sample was extracted. Example: uberon:0005317"
+            "type": "string", "pattern": "^uberon:[0-9]{7}$"},
+          "description": "(Ontologies: uberon) links to the tissue from which sample was extracted. Example: uberon:0005317"
         },
         "origin_sample" : {
           "type": "array", "minItems": 1, "maxItems": 1,
