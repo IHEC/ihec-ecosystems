@@ -90,6 +90,7 @@ def collectreports(reports):
 				if not k in collected[xml]: collected[xml][k] = dict()
 				assert not name in collected[xml][k]
 				collected[xml][k][name] = hashed[k]
+	print('xxxx', json2.dumpf("m.json", collected))	
 	return reformat_report(collected)
 
 

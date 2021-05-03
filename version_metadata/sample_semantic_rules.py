@@ -58,6 +58,5 @@ def rule_valid_sample_ontology_curie(attr):
 	if not "sample_ontology_curie" in attr: return True
 	elif not "biomaterial_type" in attr: return False
 	else:
-		
-		return validate_ontology.check_term(attr["sample_ontology_curie"], "sample_ontology_curie", attr['biomaterial_type'][0])
-	
+		checked = validate_ontology.check_term(attr["sample_ontology_curie"], "sample_ontology_curie", attr['biomaterial_type'][0])
+		return checked

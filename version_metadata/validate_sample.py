@@ -45,9 +45,11 @@ class SampleValidator(IHECJsonValidator):
 			for rule_name in self.semantic_rules:
 				f = getattr(sample_semantic_rules, rule_name)
 				try:
+				#if True:
 					semantic_err = ""
 					ok = f(attributes)
 				except Exception as err:
+				#else: 
 					semantic_err = " , " + str(err)
 					ok = False
 				status = status and ok
