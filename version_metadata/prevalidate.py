@@ -188,7 +188,7 @@ class Prevalidate:
 				return (False, "__mising_both__:__experiment_ontology_uri+experiment_type__")
 			else:
 				return (True, [])
-		elif self.version in ["1.1", "2.0", "2.1-dev"]:
+		elif self.version in ["1.1", "2.0", "2.1-dev", "2.2"]:
 			if strategy in ['ChIP-Seq'] and not "experiment_target_histone" in attrs and not "experiment_target_tf" in attrs and self.version in ["2.0"]:
 				return (False, "1 is required : experiment_target_histone  or  experiment_target_tf")
 			if not "experiment_ontology_curie" in attrs and not "experiment_type" in attrs:
@@ -199,6 +199,8 @@ class Prevalidate:
 				return (False, ['missing at prevalidate', missing])
 			else:
 				return (True, [])
+		
+			
 			
 	
 
@@ -207,7 +209,7 @@ class Prevalidate:
 			return False, ['missing experiment_type']
 
 
-		raise Exception("__unreachable__")
+		raise Exception("__unreachable__ with version:{0}".format(self.version))
 
 
 
