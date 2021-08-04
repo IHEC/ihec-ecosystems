@@ -206,7 +206,7 @@
           "description": "If the primary cell culture has been expanded, the number of times the primary cell culture has been re-plated and allowed to grow back to confluency or to some maximum density if using suspension cultures. NA if no expansion."
         }
       },
-      "required": ["origin_sample_ontology_curie", "origin_sample", "cell_type", "markers", "culture_conditions", "passage_if_expanded"], 
+      "required": ["cell_type", "markers", "culture_conditions", "passage_if_expanded"],
       "allOf": [{ "$ref": "file:../schemas/json/2.0/sample.json#/definitions/donor"}]
     }
   },
