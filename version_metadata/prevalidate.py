@@ -65,7 +65,7 @@ class SchemaParser:
 			except:
 				return False
 		parsed = {p :   cmn.safedict([ getprop(properties[p], e) for e in property_attrs]) for p in properties}
-		#parsed = {p :  properties[p]  for p in properties  if isNonZero(properties[p]["minItems"])  }
+		parsed = {p :  properties[p]  for p in properties  if isNonZero(properties[p].get("minItems", 1))  }
 
 		for p in properties:
 			if properties[p].get("type", "").lower() != "array":
