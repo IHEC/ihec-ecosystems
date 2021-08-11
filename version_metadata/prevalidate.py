@@ -54,6 +54,32 @@ class SchemaParser:
 				parsed[p]["enum"] = item_attr.get("enum", "")
 		return parsed
 
+	@staticmethod
+	def properties_nonzero_minitems(properties):
+		property_attrs = ["type" , "minItems", "maxItems"]
+		getprop = lambda h, k: (k, h.get(k, "__undef__"))
+		def isNonZero(x):
+			try:
+				x = int(x)
+				return x != 0
+			except:
+				return False
+		parsed = {p :   cmn.safedict([ getprop(properties[p], e) for e in property_attrs]) for p in properties}
+		parsed = {p :  properties[p]  for p in properties  if isNonZero(properties[p].get("minItems", 1))  }
+
+		for p in properties:
+			if properties[p].get("type", "").lower() != "array":
+				parsed[p]["description"] = "__malformed-schema__"
+				parsed[p]["enum"] = ""
+			else:
+				#print(properties[p])
+				item_attr = properties[p].get("items", {})
+				if properties[p]["minItems"] != 0:
+					parsed[p]["description"] = item_attr.get("description", "<strong>_undef_</strong>")
+					parsed[p]["enum"] = item_attr.get("enum", "")
+		return parsed
+
+
 	def sample(self, js):
 		rules = self.semantic_rules()
 		bytype, required, dependencies = dict(), dict(), dict()
@@ -72,7 +98,7 @@ class SchemaParser:
 			if not biomaterial_type in ["Cell Line",  "Primary Cell", "Primary Cell Culture", "Primary Tissue"]:
 				utils.sanity_check_fail('__malformed-schema__:defnitions as not expected [2]')
 			properties = subtype["then"]["properties"]
-			bytype[biomaterial_type] = SchemaParser.properties(properties) 
+			bytype[biomaterial_type] = SchemaParser.properties_nonzero_minitems(properties) 
 			required[biomaterial_type] = subtype["then"]["required"]
 			dependencies[biomaterial_type] = SchemaParser.dependencies(subtype["then"])
 	
