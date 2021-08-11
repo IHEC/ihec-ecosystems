@@ -170,13 +170,13 @@
     "then": {
       "properties": {
         "origin_sample_ontology_curie" : {
-          "type": "array", "minItems": 1,
+          "type": "array", "minItems": 0,
           "items": {
             "type": "string", "pattern": "^uberon:[0-9]{7}$"},
           "description": "(Ontologies: uberon). Links to the tissue from which sample was extracted. Example: uberon:0005317"
         },
         "origin_sample" : {
-          "type": "array", "minItems": 1, "maxItems": 1,
+          "type": "array", "minItems": 0, "maxItems": 1,
           "items": {
             "type": "string"},
           "description": "Description of the origin tissue from which sample was extracted."
