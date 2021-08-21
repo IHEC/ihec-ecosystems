@@ -44,7 +44,7 @@ def main(argv):
         exit()
 
     schema_file = os.path.dirname(os.path.realpath(__file__)) + '/../schemas/json/' + version + '/hub.json'
-
+    print(schema_file)	
     with open(json_filename) as json_file:
         jsonObj = json.load(json_file)
 
