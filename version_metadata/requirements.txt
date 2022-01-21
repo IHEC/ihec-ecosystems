@@ -1,4 +1,0 @@
-lxml
-functools32
-jsonschema
-rfc3987
