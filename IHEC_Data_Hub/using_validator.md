@@ -19,8 +19,7 @@ pip3 install
 ## Usage
 To validate in strict mode (make sure only predefined track types are included):
 ```
-python validateHub.py --json='./example1.json' --epirr
-```
+python validateHub.py --json='./examples/example_v1.0.json' --version='1.0'```
 
 To validate in loose mode (allow any kind of track types):
 
