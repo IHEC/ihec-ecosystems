@@ -25,6 +25,7 @@
             { "$ref": "file:../schemas/json/1.0/experiment.json#/definitions/chip-seq" },
             { "$ref": "file:../schemas/json/1.0/experiment.json#/definitions/rna-seq" },
             { "$ref": "file:../schemas/json/1.0/experiment.json#/definitions/wgs" },
+            { "$ref": "file:../schemas/json/1.0/experiment.json#/definitions/cage" },
             { "$ref": "file:../schemas/json/1.0/experiment.json#/definitions/other" }
         ]},
         {"anyOf": [
@@ -196,6 +197,14 @@
                 "molecule" : {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "enum": ["genomic DNA"]}},
 
                 "extraction_protocol": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "description": "The protocol used to isolate the extract material."}}
+            }
+        },
+
+        "cage": {
+            "type": "object",
+            "properties": {
+                "experiment_type": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string", "enum": ["CAGE"]}},
+                "experiment_ontology_uri": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"type": "string"}}
             }
         },
 
