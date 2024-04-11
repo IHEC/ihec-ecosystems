@@ -1,7 +1,7 @@
 attrs==19.1.0
 certifi==2023.7.22
 chardet==3.0.4
-idna==2.8
+idna==3.7
 jsonschema==3.0.2
 pyrsistent==0.15.4
 requests==2.31.0
